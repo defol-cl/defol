@@ -46,8 +46,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
-      - name: installing typescript
-        run: npm install -g typescript
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@defol-cl'
       - name: npm-publish
         working-directory: ./packages/libs
         run: npm publish
