@@ -47,7 +47,6 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
-          scope: '@defol-cl'
       - name: npm-publish
         working-directory: ./packages/libs
         env:
