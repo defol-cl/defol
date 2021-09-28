@@ -20,6 +20,8 @@ jobs:
       backend: ${{ steps.packages-backend-changed.outputs.any_changed }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - id: packages-libs-changed
         name: detect changes on packages/libs
         uses: tj-actions/changed-files@v1.1.3
