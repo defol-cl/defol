@@ -11,9 +11,6 @@ on:
       - master
       - stage
       - develop
-    paths:
-      - packages/backend/**
-      - .github/workflows/backend.yml
 
 jobs:
   changes:
