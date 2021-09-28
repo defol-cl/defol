@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { EnvTypes } from "@defol/infra-libs";
+import { EnvTypes } from "@defol-cl/infra-libs";
 import { config } from "./base.config";
 import { BaseStack } from '../lib/base-stack';
 

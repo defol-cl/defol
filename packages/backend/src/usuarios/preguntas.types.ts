@@ -1,4 +1,4 @@
-import { LambdaTypes } from "@defol/libs";
+import { LambdaTypes } from "@defol-cl/libs";
 
 interface PreguntasGetEvent {
   usuId: number

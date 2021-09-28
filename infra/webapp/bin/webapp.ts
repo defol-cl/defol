@@ -2,7 +2,7 @@
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { WebappStack } from '../lib/webapp-stack';
-import { EnvTypes } from "@defol/infra-libs";
+import { EnvTypes } from "@defol-cl/infra-libs";
 
 const app = new cdk.App();
 

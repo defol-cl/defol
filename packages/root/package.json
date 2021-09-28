@@ -1,5 +1,5 @@
 {
-  "name": "@defol/root",
+  "name": "@defol-cl/root",
   "version": "0.1.0",
   "private": false,
   "source": "src/index.ts",

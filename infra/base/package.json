@@ -1,5 +1,5 @@
 {
-  "name": "@defol/infra-base",
+  "name": "@defol-cl/infra-base",
   "version": "0.1.0",
   "bin": {
     "base": "bin/base.js"
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@aws-cdk/core": "1.115.0",
-    "@defol/infra-libs": "workspace:^1.0.0",
+    "@defol-cl/infra-libs": "workspace:^1.0.0",
     "source-map-support": "^0.5.16"
   }
 }

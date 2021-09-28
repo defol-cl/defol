@@ -1,5 +1,5 @@
 {
-  "name": "@defol/infra-libs",
+  "name": "@defol-cl/infra-libs",
   "version": "1.0.0",
   "main": "src/index.ts",
   "private": false,

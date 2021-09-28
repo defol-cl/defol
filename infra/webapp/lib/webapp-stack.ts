@@ -7,7 +7,7 @@ import { Effect } from '@aws-cdk/aws-iam';
 import * as route53 from '@aws-cdk/aws-route53';
 import * as targets from '@aws-cdk/aws-route53-targets/lib';
 import * as s3 from '@aws-cdk/aws-s3';
-import { EnvTypes } from "@defol/infra-libs";
+import { EnvTypes } from "@defol-cl/infra-libs";
 
 interface Props extends cdk.StackProps {
   branch: EnvTypes.Branch

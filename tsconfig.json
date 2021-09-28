@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@defol/*": ["packages/*/src"]
+      "@defol-cl/*": ["packages/*/src"]
     }
   }
 }

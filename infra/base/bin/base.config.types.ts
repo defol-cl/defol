@@ -1,4 +1,4 @@
-import { EnvTypes } from '@defol/infra-libs';
+import { EnvTypes } from '@defol-cl/infra-libs';
 import { BaseStackProps } from "../lib/base-stack.types";
 
 type BaseConfig = {
