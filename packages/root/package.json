@@ -1,0 +1,16 @@
+{
+  "name": "@defol/root",
+  "version": "0.1.0",
+  "private": false,
+  "source": "src/index.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "dependencies": {
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+  },
+  "eslintConfig": {
+    "extends": []
+  }
+}

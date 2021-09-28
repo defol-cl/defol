@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/src",                        /* Redirect output structure to the directory. */
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts"
+  ]
+}

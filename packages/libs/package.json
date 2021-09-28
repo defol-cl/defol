@@ -1,0 +1,14 @@
+{
+  "name": "@defol/libs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tres Ases",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.83"
+  }
+}

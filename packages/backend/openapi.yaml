@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: defol-back
+  description: Especificación del backend de DEFOL
+
+x-amazon-apigateway-request-validators:
+  body:
+    validateRequestParameters: false
+    validateRequestBody: true
+  params:
+    validateRequestParameters: true
+    validateRequestBody: false
+  all:
+    validateRequestParameters: true
+    validateRequestBody: true
+
+paths:
+  /preguntas:
+    get:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        responses:
+          default:
+            statusCode: 200
+      summary: obtiene el listado de preguntas
+      responses:
+        200:
+          description: listado de preguntas

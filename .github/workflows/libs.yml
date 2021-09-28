@@ -1,0 +1,46 @@
+name: publish-libs
+
+on:
+  push:
+    branches:
+      - master
+      - stage
+      - develop
+    paths:
+      - packages/backend/**
+      - .github/workflows/backend.yml
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.10.3
+      - uses: aws-actions/setup-sam@v1
+      - name: installing typescript
+        run: npm install -g typescript
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: pnpm-install
+        working-directory: ./packages/backend
+        run: pnpm install --prod
+      - name: lambda-layer
+        working-directory: ./packages/backend
+        run: |
+          mkdir -p dist/layer/nodejs
+          pnpm install --prod
+          cp -r node_modules/ dist/layer/nodejs/
+      - name: sam-package
+        working-directory: ./packages/backend
+        run: sam package
+      - name: sam-deploy
+        working-directory: ./packages/backend
+        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name defol-${GITHUB_REF##*/}-backend --s3-bucket defol-${GITHUB_REF##*/}-resources --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }}

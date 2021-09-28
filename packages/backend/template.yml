@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Description: Backend del portal de clientes de defol
+
+Parameters:
+  Env:
+    Type: String
+    AllowedValues:
+      - develop
+      - stage
+      - master
+    Description: identificador del ambiente
+
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 200
+    MemorySize: 1024
+
+Resources:
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: api
+      Name: !Sub ${AWS::StackName}-api
+      DefinitionBody:
+        "Fn::Transform":
+          Name: AWS::Include
+          Parameters:
+            Location: !Sub s3://defol-${Env}-cf-templates/${AWS::StackName}/openapi.yaml
+
+  PreguntasGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./dist/src/preguntas/preguntas.get
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /preguntas
+            Method: post
+
+  RuntimeDependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Runtime dependencies for Lambdas
+      ContentUri: ./dist/layer
+      CompatibleRuntimes:
+        - nodejs12.x
+      RetentionPolicy: Retain

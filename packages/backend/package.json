@@ -1,0 +1,17 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --noEmit false --allowJs false --paths null"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@defol/libs": "^1.0.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.993.0"
+  }
+}
