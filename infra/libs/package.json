@@ -1,6 +1,6 @@
 {
   "name": "@defol-cl/infra-libs",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "src/index.ts",
   "private": false,
   "scripts": {

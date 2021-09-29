@@ -18,7 +18,7 @@ jobs:
     outputs:
       libs: ${{ steps.packages-libs-changed.outputs.any_changed }}
       backend: ${{ steps.packages-backend-changed.outputs.any_changed }}
-      branch: ${GITHUB_REF#refs/heads/}
+      branch: ${{ GITHUB_REF#refs/heads/ }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -93,15 +93,20 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+      - id: branch
+        shell: bash
+        run: echo "##[set-output name=name;]$(echo ${GITHUB_REF#refs/heads/})"
+
+      Fuente: https://www.iteramos.com/pregunta/87569/como-obtener-la-rama-actual-dentro-de-las-acciones-de-github
       - name: upload-openapi
         uses: zdurham/s3-upload-github-action@master
         env:
-          S3_BUCKET: ${{ format('defol-{0}-resources', needs.params.outputs.branch) }}
+          S3_BUCKET: ${{ format('defol-{0}-resources', steps.branch.outputs.name) }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           FILE: ./packages/backend/openapi.yaml
-          S3_KEY: ${{ format('defol-{0}-backend/{1}', needs.params.outputs.branch, github.sha) }}
+          S3_KEY: ${{ format('defol-{0}-backend/{1}', steps.branch.outputs.name, github.sha) }}
       - name: sam-package
         working-directory: ./packages/backend
         run: sam package --s3-bucket defol-${GITHUB_REF##*/}-resources --output-template-file packaged.yaml --template-file cloudformation.yaml
