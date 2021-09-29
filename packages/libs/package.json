@@ -14,6 +14,9 @@
     "prepare": "tsc --noEmit false --allowJs false --paths null",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.83"
+  },
   "peerDependencies": {
     "@types/aws-lambda": "^8.10.83"
   }
