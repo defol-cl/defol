@@ -58,6 +58,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     needs: [params, publish-libs]
+    if: always()
 #    if: needs.params.outputs.libs == 'true' || needs.params.outputs.backend == 'true'
     steps:
       - uses: actions/checkout@v2
