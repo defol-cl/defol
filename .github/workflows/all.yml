@@ -55,7 +55,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm publish
-
   build-deploy:
     runs-on: ubuntu-latest
     needs: [changes, publish-libs]
@@ -69,12 +68,7 @@ jobs:
       - uses: aws-actions/setup-sam@v1
       - name: installing typescript
         run: npm install -g typescript
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-      - name: npm-install
+      - name: npm-install-production
         working-directory: ./packages/backend
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -84,6 +78,19 @@ jobs:
         run: |
           mkdir -p dist/layer/nodejs
           cp -r node_modules/ dist/layer/nodejs/
+      - name: npm-install
+        working-directory: ./packages/backend
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm install
+      - name: npm-run-build
+        working-directory: ./packages/backend
+        run: npm run-script build
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: sam-package
         working-directory: ./packages/backend
         run: sam package --s3-bucket defol-${GITHUB_REF##*/}-resources --output-template-file packaged.yaml --template-file cloudformation.yaml
