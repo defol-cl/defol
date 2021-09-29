@@ -66,9 +66,6 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.10.3
       - uses: aws-actions/setup-sam@v1
       - name: installing typescript
         run: npm install -g typescript
@@ -79,12 +76,13 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: npm-install
         working-directory: ./packages/backend
-        run: npm install --prod
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm install --production
       - name: lambda-layer
         working-directory: ./packages/backend
         run: |
           mkdir -p dist/layer/nodejs
-          pnpm install --prod
           cp -r node_modules/ dist/layer/nodejs/
       - name: sam-package
         working-directory: ./packages/backend
