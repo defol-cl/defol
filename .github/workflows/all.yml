@@ -96,8 +96,6 @@ jobs:
       - id: branch
         shell: bash
         run: echo "##[set-output name=name;]$(echo ${GITHUB_REF#refs/heads/})"
-
-      Fuente: https://www.iteramos.com/pregunta/87569/como-obtener-la-rama-actual-dentro-de-las-acciones-de-github
       - name: upload-openapi
         uses: zdurham/s3-upload-github-action@master
         env:
