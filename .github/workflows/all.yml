@@ -13,6 +13,11 @@ on:
       - develop
 
 jobs:
+  parameters:
+    runs-on: ubuntu-latest
+    outputs:
+      branch:
+
   changes:
     runs-on: ubuntu-latest
     outputs:
@@ -86,7 +91,7 @@ jobs:
           cp -r node_modules/ dist/layer/nodejs/
       - name: sam-package
         working-directory: ./packages/backend
-        run: sam package
+        run: sam package --s3-bucket defol-${GITHUB_REF##*/}-resources --output-template-file packaged.yaml --template-file cloudformation.yaml
       - name: sam-deploy
         working-directory: ./packages/backend
-        run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name defol-${GITHUB_REF##*/}-backend --s3-bucket defol-${GITHUB_REF##*/}-resources --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }}
+        run: sam deploy --template-file packaged.yaml --no-confirm-changeset --no-fail-on-empty-changeset --stack-name defol-${GITHUB_REF##*/}-backend --s3-bucket defol-${GITHUB_REF##*/}-resources --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }}
