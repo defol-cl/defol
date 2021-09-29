@@ -102,7 +102,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_bucket: defol-${GITHUB_REF##*/}-resources
           source_dir: openapi.yaml
-          destination_dir: defol-${GITHUB_REF##*/}-backend/${{ gihub.sha }}
+          destination_dir: defol-${GITHUB_REF##*/}-backend/${{ github.sha }}
       - name: sam-package
         working-directory: ./packages/backend
         run: sam package --s3-bucket defol-${GITHUB_REF##*/}-resources --output-template-file packaged.yaml --template-file cloudformation.yaml
@@ -112,4 +112,4 @@ jobs:
           sam deploy --template-file packaged.yaml --no-confirm-changeset --no-fail-on-empty-changeset \
           --stack-name defol-${GITHUB_REF##*/}-backend --s3-bucket defol-${GITHUB_REF##*/}-resources \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
-          --parameter-overrides Env=${GITHUB_REF##*/} Sha=${gihub.sha}
+          --parameter-overrides Env=${GITHUB_REF##*/} Sha=${github.sha}
