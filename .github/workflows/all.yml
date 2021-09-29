@@ -27,7 +27,6 @@ jobs:
         uses: tj-actions/changed-files@v1.1.3
         with:
           files: |
-#            .github/workflows/all.yml
             packages/libs
       - id: packages-backend-changed
         name: detect changes on packages/backend
