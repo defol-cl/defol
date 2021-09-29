@@ -13,11 +13,6 @@ on:
       - develop
 
 jobs:
-  parameters:
-    runs-on: ubuntu-latest
-    outputs:
-      branch:
-
   changes:
     runs-on: ubuntu-latest
     outputs:
