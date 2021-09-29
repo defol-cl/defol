@@ -106,11 +106,17 @@ jobs:
           S3_KEY: ${{ format('defol-{0}-backend/{1}', steps.branch.outputs.name, github.sha) }}
       - name: sam-package
         working-directory: ./packages/backend
-        run: sam package --s3-bucket defol-${GITHUB_REF##*/}-resources --output-template-file packaged.yaml --template-file cloudformation.yaml
+        run: |
+          sam package \
+          --s3-bucket defol-${{ steps.branch.outputs.name }}-resources \
+          --output-template-file packaged.yaml \
+          --template-file cloudformation.yaml
       - name: sam-deploy
         working-directory: ./packages/backend
         run: |
-          sam deploy --template-file packaged.yaml --no-confirm-changeset --no-fail-on-empty-changeset \
-          --stack-name defol-${GITHUB_REF##*/}-backend --s3-bucket defol-${GITHUB_REF##*/}-resources \
+          sam deploy --template-file packaged.yaml \
+          --no-confirm-changeset --no-fail-on-empty-changeset \
+          --stack-name defol-${{ steps.branch.outputs.name }}-backend \
+          --s3-bucket defol-${{ steps.branch.outputs.name }}-resources \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
-          --parameter-overrides Env=${GITHUB_REF##*/} Sha=${{ github.sha }}
+          --parameter-overrides Env=${{ steps.branch.outputs.name }} Sha=${{ github.sha }}
