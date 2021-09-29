@@ -12,6 +12,9 @@ Parameters:
       - stage
       - master
     Description: identificador del ambiente
+  Sha:
+    Type: String
+    Description: identificador de la ejecución del CICD
 
 Globals:
   Function:
@@ -43,7 +46,7 @@ Resources:
         "Fn::Transform":
           Name: AWS::Include
           Parameters:
-            Location: !Sub s3://defol-${Env}-cf-templates/${AWS::StackName}/openapi.yaml
+            Location: !Sub s3://defol-${Env}-resources/${AWS::StackName}/${Sha}/openapi.yaml
 
   PreguntasGet:
     Type: AWS::Serverless::Function
