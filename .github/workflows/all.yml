@@ -26,7 +26,7 @@ jobs:
       - id: commit-message-libs
         uses: dlouisenz/last-commit-message-text-finder-action@v1.5
         with:
-          textToFind: @libs-update
+          textToFind: "@libs-update"
       - id: packages-libs-changed
         name: detect changes on packages/libs
         uses: tj-actions/changed-files@v1.1.3
