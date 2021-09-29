@@ -18,6 +18,7 @@ jobs:
     outputs:
       libs: ${{ steps.packages-libs-changed.outputs.any_changed }}
       backend: ${{ steps.packages-backend-changed.outputs.any_changed }}
+      branch: ${GITHUB_REF#refs/heads/}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -36,11 +37,6 @@ jobs:
           files: |
             .github/workflows/all.yml
             packages/backend
-      - id: extract-branch
-        name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-
 
   publish-libs:
     runs-on: ubuntu-latest
