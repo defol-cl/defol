@@ -18,7 +18,6 @@ jobs:
     outputs:
       libs: ${{ steps.packages-libs-changed.outputs.any_changed }}
       backend: ${{ steps.packages-backend-changed.outputs.any_changed }}
-      branch: ${{ GITHUB_REF#refs/heads/ }}
     steps:
       - uses: actions/checkout@v2
         with:
