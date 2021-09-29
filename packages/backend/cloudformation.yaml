@@ -48,7 +48,7 @@ Resources:
   PreguntasGet:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: dist/src/database
+      CodeUri: dist/src/preguntas
       Handler: preguntas.get
       Role: !GetAtt LambdaRole.Arn
       Events:
