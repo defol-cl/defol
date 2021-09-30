@@ -68,7 +68,7 @@ Resources:
           Properties:
             RestApiId: !Ref Api
             Path: /preguntas
-            Method: post
+            Method: get
 
   RuntimeDependenciesLayer:
     Type: AWS::Serverless::LayerVersion
