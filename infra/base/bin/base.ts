@@ -8,4 +8,10 @@ const app = new cdk.App();
 
 const branch = app.node.tryGetContext('branch') as string;
 
-new BaseStack(app, `defol-${branch}-base-stack`, getConfig(branch));
+new BaseStack(app, `defol-${branch}-base-stack`, {
+  ...getConfig(branch),
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION
+  }
+});
