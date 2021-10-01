@@ -153,7 +153,7 @@ jobs:
           --stack-name defol-${{ steps.branch.outputs.name }}-backend \
           --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
-          --parameter-overrides Env=${{ steps.branch.outputs.name }} Sha=${{ github.sha }}
+          --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} Sha=${{ github.sha }}
 
   frontend:
     runs-on: ubuntu-latest

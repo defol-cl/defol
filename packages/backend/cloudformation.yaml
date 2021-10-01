@@ -5,13 +5,9 @@ Transform:
 Description: Backend del portal de clientes de defol
 
 Parameters:
-  Env:
+  ResourcesBucket:
     Type: String
-    AllowedValues:
-      - develop
-      - stage
-      - master
-    Description: identificador del ambiente
+    Description: bucket que aloja los recursos
   Sha:
     Type: String
     Description: identificador de la ejecución del CICD
@@ -54,7 +50,7 @@ Resources:
         "Fn::Transform":
           Name: AWS::Include
           Parameters:
-            Location: !Sub s3://defol-${Env}-resources/${AWS::StackName}/${Sha}/openapi.yaml
+            Location: !Sub s3://${ResourcesBucket}/${AWS::StackName}/${Sha}/openapi.yaml
 
   PreguntasGet:
     Type: AWS::Serverless::Function

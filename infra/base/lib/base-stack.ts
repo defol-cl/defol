@@ -9,7 +9,7 @@ export class BaseStack extends cdk.Stack {
     const { branch } = props;
   
     const bucket = new s3.Bucket(this, id, {
-      bucketName: `defol-${branch}-resources`,
+      bucketName: `defol-${branch}-base-resources`,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
   
