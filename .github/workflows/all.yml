@@ -194,4 +194,4 @@ jobs:
           AWS_S3_BUCKET: ${{ env.S3_BUCKET }}
           DISTRIBUTION_ID: ${{ env.CFRONT_DIST_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: ./packages/frontend/dist
+          SOURCE_DIR: ./packages/frontend/build
