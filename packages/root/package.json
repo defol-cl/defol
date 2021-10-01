@@ -2,15 +2,20 @@
   "name": "@defol-cl/root",
   "version": "1.0.11",
   "private": false,
-  "source": "src/index.ts",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
-  "dependencies": {
-    "typescript": "^4.3.5"
+  "description": "",
+  "main": "src/index",
+  "types": "src/index",
+  "author": "Tres Ases",
+  "license": "ISC",
+  "repository": "git://github.com/defol-cl/defol.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
+    "prepare": "tsc --noEmit false --allowJs false --paths null",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": []
+  "dependencies": {
+    "typescript": "^4.3.5"
   }
 }
