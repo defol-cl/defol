@@ -2,6 +2,10 @@
   "name": "@defol-cl/frontend",
   "version": "1.0.11",
   "private": true,
+  "repository": "git://github.com/defol-cl/defol.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "dependencies": {
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",

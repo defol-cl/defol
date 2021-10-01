@@ -161,11 +161,6 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
-      - name: npm-install-production
-        working-directory: ./packages/frontend
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm install --production
       - name: npm-install
         working-directory: ./packages/frontend
         env:

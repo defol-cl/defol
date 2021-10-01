@@ -1,9 +1,9 @@
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./packages",
     "paths": {
-      "@defol-cl/*": ["packages/*/src"]
+      "@defol-cl/*": ["./*/src"]
     }
   }
 }
