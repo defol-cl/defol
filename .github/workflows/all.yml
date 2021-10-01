@@ -125,10 +125,14 @@ jobs:
       - id: branch
         shell: bash
         run: echo "##[set-output name=name;]$(echo ${GITHUB_REF#refs/heads/})"
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-bucket-name
+          env_variable_name: RESOURCE_S3_BUCKET
       - name: upload-openapi
         uses: zdurham/s3-upload-github-action@master
         env:
-          S3_BUCKET: ${{ format('defol-{0}-resources', steps.branch.outputs.name) }}
+          S3_BUCKET: ${{ env.RESOURCE_S3_BUCKET }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -138,7 +142,7 @@ jobs:
         working-directory: ./packages/backend
         run: |
           sam package \
-          --s3-bucket defol-${{ steps.branch.outputs.name }}-resources \
+          --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --output-template-file packaged.yaml \
           --template-file cloudformation.yaml
       - name: sam-deploy
@@ -147,7 +151,7 @@ jobs:
           sam deploy --template-file packaged.yaml \
           --no-confirm-changeset --no-fail-on-empty-changeset \
           --stack-name defol-${{ steps.branch.outputs.name }}-backend \
-          --s3-bucket defol-${{ steps.branch.outputs.name }}-resources \
+          --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
           --parameter-overrides Env=${{ steps.branch.outputs.name }} Sha=${{ github.sha }}
 
