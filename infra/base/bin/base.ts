@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
-import { EnvTypes } from "@defol-cl/infra-libs";
-import { config } from "./base.config";
+import { getConfig } from "./base.config";
 import { BaseStack } from '../lib/base-stack';
 
 const app = new cdk.App();
 
-const branch = app.node.tryGetContext('branch') as EnvTypes.Branch;
+const branch = app.node.tryGetContext('branch') as string;
 
-new BaseStack(app, `defol-${branch}-base-stack`, config[branch]);
+new BaseStack(app, `defol-${branch}-base-stack`, getConfig(branch));

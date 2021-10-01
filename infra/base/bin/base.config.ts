@@ -1,13 +1,5 @@
-import { BaseConfig } from "./base.config.types";
+import { BaseStackProps } from "../lib/base-stack.types";
 
-export const config: BaseConfig = {
-  develop: {
-    bucketName: 'defol-develop-resources'
-  },
-  stage: {
-    bucketName: 'defol-stage-resources'
-  },
-  master: {
-    bucketName: 'defol-master-resources'
-  },
-};
+export const getConfig = (branch: string): BaseStackProps => ({
+  bucketName: `defol-${branch}-resources`
+});
