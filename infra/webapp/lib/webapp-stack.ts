@@ -1,4 +1,5 @@
 import * as cdk from '@aws-cdk/core';
+import { Duration } from '@aws-cdk/core';
 import * as acm from '@aws-cdk/aws-certificatemanager';
 import * as cloudfront from '@aws-cdk/aws-cloudfront';
 import { HttpVersion } from '@aws-cdk/aws-cloudfront';
@@ -46,10 +47,31 @@ export class WebappStack extends cdk.Stack {
       region: props.env!.region,
     }).certificateArn;
     new cdk.CfnOutput(this, 'Certificate', { value: certificateArn });
-  
-    const stringValue = SSM.StringParameter.fromStringParameterAttributes(this, 'MyValue', {
-      parameterName: '/My/Public/Parameter'
-    }).stringValue;
+    
+    const originConfigs: cloudfront.SourceConfiguration[] = [{
+      s3OriginSource: {
+        s3BucketSource: bucket,
+        originAccessIdentity: oai
+      },
+      behaviors: [{
+        isDefaultBehavior: true
+      }],
+    }];
+    
+    const apiGatewayDomainName = SSM.StringParameter.fromStringParameterAttributes(this, `${id}-api-gateway-domain-name-parameter`, {
+      parameterName: `/defol/${branch}/backend/api-gateway-domain-name`
+    });
+    if (apiGatewayDomainName)
+      originConfigs.push({
+        customOriginSource: {
+          domainName: apiGatewayDomainName.stringValue
+        },
+        behaviors: [{
+          allowedMethods: cloudfront.CloudFrontAllowedMethods.ALL,
+          pathPattern: 'api/*',
+          maxTtl: Duration.millis(0)
+        }]
+      });
     
     const distribution = new cloudfront.CloudFrontWebDistribution(this, `${id}-distribution`, {
       httpVersion: HttpVersion.HTTP2,
@@ -66,15 +88,7 @@ export class WebappStack extends cdk.Stack {
         responsePagePath: '/index.html',
         responseCode: 200
       }],
-      originConfigs: [
-        {
-          s3OriginSource: {
-            s3BucketSource: bucket,
-            originAccessIdentity: oai
-          },
-          behaviors: [{ isDefaultBehavior: true }],
-        }
-      ]
+      originConfigs
     });
     new cdk.CfnOutput(this, `FrontCFDistributionId`, { value: distribution.distributionId });
     

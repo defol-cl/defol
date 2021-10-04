@@ -84,4 +84,4 @@ Resources:
       Description: API Gateway domain name paramater
       Name: !Sub /defol/${Branch}/backend/api-gateway-domain-name
       Type: String
-      Value: !Sub https://${Api}.execute-api.${AWS::Region}.amazonaws.com/api
+      Value: !Sub ${Api}.execute-api.${AWS::Region}.amazonaws.com
