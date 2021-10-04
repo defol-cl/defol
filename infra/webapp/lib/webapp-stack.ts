@@ -46,6 +46,10 @@ export class WebappStack extends cdk.Stack {
       region: props.env!.region,
     }).certificateArn;
     new cdk.CfnOutput(this, 'Certificate', { value: certificateArn });
+  
+    const stringValue = SSM.StringParameter.fromStringParameterAttributes(this, 'MyValue', {
+      parameterName: '/My/Public/Parameter'
+    }).stringValue;
     
     const distribution = new cloudfront.CloudFrontWebDistribution(this, `${id}-distribution`, {
       httpVersion: HttpVersion.HTTP2,
