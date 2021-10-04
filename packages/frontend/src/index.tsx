@@ -6,7 +6,14 @@ import './index.css';
 import Body from './layout/Body';
 import reportWebVitals from './reportWebVitals';
 
+console.log('process.env', process.env);
+
 Amplify.configure({
+  Auth: {
+    userPoolId: process.env.REACT_APP_USER_POOL_ID,
+    region: process.env.REACT_APP_REGION,
+    userPoolWebClientId: process.env.REACT_APP_USER_POOL_CLIENT_ID,
+  },
   API: {
     endpoints: [
       {

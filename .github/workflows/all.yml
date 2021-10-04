@@ -188,8 +188,28 @@ jobs:
           env_variable_name: CFRONT_DIST_ID
       - uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-id
+          env_variable_name: USER_POOL_ID
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-client-id
+          env_variable_name: USER_POOL_CLIENT_ID
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-region
+          env_variable_name: USER_POOL_REGION
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/bucket-name
           env_variable_name: S3_BUCKET
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+         envkey_REACT_APP_USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
+         envkey_REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.USER_POOL_CLIENT_ID }}
+         envkey_REACT_APP_USER_POOL_REGION: ${{ secrets.USER_POOL_REGION }}
+         directory: ./packages/frontend/build
+         file_name: .env
       - uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
         with:
           args: --acl public-read --follow-symlinks --delete
