@@ -166,6 +166,29 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
+      - name: get-base-cognito-user-pool-id-ssm-parameter
+        uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-id
+          env_variable_name: USER_POOL_ID
+      - name: get-base-cognito-user-pool-client-id-ssm-parameter
+        uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-client-id
+          env_variable_name: USER_POOL_CLIENT_ID
+      - name: get-base-cognito-user-pool-region-ssm-parameter
+        uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-region
+          env_variable_name: USER_POOL_REGION
+      - name: making-env-file
+        uses: SpicyPizza/create-envfile@v1.1
+        with:
+          envkey_REACT_APP_USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
+          envkey_REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.USER_POOL_CLIENT_ID }}
+          envkey_REACT_APP_USER_POOL_REGION: ${{ secrets.USER_POOL_REGION }}
+          directory: packages/frontend
+          file_name: .env
       - name: npm-install
         working-directory: ./packages/frontend
         env:
@@ -182,38 +205,16 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/cf-distribution-id
-          env_variable_name: CFRONT_DIST_ID
       - name: get-frontend-cloudfront-distribution-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-id
-          env_variable_name: USER_POOL_ID
-      - name: get-base-user-pool-client-id-ssm-parameter
-        uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-client-id
-          env_variable_name: USER_POOL_CLIENT_ID
-      - name: get-base-user-pool-region-ssm-parameter
-        uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-region
-          env_variable_name: USER_POOL_REGION
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/cf-distribution-id
+          env_variable_name: CFRONT_DIST_ID
       - name: get-frontend-bucket-name-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/bucket-name
           env_variable_name: S3_BUCKET
-      - name: making-env-file
-        uses: SpicyPizza/create-envfile@v1.1
-        with:
-         envkey_REACT_APP_USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
-         envkey_REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.USER_POOL_CLIENT_ID }}
-         envkey_REACT_APP_USER_POOL_REGION: ${{ secrets.USER_POOL_REGION }}
-         directory: ./packages/frontend/build
-         file_name: .env
       - uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
         with:
           args: --acl public-read --follow-symlinks --delete
