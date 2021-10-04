@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 import { Redirect, Route, Switch } from "react-router-dom";
 import Topbar from './Topbar';
 import InicioView from "../views/Inicio";

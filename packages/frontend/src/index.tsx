@@ -1,9 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import Amplify from 'aws-amplify';
 import './index.css';
 import Body from './layout/Body';
 import reportWebVitals from './reportWebVitals';
+
+Amplify.configure({
+  API: {
+    endpoints: [
+      {
+        name: 'api',
+        endpoint: '/api'
+      },
+    ],
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>
