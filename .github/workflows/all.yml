@@ -166,6 +166,11 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: get-base-cognito-user-pool-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
@@ -200,11 +205,6 @@ jobs:
       - id: branch
         shell: bash
         run: echo "##[set-output name=name;]$(echo ${GITHUB_REF#refs/heads/})"
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
       - name: get-frontend-cloudfront-distribution-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
