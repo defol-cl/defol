@@ -166,22 +166,25 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
+      - id: branch
+        shell: bash
+        run: echo "##[set-output name=name;]$(echo ${GITHUB_REF#refs/heads/})"
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - name: get-base-cognito-user-pool-id-ssm-parameter
+      - id: get-base-cognito-user-pool-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-id
           env_variable_name: USER_POOL_ID
-      - name: get-base-cognito-user-pool-client-id-ssm-parameter
+      - id: get-base-cognito-user-pool-client-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-client-id
           env_variable_name: USER_POOL_CLIENT_ID
-      - name: get-base-cognito-user-pool-region-ssm-parameter
+      - id: get-base-cognito-user-pool-region-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-region
@@ -202,15 +205,12 @@ jobs:
       - name: npm-run-build
         working-directory: ./packages/frontend
         run: npm run-script build
-      - id: branch
-        shell: bash
-        run: echo "##[set-output name=name;]$(echo ${GITHUB_REF#refs/heads/})"
-      - name: get-frontend-cloudfront-distribution-id-ssm-parameter
+      - id: get-frontend-cloudfront-distribution-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/cf-distribution-id
           env_variable_name: CFRONT_DIST_ID
-      - name: get-frontend-bucket-name-ssm-parameter
+      - id: get-frontend-bucket-name-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/bucket-name
