@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Amplify from 'aws-amplify';
 import './index.css';
-import Body from './layout/Body';
 import reportWebVitals from './reportWebVitals';
+import App from "./App";
 
 console.log('process.env', process.env);
 
@@ -27,7 +27,7 @@ Amplify.configure({
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter basename='/'>
-      <Body/>
+      <App/>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

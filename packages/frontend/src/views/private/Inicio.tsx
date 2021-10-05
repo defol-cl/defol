@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { PreguntasSvc } from '../services';
+import { PreguntasSvc } from '../../services';
 
 const Inicio: FC = () => {
   
