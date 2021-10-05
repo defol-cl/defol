@@ -190,13 +190,13 @@ jobs:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-region
           env_variable_name: USER_POOL_REGION
       - name: making-env-file
-        uses: SpicyPizza/create-envfile@v1.1
-        with:
-          envkey_REACT_APP_USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
-          envkey_REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.USER_POOL_CLIENT_ID }}
-          envkey_REACT_APP_USER_POOL_REGION: ${{ secrets.USER_POOL_REGION }}
-          directory: ./packages/frontend
-          file_name: .env
+        working-directory: ./packages/frontend
+        run: |
+          cat << EOF > .env
+          REACT_APP_USER_POOL_ID=${{ secrets.USER_POOL_ID }}
+          REACT_APP_USER_POOL_CLIENT_ID=${{ secrets.USER_POOL_CLIENT_ID }}
+          REACT_APP_USER_POOL_REGION=${{ secrets.USER_POOL_REGION }}
+          EOF
       - name: npm-install
         working-directory: ./packages/frontend
         env:
