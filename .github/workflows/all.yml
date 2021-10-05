@@ -193,9 +193,9 @@ jobs:
         working-directory: ./packages/frontend
         run: |
           cat << EOF > .env
-          REACT_APP_USER_POOL_ID=${{ secrets.USER_POOL_ID }}
-          REACT_APP_USER_POOL_CLIENT_ID=${{ secrets.USER_POOL_CLIENT_ID }}
-          REACT_APP_USER_POOL_REGION=${{ secrets.USER_POOL_REGION }}
+          REACT_APP_USER_POOL_ID=${{ env.USER_POOL_ID }}
+          REACT_APP_USER_POOL_CLIENT_ID=${{ env.USER_POOL_CLIENT_ID }}
+          REACT_APP_USER_POOL_REGION=${{ env.USER_POOL_REGION }}
           EOF
       - name: npm-install
         working-directory: ./packages/frontend
