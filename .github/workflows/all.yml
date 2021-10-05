@@ -157,7 +157,7 @@ jobs:
           Branch=${{ steps.branch.outputs.name }}
 
   frontend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: [ params, publish-root ]
     if: always() && (needs.params.outputs.update-libs == 'true' || needs.params.outputs.frontend == 'true')
     steps:
