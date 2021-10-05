@@ -157,7 +157,7 @@ jobs:
           Branch=${{ steps.branch.outputs.name }}
 
   frontend:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: [ params, publish-root ]
     if: always() && (needs.params.outputs.update-libs == 'true' || needs.params.outputs.frontend == 'true')
     steps:
@@ -195,7 +195,7 @@ jobs:
           envkey_REACT_APP_USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
           envkey_REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.USER_POOL_CLIENT_ID }}
           envkey_REACT_APP_USER_POOL_REGION: ${{ secrets.USER_POOL_REGION }}
-          directory: /packages/frontend
+          directory: ./packages/frontend
           file_name: .env
       - name: npm-install
         working-directory: ./packages/frontend
