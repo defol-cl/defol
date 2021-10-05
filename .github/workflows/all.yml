@@ -195,7 +195,7 @@ jobs:
           envkey_REACT_APP_USER_POOL_ID: ${{ secrets.USER_POOL_ID }}
           envkey_REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.USER_POOL_CLIENT_ID }}
           envkey_REACT_APP_USER_POOL_REGION: ${{ secrets.USER_POOL_REGION }}
-          directory: packages/frontend
+          directory: /packages/frontend
           file_name: .env
       - name: npm-install
         working-directory: ./packages/frontend
