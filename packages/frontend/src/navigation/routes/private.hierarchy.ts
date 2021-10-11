@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { getPrivateRoutes } from "./private.routes";
 import { NavigationInterface } from "./index.types";
 import PrivateGuard from "../../guards/private.guard";
-import PrivateLayout from "../../layout/private.layout";
+import { PrivateLayout } from "../../layout";
 import PrivateLoading from "../../views/private/Private.loading";
 
 const getPrivateHierarchy = (path: string): NavigationInterface => {

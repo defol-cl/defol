@@ -2,11 +2,13 @@ import { lazy } from "react";
 import { getPublicRoutes } from "./public.routes";
 import { NavigationInterface } from "./index.types";
 import PublicGuard from "../../guards/public.guard";
-import PublicLayout from "../../layout/public.layout";
+import { PublicLayout } from "../../layout";
 import PublicLoading from "../../views/public/Public.loading";
 
+export const publicPath = '/autenticacion';
+export const publicRoutes = getPublicRoutes(publicPath);
+
 const getPublicHierarchy = (path: string): NavigationInterface => {
-  const publicRoutes = getPublicRoutes(path);
   return {
     name: 'Public',
     guard: PublicGuard,
@@ -25,14 +27,14 @@ const getPublicHierarchy = (path: string): NavigationInterface => {
       },
       {
         ...publicRoutes.registroConfirmar,
-        component: lazy(() => import('../../views/public/ValidaCorreo')),
+        component: lazy(() => import('../../views/public/Confirma')),
       },
       {
         ...publicRoutes.recuperaContrasena,
-        component: lazy(() => import('../../views/public/RecuperaContrasena')),
+        component: lazy(() => import('../../views/public/Recupera')),
       },
     ],
   };
 };
 
-export const publicHierarchy = getPublicHierarchy('/autenticacion');
+export const publicHierarchy = getPublicHierarchy(publicPath);

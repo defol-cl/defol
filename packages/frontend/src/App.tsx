@@ -1,13 +1,19 @@
 import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import ParentRoutes from "./navigation/components/ParentRoutes";
 import routeHierarchy from './navigation/routeHierarchy';
+import { themeOptions } from "./theme";
+
+const theme = createTheme(themeOptions);
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <ParentRoutes items={routeHierarchy}/>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <ParentRoutes items={routeHierarchy}/>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

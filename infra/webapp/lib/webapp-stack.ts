@@ -82,12 +82,19 @@ export class WebappStack extends cdk.Stack {
         sslMethod: cloudfront.SSLMethod.SNI,
         securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_1_2016,
       },
-      errorConfigurations: [{
-        errorCode: 404,
-        errorCachingMinTtl: 300,
-        responsePagePath: '/index.html',
-        responseCode: 200
-      }],
+      errorConfigurations: [
+        {
+          errorCode: 404,
+          errorCachingMinTtl: 300,
+          responsePagePath: '/index.html',
+          responseCode: 200
+        }, {
+          errorCode: 403,
+          errorCachingMinTtl: 300,
+          responsePagePath: '/index.html',
+          responseCode: 200
+        }
+      ],
       originConfigs
     });
     new cdk.CfnOutput(this, `FrontCFDistributionId`, { value: distribution.distributionId });
