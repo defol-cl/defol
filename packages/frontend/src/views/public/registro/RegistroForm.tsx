@@ -43,8 +43,8 @@ const RegistroForm: FC = () => {
         username,
         password,
         attributes: {
-          givenName: name,
-          familyName: lastName
+          given_name: name,
+          family_name: lastName
         }
       })
         .then(user => {

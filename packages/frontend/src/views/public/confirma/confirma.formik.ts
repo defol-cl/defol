@@ -1,33 +1,15 @@
 import * as yup from 'yup';
 
-export interface FormikRegistro {
-  name: string
-  lastName: string
+export interface FormikConfirma {
   username: string
-  password: string
-  confirmPassword: string
-  serviceTerms: boolean
-  privacyPolicy: boolean
+  code: string
 }
 
-export const validationRegistro = yup.object({
-  name: yup.string()
-    .min(3)
-    .required(),
-  lastName: yup.string()
-    .min(3)
-    .required(),
+export const validationConfirma = yup.object({
   username: yup.string()
     .email()
     .required(),
-  password: yup.string()
-    .min(6, 'Debe tener como mínimo 6 caracteres')
+  code: yup.string()
+    .min(4, 'Debe tener como mínimo 4 caracteres')
     .required(),
-  confirmPassword: yup.string()
-    .min(6, 'Debe tener como mínimo 6 caracteres')
-    .required(),
-  serviceTerms: yup.bool()
-    .oneOf([true], 'Los términos del servicio deben ser aceptados'),
-  privacyPolicy: yup.bool()
-    .oneOf([true], 'La política de privacidad debe ser aceptada')
 });

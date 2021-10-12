@@ -4,10 +4,11 @@ import { PublicContext, PublicContextProps, PublicContextState } from "./public.
 const PublicLayout: React.FC = ({ children }) => {
   const [contextState, setContextState] = useState<PublicContextState>({ });
   const setUsername = (username: string) => setContextState({ username });
+  const clear = () => setContextState({ });
   
   const context: PublicContextProps = {
     state: contextState,
-    setUsername
+    setUsername, clear
   };
   
   return (

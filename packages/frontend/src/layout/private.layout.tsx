@@ -1,6 +1,6 @@
 import React from 'react';
-import Topbar from "./private/Topbar";
 import Container from "@mui/material/Container";
+import Topbar from "./private/Topbar";
 
 const PrivateLayout: React.FC = ({ children }) => {
   return (

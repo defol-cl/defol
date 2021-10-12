@@ -5,6 +5,9 @@ import PrivateGuard from "../../guards/private.guard";
 import { PrivateLayout } from "../../layout";
 import PrivateLoading from "../../views/private/Private.loading";
 
+const privatePath = '';
+const privateRoutes = getPrivateRoutes(privatePath);
+
 const getPrivateHierarchy = (path: string): NavigationInterface => {
   const privateRoutes = getPrivateRoutes(path);
   return {
@@ -23,4 +26,6 @@ const getPrivateHierarchy = (path: string): NavigationInterface => {
   };
 };
 
-export const privateHierarchy = getPrivateHierarchy('');
+const privateHierarchy = getPrivateHierarchy(privatePath);
+
+export { privatePath, privateRoutes, privateHierarchy };

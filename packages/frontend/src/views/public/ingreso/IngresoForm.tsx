@@ -1,15 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Alert from "@mui/material/Alert";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
-import Link from "@mui/material/Link";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
@@ -18,17 +14,19 @@ import { Auth } from 'aws-amplify';
 import { useFormik } from "formik";
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { FormikIngreso, validationIngreso } from "./ingreso.formik";
-import { publicRoutes } from "../../../navigation";
+import { privateRoutes, publicRoutes } from "../../../navigation";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
+import { PublicContext } from "../../../layout";
 
 const IngresoForm: FC = () => {
   const history = useHistory();
+  const { state } = useContext(PublicContext);
   const [signingIn, setSigningIn] = useState<boolean>(false);
   const formik = useFormik<FormikIngreso>({
     initialValues: {
-      username: '',
+      username: state.username || '',
       password: '',
       showPassword: false
     },
@@ -41,7 +39,7 @@ const IngresoForm: FC = () => {
           if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
             //TODO vista de nueva contraseña requerida
           } else {
-            //TODO autenticar
+            history.push(privateRoutes.inicio.route());
           }
         })
         .finally(() => setSigningIn(false))

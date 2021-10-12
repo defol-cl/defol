@@ -5,8 +5,8 @@ import PublicGuard from "../../guards/public.guard";
 import { PublicLayout } from "../../layout";
 import PublicLoading from "../../views/public/Public.loading";
 
-export const publicPath = '/autenticacion';
-export const publicRoutes = getPublicRoutes(publicPath);
+const publicPath = '/autenticacion';
+const publicRoutes = getPublicRoutes(publicPath);
 
 const getPublicHierarchy = (path: string): NavigationInterface => {
   return {
@@ -37,4 +37,6 @@ const getPublicHierarchy = (path: string): NavigationInterface => {
   };
 };
 
-export const publicHierarchy = getPublicHierarchy(publicPath);
+const publicHierarchy = getPublicHierarchy(publicPath);
+
+export { publicPath, publicRoutes, publicHierarchy };

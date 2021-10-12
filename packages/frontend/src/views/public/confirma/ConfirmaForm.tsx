@@ -1,14 +1,7 @@
 import React, { FC, useContext, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
-import Alert from "@mui/material/Alert";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
-import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
-import Link from "@mui/material/Link";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
@@ -16,42 +9,31 @@ import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
 import { Auth } from 'aws-amplify';
 import { useFormik } from "formik";
-import { useHistory } from 'react-router-dom';
-import { FormikRegistro, validationRegistro } from "./confirma.formik";
-import { publicRoutes } from "../../../navigation";
+import { FormikConfirma, validationConfirma } from "./confirma.formik";
 import { PublicContext } from "../../../layout";
+import { useHistory } from "react-router-dom";
+import { publicRoutes } from "../../../navigation";
 
 const ConfirmaForm: FC = () => {
   const history = useHistory();
-  const { setUsername } = useContext(PublicContext);
-  const [signingUp, setSigningUp] = useState<boolean>(false);
-  const formik = useFormik<FormikRegistro>({
+  const { state } = useContext(PublicContext);
+  const [confirming, setConfirming] = useState<boolean>(false);
+  const formik = useFormik<FormikConfirma>({
     initialValues: {
-      name: '',
-      lastName: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      serviceTerms: false,
-      privacyPolicy: false,
+      username: state.username || '',
+      code: ''
     },
-    validationSchema: validationRegistro,
+    validationSchema: validationConfirma,
     validateOnMount: true,
-    onSubmit: ({ name, lastName, username, password }) => {
-      setSigningUp(true);
-      Auth.signUp({
-        username,
-        password,
-        attributes: {
-          givenName: name,
-          familyName: lastName
-        }
-      })
+    onSubmit: ({ username, code }) => {
+      setConfirming(true);
+      Auth.confirmSignUp(username, code)
         .then(user => {
+          history.push(publicRoutes.ingreso.route())
           console.log('user', user);
-          setUsername(username);
         })
-        .finally(() => setSigningUp(false))
+        .catch(error => console.error(error))
+        .finally(() => setConfirming(false))
     }
   });
   
@@ -59,7 +41,7 @@ const ConfirmaForm: FC = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-    values: { name, lastName, username, password, confirmPassword }
+    values: { username, code }
   } = formik;
   
   return (
@@ -67,85 +49,41 @@ const ConfirmaForm: FC = () => {
       <Container maxWidth="sm">
         <form onSubmit={handleSubmit}>
           <Box sx={{ p: 2 }}>
-            <Typography variant="h4" component="h1">Regístrate en DEFOL</Typography>
-            <Typography variant="subtitle1" color="primary" gutterBottom>Y resuelve tus dudas con nuestro equipo de
-              especialistas</Typography>
-            <Alert severity="warning"
-                   action={
-                     <Button size="small" color="inherit" onClick={() => history.push(publicRoutes.ingreso.route())}>
-                       Ingresa
-                     </Button>
-                   }>
-              ¿Recordaste que ya tienes una cuenta?
-            </Alert>
-            <Grid container spacing={2}>
-              <Grid item sm={6}>
-                <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-                  <InputLabel htmlFor="name">Nombres</InputLabel>
-                  <OutlinedInput
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}/>
-                </FormControl>
-              </Grid>
-              <Grid item sm={6}>
-                <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-                  <InputLabel htmlFor="lastName">Apellidos</InputLabel>
-                  <OutlinedInput
-                    id="lastName"
-                    type="text"
-                    value={lastName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}/>
-                </FormControl>
-              </Grid>
-            </Grid>
+            <Typography variant="h4" component="h1">Confirma tu Registro</Typography>
+            <Typography variant="subtitle1" color="primary" gutterBottom>
+              Estás a un paso para comenzar a operar con DEFOL.
+            </Typography>
+            <Typography variant="body1">
+              Te hemos enviado un correo con un código, si no lo encuentras espera unos segundos.
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              No olvides revisar en la bandeja de correos no deseados, a veces los filtros se confunden.
+            </Typography>
             <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
               <InputLabel htmlFor="username">Correo electrónico</InputLabel>
               <OutlinedInput
                 id="username"
                 type="text"
+                disabled={state.username !== undefined}
                 value={username}
                 onChange={handleChange}
                 onBlur={handleBlur}/>
             </FormControl>
             <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="password">Contraseña</InputLabel>
+              <InputLabel htmlFor="code">Código de validación</InputLabel>
               <OutlinedInput
-                id="password"
-                type="password"
-                autoComplete="new-password"
-                value={password}
+                id="code"
+                type="text"
+                value={code}
                 onChange={handleChange}
                 onBlur={handleBlur}/>
             </FormControl>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="confirmPassword">Confirmar Contraseña</InputLabel>
-              <OutlinedInput
-                id="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-                value={confirmPassword}
-                onChange={handleChange}
-                onBlur={handleBlur}/>
-            </FormControl>
-            <FormGroup>
-              <FormControlLabel control={<Checkbox id="serviceTerms" onChange={handleChange}/>} label={
-                <>Acepto los <Link href="#" color="secondary">términos de servicio</Link> de DEFOL</>
-              }/>
-              <FormControlLabel control={<Checkbox id="privacyPolicy" onChange={handleChange}/>} label={
-                <>Acepto la <Link href="#" color="secondary">política de privacidad</Link> respecto al uso de mi
-                  información</>
-              }/>
-            </FormGroup>
             <LoadingButton
               sx={{ mt: 3 }}
               size="large" type="submit" variant="contained" fullWidth
               disabled={!formik.isValid}
-              loading={signingUp}>
-              Registrar
+              loading={confirming}>
+              Confirmar registro
             </LoadingButton>
           </Box>
         </form>
