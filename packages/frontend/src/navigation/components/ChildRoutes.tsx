@@ -10,6 +10,7 @@ interface Props {
 
 const ChildRoutes: React.FC<Props> = ({ routes = [], otherwise, Loading }) => {
   const params = useParams();
+  console.log(otherwise(params));
   return (
     <Switch>
       {routes.map(({ name, component: Component, exact = true, subpath }, index) => {

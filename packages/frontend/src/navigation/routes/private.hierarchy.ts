@@ -5,7 +5,7 @@ import PrivateGuard from "../../guards/private.guard";
 import { PrivateLayout } from "../../layout";
 import PrivateLoading from "../../views/private/Private.loading";
 
-const privatePath = '';
+const privatePath = '/app';
 const privateRoutes = getPrivateRoutes(privatePath);
 
 const getPrivateHierarchy = (path: string): NavigationInterface => {
@@ -22,6 +22,26 @@ const getPrivateHierarchy = (path: string): NavigationInterface => {
         ...privateRoutes.inicio,
         component: lazy(() => import('../../views/private/Inicio')),
       },
+      {
+        ...privateRoutes.nuevaPregunta,
+        component: lazy(() => import('../../views/private/NuevaPregunta')),
+      },
+      {
+        ...privateRoutes.previsualizarPregunta,
+        component: lazy(() => import('../../views/private/PrevisualizarPregunta')),
+      },
+      {
+        ...privateRoutes.misActualizaciones,
+        component: lazy(() => import('../../views/private/Actualizaciones')),
+      },
+      {
+        ...privateRoutes.miPregunta,
+        component: lazy(() => import('../../views/private/MiPregunta')),
+      },
+      {
+        ...privateRoutes.misPreguntas,
+        component: lazy(() => import('../../views/private/MisPreguntas')),
+      }
     ],
   };
 };

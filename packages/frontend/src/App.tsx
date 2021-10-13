@@ -3,9 +3,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import ParentRoutes from "./navigation/components/ParentRoutes";
 import routeHierarchy from './navigation/routeHierarchy';
-import { themeOptions } from "./theme";
+import { customTheme } from "./theme";
 
-const theme = createTheme(themeOptions);
+const theme = createTheme(customTheme);
 
 const App: React.FC = () => {
   return (
