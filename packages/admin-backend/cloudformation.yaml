@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Description: Backend del administrador del portal de clientes de defol
+
+Parameters:
+  Branch:
+    Type: String
+    Description: nombre de la rama
+  ResourcesBucket:
+    Type: String
+    Description: bucket que aloja los recursos
+  Sha:
+    Type: String
+    Description: identificador de la ejecución del CICD
+
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 200
+    MemorySize: 1024
+
+Resources:
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: lambda.amazonaws.com
+      Policies:
+        - PolicyName: WriteCloudWatchLogs
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: api
+      Name: !Sub ${AWS::StackName}-api
+      DefinitionBody:
+        "Fn::Transform":
+          Name: AWS::Include
+          Parameters:
+            Location: !Sub s3://${ResourcesBucket}/${AWS::StackName}/${Sha}/openapi.yaml
+
+  PreguntasGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/preguntas
+      Handler: preguntas.get
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /preguntas
+            Method: get
+
+  RuntimeDependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Runtime dependencies for Lambdas
+      ContentUri: ./dist/layer
+      CompatibleRuntimes:
+        - nodejs12.x
+      RetentionPolicy: Retain
+
+  ApiGatewayDomainNameParamater:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: API Gateway domain name paramater
+      Name: !Sub /defol/${Branch}/admin/backend/api-gateway-domain-name
+      Type: String
+      Value: !Sub ${Api}.execute-api.${AWS::Region}.amazonaws.com

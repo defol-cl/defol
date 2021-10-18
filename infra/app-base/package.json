@@ -1,5 +1,5 @@
 {
-  "name": "@defol-cl/infra-base",
+  "name": "@defol-cl/infra-app-base",
   "version": "0.1.0",
   "bin": {
     "base": "bin/app-base.js"
