@@ -1,8 +1,8 @@
 {
-  "name": "@defol-cl/infra-webapp",
+  "name": "@defol-cl/infra-base",
   "version": "0.1.0",
   "bin": {
-    "webapp": "bin/webapp.js"
+    "base": "bin/app-base.js"
   },
   "private": true,
   "scripts": {
@@ -22,14 +22,10 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/core": "1.125.0",
-    "@aws-cdk/aws-certificatemanager": "1.125.0",
-    "@aws-cdk/aws-cloudfront": "1.125.0",
-    "@aws-cdk/aws-iam": "1.125.0",
-    "@aws-cdk/aws-route53": "1.125.0",
-    "@aws-cdk/aws-route53-targets": "1.125.0",
+    "@aws-cdk/aws-cognito": "^1.125.0",
     "@aws-cdk/aws-s3": "1.125.0",
     "@aws-cdk/aws-ssm": "1.125.0",
+    "@aws-cdk/core": "1.125.0",
     "source-map-support": "^0.5.16"
   }
 }

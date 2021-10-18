@@ -5,7 +5,7 @@ import PrivateGuard from "../../guards/private.guard";
 import { PrivateLayout } from "../../layout";
 import PrivateLoading from "../../views/private/Private.loading";
 
-const privatePath = '/app';
+const privatePath = '';
 const privateRoutes = getPrivateRoutes(privatePath);
 
 const getPrivateHierarchy = (path: string): NavigationInterface => {
@@ -20,6 +20,7 @@ const getPrivateHierarchy = (path: string): NavigationInterface => {
     routes: [
       {
         ...privateRoutes.inicio,
+        exact: true,
         component: lazy(() => import('../../views/private/Inicio')),
       },
       {

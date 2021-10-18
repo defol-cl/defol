@@ -2,7 +2,7 @@
 
 ## Comandos relevantes
 
- * `npm run build` o `tsc` compila typescript a js
+ * `npm run build` o `tsc` compila typescript a js (no es necesario ejecutarlo para ejecutar el deploy)
  * `cdk bootstrap <account>/<region>`
  * `cdk deploy -c branch=<branch>` hace deploy del stack de CloudFormation
 

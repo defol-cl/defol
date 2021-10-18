@@ -9,9 +9,9 @@ import * as route53 from '@aws-cdk/aws-route53';
 import * as targets from '@aws-cdk/aws-route53-targets/lib';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as SSM from "@aws-cdk/aws-ssm";
-import { WebappStackProps } from "./webapp-stack.types";
+import { WebappStackProps } from "./app-stack.types";
 
-export class WebappStack extends cdk.Stack {
+export class AppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: WebappStackProps) {
     super(scope, id, props);
     const { branch, domain, subdomain } = props;
@@ -59,7 +59,7 @@ export class WebappStack extends cdk.Stack {
     }];
     
     const apiGatewayDomainName = SSM.StringParameter.fromStringParameterAttributes(this, `${id}-api-gateway-domain-name-parameter`, {
-      parameterName: `/defol/${branch}/backend/api-gateway-domain-name`
+      parameterName: `/defol/${branch}/app/backend/api-gateway-domain-name`
     });
     if (apiGatewayDomainName)
       originConfigs.push({
@@ -106,12 +106,12 @@ export class WebappStack extends cdk.Stack {
     });
     
     new SSM.StringParameter(this, `${id}-cf-distribution-id`, {
-      parameterName: `/defol/${branch}/frontend/cf-distribution-id`,
+      parameterName: `/defol/${branch}/app/cf-distribution-id`,
       description: 'Frontend\'s cloudFront distribution id',
       stringValue: distribution.distributionId
     });
     new SSM.StringParameter(this, `${id}-frontend-bucket-name`, {
-      parameterName: `/defol/${branch}/frontend/bucket-name`,
+      parameterName: `/defol/${branch}/app/frontend/bucket-name`,
       description: 'Frontend\'s bucket name',
       stringValue: bucket.bucketName
     });

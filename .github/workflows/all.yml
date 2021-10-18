@@ -3,7 +3,7 @@
 # - AWS_SECRET_ACCESS_KEY
 # - AWS_REGION
 
-name: build-backend
+name: build-app
 
 on:
   push:
@@ -18,8 +18,8 @@ jobs:
     outputs:
       update-libs: ${{ steps.commit-message-libs.outputs.textFound }}
       libs: ${{ steps.packages-libs-changed.outputs.any_changed }}
-      backend: ${{ steps.packages-backend-changed.outputs.any_changed }}
-      frontend: ${{ steps.packages-frontend-changed.outputs.any_changed }}
+      app-backend: ${{ steps.packages-app-backend-changed.outputs.any_changed }}
+      app-frontend: ${{ steps.packages-app-frontend-changed.outputs.any_changed }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -34,20 +34,20 @@ jobs:
         with:
           files: |
             packages/libs
-      - id: packages-backend-changed
-        name: detect changes on packages/backend
+      - id: packages-app-backend-changed
+        name: detect changes on packages/app-backend
         uses: tj-actions/changed-files@v1.1.3
         with:
           files: |
             .github/workflows/all.yml
-            packages/backend
-      - id: packages-frontend-changed
-        name: detect changes on packages/frontend
+            packages/app-backend
+      - id: packages-app-frontend-changed
+        name: detect changes on packages/app-frontend
         uses: tj-actions/changed-files@v1.1.3
         with:
           files: |
             .github/workflows/all.yml
-            packages/frontend
+            packages/app-frontend
 
   publish-libs:
     runs-on: ubuntu-latest
@@ -86,10 +86,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm publish
 
-  backend:
+  app-backend:
     runs-on: ubuntu-latest
     needs: [params, publish-libs]
-    if: always() && (needs.params.outputs.update-libs == 'true' || needs.params.outputs.backend == 'true')
+    if: always() && (needs.params.outputs.update-libs == 'true' || needs.params.outputs.app-backend == 'true')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -100,22 +100,22 @@ jobs:
       - name: installing typescript
         run: npm install -g typescript
       - name: npm-install-production
-        working-directory: ./packages/backend
+        working-directory: ./packages/app-backend
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install --production
       - name: lambda-layer
-        working-directory: ./packages/backend
+        working-directory: ./packages/app-backend
         run: |
           mkdir -p dist/layer/nodejs
           cp -r node_modules/ dist/layer/nodejs/
       - name: npm-install
-        working-directory: ./packages/backend
+        working-directory: ./packages/app-backend
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
       - name: npm-run-build
-        working-directory: ./packages/backend
+        working-directory: ./packages/app-backend
         run: npm run-script build
       - uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -136,30 +136,30 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          FILE: ./packages/backend/openapi.yaml
-          S3_KEY: ${{ format('defol-{0}-backend/{1}/openapi.yaml', steps.branch.outputs.name, github.sha) }}
+          FILE: ./packages/app-backend/openapi.yaml
+          S3_KEY: ${{ format('defol-{0}-app-backend/{1}/openapi.yaml', steps.branch.outputs.name, github.sha) }}
       - name: sam-package
-        working-directory: ./packages/backend
+        working-directory: ./packages/app-backend
         run: |
           sam package \
           --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --output-template-file packaged.yaml \
           --template-file cloudformation.yaml
       - name: sam-deploy
-        working-directory: ./packages/backend
+        working-directory: ./packages/app-backend
         run: |
           sam deploy --template-file packaged.yaml \
           --no-confirm-changeset --no-fail-on-empty-changeset \
-          --stack-name defol-${{ steps.branch.outputs.name }}-backend \
+          --stack-name defol-${{ steps.branch.outputs.name }}-app-backend \
           --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
           --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} Sha=${{ github.sha }} \
           Branch=${{ steps.branch.outputs.name }}
 
-  frontend:
+  app-frontend:
     runs-on: ubuntu-latest
     needs: [ params, publish-root ]
-    if: always() && (needs.params.outputs.update-libs == 'true' || needs.params.outputs.frontend == 'true')
+    if: always() && (needs.params.outputs.update-libs == 'true' || needs.params.outputs.app-frontend == 'true')
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -177,20 +177,20 @@ jobs:
       - id: get-base-cognito-user-pool-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-id
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app/user-pool-id
           env_variable_name: USER_POOL_ID
       - id: get-base-cognito-user-pool-client-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-client-id
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app/user-pool-client-id
           env_variable_name: USER_POOL_CLIENT_ID
       - id: get-base-cognito-user-pool-region-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/user-pool-region
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app/user-pool-region
           env_variable_name: USER_POOL_REGION
       - name: making-env-file
-        working-directory: ./packages/frontend
+        working-directory: ./packages/app-frontend
         run: |
           cat << EOF > .env
           REACT_APP_USER_POOL_ID=${{ env.USER_POOL_ID }}
@@ -198,22 +198,22 @@ jobs:
           REACT_APP_USER_POOL_REGION=${{ env.USER_POOL_REGION }}
           EOF
       - name: npm-install
-        working-directory: ./packages/frontend
+        working-directory: ./packages/app-frontend
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm install
       - name: npm-run-build
-        working-directory: ./packages/frontend
+        working-directory: ./packages/app-frontend
         run: npm run-script build
-      - id: get-frontend-cloudfront-distribution-id-ssm-parameter
+      - id: get-app-frontend-cloudfront-distribution-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/cf-distribution-id
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app-frontend/cf-distribution-id
           env_variable_name: CFRONT_DIST_ID
-      - id: get-frontend-bucket-name-ssm-parameter
+      - id: get-app-frontend-bucket-name-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/frontend/bucket-name
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app-frontend/bucket-name
           env_variable_name: S3_BUCKET
       - uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
         with:
@@ -224,4 +224,4 @@ jobs:
           AWS_S3_BUCKET: ${{ env.S3_BUCKET }}
           DISTRIBUTION_ID: ${{ env.CFRONT_DIST_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: ./packages/frontend/build
+          SOURCE_DIR: ./packages/app-frontend/build

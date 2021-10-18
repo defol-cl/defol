@@ -82,6 +82,6 @@ Resources:
     Type: AWS::SSM::Parameter
     Properties:
       Description: API Gateway domain name paramater
-      Name: !Sub /defol/${Branch}/backend/api-gateway-domain-name
+      Name: !Sub /defol/${Branch}/app/backend/api-gateway-domain-name
       Type: String
       Value: !Sub ${Api}.execute-api.${AWS::Region}.amazonaws.com

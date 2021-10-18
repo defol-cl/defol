@@ -14,6 +14,7 @@ const ChildRoutes: React.FC<Props> = ({ routes = [], otherwise, Loading }) => {
   return (
     <Switch>
       {routes.map(({ name, component: Component, exact = true, subpath }, index) => {
+        console.log(subpath, exact)
         return (
           <Route key={index} path={subpath} exact={exact}>
             <Suspense fallback={<Loading/>}>
