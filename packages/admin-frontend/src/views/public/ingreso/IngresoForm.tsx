@@ -53,16 +53,8 @@ const IngresoForm: FC = () => {
       <Container maxWidth="sm">
         <form onSubmit={handleSubmit}>
           <Box sx={{ p: 2 }}>
-            <Typography variant="h4" component="h1">Ingresa a DEFOL</Typography>
-            <Typography variant="subtitle1" color="primary" gutterBottom>Y consulta ya a nuestro equipo de especialistas</Typography>
-            <Alert severity="warning"
-                   action={
-                     <Button size="small" color="inherit" onClick={() => history.push(publicRoutes.registro.route())}>
-                       Regístrate
-                     </Button>
-                   }>
-              ¿Aún no tienes una cuenta?
-            </Alert>
+            <Typography variant="h4" component="h1">Administración DEFOL</Typography>
+            <Typography variant="subtitle1" color="primary" gutterBottom>Para gestionar el uso de la plataforma</Typography>
             <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
               <InputLabel htmlFor="username">Correo electrónico</InputLabel>
               <OutlinedInput

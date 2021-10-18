@@ -9,7 +9,7 @@ export class AdminBaseStack extends cdk.Stack {
     const { branch } = props;
     
     const userPool = new cognito.UserPool(this, `${id}-user-pool`, {
-      userPoolName: 'users',
+      userPoolName: `${id}-user-pool`,
       selfSignUpEnabled: true,
       signInAliases: {
         email: true,

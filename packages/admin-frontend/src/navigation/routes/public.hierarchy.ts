@@ -22,14 +22,6 @@ const getPublicHierarchy = (path: string): NavigationInterface => {
         component: lazy(() => import('../../views/public/Ingreso')),
       },
       {
-        ...publicRoutes.registro,
-        component: lazy(() => import('../../views/public/Registro')),
-      },
-      {
-        ...publicRoutes.registroConfirmar,
-        component: lazy(() => import('../../views/public/Confirma')),
-      },
-      {
         ...publicRoutes.recuperaContrasena,
         component: lazy(() => import('../../views/public/Recupera')),
       },

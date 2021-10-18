@@ -24,7 +24,7 @@ export class AdminStack extends cdk.Stack {
     })
     
     const bucket = new s3.Bucket(this, id, {
-      bucketName: `defol-${branch}-front`,
+      bucketName: `defol-${branch}-admin-front`,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     

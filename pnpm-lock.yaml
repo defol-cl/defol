@@ -5,6 +5,80 @@ importers:
   .:
     specifiers: {}
 
+  packages/admin-backend:
+    specifiers:
+      '@defol-cl/libs': 1.0.11
+      aws-sdk: ^2.993.0
+    dependencies:
+      '@defol-cl/libs': link:../libs
+    devDependencies:
+      aws-sdk: registry.npmjs.org/aws-sdk/2.1000.0
+
+  packages/admin-frontend:
+    specifiers:
+      '@defol-cl/root': 1.0.11
+      '@emotion/react': ^11.4.1
+      '@emotion/styled': ^11.3.0
+      '@fontsource/roboto': ^4.5.1
+      '@mui/icons-material': ^5.0.1
+      '@mui/lab': ^5.0.0-alpha.50
+      '@mui/material': ^5.0.2
+      '@mui/styled-engine-sc': ^5.0.0
+      '@mui/styles': ^5.0.1
+      '@types/node': ^16.4.2
+      '@types/react': ^17.0.15
+      '@types/react-dom': ^17.0.9
+      '@types/react-router-dom': ^5.1.8
+      aws-amplify: ^4.3.1
+      aws-amplify-react: ^5.1.2
+      axios: ^0.21.1
+      cross-env: ^7.0.3
+      fork-ts-checker-webpack-plugin: ^6.2.13
+      formik: ^2.2.9
+      node-sass: ^6.0.1
+      react: ^17.0.2
+      react-app-rewired: ^2.1.8
+      react-dom: ^17.0.2
+      react-router-dom: ^5.2.0
+      react-scripts: 4.0.3
+      styled-components: ^5.3.1
+      tsconfig-paths-webpack-plugin: ^3.5.1
+      typescript: ^4.3.5
+      web-vitals: ^1.0.1
+      yup: ^0.32.9
+    dependencies:
+      '@defol-cl/root': link:../root
+      '@emotion/react': registry.npmjs.org/@emotion/react/11.4.1_b094b78811fc8d2f00a90f13d0251fb6
+      '@emotion/styled': registry.npmjs.org/@emotion/styled/11.3.0_5c2d7d4b854c783938f3cfe7091c0f9b
+      '@fontsource/roboto': registry.npmjs.org/@fontsource/roboto/4.5.1
+      '@mui/icons-material': registry.npmjs.org/@mui/icons-material/5.0.1_a1bc1c8e5975665cda49945c81cf8e18
+      '@mui/lab': registry.npmjs.org/@mui/lab/5.0.0-alpha.50_317c931599744b59b48b612532baf811
+      '@mui/material': registry.npmjs.org/@mui/material/5.0.2_8b1afd652731575359982e6f2c187961
+      '@mui/styled-engine-sc': registry.npmjs.org/@mui/styled-engine-sc/5.0.0_styled-components@5.3.1
+      '@mui/styles': registry.npmjs.org/@mui/styles/5.0.1_b094b78811fc8d2f00a90f13d0251fb6
+      aws-amplify: registry.npmjs.org/aws-amplify/4.3.1
+      aws-amplify-react: registry.npmjs.org/aws-amplify-react/5.1.2_react@17.0.2
+      axios: registry.npmjs.org/axios/0.21.4
+      formik: registry.npmjs.org/formik/2.2.9_react@17.0.2
+      react: registry.npmjs.org/react/17.0.2
+      react-dom: registry.npmjs.org/react-dom/17.0.2_react@17.0.2
+      react-router-dom: registry.npmjs.org/react-router-dom/5.3.0_react@17.0.2
+      styled-components: registry.npmjs.org/styled-components/5.3.1_react-dom@17.0.2+react@17.0.2
+      typescript: registry.npmjs.org/typescript/4.4.3
+      web-vitals: registry.npmjs.org/web-vitals/1.1.2
+      yup: registry.npmjs.org/yup/0.32.9
+    devDependencies:
+      '@types/node': registry.npmjs.org/@types/node/16.10.1
+      '@types/react': registry.npmjs.org/@types/react/17.0.27
+      '@types/react-dom': registry.npmjs.org/@types/react-dom/17.0.9
+      '@types/react-router-dom': registry.npmjs.org/@types/react-router-dom/5.3.0
+      cross-env: registry.npmjs.org/cross-env/7.0.3
+      fork-ts-checker-webpack-plugin: registry.npmjs.org/fork-ts-checker-webpack-plugin/6.3.3
+      node-sass: registry.npmjs.org/node-sass/6.0.1
+      react-app-rewired: registry.npmjs.org/react-app-rewired/2.1.8_react-scripts@4.0.3
+      react-scripts: registry.npmjs.org/react-scripts/4.0.3_1a2f072b09ddb547b09ccae9625a66e4
+      tsconfig-paths-webpack-plugin: registry.npmjs.org/tsconfig-paths-webpack-plugin/3.5.1
+
   packages/app-backend:
     specifiers:
       '@defol-cl/libs': 1.0.11
