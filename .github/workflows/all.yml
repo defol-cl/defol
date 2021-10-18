@@ -208,12 +208,12 @@ jobs:
       - id: get-app-frontend-cloudfront-distribution-id-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app-frontend/cf-distribution-id
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app/cf-distribution-id
           env_variable_name: CFRONT_DIST_ID
       - id: get-app-frontend-bucket-name-ssm-parameter
         uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app-frontend/bucket-name
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/app/frontend/bucket-name
           env_variable_name: S3_BUCKET
       - uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
         with:

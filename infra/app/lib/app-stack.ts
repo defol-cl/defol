@@ -68,8 +68,7 @@ export class AppStack extends cdk.Stack {
         },
         behaviors: [{
           allowedMethods: cloudfront.CloudFrontAllowedMethods.ALL,
-          pathPattern: 'api/*',
-          maxTtl: Duration.millis(0)
+          pathPattern: 'api/*'
         }]
       });
     
