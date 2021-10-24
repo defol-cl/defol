@@ -10,6 +10,15 @@ const themeOptions: ThemeOptions = {
       main: '#FF4081',
     },
   },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        sx: {
+          my: 1
+        }
+      }
+    }
+  }
 };
 
 export const customTheme = createTheme(themeOptions);

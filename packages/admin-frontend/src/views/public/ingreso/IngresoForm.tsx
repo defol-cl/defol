@@ -2,11 +2,7 @@ import React, { FC, useContext, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Alert from "@mui/material/Alert";
 import Grid from "@mui/material/Grid";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -19,6 +15,7 @@ import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
 import { PublicContext } from "../../../layout";
+import { TextField } from "@mui/material";
 
 const IngresoForm: FC = () => {
   const history = useHistory();
@@ -54,36 +51,39 @@ const IngresoForm: FC = () => {
         <form onSubmit={handleSubmit}>
           <Box sx={{ p: 2 }}>
             <Typography variant="h4" component="h1">Administración DEFOL</Typography>
-            <Typography variant="subtitle1" color="primary" gutterBottom>Para gestionar el uso de la plataforma</Typography>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="username">Correo electrónico</InputLabel>
-              <OutlinedInput
-                id="username"
-                type="text"
-                value={username}
-                onChange={handleChange}
-                onBlur={handleBlur}/>
-            </FormControl>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="password">Contraseña</InputLabel>
-              <OutlinedInput
-                id="password"
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                endAdornment={
+            <Typography variant="subtitle1" color="primary" gutterBottom>
+              Para gestionar el uso de la plataforma
+            </Typography>
+            <TextField
+              id="username"
+              label="Correo electrónico"
+              variant="filled"
+              fullWidth
+              value={username}
+              onChange={handleChange}
+              onBlur={handleBlur}/>
+            <TextField
+              id="password"
+              label="Contraseña"
+              variant="filled"
+              fullWidth
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              InputProps={{
+                endAdornment:
                   <InputAdornment position="end">
                     <IconButton
+                      sx={{ marginRight: 0, marginLeft: '4px' }}
                       id="showPassword"
                       onClick={() => formik.setFieldValue('showPassword', !showPassword)}
                       edge="end">
                       {showPassword ? <VisibilityOff/> : <Visibility/>}
                     </IconButton>
                   </InputAdornment>
-                }/>
-            </FormControl>
-            <Grid container spacing={2} sx={{mt: 3}}>
+              }}/>
+            <Grid container spacing={2} sx={{ mt: 3 }}>
               <Grid item xs={6}>
                 <LoadingButton
                   size="large" type="submit" variant="contained" fullWidth
