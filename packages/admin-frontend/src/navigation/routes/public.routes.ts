@@ -6,6 +6,11 @@ export const getPublicRoutes = (path: string): PublicRoutes => ({
 		subpath: `${path}/ingresar`,
 		route: () => `${path}/ingresar`
 	},
+	completarNuevaContrasena: {
+		name: 'Completar Nueva Contraseña',
+		subpath: `${path}/nueva-contrasena`,
+		route: () => `${path}/nueva-contrasena`
+	},
 	recuperaContrasena: {
 		name: 'Recuperar Contraseña',
 		subpath: `${path}/recuperar-contrasena`,

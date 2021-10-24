@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -19,7 +19,7 @@ import { TextField } from "@mui/material";
 
 const IngresoForm: FC = () => {
   const history = useHistory();
-  const { state } = useContext(PublicContext);
+  const { state, setCognitoUser } = useContext(PublicContext);
   const [signingIn, setSigningIn] = useState<boolean>(false);
   const formik = useFormik<FormikIngreso>({
     initialValues: {
@@ -34,7 +34,7 @@ const IngresoForm: FC = () => {
       Auth.signIn(username as string, password)
         .then(user => {
           if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
-            //TODO vista de nueva contraseña requerida
+            setCognitoUser(user);
           } else {
             history.push(privateRoutes.inicio.route());
           }
@@ -42,6 +42,12 @@ const IngresoForm: FC = () => {
         .finally(() => setSigningIn(false))
     }
   });
+  
+  useEffect(() => {
+    if (state.cognitoUser) {
+      history.push(publicRoutes.completarNuevaContrasena.route());
+    }
+  }, [state.cognitoUser])
   
   const { handleChange, handleBlur, handleSubmit, values: { username, password, showPassword } } = formik;
   

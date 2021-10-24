@@ -1,17 +1,15 @@
 import React, { FC, useContext, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
 import Alert from "@mui/material/Alert";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Grid from "@mui/material/Grid";
-import InputLabel from "@mui/material/InputLabel";
 import Link from "@mui/material/Link";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
 import { Auth } from 'aws-amplify';
@@ -81,57 +79,47 @@ const RegistroForm: FC = () => {
             </Alert>
             <Grid container spacing={2}>
               <Grid item sm={6}>
-                <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-                  <InputLabel htmlFor="name">Nombres</InputLabel>
-                  <OutlinedInput
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}/>
-                </FormControl>
+                <TextField
+                  id="name"
+                  type="text"
+                  variant="filled" fullWidth
+                  value={name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}/>
               </Grid>
               <Grid item sm={6}>
-                <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-                  <InputLabel htmlFor="lastName">Apellidos</InputLabel>
-                  <OutlinedInput
-                    id="lastName"
-                    type="text"
-                    value={lastName}
-                    onChange={handleChange}
-                    onBlur={handleBlur}/>
-                </FormControl>
+                <TextField
+                  id="lastName"
+                  type="text"
+                  variant="filled" fullWidth
+                  value={lastName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}/>
               </Grid>
             </Grid>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="username">Correo electrónico</InputLabel>
-              <OutlinedInput
-                id="username"
-                type="text"
-                value={username}
-                onChange={handleChange}
-                onBlur={handleBlur}/>
-            </FormControl>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="password">Contraseña</InputLabel>
-              <OutlinedInput
-                id="password"
-                type="password"
-                autoComplete="new-password"
-                value={password}
-                onChange={handleChange}
-                onBlur={handleBlur}/>
-            </FormControl>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="confirmPassword">Confirmar Contraseña</InputLabel>
-              <OutlinedInput
-                id="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-                value={confirmPassword}
-                onChange={handleChange}
-                onBlur={handleBlur}/>
-            </FormControl>
+            <TextField
+              id="username"
+              type="text"
+              variant="filled" fullWidth
+              value={username}
+              onChange={handleChange}
+              onBlur={handleBlur}/>
+            <TextField
+              id="password"
+              type="password"
+              variant="filled" fullWidth
+              autoComplete="new-password"
+              value={password}
+              onChange={handleChange}
+              onBlur={handleBlur}/>
+            <TextField
+              id="confirmPassword"
+              type="password"
+              variant="filled" fullWidth
+              autoComplete="new-password"
+              value={confirmPassword}
+              onChange={handleChange}
+              onBlur={handleBlur}/>
             <FormGroup>
               <FormControlLabel control={<Checkbox id="serviceTerms" onChange={handleChange}/>} label={
                 <>Acepto los <Link href="#" color="secondary">términos de servicio</Link> de DEFOL</>
