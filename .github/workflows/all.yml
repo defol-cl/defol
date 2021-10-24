@@ -300,7 +300,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           FILE: ./packages/admin-backend/openapi.yaml
-          S3_KEY: ${{ format('defol-{0}-admin-backend/{1}/openapi.yaml', steps.branch.outputs.name, github.sha) }}
+          S3_KEY: ${{ format('defol-{0}-admin-backend-stack/{1}/openapi.yaml', steps.branch.outputs.name, github.sha) }}
       - name: sam-package
         working-directory: ./packages/admin-backend
         run: |
