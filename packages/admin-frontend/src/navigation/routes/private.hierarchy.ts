@@ -24,25 +24,21 @@ const getPrivateHierarchy = (path: string): NavigationInterface => {
         component: lazy(() => import('../../views/private/Inicio')),
       },
       {
-        ...privateRoutes.nuevaPregunta,
-        component: lazy(() => import('../../views/private/NuevaPregunta')),
+        ...privateRoutes.conveniosListado,
+        component: lazy(() => import('../../views/private/Convenios')),
       },
       {
-        ...privateRoutes.previsualizarPregunta,
-        component: lazy(() => import('../../views/private/PrevisualizarPregunta')),
+        ...privateRoutes.convenioDetalle,
+        component: lazy(() => import('../../views/private/Convenio')),
       },
       {
-        ...privateRoutes.misActualizaciones,
-        component: lazy(() => import('../../views/private/Actualizaciones')),
+        ...privateRoutes.preguntasListado,
+        component: lazy(() => import('../../views/private/Preguntas')),
       },
       {
-        ...privateRoutes.miPregunta,
-        component: lazy(() => import('../../views/private/MiPregunta')),
+        ...privateRoutes.preguntaDetalle,
+        component: lazy(() => import('../../views/private/Pregunta')),
       },
-      {
-        ...privateRoutes.misPreguntas,
-        component: lazy(() => import('../../views/private/MisPreguntas')),
-      }
     ],
   };
 };

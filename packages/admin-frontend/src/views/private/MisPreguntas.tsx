@@ -6,8 +6,6 @@ import PreguntaLista from "./components/PreguntaLista";
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 
-const tbSx = { px: 3 };
-
 type Filtro = 'todas' | 'pendientes' | 'cerradas';
 
 const MisPreguntas: FC = () => {
@@ -26,11 +24,11 @@ const MisPreguntas: FC = () => {
     <Card>
       <CardHeader title="Mis Preguntas" subheader="Acá encontrarás el listado de preguntas que hayas realizado"
                   action={
-                    <ToggleButtonGroup sx={{ mt: 1, mx: 2 }} color="primary" size="small" value={filtro} exclusive
+                    <ToggleButtonGroup color="primary" size="small" value={filtro} exclusive
                                        onChange={handleChange}>
-                      <ToggleButton sx={tbSx} value="todas">Todas</ToggleButton>
-                      <ToggleButton sx={tbSx} value="pendientes">Pendientes</ToggleButton>
-                      <ToggleButton sx={tbSx} value="cerradas">Cerradas</ToggleButton>
+                      <ToggleButton value="todas">Todas</ToggleButton>
+                      <ToggleButton value="pendientes">Pendientes</ToggleButton>
+                      <ToggleButton value="cerradas">Cerradas</ToggleButton>
                     </ToggleButtonGroup>
                   }/>
       <PreguntaLista/>

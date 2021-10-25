@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { grey, lightBlue } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
 import Stack from '@mui/material/Stack';
@@ -7,8 +7,6 @@ import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import { useHistory } from "react-router-dom";
 import { privateRoutes } from "../../../navigation";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import CircleIcon from "@mui/icons-material/Circle";
 import ListItem from "@mui/material/ListItem";
 
 const PreguntaListaItem: FC = () => {
@@ -16,7 +14,7 @@ const PreguntaListaItem: FC = () => {
   
   return (
     <ListItem button sx={{ py: 3 }}
-              onClick={() => history.push(privateRoutes.miPregunta.route({ id: 1313 }))}>
+              onClick={() => history.push(privateRoutes.preguntaDetalle.route({ id: 1313 }))}>
       <ListItemText
         primary="¿Cómo puedo hacer para regularizar los planos de mi propiedad en la municipalidad?"
         primaryTypographyProps={{ variant: 'h5', color: grey[800] }}

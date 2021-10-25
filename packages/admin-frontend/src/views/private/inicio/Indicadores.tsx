@@ -9,66 +9,50 @@ import { privateRoutes } from "../../../navigation";
 
 const Indicadores: FC = () => {
   const history = useHistory();
-  console.log(privateRoutes.nuevaPregunta.route());
   return (
     <Grid container spacing={3}>
-      <Grid item md={12}>
+      <Grid item md={4}>
         <Card sx={{ minHeight: '100%' }}>
-          <CardActionArea onClick={() => history.push(privateRoutes.misPreguntas.route())}>
+          <CardActionArea onClick={() => history.push(privateRoutes.conveniosListado.route())}>
             <CardContent>
-              <Grid container direction="row" justifyContent="space-around" alignItems="center">
-                <Typography variant="h1" component="h4">4</Typography>
-                <Grid item xs={8}>
-                  <Typography variant="overline" color="secondary">
-                    Preguntas realizadas
-                  </Typography>
-                  <Typography variant="body2">
-                    Puedes revisar el historial de las preguntas que ya has realizado, será tu material de consulta que
-                    estará
-                    disponible cada vez que lo necesites.
-                  </Typography>
-                </Grid>
-              </Grid>
+              <Typography variant="h1" component="h4">27</Typography>
+              <Typography variant="overline" color="secondary">
+                Convenios vigentes
+              </Typography>
+              <Typography variant="body2">
+                4 nuevos en los últimos 30 días
+              </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
       </Grid>
-      <Grid item md={12}>
+      <Grid item md={4}>
         <Card sx={{ minHeight: '100%' }}>
-          <CardActionArea onClick={() => history.push(privateRoutes.misPreguntas.route({tipo: 'replica-pendiente'}))}>
+          <CardActionArea
+            onClick={() => history.push(privateRoutes.preguntasListado.route({ tipo: 'respuesta-pendiente' }))}>
             <CardContent>
-              <Grid container direction="row" justifyContent="space-around" alignItems="center">
-                <Typography variant="h1" component="h4">3</Typography>
-                <Grid item xs={8}>
-                  <Typography variant="overline" color="secondary">
-                    Réplica(s) pendiente(s)
-                  </Typography>
-                  <Typography variant="body2">
-                    Si te quedó alguno duda, o quieres ahondar en el detalle de la respuesta aprovecha de enviar la
-                    correspondiente réplica, recuerda que vencen 14 días después de la respuesta.
-                  </Typography>
-                </Grid>
-              </Grid>
+              <Typography variant="h1" component="h4">313</Typography>
+              <Typography variant="overline" color="secondary">
+                Nuevas Preguntas
+              </Typography>
+              <Typography variant="body2">
+                Últimos 7 días
+              </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
       </Grid>
-      <Grid item md={12}>
+      <Grid item md={4}>
         <Card sx={{ minHeight: '100%' }}>
-          <CardActionArea onClick={() => history.push(privateRoutes.nuevaPregunta.route())}>
+          <CardActionArea onClick={() => history.push(privateRoutes.preguntasListado.route())}>
             <CardContent>
-              <Grid container direction="row" justifyContent="space-around" alignItems="center">
-                <Typography variant="h1" component="h4">1</Typography>
-                <Grid item xs={8}>
-                  <Typography variant="overline" color="secondary">
-                    Pregunta(s) pendiente(s)
-                  </Typography>
-                  <Typography variant="body2">
-                    Son las preguntas pendientes que tienes disponibles para realizar en cualquier momento. Algunos cupones
-                    tienen fecha de caducidad, por lo que te invitamos a usarlas antes de que expiren.
-                  </Typography>
-                </Grid>
-              </Grid>
+              <Typography variant="h1" component="h4">20</Typography>
+              <Typography variant="overline" color="secondary">
+                Respuestas pendientes
+              </Typography>
+              <Typography variant="body2">
+                Con más de 12 hrs desde su ingreso
+              </Typography>
             </CardContent>
           </CardActionArea>
         </Card>

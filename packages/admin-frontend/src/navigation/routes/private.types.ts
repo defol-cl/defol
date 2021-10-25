@@ -2,11 +2,10 @@ import { RouteData } from './index.types';
 
 type PrivateRouteName =
 	| 'inicio'
-	| 'nuevaPregunta'
-	| 'previsualizarPregunta'
-	| 'miPregunta'
-	| 'misPreguntas'
-	| 'misActualizaciones';
+	| 'conveniosListado'
+	| 'convenioDetalle'
+	| 'preguntasListado'
+	| 'preguntaDetalle';
 
 export type PrivateRoutes = {
 	[key in PrivateRouteName]: RouteData;

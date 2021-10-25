@@ -25,7 +25,7 @@ const NuevaPregunta: FC = () => {
     onSubmit: ({ titulo, antecedentes }) => {
       console.log(titulo, antecedentes, pregunta);
       setSaving(true);
-      history.push(privateRoutes.previsualizarPregunta.route());
+      history.push(privateRoutes.inicio.route());
     }
   });
   

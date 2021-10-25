@@ -18,6 +18,18 @@ const themeOptions: ThemeOptions = {
           my: 1
         }
       }
+    },
+    MuiToggleButtonGroup: {
+      defaultProps: {
+      
+      }
+    },
+    MuiToggleButton: {
+      defaultProps: {
+        sx: {
+          px: 3
+        }
+      }
     }
   }
 };

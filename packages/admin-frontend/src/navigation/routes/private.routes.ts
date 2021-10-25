@@ -6,29 +6,24 @@ export const getPrivateRoutes = (path: string): PrivateRoutes => ({
     subpath: `${path}/`,
     route: () => `${path}/`,
   },
-  nuevaPregunta: {
-    name: 'Nueva Pregunta',
-    subpath: `${path}/mi-pregunta/nueva`,
-    route: () => `${path}/mi-pregunta/nueva`,
+  conveniosListado: {
+    name: 'Listado de Convenios',
+    subpath: `${path}/convenios`,
+    route: () => `${path}/convenios`,
   },
-  previsualizarPregunta: {
-    name: 'Previsualizar Pregunta',
-    subpath: `${path}/mi-pregunta/nueva/previsualizar`,
-    route: () => `${path}/mi-pregunta/nueva/previsualizar`,
+  convenioDetalle: {
+    name: 'Detalle Convenio',
+    subpath: `${path}/convenio/:conId`,
+    route: params => `${path}/convenio/${params!['conId']}`,
   },
-  miPregunta: {
-    name: 'Mi Pregunta',
-    subpath: `${path}/mi-pregunta/:id`,
-    route: params => `${path}/mi-pregunta/${params!['id']}`,
+  preguntasListado: {
+    name: 'Listado de Preguntas',
+    subpath: `${path}/preguntas`,
+    route: () => `${path}/preguntas`,
   },
-  misPreguntas: {
-    name: 'Mis Preguntas',
-    subpath: `${path}/mis-preguntas`,
-    route: params => `${path}/mis-preguntas${params && params['tipo'] ? `?tipo=${params['tipo']}` : ''}`,
-  },
-  misActualizaciones: {
-    name: 'Mis Actualizaciones',
-    subpath: `${path}/mis-actualizaciones`,
-    route: () => `${path}/mis-actualizaciones`,
+  preguntaDetalle: {
+    name: 'Detalle Pregunta',
+    subpath: `${path}/pregunta/:preId`,
+    route: params => `${path}/pregunta/${params!['preId']}`,
   },
 });
