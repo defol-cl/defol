@@ -14,7 +14,7 @@ const CircularProgressLabel: React.FC<Props> = ({ value, total, label = 'percent
   const text = label === 'percentage' ? `${percentage}%` : `${value}/${total}`;
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" value={percentage}/>
+      <CircularProgress variant="determinate" value={percentage} color="info"/>
       <Box sx={{
         top: 0,
         left: 0,
@@ -25,7 +25,7 @@ const CircularProgressLabel: React.FC<Props> = ({ value, total, label = 'percent
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <Typography variant="caption" component="div" color="text.secondary">
+        <Typography variant="caption" component="div" color="info">
           {text}
         </Typography>
       </Box>

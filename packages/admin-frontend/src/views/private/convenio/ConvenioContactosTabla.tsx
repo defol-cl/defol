@@ -13,7 +13,7 @@ interface Props {
   conId: string
 }
 
-const ConvenioCorreosTabla: React.FC<Props> = ({ conId }) => {
+const ConvenioContactosTabla: React.FC<Props> = ({ conId }) => {
   return (
     <TableContainer>
       <Table stickyHeader size="small">
@@ -30,7 +30,8 @@ const ConvenioCorreosTabla: React.FC<Props> = ({ conId }) => {
               <TableRow hover role="checkbox" tabIndex={-1} key={key} onClick={() => console.log(key)}>
                 <TableCell>juana.zuniga@gmail.com</TableCell>
                 <TableCell align="center">
-                  <Chip label="registrado" color="success"/>
+                  <Chip label="registrado" size="small"
+                        sx={{ backgroundColor: 'success.light', color: 'white', borderRadius: 1 }}/>
                 </TableCell>
                 <TableCell align="center">
                   <Grid container direction="column" justifyContent="center" alignItems="center">
@@ -46,4 +47,4 @@ const ConvenioCorreosTabla: React.FC<Props> = ({ conId }) => {
   );
 }
 
-export default ConvenioCorreosTabla;
+export default ConvenioContactosTabla;

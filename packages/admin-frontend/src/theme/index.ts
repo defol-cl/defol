@@ -10,6 +10,19 @@ const themeOptions: ThemeOptions = {
     secondary: {
       main: '#FFC107',
     },
+    success: {
+      main: '#009688',
+      contrastText: '#FFF'
+    },
+    warning: {
+      main: '#FFC107'
+    },
+    info: {
+      main: '#3F51B5'
+    },
+    error: {
+      main: '#E91E63'
+    }
   },
   components: {
     MuiTextField: {
