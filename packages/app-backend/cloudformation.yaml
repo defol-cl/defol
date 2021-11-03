@@ -43,6 +43,18 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: arn:aws:logs:*:*:*
+        - PolicyName: QueryDynamoDB
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:Attributes
+                  - dynamodb:LeadingKeys
+                  - dynamodb:ReturnConsumedCapacity
+                  - dynamodb:ReturnValues
+                  - dynamodb:Select
+                Resource: "*"
 
   Api:
     Type: AWS::Serverless::Api
@@ -67,6 +79,20 @@ Resources:
           Properties:
             RestApiId: !Ref Api
             Path: /preguntas
+            Method: get
+
+  ConveniosGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/convenios
+      Handler: convenios.get
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /convenios
             Method: get
 
   RuntimeDependenciesLayer:

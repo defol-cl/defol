@@ -16,7 +16,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@types/aws-lambda": "^8.10.83"
+    "@types/aws-lambda": "^8.10.83",
+    "@defol/root": "1.0.11"
+  },
+  "devDependencies": {
+    "aws-sdk": "2.876.0"
   },
   "peerDependencies": {
     "@types/aws-lambda": "^8.10.83"
