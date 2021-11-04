@@ -8,6 +8,7 @@ packages/*/src/**/*.js.map
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 yarn.lock
+yarn-error.log
 npm.lock
 /**/.pnpm-debug.log
 

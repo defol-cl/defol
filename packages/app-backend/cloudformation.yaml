@@ -81,6 +81,20 @@ Resources:
             Path: /preguntas
             Method: get
 
+  ResumenPreguntasGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/dashboard
+      Handler: dashboard.resumenPreguntasGet
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /dashboard/resumen-preguntas
+            Method: get
+
   ConveniosGet:
     Type: AWS::Serverless::Function
     Properties:
