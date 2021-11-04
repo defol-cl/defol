@@ -74,7 +74,7 @@ jobs:
 
   publish-libs:
     runs-on: ubuntu-latest
-    needs: params
+    needs: [params, publish-root]
     if: needs.params.outputs.update-libs == 'true'
     steps:
       - uses: actions/checkout@v2
