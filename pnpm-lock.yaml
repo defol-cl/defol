@@ -8,10 +8,13 @@ importers:
   packages/admin-backend:
     specifiers:
       '@defol-cl/libs': 1.0.14
+      '@types/node': ^16.11.6
       aws-sdk: ^2.1023.0
     dependencies:
       '@defol-cl/libs': link:../libs
       aws-sdk: registry.npmjs.org/aws-sdk/2.1023.0
+    devDependencies:
+      '@types/node': registry.npmjs.org/@types/node/16.11.6
 
   packages/admin-frontend:
     specifiers:
@@ -83,10 +86,13 @@ importers:
   packages/app-backend:
     specifiers:
       '@defol-cl/libs': 1.0.14
+      '@types/node': ^16.11.6
       aws-sdk: ^2.1023.0
     dependencies:
       '@defol-cl/libs': link:../libs
       aws-sdk: registry.npmjs.org/aws-sdk/2.1023.0
+    devDependencies:
+      '@types/node': registry.npmjs.org/@types/node/16.11.6
 
   packages/app-frontend:
     specifiers:
@@ -6631,6 +6637,12 @@ packages:
     resolution: {integrity: sha512-4/Z9DMPKFexZj/Gn3LylFgamNKHm4K3QDi0gz9B26Uk0c8izYf97B5fxfpspMNkWlFupblKM/nV8+NA9Ffvr+w==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/@types/node/-/node-16.10.1.tgz}
     name: '@types/node'
     version: 16.10.1
+    dev: true
+
+  registry.npmjs.org/@types/node/16.11.6:
+    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/@types/node/-/node-16.11.6.tgz}
+    name: '@types/node'
+    version: 16.11.6
     dev: true
 
   registry.npmjs.org/@types/normalize-package-data/2.4.1:
