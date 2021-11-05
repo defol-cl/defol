@@ -12,5 +12,8 @@
   "dependencies": {
     "@defol-cl/libs": "1.0.14",
     "aws-sdk": "^2.1023.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.6"
   }
 }
