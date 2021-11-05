@@ -23,15 +23,45 @@ paths:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasGet.Arn}/invocations
         httpMethod: POST
         type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": $context.authorizer.principalId
+            }
         responses:
           default:
             statusCode: 200
+          ".*PREGUNTAS_GET_ERROR.*":
+            statusCode: 500
       summary: obtiene el listado de preguntas
       tags:
         - pregunta
       responses:
         200:
           description: listado de preguntas
+  /dashboard/resumen-preguntas:
+    get:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ResumenPreguntasGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": $context.authorizer.principalId
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*RESUMEN_PREGUNTAS_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene la cantidad de preguntas realizadas, pendientes y replicas realizadas por un usuario
+      tags:
+        - pregunta
+      responses:
+        200:
+          $ref: "#/components/responses/200ResumenPreguntas"
   /convenios:
     get:
       x-amazon-apigateway-integration:
@@ -72,6 +102,21 @@ components:
       example:
         cod: "CMX1"
         nombre: "Convenio Marco"
+    ResumenPreguntas:
+      title: ResumenPreguntas
+      description: cantidad de preguntas por cada estado
+      type: object
+      properties:
+        totalPreguntasPendientes:
+          type: number
+        totalPreguntasRealizadas:
+          type: number
+        totalReplicasPendientes:
+          type: number
+      example:
+        totalPreguntasPendientes: 10
+        totalPreguntasRealizadas: 20
+        totalReplicasPendientes: 2
   responses:
     200ConvenioList:
       description: Listado de convenios
@@ -81,3 +126,9 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/Convenio"
+    200ResumenPreguntas:
+      description: Cantidad de preguntas por cada estado
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ResumenPreguntas"

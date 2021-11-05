@@ -3,6 +3,8 @@ import * as s3 from '@aws-cdk/aws-s3';
 import * as dynamo from '@aws-cdk/aws-dynamodb';
 import * as SSM from "@aws-cdk/aws-ssm";
 import { BaseStackProps } from './base-stack.types';
+import { DynamoTable } from './dynamo-table';
+import { DynamoIndex } from './dynamo-index';
 
 export class BaseStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props: BaseStackProps) {
@@ -14,8 +16,9 @@ export class BaseStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
 
-    const convenioTable = new dynamo.Table(this, `${id}-resource-dynamodb-convenio`, {
-      tableName: `defol-convenio-${branch}`,
+    const convenio = new DynamoTable(this, `${id}-resource-dynamodb-convenio`, {
+      branch,
+      name: "convenio",
       partitionKey: {
         name: "cod",
         type: dynamo.AttributeType.STRING
@@ -23,13 +26,12 @@ export class BaseStack extends cdk.Stack {
       sortKey: {
         name: "nombre",
         type: dynamo.AttributeType.STRING
-      },
-      billingMode: dynamo.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN
+      }
     })
 
-    const convenioModeradorTable = new dynamo.Table(this, `${id}-resource-dynamodb-convenio-moderador`, {
-      tableName: `defol-convenio-moderador-${branch}`,
+    const convenioModerador = new DynamoTable(this, `${id}-resource-dynamodb-convenio-moderador`, {
+      branch,
+      name: "convenio-moderador",
       partitionKey: {
         name: "convenio_cod",
         type: dynamo.AttributeType.STRING
@@ -37,13 +39,12 @@ export class BaseStack extends cdk.Stack {
       sortKey: {
         name: "username",
         type: dynamo.AttributeType.STRING
-      },
-      billingMode: dynamo.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN
+      }
     })
 
-    const convenioContactoTable = new dynamo.Table(this, `${id}-resource-dynamodb-convenio-contacto`, {
-      tableName: `defol-convenio-contacto-${branch}`,
+    const convenioContacto = new DynamoTable(this, `${id}-resource-dynamodb-convenio-contacto`, {
+      branch,
+      name: "convenio-contacto",
       partitionKey: {
         name: "convenio_cod",
         type: dynamo.AttributeType.STRING
@@ -51,13 +52,12 @@ export class BaseStack extends cdk.Stack {
       sortKey: {
         name: "username",
         type: dynamo.AttributeType.STRING
-      },
-      billingMode: dynamo.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN
+      }
     })
 
-    const preguntaTable = new dynamo.Table(this, `${id}-resource-dynamodb-pregunta`, {
-      tableName: `defol-pregunta-${branch}`,
+    const pregunta = new DynamoTable(this, `${id}-resource-dynamodb-pregunta`, {
+      branch,
+      name: "pregunta",
       partitionKey: {
         name: "username",
         type: dynamo.AttributeType.STRING
@@ -65,59 +65,64 @@ export class BaseStack extends cdk.Stack {
       sortKey: {
         name: "timestamp",
         type: dynamo.AttributeType.NUMBER
-      },
-      billingMode: dynamo.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN
+      }
     })
 
-    const categoriaTable = new dynamo.Table(this, `${id}-resource-dynamodb-categoria`, {
-      tableName: `defol-categoria-${branch}`,
+    const categoria = new DynamoTable(this, `${id}-resource-dynamodb-categoria`, {
+      branch,
+      name: "categoria",
       partitionKey: {
         name: "cod",
         type: dynamo.AttributeType.STRING
       },
       sortKey: {
         name: "nombre",
-        type: dynamo.AttributeType.NUMBER
-      },
-      billingMode: dynamo.BillingMode.PAY_PER_REQUEST,
-      removalPolicy: cdk.RemovalPolicy.RETAIN
+        type: dynamo.AttributeType.STRING
+      }
     })
 
-    convenioModeradorTable.addGlobalSecondaryIndex({
-      indexName: 'usernameIndex',
+    new DynamoIndex(this, `${id}-resources-table-index-usernameIndex`, {
+      branch,
+      name: 'usernameIndex',
       partitionKey: {
         name: "username",
         type: dynamo.AttributeType.STRING
       },
-      projectionType: dynamo.ProjectionType.ALL
+      type: "GLOBAL",
+      table: convenioModerador.table,
     })
 
-    preguntaTable.addLocalSecondaryIndex({
-      indexName: 'estadoIndex',
+    new DynamoIndex(this, `${id}-resources-table-index-estadoIndex`, {
+      branch,
+      name: 'estadoIndex',
       sortKey: {
         name: "estado",
         type: dynamo.AttributeType.STRING
       },
-      projectionType: dynamo.ProjectionType.ALL
+      type: "LOCAL",
+      table: pregunta.table,
     })
 
-    preguntaTable.addLocalSecondaryIndex({
-      indexName: 'fechaActualizacionIndex',
+    new DynamoIndex(this, `${id}-resources-table-index-fechaActualizacionIndex`, {
+      branch,
+      name: 'fechaActualizacionIndex',
       sortKey: {
         name: "fecha_actualizacion",
         type: dynamo.AttributeType.STRING
       },
-      projectionType: dynamo.ProjectionType.ALL
+      type: "LOCAL",
+      table: pregunta.table,
     })
 
-    preguntaTable.addGlobalSecondaryIndex({
-      indexName: 'convenioCodIndex',
+    new DynamoIndex(this, `${id}-resources-table-index-convenioCodIndex`, {
+      branch,
+      name: 'convenioCodIndex',
       partitionKey: {
         name: "convenio_cod",
         type: dynamo.AttributeType.STRING
       },
-      projectionType: dynamo.ProjectionType.ALL
+      type: "GLOBAL",
+      table: pregunta.table,
     })
 
     new cdk.CfnOutput(this, `${id}-resources-bucket-name-output`, {

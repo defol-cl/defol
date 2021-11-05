@@ -14,12 +14,48 @@ Parameters:
   Sha:
     Type: String
     Description: identificador de la ejecución del CICD
+  ConvenioTable:
+    Type: String
+    Description: nombre de tabla Convenio
+  ConvenioModeradorTable:
+    Type: String
+    Description: nombre de tabla Convenio-Moderador
+  ConvenioContactoTable:
+    Type: String
+    Description: nombre de tabla Convenio-Contacto
+  PreguntaTable:
+    Type: String
+    Description: nombre de tabla Pregunta
+  CategoriaTable:
+    Type: String
+    Description: nombre de tabla Categoria
+  UsernameIndex:
+    Type: String
+    Description: nombre de indice de tabla Pregunta
+  EstadoIndex:
+    Type: String
+    Description: nombre de indice de tabla Pregunta
+  FechaActualizacionIndex:
+    Type: String
+    Description: nombre de indice de tabla Pregunta
+  ConvenioCodIndex:
+    Type: String
+    Description: nombre de indice de tabla ConvenioModerador
 
 Globals:
   Function:
     Runtime: nodejs12.x
     Timeout: 200
     MemorySize: 1024
+    CONVENIO_TABLE: !Ref ConvenioTable
+    CONVENIO_MODERADOR_TABLE: !Ref ConvenioModeradorTable
+    CONVENIO_CONTACTO_TABLE: !Ref ConvenioContactoTable
+    PREGUNTA_TABLE: !Ref PreguntaTable
+    CATEGORIA_TABLE: !Ref CategoriaTable
+    PREGUNTA_USERNAME_INDEX: !Ref UsernameIndex
+    PREGUNTA_ESTADO_INDEX: !Ref EstadoIndex
+    PREGUNTA_FECHA_ACTUALIZACION_INDEX: !Ref FechaActualizacionIndex
+    CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
 
 Resources:
   LambdaRole:
@@ -79,6 +115,20 @@ Resources:
           Properties:
             RestApiId: !Ref Api
             Path: /preguntas
+            Method: get
+
+  ResumenPreguntasGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/dashboard
+      Handler: dashboard.resumenPreguntasGet
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /dashboard/resumen-preguntas
             Method: get
 
   ConveniosGet:
