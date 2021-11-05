@@ -86,10 +86,12 @@ importers:
   packages/app-backend:
     specifiers:
       '@defol-cl/libs': 1.0.14
+      '@defol-cl/root': workspace:1.0.14
       '@types/node': ^16.11.6
       aws-sdk: ^2.1023.0
     dependencies:
       '@defol-cl/libs': link:../libs
+      '@defol-cl/root': link:../root
       aws-sdk: registry.npmjs.org/aws-sdk/2.1023.0
     devDependencies:
       '@types/node': registry.npmjs.org/@types/node/16.11.6
