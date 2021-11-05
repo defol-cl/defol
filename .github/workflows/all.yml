@@ -90,10 +90,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm publish
+
   publish-root:
     runs-on: ubuntu-latest
     needs: params
-    if: always() && needs.params.outputs.update-root == 'true'
+    if: always() && needs.params.outputs.update-libs == 'true'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
