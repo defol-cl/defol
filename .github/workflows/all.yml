@@ -216,13 +216,12 @@ jobs:
           --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
           --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} Sha=${{ github.sha }} \
-          Branch=${{ steps.branch.outputs.name }} ConvenioTable=${{ env.RESOURCE_TABLE_CONVENIO}} \
-          ConvenioModeradorTable=${{ env.RESOURCE_TABLE_CONVENIO_MODERADOR}} \
-          ConvenioContactoTable=${{ env.RESOURCE_TABLE_CONVENIO_CONTACTO}} \
-          PreguntaTable=${{ env.RESOURCE_TABLE_PREGUNTA}} CategoriaTable=${{ env.RESOURCE_TABLE_CATEGORIA}} \
-          UsernameIndex=${{ env.RESOURCE_TABLE_INDEX_USERNAME}} EstadoIndex=${{ env.RESOURCE_TABLE_INDEX_ESTADO}} \
-          FechaActualizacionIndex=${{ env.RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION}} \
-          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD}}
+          Branch=${{ steps.branch.outputs.name }} ConvenioTable=${{ env.RESOURCE_TABLE_CONVENIO }} \
+          ConvenioModeradorTable=${{ env.RESOURCE_TABLE_CONVENIO_MODERADOR }} ConvenioContactoTable=${{ env.RESOURCE_TABLE_CONVENIO_CONTACTO }} \
+          PreguntaTable=${{ env.RESOURCE_TABLE_PREGUNTA }} CategoriaTable=${{ env.RESOURCE_TABLE_CATEGORIA }} \
+          UsernameIndex=${{ env.RESOURCE_TABLE_INDEX_USERNAME }} EstadoIndex=${{ env.RESOURCE_TABLE_INDEX_ESTADO }} \
+          FechaActualizacionIndex=${{ env.RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION }} \
+          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD }}
 
   app-frontend:
     runs-on: ubuntu-latest
