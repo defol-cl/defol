@@ -82,11 +82,11 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
-      - name: npm-install-production
+      - name: npm-install
         working-directory: ./packages/libs
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm install --production
+        run: npm install
       - name: npm-publish
         working-directory: ./packages/libs
         env:
