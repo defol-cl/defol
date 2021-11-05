@@ -165,7 +165,7 @@ jobs:
           env_variable_name: RESOURCE_TABLE_CONVENIO_MODERADOR
       - uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto
           env_variable_name: RESOURCE_TABLE_CONVENIO_CONTACTO
       - uses: marvinpinto/action-inject-ssm-secrets@latest
         with:
