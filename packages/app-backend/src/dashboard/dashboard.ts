@@ -1,5 +1,5 @@
 import { RootUtils } from "@defol-cl/root";
-import { DynamoServices } from "libs/src/services";
+import { DynamoServices } from "@defol-cl/libs";
 import { ResumenPreguntasGetHandler } from "./dashboard.types";
 
 export const resumenPreguntasGet: ResumenPreguntasGetHandler = async({ usrId }, context, callback) => {
