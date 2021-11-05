@@ -1,11 +1,10 @@
 import AWS from "aws-sdk";
 import { ConvenioDynamo } from "@defol-cl/root";
 
-//Decidir si se extraerá nombre de aca o se le pasará a la función desde la lambda (tipo SSM)
+const dynamo = new AWS.DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
 const PREGUNTA_TABLE = process.env.PREGUNTA_TABLE;
 const PREGUNTA_ESTADO_INDEX = process.env.PREGUNTA_ESTADO_INDEX;
-const dynamo = new AWS.DynamoDB.DocumentClient();
 
 export const getConvenios = (items: ConvenioDynamo[] = [], lastKey?: AWS.DynamoDB.DocumentClient.Key): Promise<ConvenioDynamo[]> => {
   return new Promise((resolve, reject) => {

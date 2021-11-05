@@ -152,6 +152,42 @@ jobs:
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-bucket-name
           env_variable_name: RESOURCE_S3_BUCKET
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio
+          env_variable_name: RESOURCE_TABLE_CONVENIO
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador
+          env_variable_name: RESOURCE_TABLE_CONVENIO_MODERADOR
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador
+          env_variable_name: RESOURCE_TABLE_CONVENIO_CONTACTO
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta
+          env_variable_name: RESOURCE_TABLE_PREGUNTA
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria
+          env_variable_name: RESOURCE_TABLE_CATEGORIA
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-usernameIndex
+          env_variable_name: RESOURCE_TABLE_INDEX_USERNAME
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex
+          env_variable_name: RESOURCE_TABLE_INDEX_ESTADO
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex
+          env_variable_name: RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex
+          env_variable_name: RESOURCE_TABLE_INDEX_CONVENIO_COD
       - name: upload-openapi
         uses: zdurham/s3-upload-github-action@master
         env:
@@ -177,7 +213,13 @@ jobs:
           --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
           --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} Sha=${{ github.sha }} \
-          Branch=${{ steps.branch.outputs.name }}
+          Branch=${{ steps.branch.outputs.name }} ConvenioTable=${{ env.RESOURCE_TABLE_CONVENIO}} \
+          ConvenioModeradorTable=${{ env.RESOURCE_TABLE_CONVENIO_MODERADOR}} \
+          ConvenioContactoTable=${{ env.RESOURCE_TABLE_CONVENIO_CONTACTO}} \
+          PreguntaTable=${{ env.RESOURCE_TABLE_PREGUNTA}} CategoriaTable=${{ env.RESOURCE_TABLE_CATEGORIA}} \
+          UsernameIndex=${{ env.RESOURCE_TABLE_INDEX_USERNAME}} EstadoIndex=${{ env.RESOURCE_TABLE_INDEX_ESTADO}} \
+          FechaActualizacionIndex=${{ env.RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION}} \
+          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD}}
 
   app-frontend:
     runs-on: ubuntu-latest

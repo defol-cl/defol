@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@defol-cl/libs": "1.0.12"
+    "@defol-cl/libs": "1.0.13"
   },
   "devDependencies": {
     "aws-sdk": "^2.993.0"
