@@ -47,15 +47,17 @@ Globals:
     Runtime: nodejs12.x
     Timeout: 200
     MemorySize: 1024
-    CONVENIO_TABLE: !Ref ConvenioTable
-    CONVENIO_MODERADOR_TABLE: !Ref ConvenioModeradorTable
-    CONVENIO_CONTACTO_TABLE: !Ref ConvenioContactoTable
-    PREGUNTA_TABLE: !Ref PreguntaTable
-    CATEGORIA_TABLE: !Ref CategoriaTable
-    PREGUNTA_USERNAME_INDEX: !Ref UsernameIndex
-    PREGUNTA_ESTADO_INDEX: !Ref EstadoIndex
-    PREGUNTA_FECHA_ACTUALIZACION_INDEX: !Ref FechaActualizacionIndex
-    CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
+    Environment:
+      Variables:
+        CONVENIO_TABLE: !Ref ConvenioTable
+        CONVENIO_MODERADOR_TABLE: !Ref ConvenioModeradorTable
+        CONVENIO_CONTACTO_TABLE: !Ref ConvenioContactoTable
+        PREGUNTA_TABLE: !Ref PreguntaTable
+        CATEGORIA_TABLE: !Ref CategoriaTable
+        PREGUNTA_USERNAME_INDEX: !Ref UsernameIndex
+        PREGUNTA_ESTADO_INDEX: !Ref EstadoIndex
+        PREGUNTA_FECHA_ACTUALIZACION_INDEX: !Ref FechaActualizacionIndex
+        CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
 
 Resources:
   LambdaRole:
