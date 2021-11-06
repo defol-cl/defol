@@ -8,13 +8,12 @@
   "repository": "git://github.com/defol-cl/defol.git",
   "scripts": {
     "build": "pnpm recursive run build",
-    "clean": "pnpm recursive exec -- rm -rf node_modules; rm shrinkwrap.yaml; rm -rf node_modules",
+    "clean": "pnpm recursive exec -- rm -rf node_modules; rm -rf node_modules",
     "server:start": "pnpm recursive run start --filter @beaver/server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "front:build": "pnpm build --filter @open-data/frontend",
-    "front:start": "pnpm start --filter @open-data/frontend",
-    "infra:build": "pnpm build --filter @open-data/infra",
-    "infra:cdk": "pnpm cdk --filter @open-data/infra",
-    "infra:all": "pnpm infra:build && pnpm infra:cdk"
+    "app-frontend:build": "pnpm build --filter @defol-cl/app-frontend",
+    "app-frontend:start": "pnpm start --filter @defol-cl/app-frontend",
+    "admin-frontend:build": "pnpm build --filter @defol-cl/admin-frontend",
+    "admin-frontend:start": "pnpm start --filter @defol-cl/admin-frontend"
   }
 }

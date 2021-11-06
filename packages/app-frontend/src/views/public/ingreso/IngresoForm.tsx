@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
 import { PublicContext } from "../../../layout";
 import { TextField } from "@mui/material";
+import Alert from '@mui/lab/Alert';
 
 const IngresoForm: FC = () => {
   const history = useHistory();
@@ -50,10 +51,18 @@ const IngresoForm: FC = () => {
       <Container maxWidth="sm">
         <form onSubmit={handleSubmit}>
           <Box sx={{ p: 2 }}>
-            <Typography variant="h4" component="h1">Administración DEFOL</Typography>
+            <Typography variant="h4" component="h1">Ingresa a DEFOL</Typography>
             <Typography variant="subtitle1" color="primary" gutterBottom>
-              Para gestionar el uso de la plataforma
+              Y consulta ya a nuestro equipo de especialistas
             </Typography>
+            <Alert severity="warning"
+                   action={
+                     <Button size="small" color="inherit" onClick={() => history.push(publicRoutes.registro.route())}>
+                       Regístrate
+                     </Button>
+                   }>
+              ¿Aún no tienes una cuenta?
+            </Alert>
             <TextField
               id="username"
               label="Correo electrónico"

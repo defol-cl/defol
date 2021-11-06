@@ -4,12 +4,14 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import { FormikNuevaPregunta, validationNuevaPregunta } from "./nueva-pregunta/nueva-pregunta.formik";
-import TextField from '@mui/material/TextField';
 import Grid from "@mui/material/Grid";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useHistory } from "react-router-dom";
 import { privateRoutes } from "../../navigation";
 import { Typography } from "@mui/material";
+import ConveniosList from "./nueva-pregunta/ConveniosList";
+import PreguntaForm from './nueva-pregunta/PreguntaForm';
+import CardHeader from "@mui/material/CardHeader";
 
 const NuevaPregunta: FC = () => {
   const history = useHistory();
@@ -33,48 +35,25 @@ const NuevaPregunta: FC = () => {
     handleChange,
     handleBlur,
     handleSubmit,
-    values: { titulo, antecedentes, pregunta }
+    setFieldValue,
+    values: { convenio, titulo, antecedentes, pregunta }
   } = formik;
   
   return (
     <>
-      <Typography variant="h5" component="h1">
-        Realizar una pregunta
+      <Typography variant="h4" component="h1">
+        Realizar una nueva pregunta
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        Cuéntanos en detalle cómo podemos orientarte
+      <Typography variant="body1" color="text.secondary" gutterBottom>
+        En esta sección podrás exponer los antecedentes pertinentes y realizar tu consulta.
       </Typography>
       <form onSubmit={handleSubmit}>
+        <ConveniosList convenio={convenio} setFieldValue={setFieldValue}/>
         <Card>
+          <CardHeader title="Detalle de la pregunta" subheader="Cuéntanos en detalle cómo podemos orientarte"/>
           <CardContent>
-            <TextField
-              id="titulo"
-              label="Título"
-              helperText="Algo parecido al asunto de un correo, que resuma el contenido de la pregunta. O si queda más claro, sería como el título de la canción."
-              fullWidth
-              value={titulo}
-              onChange={handleChange}
-              onBlur={handleBlur}/>
-            <TextField
-              id="antecedentes"
-              label="Antecedentes de tu consulta"
-              helperText="Información importante respecto de tu consulta, antecedentes importantes que nuestro equipo legal deba conocer como parte del contexto."
-              multiline
-              minRows={5}
-              fullWidth
-              value={antecedentes}
-              sx={{ mt: 2 }}
-              onChange={handleChange}
-              onBlur={handleBlur}/>
-            <TextField
-              id="pregunta"
-              label="Pregunta"
-              helperText="Indícanos cuál es tu consulta, siendo lo más claro posible."
-              fullWidth
-              value={pregunta}
-              sx={{ mt: 2 }}
-              onChange={handleChange}
-              onBlur={handleBlur}/>
+            <PreguntaForm titulo={titulo} antecedentes={antecedentes} pregunta={pregunta}
+                          handleChange={handleChange} handleBlur={handleBlur}/>
             <Grid container spacing={2} sx={{ mt: 3 }}>
               <Grid item xs={6}>
                 <LoadingButton
