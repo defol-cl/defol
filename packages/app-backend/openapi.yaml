@@ -26,7 +26,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": $context.authorizer.principalId
+              "usrId": "$context.authorizer.principalId"
             }
         responses:
           default:
@@ -39,6 +39,51 @@ paths:
       responses:
         200:
           description: listado de preguntas
+    post:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasPost.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.principalId",
+              "pregunta": $input.json('pregunta')
+            }
+        responses:
+          default:
+            statusCode: 201
+          ".*PREGUNTA_CREATE_FAILED.*":
+            statusCode: 400
+          ".*PREGUNTA_CREATE_ERROR.*":
+            statusCode: 500
+      summary: permite crear preguntas
+      tags:
+        - pregunta
+      requestBody:
+        description: codigo de convenio y pregunta
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titulo:
+                  type: string
+                antecedentes:
+                  type: string
+                convenioCod:
+                  type: string
+                pregunta:
+                  types: string
+      responses:
+        201:
+          description: OK
+        400:
+          description: se alcanzó el límite de preguntas
+        500:
+          description: error al ejecutar lambda
   /dashboard/resumen-preguntas:
     get:
       x-amazon-apigateway-integration:
@@ -49,7 +94,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": $context.authorizer.principalId
+              "usrId": "$context.authorizer.principalId"
             }
         responses:
           default:
@@ -58,10 +103,38 @@ paths:
             statusCode: 500
       summary: obtiene la cantidad de preguntas realizadas, pendientes y replicas realizadas por un usuario
       tags:
-        - pregunta
+        - dashboard
       responses:
         200:
           $ref: "#/components/responses/200ResumenPreguntas"
+        500:
+          description: error al ejecutar lambda
+
+  /dashboard/ultimas-actualizaciones:
+    get:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UltimasActualizacionesGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.principalId"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*ULTIMAS_ACTUALIZACIONES_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene las 5 últimas actualizaciones sobre preguntas de un usuario
+      tags:
+        - dashboard
+      responses:
+        200:
+          $ref: "#/components/responses/200UltimasActualizaciones"
+        500:
+          description: error al ejecutar lambda
   /convenios:
     get:
       x-amazon-apigateway-integration:
@@ -72,7 +145,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": $context.authorizer.principalId
+              "usrId": "$context.authorizer.principalId"
             }
         responses:
           default:
@@ -90,6 +163,41 @@ paths:
 
 components:
   schemas:
+    Pregunta:
+      title: Pregunta
+      description: información de una pregunta
+      type: object
+      properties:
+        cod:
+          type: string
+        convenioCod:
+          type: string
+        estado:
+          type: string
+        interacciones:
+          type: number
+        interaccionesMax:
+          type: number
+        timestamp:
+          type: number
+        titulo:
+          type: string
+        antecedentes:
+          type: string
+        pregunta:
+          type: string
+        username:
+          type: string
+        fechaActualizacion:
+          type: string
+        fechaUltimoAcceso:
+          type: string
+        cantReplicas:
+          type: number
+        categoria:
+          type: string
+        usernameEjecutivo:
+          type: string
     Convenio:
       title: Convenio
       description: información de un convenio
@@ -99,9 +207,18 @@ components:
           type: string
         nombre:
           type: string
+        fechaVencimiento:
+          type: string
+        limitePreguntas:
+          type: number
+        preguntasRealizadas:
+          type: number
       example:
         cod: "CMX1"
         nombre: "Convenio Marco"
+        fechaVencimiento: "2022-01-01"
+        limitePreguntas: 5
+        preguntasRealizadas: 3
     ResumenPreguntas:
       title: ResumenPreguntas
       description: cantidad de preguntas por cada estado
@@ -132,3 +249,11 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ResumenPreguntas"
+    200UltimasActualizaciones:
+      description: Entrega las ultimas 5 preguntas de un usuario según su fecha de actualizacion (DESC)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Pregunta"

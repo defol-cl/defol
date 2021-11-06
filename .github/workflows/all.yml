@@ -191,6 +191,14 @@ jobs:
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex
           env_variable_name: RESOURCE_TABLE_INDEX_CONVENIO_COD
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoUsernameIndex
+          env_variable_name: RESOURCE_TABLE_INDEX_CONTACTO_USERNAME
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-userConvenioCodIndex
+          env_variable_name: RESOURCE_TABLE_INDEX_PREGUNTA_USERNAME_CONVENIO
       - name: upload-openapi
         uses: zdurham/s3-upload-github-action@master
         env:
@@ -221,7 +229,8 @@ jobs:
           PreguntaTable=${{ env.RESOURCE_TABLE_PREGUNTA }} CategoriaTable=${{ env.RESOURCE_TABLE_CATEGORIA }} \
           UsernameIndex=${{ env.RESOURCE_TABLE_INDEX_USERNAME }} EstadoIndex=${{ env.RESOURCE_TABLE_INDEX_ESTADO }} \
           FechaActualizacionIndex=${{ env.RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION }} \
-          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD }}
+          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD }} ContactoUsernameIndex=${{ env.RESOURCE_TABLE_INDEX_CONTACTO_USERNAME }} \
+          UserConvenioIndex=${{ env.RESOURCE_TABLE_INDEX_PREGUNTA_USERNAME_CONVENIO }}
 
   app-frontend:
     runs-on: ubuntu-latest

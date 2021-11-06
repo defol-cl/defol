@@ -1,0 +1,6 @@
+export enum EstadoPregunta {
+  INGRESADA = "INGRESADA",
+  RESPONDIDA = "RESPONDIDA",
+  REPLICADA = "REPLICADA",
+  FINALIZADA = "FINALIZADA"
+}

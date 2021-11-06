@@ -1,4 +1,4 @@
 export interface ConvenioPreguntaUsuario {
   limitePreguntas: number
-  cantPreguntas: number
+  preguntasRealizadas: number
 }
