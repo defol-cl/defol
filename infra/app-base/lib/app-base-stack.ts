@@ -42,19 +42,24 @@ export class AppBaseStack extends cdk.Stack {
       userPoolClientName: `${id}-user-pool-client`
     });
     
+    new SSM.StringParameter(this, `${id}-cognito-user-pool-arn`, {
+      parameterName: `/defol/${branch}/app/user-pool-arn`,
+      description: 'User Pool Arn',
+      stringValue: userPool.userPoolArn
+    });
     new SSM.StringParameter(this, `${id}-cognito-user-pool-id-parameter`, {
       parameterName: `/defol/${branch}/app/user-pool-id`,
-      description: 'User Pool id',
+      description: 'User Pool Id',
       stringValue: userPool.userPoolId
     });
     new SSM.StringParameter(this, `${id}-cognito-user-pool-client-id-parameter`, {
       parameterName: `/defol/${branch}/app/user-pool-client-id`,
-      description: 'User Pool Client id',
+      description: 'User Pool Client Id',
       stringValue: userPoolClient.userPoolClientId
     });
     new SSM.StringParameter(this, `${id}-cognito-user-pool-region-parameter`, {
       parameterName: `/defol/${branch}/app/user-pool-region`,
-      description: 'User Pool region',
+      description: 'User Pool Region',
       stringValue: userPool.env.region
     });
   }

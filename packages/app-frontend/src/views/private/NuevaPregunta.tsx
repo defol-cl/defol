@@ -12,6 +12,7 @@ import { Typography } from "@mui/material";
 import ConveniosList from "./nueva-pregunta/ConveniosList";
 import PreguntaForm from './nueva-pregunta/PreguntaForm';
 import CardHeader from "@mui/material/CardHeader";
+import Divider from "@mui/material/Divider";
 
 const NuevaPregunta: FC = () => {
   const history = useHistory();
@@ -51,6 +52,7 @@ const NuevaPregunta: FC = () => {
         <ConveniosList convenio={convenio} setFieldValue={setFieldValue}/>
         <Card>
           <CardHeader title="Detalle de la pregunta" subheader="Cuéntanos en detalle cómo podemos orientarte"/>
+          <Divider/>
           <CardContent>
             <PreguntaForm titulo={titulo} antecedentes={antecedentes} pregunta={pregunta}
                           handleChange={handleChange} handleBlur={handleBlur}/>

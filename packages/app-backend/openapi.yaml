@@ -257,3 +257,14 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/Pregunta"
+
+  securitySchemes:
+    CUPAuthorizer:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: cognito_user_pools
+      x-amazon-apigateway-authorizer:
+        providerARNs:
+          - Fn::Sub: ${CognitoUserPool}
+        type: cognito_user_pools

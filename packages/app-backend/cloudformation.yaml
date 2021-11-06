@@ -47,6 +47,9 @@ Parameters:
   UserConvenioIndex:
     Type: String
     Description: nombre de indice de tabla Pregunta
+  UserPoolArn:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Arn del user pool de cognito
 
 Globals:
   Function:
@@ -112,6 +115,11 @@ Resources:
           Name: AWS::Include
           Parameters:
             Location: !Sub s3://${ResourcesBucket}/${AWS::StackName}/${Sha}/openapi.yaml
+      Auth:
+        Authorizers:
+          CUPAuthorizer:
+            UserPoolArn: !Ref UserPoolArn
+            Type: COGNITO_USER_POOLS
 
   PreguntasGet:
     Type: AWS::Serverless::Function

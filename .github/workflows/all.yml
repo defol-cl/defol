@@ -223,14 +223,21 @@ jobs:
           --stack-name defol-${{ steps.branch.outputs.name }}-app-backend \
           --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
-          --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} Sha=${{ github.sha }} \
-          Branch=${{ steps.branch.outputs.name }} ConvenioTable=${{ env.RESOURCE_TABLE_CONVENIO }} \
-          ConvenioModeradorTable=${{ env.RESOURCE_TABLE_CONVENIO_MODERADOR }} ConvenioContactoTable=${{ env.RESOURCE_TABLE_CONVENIO_CONTACTO }} \
-          PreguntaTable=${{ env.RESOURCE_TABLE_PREGUNTA }} CategoriaTable=${{ env.RESOURCE_TABLE_CATEGORIA }} \
-          UsernameIndex=${{ env.RESOURCE_TABLE_INDEX_USERNAME }} EstadoIndex=${{ env.RESOURCE_TABLE_INDEX_ESTADO }} \
+          --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} \
+          Sha=${{ github.sha }} \
+          Branch=${{ steps.branch.outputs.name }} \
+          ConvenioTable=${{ env.RESOURCE_TABLE_CONVENIO }} \
+          ConvenioModeradorTable=${{ env.RESOURCE_TABLE_CONVENIO_MODERADOR }} \
+          ConvenioContactoTable=${{ env.RESOURCE_TABLE_CONVENIO_CONTACTO }} \
+          PreguntaTable=${{ env.RESOURCE_TABLE_PREGUNTA }} \
+          CategoriaTable=${{ env.RESOURCE_TABLE_CATEGORIA }} \
+          UsernameIndex=${{ env.RESOURCE_TABLE_INDEX_USERNAME }} \
+          EstadoIndex=${{ env.RESOURCE_TABLE_INDEX_ESTADO }} \
           FechaActualizacionIndex=${{ env.RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION }} \
-          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD }} ContactoUsernameIndex=${{ env.RESOURCE_TABLE_INDEX_CONTACTO_USERNAME }} \
+          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD }} \
+          ContactoUsernameIndex=${{ env.RESOURCE_TABLE_INDEX_CONTACTO_USERNAME }} \
           UserConvenioIndex=${{ env.RESOURCE_TABLE_INDEX_PREGUNTA_USERNAME_CONVENIO }}
+          UserPoolArn=/defol/${{ steps.branch.outputs.name }}/app/user-pool-arn
 
   app-frontend:
     runs-on: ubuntu-latest
