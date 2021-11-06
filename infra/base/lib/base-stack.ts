@@ -33,7 +33,7 @@ export class BaseStack extends cdk.Stack {
       branch,
       name: "convenio-moderador",
       partitionKey: {
-        name: "convenio_cod",
+        name: "convenioCod",
         type: dynamo.AttributeType.STRING
       },
       sortKey: {
@@ -46,7 +46,7 @@ export class BaseStack extends cdk.Stack {
       branch,
       name: "convenio-contacto",
       partitionKey: {
-        name: "convenio_cod",
+        name: "convenioCod",
         type: dynamo.AttributeType.STRING
       },
       sortKey: {
@@ -107,7 +107,18 @@ export class BaseStack extends cdk.Stack {
       branch,
       name: 'fechaActualizacionIndex',
       sortKey: {
-        name: "fecha_actualizacion",
+        name: "fechaActualizacion",
+        type: dynamo.AttributeType.STRING
+      },
+      type: "LOCAL",
+      table: pregunta.table,
+    })
+
+    new DynamoIndex(this, `${id}-resources-table-index-userConvenioCodIndex`, {
+      branch,
+      name: 'userConvenioCodIndex',
+      sortKey: {
+        name: "convenioCod",
         type: dynamo.AttributeType.STRING
       },
       type: "LOCAL",
@@ -118,11 +129,22 @@ export class BaseStack extends cdk.Stack {
       branch,
       name: 'convenioCodIndex',
       partitionKey: {
-        name: "convenio_cod",
+        name: "convenioCod",
         type: dynamo.AttributeType.STRING
       },
       type: "GLOBAL",
       table: pregunta.table,
+    })
+
+    new DynamoIndex(this, `${id}-resources-table-index-contactoUsernameIndex`, {
+      branch,
+      name: 'contactoUsernameIndex',
+      partitionKey: {
+        name: "username",
+        type: dynamo.AttributeType.STRING
+      },
+      type: "GLOBAL",
+      table: convenioContacto.table,
     })
 
     new cdk.CfnOutput(this, `${id}-resources-bucket-name-output`, {

@@ -41,6 +41,12 @@ Parameters:
   ConvenioCodIndex:
     Type: String
     Description: nombre de indice de tabla ConvenioModerador
+  ContactoUsernameIndex:
+    Type: String
+    Description: nombre de indice de tabla ConvenioContacto
+  UserConvenioIndex:
+    Type: String
+    Description: nombre de indice de tabla Pregunta
 
 Globals:
   Function:
@@ -58,6 +64,8 @@ Globals:
         PREGUNTA_ESTADO_INDEX: !Ref EstadoIndex
         PREGUNTA_FECHA_ACTUALIZACION_INDEX: !Ref FechaActualizacionIndex
         CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
+        CONTACTO_USERNAME_INDEX: !Ref ContactoUsernameIndex
+        USER_CONVENIO_INDEX: !Ref UserConvenioIndex
 
 Resources:
   LambdaRole:
@@ -118,6 +126,20 @@ Resources:
             RestApiId: !Ref Api
             Path: /preguntas
             Method: get
+
+  PreguntasPost:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/preguntas
+      Handler: preguntas.post
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /preguntas
+            Method: post
 
   ResumenPreguntasGet:
     Type: AWS::Serverless::Function

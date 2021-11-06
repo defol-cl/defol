@@ -17,20 +17,21 @@ export interface ConvenioContactoDynamo {
 }
 
 export interface PreguntaDynamo {
-  antecedentes: string
-  cantReplicas: number
-  categoria: string
   cod: string
   convenioCod: string
   estado: string
-  fechaActualizacion: string
-  fechaUltimoAcceso: string
-  interacciones: string[]
+  interacciones: number
   interaccionesMax: number
   timestamp: number
   titulo: string
+  antecedentes: string
+  pregunta: string
   username: string
-  usernameEjecutivo: string
+  fechaActualizacion?: string
+  fechaUltimoAcceso?: string
+  cantReplicas?: number
+  categoria?: string
+  usernameEjecutivo?: string
 }
 
 export interface CategoriaDynamo {

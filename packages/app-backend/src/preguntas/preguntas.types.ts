@@ -1,7 +1,15 @@
 import { LambdaTypes } from "@defol-cl/libs";
 
-interface PreguntasGetEvent {
-  usrId: number
+interface BaseEvent {
+  usrId: string
 }
 
-export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent>;
+interface PreguntasPostEvent extends BaseEvent {
+  codigoConvenio: string
+  titulo: string
+  antecendentes: string
+  pregunta: string
+}
+
+export type PreguntasGetHandler = LambdaTypes.CustomHandler<BaseEvent>;
+export type PreguntasPostHandler = LambdaTypes.CustomHandler<PreguntasPostEvent>;

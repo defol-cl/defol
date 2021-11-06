@@ -1,8 +1,8 @@
 import { LambdaTypes } from "@defol-cl/libs";
-import { ConvenioDynamo } from "@defol-cl/root";
+import { Dao } from "@defol-cl/root";
 
 interface ConveniosGetEvent {
-  usrId: number
+  usrId: string
 }
 
-export type ConveniosGetHandler = LambdaTypes.CustomHandler<ConveniosGetEvent, ConvenioDynamo[]>;
+export type ConveniosGetHandler = LambdaTypes.CustomHandler<ConveniosGetEvent, Dao.Convenio[]>;
