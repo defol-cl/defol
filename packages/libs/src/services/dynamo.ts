@@ -262,6 +262,11 @@ export const getLastPreguntasByUserId = (
               ? items.concat(res.Items as PreguntaDynamo[])
               : items;
 
+      if(items.length >= limit){
+        resolve(items.splice(0,5));
+        return;
+      }
+
       if(res.LastEvaluatedKey){
         resolve(getLastPreguntasByUserId(username, limit, items, res.LastEvaluatedKey));
         return;
