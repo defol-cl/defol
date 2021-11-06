@@ -236,7 +236,7 @@ jobs:
           FechaActualizacionIndex=${{ env.RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION }} \
           ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD }} \
           ContactoUsernameIndex=${{ env.RESOURCE_TABLE_INDEX_CONTACTO_USERNAME }} \
-          UserConvenioIndex=${{ env.RESOURCE_TABLE_INDEX_PREGUNTA_USERNAME_CONVENIO }}
+          UserConvenioIndex=${{ env.RESOURCE_TABLE_INDEX_PREGUNTA_USERNAME_CONVENIO }} \
           UserPoolArn=/defol/${{ steps.branch.outputs.name }}/app/user-pool-arn
 
   app-frontend:
