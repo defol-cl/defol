@@ -155,50 +155,6 @@ jobs:
         with:
           ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-bucket-name
           env_variable_name: RESOURCE_S3_BUCKET
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio
-          env_variable_name: RESOURCE_TABLE_CONVENIO
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador
-          env_variable_name: RESOURCE_TABLE_CONVENIO_MODERADOR
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto
-          env_variable_name: RESOURCE_TABLE_CONVENIO_CONTACTO
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta
-          env_variable_name: RESOURCE_TABLE_PREGUNTA
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria
-          env_variable_name: RESOURCE_TABLE_CATEGORIA
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-usernameIndex
-          env_variable_name: RESOURCE_TABLE_INDEX_USERNAME
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex
-          env_variable_name: RESOURCE_TABLE_INDEX_ESTADO
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex
-          env_variable_name: RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex
-          env_variable_name: RESOURCE_TABLE_INDEX_CONVENIO_COD
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoUsernameIndex
-          env_variable_name: RESOURCE_TABLE_INDEX_CONTACTO_USERNAME
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /defol/${{ steps.branch.outputs.name }}/base/resources-table-index-userConvenioCodIndex
-          env_variable_name: RESOURCE_TABLE_INDEX_PREGUNTA_USERNAME_CONVENIO
       - name: upload-openapi
         uses: zdurham/s3-upload-github-action@master
         env:
@@ -223,20 +179,21 @@ jobs:
           --stack-name defol-${{ steps.branch.outputs.name }}-app-backend \
           --s3-bucket ${{ env.RESOURCE_S3_BUCKET }} \
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
-          --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} \
+          --parameter-overrides \
+          ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} \
           Sha=${{ github.sha }} \
           Branch=${{ steps.branch.outputs.name }} \
-          ConvenioTable=${{ env.RESOURCE_TABLE_CONVENIO }} \
-          ConvenioModeradorTable=${{ env.RESOURCE_TABLE_CONVENIO_MODERADOR }} \
-          ConvenioContactoTable=${{ env.RESOURCE_TABLE_CONVENIO_CONTACTO }} \
-          PreguntaTable=${{ env.RESOURCE_TABLE_PREGUNTA }} \
-          CategoriaTable=${{ env.RESOURCE_TABLE_CATEGORIA }} \
-          UsernameIndex=${{ env.RESOURCE_TABLE_INDEX_USERNAME }} \
-          EstadoIndex=${{ env.RESOURCE_TABLE_INDEX_ESTADO }} \
-          FechaActualizacionIndex=${{ env.RESOURCE_TABLE_INDEX_FECHA_ACTUALIZACION }} \
-          ConvenioCodIndex=${{ env.RESOURCE_TABLE_INDEX_CONVENIO_COD }} \
-          ContactoUsernameIndex=${{ env.RESOURCE_TABLE_INDEX_CONTACTO_USERNAME }} \
-          UserConvenioIndex=${{ env.RESOURCE_TABLE_INDEX_PREGUNTA_USERNAME_CONVENIO }} \
+          ConvenioTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio \
+          ConvenioModeradorTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador \
+          ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \
+          PreguntaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta \
+          CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
+          UsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-usernameIndex \
+          EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
+          FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
+          ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
+          ContactoUsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoUsernameIndex \
+          UserConvenioIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-userConvenioCodIndex \
           UserPoolArn=/defol/${{ steps.branch.outputs.name }}/app/user-pool-arn
 
   app-frontend:

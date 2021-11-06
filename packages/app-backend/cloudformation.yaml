@@ -7,46 +7,46 @@ Description: Backend del portal de clientes de defol
 Parameters:
   Branch:
     Type: String
-    Description: nombre de la rama
+    Description: Nombre de la rama
   ResourcesBucket:
     Type: String
-    Description: bucket que aloja los recursos
+    Description: Bucket que aloja los recursos
   Sha:
     Type: String
-    Description: identificador de la ejecución del CICD
+    Description: Identificador de la ejecución del CICD
   ConvenioTable:
-    Type: String
-    Description: nombre de tabla Convenio
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Convenio
   ConvenioModeradorTable:
-    Type: String
-    Description: nombre de tabla Convenio-Moderador
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Convenio-Moderador
   ConvenioContactoTable:
-    Type: String
-    Description: nombre de tabla Convenio-Contacto
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Convenio-Contacto
   PreguntaTable:
-    Type: String
-    Description: nombre de tabla Pregunta
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Pregunta
   CategoriaTable:
-    Type: String
-    Description: nombre de tabla Categoria
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Categoria
   UsernameIndex:
-    Type: String
-    Description: nombre de indice de tabla Pregunta
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
   EstadoIndex:
-    Type: String
-    Description: nombre de indice de tabla Pregunta
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
   FechaActualizacionIndex:
-    Type: String
-    Description: nombre de indice de tabla Pregunta
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
   ConvenioCodIndex:
-    Type: String
-    Description: nombre de indice de tabla ConvenioModerador
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla ConvenioModerador
   ContactoUsernameIndex:
-    Type: String
-    Description: nombre de indice de tabla ConvenioContacto
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla ConvenioContacto
   UserConvenioIndex:
-    Type: String
-    Description: nombre de indice de tabla Pregunta
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
   UserPoolArn:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Arn del user pool de cognito
