@@ -9,7 +9,7 @@ export const get: ConveniosGetHandler = async({ usrId }, context, callback) => {
     const response: Dao.Convenio[] = [];
 
     for (const convenioContacto of convenioContactos) {
-      const preguntaUsuario = await DynamoServices.getPreguntasByUsrId(usrId, convenioContacto.convenioCod);
+      const preguntaUsuario = await DynamoServices.getLimitAndCountPreguntasByUsrId(usrId, convenioContacto.convenioCod);
       const convenio = await DynamoServices.getConvenio(convenioContacto.convenioCod);
       if(preguntaUsuario.limitePreguntas){
         response.push({

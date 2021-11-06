@@ -1,6 +1,9 @@
 import { RootUtils } from "@defol-cl/root";
 import { DynamoServices } from "@defol-cl/libs";
-import { ResumenPreguntasGetHandler } from "./dashboard.types";
+import {
+  ResumenPreguntasGetHandler,
+  UltimasActualizacionesGetHandler
+} from "./dashboard.types";
 
 export const resumenPreguntasGet: ResumenPreguntasGetHandler = async({ usrId }, context, callback) => {
   RootUtils.logger({usrId});
@@ -18,6 +21,17 @@ export const resumenPreguntasGet: ResumenPreguntasGetHandler = async({ usrId }, 
       totalPreguntasRealizadas,
       totalReplicasPendientes
     });
+  } catch (error) {
+    console.log(error);
+    callback(error);
+  }
+}
+
+export const ultimasActualizacionesGet: UltimasActualizacionesGetHandler = async({ usrId }, context, callback) => {
+  RootUtils.logger({usrId});
+  try {
+    const preguntas = await DynamoServices.getLastPreguntasByUserId(usrId, 5);
+    callback(null, preguntas);
   } catch (error) {
     console.log(error);
     callback(error);

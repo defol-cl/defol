@@ -6,3 +6,4 @@ interface BaseEvent {
 }
 
 export type ResumenPreguntasGetHandler = LambdaTypes.CustomHandler<BaseEvent, Dao.ResumenPreguntas>;
+export type UltimasActualizacionesGetHandler = LambdaTypes.CustomHandler<BaseEvent, Dao.Pregunta[]>;

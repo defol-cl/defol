@@ -11,7 +11,8 @@ export const get: PreguntasGetHandler = ({ usrId }, context, callback) => {
 export const post: PreguntasPostHandler = async({ usrId, antecendentes, codigoConvenio, pregunta, titulo }, context, callback) => {
   RootUtils.logger({ usrId, antecendentes, codigoConvenio, pregunta, titulo });
   try {
-    const convenioPreguntaUsuario = await DynamoServices.getPreguntasByUsrId(usrId, codigoConvenio)
+    const convenioPreguntaUsuario = await DynamoServices.getLimitAndCountPreguntasByUsrId(usrId, codigoConvenio)
+    const now = moment().format("YYYY-MM-DD HH:mm:ss");
 
     if(convenioPreguntaUsuario.limitePreguntas > convenioPreguntaUsuario.preguntasRealizadas){
       await DynamoServices.preguntaPut({
@@ -24,6 +25,8 @@ export const post: PreguntasPostHandler = async({ usrId, antecendentes, codigoCo
         cantReplicas: 0,
         interaccionesMax: 2,
         estado: RootEnum.EstadoPregunta.INGRESADA,
+        fechaActualizacion: now,
+        fechaUltimoAcceso: now,
         timestamp: moment().unix(),
         cod: uuid4()
       })

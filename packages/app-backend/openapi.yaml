@@ -103,10 +103,38 @@ paths:
             statusCode: 500
       summary: obtiene la cantidad de preguntas realizadas, pendientes y replicas realizadas por un usuario
       tags:
-        - pregunta
+        - dashboard
       responses:
         200:
           $ref: "#/components/responses/200ResumenPreguntas"
+        500:
+          description: error al ejecutar lambda
+
+  /dashboard/ultimas-actualizaciones:
+    get:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UltimasActualizacionesGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.principalId"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*ULTIMAS_ACTUALIZACIONES_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene las 5 últimas actualizaciones sobre preguntas de un usuario
+      tags:
+        - dashboard
+      responses:
+        200:
+          $ref: "#/components/responses/200UltimasActualizaciones"
+        500:
+          description: error al ejecutar lambda
   /convenios:
     get:
       x-amazon-apigateway-integration:
@@ -135,6 +163,41 @@ paths:
 
 components:
   schemas:
+    Pregunta:
+      title: Pregunta
+      description: información de una pregunta
+      type: object
+      properties:
+        cod:
+          type: string
+        convenioCod:
+          type: string
+        estado:
+          type: string
+        interacciones:
+          type: number
+        interaccionesMax:
+          type: number
+        timestamp:
+          type: number
+        titulo:
+          type: string
+        antecedentes:
+          type: string
+        pregunta:
+          type: string
+        username:
+          type: string
+        fechaActualizacion:
+          type: string
+        fechaUltimoAcceso:
+          type: string
+        cantReplicas:
+          type: number
+        categoria:
+          type: string
+        usernameEjecutivo:
+          type: string
     Convenio:
       title: Convenio
       description: información de un convenio
@@ -186,3 +249,11 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ResumenPreguntas"
+    200UltimasActualizaciones:
+      description: Entrega las ultimas 5 preguntas de un usuario según su fecha de actualizacion (DESC)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Pregunta"
