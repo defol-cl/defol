@@ -17,6 +17,26 @@ const themeOptions: ThemeOptions = {
           my: 1
         }
       }
+    },
+    MuiCard: {
+      defaultProps: {
+        sx: {
+          my: 3
+        },
+        elevation: 4
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 12
+        }
+      }
+    },
+    MuiCardHeader: {
+      defaultProps: {
+        sx: {
+          mr: 2
+        }
+      }
     }
   }
 };

@@ -8,13 +8,13 @@ export const getPrivateRoutes = (path: string): PrivateRoutes => ({
   },
   nuevaPregunta: {
     name: 'Nueva Pregunta',
-    subpath: `${path}/mi-pregunta/nueva`,
-    route: () => `${path}/mi-pregunta/nueva`,
+    subpath: `${path}/nueva-pregunta`,
+    route: () => `${path}/nueva-pregunta/paso1`,
   },
-  previsualizarPregunta: {
-    name: 'Previsualizar Pregunta',
-    subpath: `${path}/mi-pregunta/nueva/previsualizar`,
-    route: () => `${path}/mi-pregunta/nueva/previsualizar`,
+  nuevaPreguntaPaso: {
+    name: 'Nueva Pregunta',
+    subpath: `${path}/nueva-pregunta/:paso`,
+    route: params => `${path}/nueva-pregunta/${params!['paso']}`,
   },
   miPregunta: {
     name: 'Mi Pregunta',

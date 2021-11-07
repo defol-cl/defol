@@ -13,7 +13,7 @@ import { Dao } from "@defol-cl/root";
 import { useBoolean } from "react-use";
 import { ConveniosSvc } from "../../../services";
 import AlertTitle from "@mui/material/AlertTitle";
-import Alert from "@mui/lab/Alert";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 
 interface Props {

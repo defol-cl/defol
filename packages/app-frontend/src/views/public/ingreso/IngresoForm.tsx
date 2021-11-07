@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
 import { PublicContext } from "../../../layout";
 import { TextField } from "@mui/material";
-import Alert from '@mui/lab/Alert';
+import Alert from '@mui/material/Alert';
 
 const IngresoForm: FC = () => {
   const history = useHistory();

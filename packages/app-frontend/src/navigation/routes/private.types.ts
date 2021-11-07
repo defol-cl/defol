@@ -3,7 +3,7 @@ import { RouteData } from './index.types';
 type PrivateRouteName =
 	| 'inicio'
 	| 'nuevaPregunta'
-	| 'previsualizarPregunta'
+	| 'nuevaPreguntaPaso'
 	| 'miPregunta'
 	| 'misPreguntas'
 	| 'misActualizaciones';

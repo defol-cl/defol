@@ -28,8 +28,8 @@ const getPrivateHierarchy = (path: string): NavigationInterface => {
         component: lazy(() => import('../../views/private/NuevaPregunta')),
       },
       {
-        ...privateRoutes.previsualizarPregunta,
-        component: lazy(() => import('../../views/private/PrevisualizarPregunta')),
+        ...privateRoutes.nuevaPreguntaPaso,
+        component: lazy(() => import('../../views/private/NuevaPregunta')),
       },
       {
         ...privateRoutes.misActualizaciones,
