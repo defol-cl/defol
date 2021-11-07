@@ -1,6 +1,7 @@
 import { RouteData } from './index.types';
 
 type PrivateRouteName =
+	| 'loading'
 	| 'inicio'
 	| 'nuevaPregunta'
 	| 'nuevaPreguntaPaso'

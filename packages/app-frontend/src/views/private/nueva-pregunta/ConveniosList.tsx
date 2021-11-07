@@ -27,26 +27,31 @@ const ConveniosList: React.FC<Props> = ({ convenio, setFieldValue }) => {
   const [error, setError] = useBoolean(false);
   
   useEffect(() => {
+    let mounted = true;
     if (!error) {
       ConveniosSvc.get()
-        .then(convenios => setConvenios(convenios))
+        .then(convenios => mounted && setConvenios(convenios))
         .catch(err => {
           console.error(err);
-          setError(true);
+          mounted && setError(true);
         })
     }
+    return () => {
+      mounted = false;
+    };
   }, [error]);
   
   if (error) {
     return (
-      <Alert variant="filled" severity="error" sx={{ mb: 2 }}
+      <Alert variant="outlined" severity="error" sx={{ mb: 2 }}
              action={
                <Button color="inherit" size="small" onClick={() => setError(false)}>
                  Reintentar ahora
                </Button>
              }>
         <AlertTitle>Esto es un poco incómodo</AlertTitle>
-        Ocurrió un error al obtener el listado de convenios disponibles.<br/>Te proponemos 2 alternativas, reintenta ahora o conéctate más tarde, y danos un tiempo para reparar este problema.
+        Ocurrió un error al obtener el listado de convenios disponibles.<br/>Te proponemos 2 alternativas, reintenta
+        ahora o conéctate más tarde, y danos un tiempo para reparar este problema.
       </Alert>
     );
   } else {

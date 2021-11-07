@@ -6,7 +6,7 @@ const PrivateLayout: React.FC = ({ children }) => {
   return (
     <div className="private-layout">
       <Topbar/>
-      <Container maxWidth="lg" sx={{ pt: 4, pb: 5 }}>
+      <Container maxWidth="lg" sx={{ pt: 14, pb: 5, height: '100vh' }}>
         {children}
       </Container>
     </div>

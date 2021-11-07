@@ -1,24 +1,34 @@
 import React, { FC, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import { PreguntasSvc } from '../../services';
+import { useTheme } from "@mui/material";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { PreguntasSvc } from 'src/services';
 import Indicadores from "./inicio/Indicadores";
 import UltimasActualizaciones from './inicio/UltimasActualizaciones';
 
 const Inicio: FC = () => {
+  const theme = useTheme();
+  const mdUp = useMediaQuery(theme.breakpoints.up('md'));
   
   useEffect(() => {
+    let mounted = true;
     PreguntasSvc.get()
-      .then(response => console.log(response))
+      .then(response => mounted && console.log(response));
+    return () => {
+      mounted = false;
+    };
   }, []);
   
   return (
     <Grid container spacing={3}>
-      <Grid item md={8}>
+      <Grid item xs={12} md={8}>
         <UltimasActualizaciones/>
       </Grid>
-      <Grid item md={4}>
-        <Indicadores/>
-      </Grid>
+      {mdUp && (
+        <Grid item xs={12} md={4}>
+          <Indicadores/>
+        </Grid>
+      )}
     </Grid>
   );
 }

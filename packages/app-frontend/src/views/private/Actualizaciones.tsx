@@ -7,8 +7,12 @@ import ActualizacionLista from "./components/ActualizacionLista";
 const Actualizaciones: FC = () => {
   
   useEffect(() => {
+    let mounted = true;
     PreguntasSvc.get()
-      .then(response => console.log(response))
+      .then(response => mounted && console.log(response));
+    return () => {
+      mounted = false;
+    };
   }, []);
   
   return (

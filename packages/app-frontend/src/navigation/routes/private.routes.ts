@@ -1,6 +1,11 @@
 import { PrivateRoutes } from "./private.types";
 
 export const getPrivateRoutes = (path: string): PrivateRoutes => ({
+  loading: {
+    name: 'Cargando',
+    subpath: `${path}/loading`,
+    route: () => `${path}/loading`,
+  },
   inicio: {
     name: 'Inicio',
     subpath: `${path}/`,

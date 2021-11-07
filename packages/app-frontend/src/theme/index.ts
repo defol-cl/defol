@@ -18,16 +18,26 @@ const themeOptions: ThemeOptions = {
         }
       }
     },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: '#e3cce8'
+        }
+      }
+    },
     MuiCard: {
       defaultProps: {
         sx: {
           my: 3
         },
-        elevation: 4
+        elevation: 0
       },
       styleOverrides: {
         root: {
-          borderRadius: 12
+          borderRadius: 12,
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: '#e3cce8'
         }
       }
     },
@@ -35,6 +45,20 @@ const themeOptions: ThemeOptions = {
       defaultProps: {
         sx: {
           mr: 2
+        }
+      }
+    },
+    MuiListItem: {
+      styleOverrides: {
+        divider: {
+          borderColor: '#e3cce8'
+        }
+      }
+    },
+    MuiAlert: {
+      styleOverrides: {
+        action: {
+          marginRight: 8
         }
       }
     }

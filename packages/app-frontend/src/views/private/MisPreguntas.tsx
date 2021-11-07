@@ -14,8 +14,12 @@ const MisPreguntas: FC = () => {
   const [filtro, setFiltro] = useState<Filtro>('todas');
   
   useEffect(() => {
+    let mounted = true;
     PreguntasSvc.get()
-      .then(response => console.log(response))
+      .then(response => mounted && console.log(response))
+    return () => {
+      mounted = false;
+    };
   }, []);
   
   const handleChange = (event: React.MouseEvent<HTMLElement>, filtro: any) => {
