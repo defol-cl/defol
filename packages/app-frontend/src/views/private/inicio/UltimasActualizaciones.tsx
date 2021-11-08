@@ -43,7 +43,7 @@ const UltimasActualizaciones: FC = () => {
         </List>
       </CardContent>
       <CardActions>
-        <Button color="primary" fullWidth
+        <Button color="secondary" fullWidth
                 onClick={() => history.push(privateRoutes.misActualizaciones.route())}>
           Ver todas
         </Button>

@@ -15,7 +15,7 @@ const ActualizacionListaItem: FC = () => {
   const history = useHistory();
   
   return (
-    <ListItem button sx={{ py: 3, backgroundColor: lightBlue[50] }}
+    <ListItem button divider sx={{ py: 3, backgroundColor: lightBlue[50] }}
               onClick={() => history.push(privateRoutes.miPregunta.route({ id: 1313 }))}>
       <ListItemAvatar sx={{ minWidth: '35px' }}>
         <CircleIcon fontSize="small" sx={{ color: 'info.dark' }}/>

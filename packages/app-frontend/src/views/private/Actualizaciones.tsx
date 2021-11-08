@@ -1,7 +1,8 @@
 import React, { FC, useEffect } from 'react';
-import { PreguntasSvc } from '../../services';
 import Card from '@mui/material/Card';
 import CardHeader from "@mui/material/CardHeader";
+import Divider from "@mui/material/Divider";
+import { PreguntasSvc } from 'src/services';
 import ActualizacionLista from "./components/ActualizacionLista";
 
 const Actualizaciones: FC = () => {
@@ -18,6 +19,7 @@ const Actualizaciones: FC = () => {
   return (
     <Card>
       <CardHeader title="Actualizaciones" subheader="Revisa aquí todas las actualizaciones a tus preguntas"/>
+      <Divider/>
       <ActualizacionLista/>
     </Card>
   );

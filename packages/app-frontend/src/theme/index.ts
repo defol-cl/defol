@@ -1,15 +1,19 @@
-import { ThemeOptions } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
-const themeOptions: ThemeOptions = {
+const borderColor = '#abd3ff';
+
+const theme = createTheme({
   palette: {
     primary: {
-      main: '#9C27B0',
+      main: '#673ab7',
     },
     secondary: {
-      main: '#FF4081',
-    },
-  },
+      main: '#2196f3',
+    }
+  }
+});
+
+const customTheme = createTheme(theme, {
   components: {
     MuiTextField: {
       defaultProps: {
@@ -21,7 +25,7 @@ const themeOptions: ThemeOptions = {
     MuiDivider: {
       styleOverrides: {
         root: {
-          borderColor: '#e3cce8'
+          borderColor: borderColor
         }
       }
     },
@@ -37,8 +41,9 @@ const themeOptions: ThemeOptions = {
           borderRadius: 12,
           borderWidth: 1,
           borderStyle: 'solid',
-          borderColor: '#e3cce8'
-        }
+          borderColor: borderColor
+        },
+        
       }
     },
     MuiCardHeader: {
@@ -46,12 +51,20 @@ const themeOptions: ThemeOptions = {
         sx: {
           mr: 2
         }
+      },
+      styleOverrides: {
+        title: {
+          color: theme.palette.secondary.main
+        },
+        subheader: {
+          color: theme.palette.text.secondary
+        }
       }
     },
     MuiListItem: {
       styleOverrides: {
         divider: {
-          borderColor: '#e3cce8'
+          borderColor: borderColor
         }
       }
     },
@@ -63,6 +76,6 @@ const themeOptions: ThemeOptions = {
       }
     }
   }
-};
+});
 
-export const customTheme = createTheme(themeOptions);
+export { customTheme };

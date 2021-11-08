@@ -14,9 +14,11 @@ import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "src/navigation";
 import ElevationScroll from './ElevationScroll';
+import { useTheme } from "@mui/material";
 
 const TopBar: FC = () => {
   const history = useHistory();
+  const theme = useTheme();
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -41,7 +43,7 @@ const TopBar: FC = () => {
               <Toolbar sx={{ height: '100%', mx: 0 }} className="defol-toolbar">
                 <Box flexGrow={1}>
                   <Grid container direction="row" justifyContent="flex-start" alignItems="center"
-                        className="defol-logo">
+                        className="defol-logo" sx={{ color: theme.palette.text.primary }}>
                     <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                          className="transform transition-transform duration-500 ease-in-out">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
