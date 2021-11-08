@@ -21,7 +21,7 @@ const ReplicasPendientesIndicador: React.FC<Props> = ({ value }) => {
       <CardActionArea onClick={() => history.push(privateRoutes.misPreguntas.route({ tipo: 'replica-pendiente' }))}>
         <CardContent>
           <Grid container direction="row" justifyContent="space-around" alignItems="center">
-            {value && (
+            {value !== undefined && (
               <>
                 <Typography variant="h1" component="h4">
                   <CountUp end={value} duration={2}/>
@@ -37,7 +37,7 @@ const ReplicasPendientesIndicador: React.FC<Props> = ({ value }) => {
                 </Grid>
               </>
             )}
-            {!value && (
+            {value === undefined && (
               <EsqueletoInternoIndicador/>
             )}
           </Grid>
