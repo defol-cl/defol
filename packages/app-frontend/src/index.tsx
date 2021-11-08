@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 
 import '@fontsource/roboto';
 import '@fontsource/roboto/300.css';
@@ -23,7 +23,18 @@ Amplify.configure({
     endpoints: [
       {
         name: 'api',
-        endpoint: '/api'
+        endpoint: '/api',
+        custom_header: async () => {
+          try {
+            return {
+              Authorization: `${(await Auth.currentSession())
+                .getIdToken()
+                .getJwtToken()}`,
+            };
+          } catch (e) {
+            return {};
+          }
+        },
       },
     ],
   }
