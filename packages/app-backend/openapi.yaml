@@ -1,3 +1,4 @@
+#v1
 openapi: 3.0.0
 info:
   version: 1.0.0
@@ -29,7 +30,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.principalId"
+              "usrId": "$context.authorizer.claims.email"
             }
         responses:
           default:
@@ -51,7 +52,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.principalId",
+              "usrId": "$context.authorizer.claims.email",
               "pregunta": $input.json('pregunta')
             }
         responses:
@@ -97,7 +98,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.principalId"
+              "usrId": "$context.authorizer.claims.email"
             }
         responses:
           default:
@@ -123,7 +124,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.principalId"
+              "usrId": "$context.authorizer.claims.email"
             }
         responses:
           default:
@@ -148,7 +149,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.principalId"
+              "usrId": "$context.authorizer.claims.email"
             }
         responses:
           default:

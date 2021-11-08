@@ -263,7 +263,7 @@ export const getLastPreguntasByUserId = (
               : items;
 
       if(items.length >= limit){
-        resolve(items.splice(0,5));
+        resolve(items.slice(0,5));
         return;
       }
 
