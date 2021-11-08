@@ -15,6 +15,9 @@ x-amazon-apigateway-request-validators:
     validateRequestParameters: true
     validateRequestBody: true
 
+security:
+  - CUPAuthorizer: []
+
 paths:
   /preguntas:
     get:
