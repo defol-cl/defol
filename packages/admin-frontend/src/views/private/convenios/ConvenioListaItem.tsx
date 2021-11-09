@@ -1,33 +1,39 @@
-import React, { FC } from 'react';
+import React from 'react';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
 import Stack from '@mui/material/Stack';
-import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import { useHistory } from "react-router-dom";
 import { privateRoutes } from "../../../navigation";
 import ListItem from "@mui/material/ListItem";
+import { Dao } from "@defol-cl/root";
 
-const ConvenioListaItem: FC = () => {
+interface Props {
+  convenio: Dao.Convenio
+}
+
+const ConvenioListaItem: React.FC<Props> = ({ convenio }) => {
   const history = useHistory();
   
   return (
     <ListItem button sx={{ py: 1 }} divider
-              onClick={() => history.push(privateRoutes.convenioDetalle.route({ conId: 1313 }))}>
+              onClick={() => history.push(privateRoutes.convenioDetalle.route({ conId: convenio.cod }))}>
       <ListItemText
         primaryTypographyProps={{ component: 'div' }}
         primary={
           <Grid container direction="row" justifyContent="space-between" alignItems="center">
             <Grid item>
               <Typography variant="h6">
-                Municipalidad de Peñalolén
+                {convenio.nombre}
               </Typography>
               <Typography variant="subtitle2" color="info.main">
-                <b>Cód: PENA2021</b> - Vigente hasta el 13/10/2024
+                Cód: {convenio.cod}
               </Typography>
             </Grid>
             <Stack direction="row" spacing={1}>
-              <Chip label="3.159 preguntas"/>
+              <Typography variant="overline" color="info.main">
+                Vigencia {convenio.fechaVencimiento}
+              </Typography>
             </Stack>
           </Grid>
         }/>
