@@ -1,5 +1,4 @@
 import * as cdk from '@aws-cdk/core';
-import { Duration } from '@aws-cdk/core';
 import * as acm from '@aws-cdk/aws-certificatemanager';
 import * as cloudfront from '@aws-cdk/aws-cloudfront';
 import { HttpVersion } from '@aws-cdk/aws-cloudfront';
@@ -61,7 +60,8 @@ export class AppStack extends cdk.Stack {
     const apiGatewayDomainName = SSM.StringParameter.fromStringParameterAttributes(this, `${id}-api-gateway-domain-name-parameter`, {
       parameterName: `/defol/${branch}/app/backend/api-gateway-domain-name`
     });
-    if (apiGatewayDomainName)
+    
+    if (apiGatewayDomainName) {
       originConfigs.push({
         customOriginSource: {
           domainName: apiGatewayDomainName.stringValue
@@ -75,6 +75,7 @@ export class AppStack extends cdk.Stack {
           }
         }]
       });
+    }
     
     const distribution = new cloudfront.CloudFrontWebDistribution(this, `${id}-distribution`, {
       httpVersion: HttpVersion.HTTP2,

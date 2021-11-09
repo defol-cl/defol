@@ -61,16 +61,21 @@ export class AdminStack extends cdk.Stack {
       parameterName: `/defol/${branch}/admin/backend/api-gateway-domain-name`
     });
     
-    if (apiGatewayDomainName)
+    if (apiGatewayDomainName) {
       originConfigs.push({
         customOriginSource: {
           domainName: apiGatewayDomainName.stringValue
         },
         behaviors: [{
           allowedMethods: cloudfront.CloudFrontAllowedMethods.ALL,
-          pathPattern: 'api/*'
+          pathPattern: 'api/*',
+          forwardedValues: {
+            queryString: true,
+            headers: ['Authorization']
+          }
         }]
       });
+    }
     
     const distribution = new cloudfront.CloudFrontWebDistribution(this, `${id}-distribution`, {
       httpVersion: HttpVersion.HTTP2,
