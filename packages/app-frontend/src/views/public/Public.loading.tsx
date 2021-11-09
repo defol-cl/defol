@@ -1,19 +1,24 @@
 import React from 'react';
-import Stack from "@mui/material/Stack";
-import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
+import LinearProgress from "@mui/material/LinearProgress";
+import Grid from "@mui/material/Grid";
 
 const PublicLoading: React.FC = () => {
   return (
-    <Stack sx={{ color: 'white' }} spacing={2} direction="column" alignItems="center">
-      <CircularProgress color="inherit" />
-      <Typography variant="h5" component="h1">
-        Danos un par de segundos
+    <Grid container direction="column" justifyContent="center" alignItems="center"
+          sx={{ px: 3, height: '100%' }}>
+      <Typography variant="h3" align="center" gutterBottom component="h2">
+        Danos unos momentos
       </Typography>
-      <Typography variant="body1">
-        No es que seamos lentos, nos gusta tomarnos nuestro tiempo :)
+      <LinearProgress sx={{ width: '60%' }}/>
+      <br/>
+      <Typography variant="body1" align="center" gutterBottom>
+        A veces toma un poco más de tiempo cargar la página, ten paciencia
       </Typography>
-    </Stack>
+      <Typography variant="caption" align="center" color="textSecondary" gutterBottom>
+        Un buen computador y una buena conexión aportan con el objetivo
+      </Typography>
+    </Grid>
   );
 };
 
