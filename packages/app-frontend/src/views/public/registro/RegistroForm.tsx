@@ -1,7 +1,5 @@
 import React, { FC, useContext, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Button from '@mui/material/Button';
-import Alert from "@mui/material/Alert";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
@@ -12,15 +10,18 @@ import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
+import { useTheme } from "@mui/material";
 import { Auth } from 'aws-amplify';
 import { useFormik } from "formik";
-import { useHistory } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { FormikRegistro, validationRegistro } from "./registro.formik";
 import { publicRoutes } from "../../../navigation";
 import { PublicContext } from "../../../layout";
+import Divider from "@mui/material/Divider";
 
 const RegistroForm: FC = () => {
   const history = useHistory();
+  const theme = useTheme();
   const { setUsername } = useContext(PublicContext);
   const [signingUp, setSigningUp] = useState<boolean>(false);
   const formik = useFormik<FormikRegistro>({
@@ -36,21 +37,23 @@ const RegistroForm: FC = () => {
     validationSchema: validationRegistro,
     validateOnMount: true,
     onSubmit: ({ name, lastName, username, password }) => {
-      setSigningUp(true);
-      Auth.signUp({
-        username,
-        password,
-        attributes: {
-          given_name: name,
-          family_name: lastName
-        }
-      })
-        .then(user => {
-          console.log('user', user);
-          setUsername(username);
-          history.push(publicRoutes.registroConfirmar.route());
+      if(formik.isValid) {
+        setSigningUp(true);
+        Auth.signUp({
+          username,
+          password,
+          attributes: {
+            given_name: name,
+            family_name: lastName
+          }
         })
-        .finally(() => setSigningUp(false))
+          .then(user => {
+            console.log('user', user);
+            setUsername(username);
+            history.push(publicRoutes.registroConfirmar.route());
+          })
+          .finally(() => setSigningUp(false));
+      }
     }
   });
   
@@ -64,80 +67,105 @@ const RegistroForm: FC = () => {
   return (
     <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
-        <form onSubmit={handleSubmit}>
-          <Box sx={{ p: 2 }}>
-            <Typography variant="h4" component="h1">Regístrate en DEFOL</Typography>
-            <Typography variant="subtitle1" color="primary" gutterBottom>Y resuelve tus dudas con nuestro equipo de
-              especialistas</Typography>
-            <Alert severity="warning"
-                   action={
-                     <Button size="small" color="inherit" onClick={() => history.push(publicRoutes.ingreso.route())}>
-                       Ingresa
-                     </Button>
-                   }>
-              ¿Recordaste que ya tienes una cuenta?
-            </Alert>
-            <Grid container spacing={2}>
-              <Grid item sm={6}>
-                <TextField
-                  id="name"
-                  type="text"
-                  variant="filled" fullWidth
-                  value={name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}/>
+        <Grid direction="column" justifyContent="center" alignItems="center">
+          <Grid container direction="column" justifyContent="flex-start" alignItems="center">
+            <Box>
+              <Grid container direction="row" justifyContent="flex-start" alignItems="center"
+                    className="defol-logo" sx={{ color: theme.palette.text.primary }}>
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                        d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                </svg>
+                <Box>
+                  <span className="defol-logo-text">DEFOL</span>
+                </Box>
               </Grid>
-              <Grid item sm={6}>
-                <TextField
-                  id="lastName"
-                  type="text"
-                  variant="filled" fullWidth
-                  value={lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}/>
+            </Box>
+          </Grid>
+          <br/>
+          <br/>
+          <form onSubmit={handleSubmit}>
+            <Box sx={{ p: 2 }}>
+              <Typography variant="h4" component="h1" align="center" gutterBottom color="primary.main">
+                Regístrate en DEFOL
+              </Typography>
+              <Typography variant="body1" color="textSecondary" align="center" sx={{ mb: 3 }}>
+                Y resuelve tus dudas con nuestro equipo de especialistas
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item sm={6}>
+                  <TextField
+                    id="name"
+                    label="Nombre(s)"
+                    type="text"
+                    variant="outlined" fullWidth
+                    value={name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}/>
+                </Grid>
+                <Grid item sm={6}>
+                  <TextField
+                    id="lastName"
+                    label="Apellido(s)"
+                    type="text"
+                    variant="outlined" fullWidth
+                    value={lastName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}/>
+                </Grid>
               </Grid>
-            </Grid>
-            <TextField
-              id="username"
-              type="text"
-              variant="filled" fullWidth
-              value={username}
-              onChange={handleChange}
-              onBlur={handleBlur}/>
-            <TextField
-              id="password"
-              type="password"
-              variant="filled" fullWidth
-              autoComplete="new-password"
-              value={password}
-              onChange={handleChange}
-              onBlur={handleBlur}/>
-            <TextField
-              id="confirmPassword"
-              type="password"
-              variant="filled" fullWidth
-              autoComplete="new-password"
-              value={confirmPassword}
-              onChange={handleChange}
-              onBlur={handleBlur}/>
-            <FormGroup>
-              <FormControlLabel control={<Checkbox id="serviceTerms" onChange={handleChange}/>} label={
-                <>Acepto los <Link href="#" color="secondary">términos de servicio</Link> de DEFOL</>
-              }/>
-              <FormControlLabel control={<Checkbox id="privacyPolicy" onChange={handleChange}/>} label={
-                <>Acepto la <Link href="#" color="secondary">política de privacidad</Link> respecto al uso de mi
-                  información</>
-              }/>
-            </FormGroup>
-            <LoadingButton
-              sx={{ mt: 3 }}
-              size="large" type="submit" variant="contained" fullWidth
-              disabled={!formik.isValid}
-              loading={signingUp}>
-              Registrar
-            </LoadingButton>
-          </Box>
-        </form>
+              <TextField
+                id="username"
+                label="Correo electrónico"
+                type="text"
+                variant="outlined" fullWidth
+                value={username}
+                onChange={handleChange}
+                onBlur={handleBlur}/>
+              <TextField
+                id="password"
+                label="Contraseña"
+                type="password"
+                variant="outlined" fullWidth
+                autoComplete="new-password"
+                value={password}
+                onChange={handleChange}
+                onBlur={handleBlur}/>
+              <TextField
+                id="confirmPassword"
+                label="Confirmar contraseña"
+                type="password"
+                variant="outlined" fullWidth
+                autoComplete="new-password"
+                value={confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}/>
+              <FormGroup>
+                <FormControlLabel control={<Checkbox id="serviceTerms" color="secondary" onChange={handleChange}/>} label={
+                  <>Acepto los <Link href="#" color="secondary">términos de servicio</Link> de DEFOL</>
+                }/>
+                <FormControlLabel control={<Checkbox id="privacyPolicy" color="secondary" onChange={handleChange}/>} label={
+                  <>Acepto la <Link href="#" color="secondary">política de privacidad</Link> respecto al uso de mi
+                    información</>
+                }/>
+              </FormGroup>
+              <LoadingButton
+                sx={{ mt: 3 }}
+                size="large" type="submit" variant="contained" fullWidth
+                loading={signingUp}>
+                Registrar
+              </LoadingButton>
+              <Divider sx={{ my: 3 }}/>
+              <Grid container direction="row" justifyContent="center" alignItems="center">
+                <Link component={RouterLink} to={publicRoutes.ingreso.route()} color="textPrimary">
+                  ¿Ya tienes una cuenta?
+                </Link>
+              </Grid>
+              <br/>
+              <br/>
+            </Box>
+          </form>
+        </Grid>
       </Container>
     </Stack>
   );

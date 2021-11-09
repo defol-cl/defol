@@ -1,5 +1,17 @@
 .public-layout {
   height: 100vh;
+
+  .defol-logo {
+    svg {
+      margin-right: 10px;
+    }
+
+    .defol-logo-text {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
 }
 
 .public-form {
@@ -7,14 +19,16 @@
 }
 
 .public-text {
-  background: url('../assets/img/divergent_dots.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #6a0080;
+  background-color: #e3f2fd;
+
+  .shelawyer {
+    right: -275px;
+    position: relative;
+    top: -253px;
+    display: block;
+  }
 
   .MuiCard-root {
-    background: hsla(291, 64%, 42%, 0.73);
-    color: white;
     padding: 15px;
   }
 
@@ -29,6 +43,6 @@
 
 .card-transparent {
   .MuiCard-root {
-    background: hsla(0,0%,100%,.39);
+    background: hsla(0, 0%, 100%, .39);
   }
 }

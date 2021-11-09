@@ -7,10 +7,10 @@ const Registro: FC = () => {
   
   return (
     <Grid container>
-      <Grid item xs={12} md={6} className="public-form">
+      <Grid item xs={12} lg={6} className="public-form">
         <RegistroForm/>
       </Grid>
-      <Grid item md={6} sx={{ display: { xs: 'none', md: 'block' } }} className="public-text">
+      <Grid item lg={6} sx={{ display: { xs: 'none', lg: 'block', display: 'flex' } }} className="public-text">
         <RegistroText/>
       </Grid>
     </Grid>
