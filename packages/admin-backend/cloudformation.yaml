@@ -106,6 +106,7 @@ Resources:
                   - dynamodb:ReturnValues
                   - dynamodb:Select
                   - dynamodb:Query
+                  - dynamodb:Scan
                 Resource: "*"
 
   Api:

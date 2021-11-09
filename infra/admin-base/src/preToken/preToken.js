@@ -21,7 +21,7 @@ exports.handler = async (event, context, callback) => {
     const claimsToAddOrOverride = {
       claimsToAddOrOverride: {
         permissions: permissions ? permissions.join(',') : undefined,
-        groups: event.request.groupConfiguration.groupsToOverride
+        groups: event.request.groupConfiguration.groupsToOverride.join()
       }
     }
     event.response.claimsOverrideDetails = claimsToAddOrOverride

@@ -30,7 +30,7 @@ paths:
           application/json: |
             {
               "usrId": "$context.authorizer.claims.email",
-              "groups": $context.authorizer.claims.groups
+              "groups": ["$context.authorizer.claims.groups"]
             }
         responses:
           default:
