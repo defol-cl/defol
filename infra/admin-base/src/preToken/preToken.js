@@ -1,13 +1,13 @@
 
 const getPermission = (groups) => {
   const permissions = []
-  if (groups.includes(Group.SUPER_ADMIN)) {
+  if (groups.includes("SUPER_ADMIN")) {
     permissions.push("convenio:add", "convenio:list:view");
   }
-  if (groups.includes(Group.MODERADOR)) {
+  if (groups.includes("MODERADOR")) {
     permissions.push("convenio:add", "convenio:list:view");
   }
-  if (groups.includes(Group.EQUIPO_LEGAL)) {
+  if (groups.includes("EQUIPO_LEGAL")) {
     permissions.push("convenio:add", "convenio:list:view");
   }
   return permissions.length > 0 ? [...new Set(permissions)] : undefined
@@ -20,7 +20,8 @@ export const handler = async (event, context, callback) => {
     const group = getPermission(event.request.groupConfiguration.groupsToOverride);
     const claimsToAddOrOverride = {
       claimsToAddOrOverride: {
-        permissions: group ? group.join(',') : undefined
+        permissions: group ? group.join(',') : undefined,
+        groups: event.request.groupConfiguration.groupsToOverride
       }
     }
     event.response.claimsOverrideDetails = claimsToAddOrOverride
