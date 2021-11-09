@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from "@mui/material/InputLabel";
@@ -7,15 +7,18 @@ import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
-import { Auth } from 'aws-amplify';
+import { useTheme } from '@mui/material';
+import Grid from "@mui/material/Grid";
+import { Auth } from "aws-amplify";
+import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import { FormikConfirma, validationConfirma } from "./confirma.formik";
-import { PublicContext } from "../../../layout";
-import { useHistory } from "react-router-dom";
-import { publicRoutes } from "../../../navigation";
+import { PublicContext } from "src/layout";
+import { publicRoutes } from "src/navigation";
 
-const ConfirmaForm: FC = () => {
+const ConfirmaForm: React.FC = () => {
   const history = useHistory();
+  const theme = useTheme();
   const { state } = useContext(PublicContext);
   const [confirming, setConfirming] = useState<boolean>(false);
   const formik = useFormik<FormikConfirma>({
@@ -26,14 +29,16 @@ const ConfirmaForm: FC = () => {
     validationSchema: validationConfirma,
     validateOnMount: true,
     onSubmit: ({ username, code }) => {
-      setConfirming(true);
-      Auth.confirmSignUp(username, code)
-        .then(user => {
-          history.push(publicRoutes.ingreso.route())
-          console.log('user', user);
-        })
-        .catch(error => console.error(error))
-        .finally(() => setConfirming(false))
+      if (formik.isValid) {
+        setConfirming(true);
+        Auth.confirmSignUp(username, code)
+          .then(user => {
+            history.push(publicRoutes.ingreso.route())
+            console.log('user', user);
+          })
+          .catch(error => console.error(error))
+          .finally(() => setConfirming(false));
+      }
     }
   });
   
@@ -47,46 +52,67 @@ const ConfirmaForm: FC = () => {
   return (
     <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
-        <form onSubmit={handleSubmit}>
-          <Box sx={{ p: 2 }}>
-            <Typography variant="h4" component="h1">Confirma tu Registro</Typography>
-            <Typography variant="subtitle1" color="primary" gutterBottom>
-              Estás a un paso para comenzar a operar con DEFOL.
-            </Typography>
-            <Typography variant="body1">
-              Te hemos enviado un correo con un código, si no lo encuentras espera unos segundos.
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              No olvides revisar en la bandeja de correos no deseados, a veces los filtros se confunden.
-            </Typography>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="username">Correo electrónico</InputLabel>
-              <OutlinedInput
-                id="username"
-                type="text"
-                disabled={state.username !== undefined}
-                value={username}
-                onChange={handleChange}
-                onBlur={handleBlur}/>
-            </FormControl>
-            <FormControl sx={{ my: 1 }} variant="filled" fullWidth>
-              <InputLabel htmlFor="code">Código de validación</InputLabel>
-              <OutlinedInput
-                id="code"
-                type="text"
-                value={code}
-                onChange={handleChange}
-                onBlur={handleBlur}/>
-            </FormControl>
-            <LoadingButton
-              sx={{ mt: 3 }}
-              size="large" type="submit" variant="contained" fullWidth
-              disabled={!formik.isValid}
-              loading={confirming}>
-              Confirmar registro
-            </LoadingButton>
-          </Box>
-        </form>
+        <Grid direction="column" justifyContent="center" alignItems="center">
+          <Grid container direction="column" justifyContent="flex-start" alignItems="center">
+            <Box>
+              <Grid container direction="row" justifyContent="flex-start" alignItems="center"
+                    className="defol-logo" sx={{ color: theme.palette.text.primary }}>
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                        d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                </svg>
+                <Box>
+                  <span className="defol-logo-text">DEFOL</span>
+                </Box>
+              </Grid>
+            </Box>
+          </Grid>
+          <br/>
+          <br/>
+          <form onSubmit={handleSubmit}>
+            <Grid container direction="column" justifyContent="center" alignItems="center">
+              <Box sx={{ p: 2 }}>
+                <Typography variant="h4" component="h1" align="center" gutterBottom color="primary.main">
+                  Sólo falta confirmar el registro
+                </Typography>
+                <Typography variant="body1" color="textSecondary" align="center" sx={{ mb: 1 }}>
+                  Estás a un paso para comenzar a operar con DEFOL.
+                </Typography>
+                <Typography variant="body1" color="textSecondary" align="center" sx={{ mb: 1 }}>
+                  Te hemos enviado un correo con un código, si no lo encuentras espera unos segundos.
+                </Typography>
+                <Typography variant="body1" color="textSecondary" align="center" sx={{ mb: 3 }}>
+                  No olvides revisar en la bandeja de correos no deseados, a veces los filtros se confunden.
+                </Typography>
+                <FormControl sx={{ my: 2 }} variant="outlined" fullWidth>
+                  <InputLabel htmlFor="username">Correo electrónico</InputLabel>
+                  <OutlinedInput
+                    id="username"
+                    type="text"
+                    disabled={state.username !== undefined}
+                    value={username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}/>
+                </FormControl>
+                <FormControl sx={{ my: 2 }} variant="outlined" fullWidth>
+                  <InputLabel htmlFor="code">Código de validación</InputLabel>
+                  <OutlinedInput
+                    id="code"
+                    type="text"
+                    value={code}
+                    onChange={handleChange}
+                    onBlur={handleBlur}/>
+                </FormControl>
+                <LoadingButton
+                  sx={{ mt: 3 }}
+                  size="large" type="submit" variant="contained" fullWidth
+                  loading={confirming}>
+                  Confirmar registro
+                </LoadingButton>
+              </Box>
+            </Grid>
+          </form>
+        </Grid>
       </Container>
     </Stack>
   );
