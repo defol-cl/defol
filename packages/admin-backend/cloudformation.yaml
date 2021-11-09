@@ -14,12 +14,63 @@ Parameters:
   Sha:
     Type: String
     Description: identificador de la ejecución del CICD
+  ConvenioTable:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Convenio
+  ConvenioModeradorTable:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Convenio-Moderador
+  ConvenioContactoTable:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Convenio-Contacto
+  PreguntaTable:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Pregunta
+  CategoriaTable:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de tabla Categoria
+  UsernameIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
+  EstadoIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
+  FechaActualizacionIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
+  ConvenioCodIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla ConvenioModerador
+  ContactoUsernameIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla ConvenioContacto
+  UserConvenioIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
+  UserPoolArn:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Arn del user pool de cognito
 
 Globals:
   Function:
     Runtime: nodejs12.x
     Timeout: 200
     MemorySize: 1024
+    Layers:
+      - !Ref RuntimeDependenciesLayer
+    Environment:
+      Variables:
+        CONVENIO_TABLE: !Ref ConvenioTable
+        CONVENIO_MODERADOR_TABLE: !Ref ConvenioModeradorTable
+        CONVENIO_CONTACTO_TABLE: !Ref ConvenioContactoTable
+        PREGUNTA_TABLE: !Ref PreguntaTable
+        CATEGORIA_TABLE: !Ref CategoriaTable
+        PREGUNTA_USERNAME_INDEX: !Ref UsernameIndex
+        PREGUNTA_ESTADO_INDEX: !Ref EstadoIndex
+        PREGUNTA_FECHA_ACTUALIZACION_INDEX: !Ref FechaActualizacionIndex
+        CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
+        CONTACTO_USERNAME_INDEX: !Ref ContactoUsernameIndex
+        USER_CONVENIO_INDEX: !Ref UserConvenioIndex
 
 Resources:
   LambdaRole:
@@ -43,6 +94,19 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: arn:aws:logs:*:*:*
+        - PolicyName: QueryDynamoDB
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:Attributes
+                  - dynamodb:LeadingKeys
+                  - dynamodb:ReturnConsumedCapacity
+                  - dynamodb:ReturnValues
+                  - dynamodb:Select
+                  - dynamodb:Query
+                Resource: "*"
 
   Api:
     Type: AWS::Serverless::Api
@@ -54,6 +118,11 @@ Resources:
           Name: AWS::Include
           Parameters:
             Location: !Sub s3://${ResourcesBucket}/${AWS::StackName}/${Sha}/openapi.yaml
+      Auth:
+        Authorizers:
+          CUPAuthorizer:
+            UserPoolArn: !Ref UserPoolArn
+            Type: COGNITO_USER_POOLS
 
   PreguntasGet:
     Type: AWS::Serverless::Function
@@ -67,6 +136,20 @@ Resources:
           Properties:
             RestApiId: !Ref Api
             Path: /preguntas
+            Method: get
+
+  ConveniosGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/convenios
+      Handler: convenios.get
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /convenios
             Method: get
 
   RuntimeDependenciesLayer:

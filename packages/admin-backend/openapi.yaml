@@ -15,7 +15,37 @@ x-amazon-apigateway-request-validators:
     validateRequestParameters: true
     validateRequestBody: true
 
+security:
+  - CUPAuthorizer: []
+
 paths:
+  /convenios:
+    get:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConveniosGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "groups": $context.authorizer.claims.groups
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*CONVENIOS_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene el listado de convenios
+      tags:
+        - convenio
+      responses:
+        200:
+          $ref: "#/components/responses/200ConvenioList"
+        500:
+          description: error al obtener convenios desde dynamo
+
   /preguntas:
     get:
       x-amazon-apigateway-integration:
@@ -30,3 +60,41 @@ paths:
       responses:
         200:
           description: listado de preguntas
+
+components:
+  schemas:
+    Convenio:
+      title: Convenio
+      description: información de un convenio
+      type: object
+      properties:
+        cod:
+          type: string
+        nombre:
+          type: string
+        fechaVencimiento:
+          type: string
+      example:
+        cod: "CMX1"
+        nombre: "Convenio Marco"
+        fechaVencimiento: "2022-01-01"
+  responses:
+    200ConvenioList:
+      description: Listado de convenios
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Convenio"
+
+  securitySchemes:
+    CUPAuthorizer:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: cognito_user_pools
+      x-amazon-apigateway-authorizer:
+        providerARNs:
+          - Fn::Sub: ${CognitoUserPool}
+        type: cognito_user_pools

@@ -64,7 +64,12 @@ export class AdminBaseStack extends cdk.Stack {
     });
 
     userPool.addTrigger(cognito.UserPoolOperation.PRE_TOKEN_GENERATION, preTokenLambda);
-    
+
+    new SSM.StringParameter(this, `${id}-cognito-user-pool-arn-parameter`, {
+      parameterName: `/defol/${branch}/admin/user-pool-arn`,
+      description: 'User Pool ARN',
+      stringValue: userPool.userPoolArn
+    });
     new SSM.StringParameter(this, `${id}-cognito-user-pool-id-parameter`, {
       parameterName: `/defol/${branch}/admin/user-pool-id`,
       description: 'User Pool id',

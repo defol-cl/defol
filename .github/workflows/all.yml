@@ -335,6 +335,18 @@ jobs:
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
           --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} Sha=${{ github.sha }} \
           Branch=${{ steps.branch.outputs.name }}
+          ConvenioTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio \
+          ConvenioModeradorTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador \
+          ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \
+          PreguntaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta \
+          CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
+          UsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-usernameIndex \
+          EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
+          FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
+          ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
+          ContactoUsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoUsernameIndex \
+          UserConvenioIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-userConvenioCodIndex \
+          UserPoolArn=/defol/${{ steps.branch.outputs.name }}/admin/user-pool-arn
 
   admin-frontend:
     runs-on: ubuntu-latest

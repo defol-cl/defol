@@ -1,0 +1,1 @@
+export type Group = "SUPER_ADMIN" | "MODERADOR" | "EQUIPO_LEGAL";
