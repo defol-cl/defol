@@ -1,29 +1,18 @@
 import { ThemeOptions } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 
-const themeOptions: ThemeOptions = {
+const theme = createTheme({
   palette: {
     primary: {
-      main: '#00BCD4',
-      contrastText: '#FFF'
+      main: '#0a2342',
     },
     secondary: {
-      main: '#FFC107',
-    },
-    success: {
-      main: '#009688',
-      contrastText: '#FFF'
-    },
-    warning: {
-      main: '#FFC107'
-    },
-    info: {
-      main: '#3F51B5'
-    },
-    error: {
-      main: '#E91E63'
+      main: '#2ca58d',
     }
-  },
+  }
+});
+
+const customTheme = createTheme(theme, {
   components: {
     MuiTextField: {
       defaultProps: {
@@ -45,6 +34,7 @@ const themeOptions: ThemeOptions = {
       }
     }
   }
-};
+}
+);
 
-export const customTheme = createTheme(themeOptions);
+export { customTheme };

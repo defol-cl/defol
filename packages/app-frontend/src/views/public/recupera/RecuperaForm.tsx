@@ -1,7 +1,5 @@
 import React, { FC, useState } from 'react';
 import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/material/Alert";
-import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import { InputLabel, OutlinedInput, useTheme } from "@mui/material";
 import { Auth } from 'aws-amplify';
@@ -77,10 +75,10 @@ const RecuperaForm: FC = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}/>
                 </FormControl>
-                <LoadingButton
-                  sx={{ mt: 3 }}
-                  size="large" type="submit" variant="contained" fullWidth
-                  loading={recovering}>
+                <LoadingButton sx={{ mt: 3 }}
+                               size="large" type="submit" variant="contained" fullWidth
+                               loadingIndicator="Recuperando..."
+                               loading={recovering}>
                   Recuperar
                 </LoadingButton>
                 <Divider sx={{ my: 3 }}/>
