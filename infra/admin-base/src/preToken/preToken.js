@@ -13,7 +13,7 @@ const getPermission = (groups) => {
   return permissions.length > 0 ? [...new Set(permissions)] : undefined
 }
 
-export const handler = async (event, context, callback) => {
+exports.handler = async (event, context, callback) => {
   context && (context.callbackWaitsForEmptyEventLoop = false);
   console.log(`event: ${JSON.stringify(event, null, 2)}`);
   try {
