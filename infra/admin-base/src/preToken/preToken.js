@@ -17,10 +17,10 @@ export const handler = async (event, context, callback) => {
   context && (context.callbackWaitsForEmptyEventLoop = false);
   console.log(`event: ${JSON.stringify(event, null, 2)}`);
   try {
-    const group = getPermission(event.request.groupConfiguration.groupsToOverride);
+    const permissions = getPermission(event.request.groupConfiguration.groupsToOverride);
     const claimsToAddOrOverride = {
       claimsToAddOrOverride: {
-        permissions: group ? group.join(',') : undefined,
+        permissions: permissions ? permissions.join(',') : undefined,
         groups: event.request.groupConfiguration.groupsToOverride
       }
     }
