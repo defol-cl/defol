@@ -15,13 +15,13 @@ interface Props {
 
 const PreguntasPendientesIndicador: React.FC<Props> = ({ value }) => {
   const history = useHistory();
-  
+  console.log(value);
   return (
     <Card sx={{ minHeight: '100%' }}>
       <CardActionArea onClick={() => history.push(privateRoutes.nuevaPregunta.route())}>
         <CardContent>
           <Grid container direction="row" justifyContent="space-around" alignItems="center">
-            {value && (
+            {value !== undefined && (
               <>
                 <Typography variant="h1" component="h4">
                   <CountUp end={value} duration={2}/>
@@ -38,7 +38,7 @@ const PreguntasPendientesIndicador: React.FC<Props> = ({ value }) => {
                 </Grid>
               </>
             )}
-            {!value && (
+            {value === undefined && (
               <EsqueletoInternoIndicador/>
             )}
           </Grid>
