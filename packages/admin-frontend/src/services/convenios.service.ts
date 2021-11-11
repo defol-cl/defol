@@ -1,4 +1,4 @@
-import { Dao } from '@defol-cl/root';
+import { ConvenioDynamo, Dao } from '@defol-cl/root';
 import { API } from 'aws-amplify';
 
 export const get = () => new Promise<Dao.Convenio[]>(
@@ -10,5 +10,17 @@ export const get = () => new Promise<Dao.Convenio[]>(
         resolve(response)
       }
     })
+    .catch(err => reject(err))
+);
+
+export const post = (convenio: ConvenioDynamo) => new Promise<void>(
+  (resolve, reject) => API.post('api', '/convenios', { body: convenio })
+    .then(() => resolve())
+    .catch(err => reject(err))
+);
+
+export const put = (convenio: ConvenioDynamo) => new Promise<void>(
+  (resolve, reject) => API.put('api', '/convenios', { body: convenio })
+    .then(() => resolve())
     .catch(err => reject(err))
 );

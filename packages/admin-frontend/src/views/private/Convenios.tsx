@@ -17,9 +17,11 @@ import Skeleton from "@mui/material/Skeleton";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import List from "@mui/material/List";
+import DialogConvenio from "./components/DialogConvenio";
 
 const Convenios: React.FC = () => {
   const [convenios, setConvenios] = useState<Dao.Convenio[]>();
+  const [openCrearConvenio, setOpenCrearConvenio] = React.useState(false);
   const [errorConvenio, setErrorConvenio] = useBoolean(false);
   
   useEffect(() => {
@@ -39,6 +41,7 @@ const Convenios: React.FC = () => {
   
   return (
     <>
+      <DialogConvenio open={openCrearConvenio} onClose={() => setOpenCrearConvenio(false)}/>
       {errorConvenio && (
         <Alert variant="outlined" severity="error" sx={{ mb: 2 }}
                action={
@@ -55,7 +58,8 @@ const Convenios: React.FC = () => {
         <Card>
           <CardHeader title="Convenios" subheader="Listado disponible de convenios vigentes/vencidos"
                       action={
-                        <Button variant="contained" startIcon={<AddCircleIcon/>}>
+                        <Button variant="contained" startIcon={<AddCircleIcon/>}
+                                onClick={() => setOpenCrearConvenio(true)}>
                           Crear nuevo
                         </Button>
                       }/>
