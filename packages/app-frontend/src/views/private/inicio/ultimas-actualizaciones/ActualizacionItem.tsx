@@ -25,7 +25,7 @@ const ActualizacionItem: React.FC<Props> = ({ pregunta }) => {
   
   return (
     <ListItem button sx={{ py: 3, backgroundColor: noLeida ? lightBlue[50] : 'white' }}
-              onClick={() => history.push(privateRoutes.miPregunta.route({ id: pregunta.cod }))}>
+              onClick={() => history.push(privateRoutes.miPregunta.route({ conCod: pregunta.convenioCod, fecha: pregunta.timestamp }))}>
       <ListItemAvatar sx={{ minWidth: '35px' }}>
         <CircleIcon fontSize="small" sx={{ color: noLeida ? 'info.dark' : 'white' }}/>
       </ListItemAvatar>

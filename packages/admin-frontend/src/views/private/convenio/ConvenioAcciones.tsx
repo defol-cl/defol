@@ -46,7 +46,7 @@ const ConvenioAcciones: React.FC<Props> = ({ conId }) => {
   
   return (
     <>
-      <DialogConvenio conId={conId} open={openEditarConvenio} onClose={() => setOpenEditarConvenio(false)}/>
+      <DialogConvenio conCod={conId} open={openEditarConvenio} onClose={() => setOpenEditarConvenio(false)}/>
       <DialogAgregarContactos conId={conId} open={openAgregarContactos} onClose={() => setOpenAgregarContactos(false)}/>
       <Button variant="contained" disableElevation
               sx={{mr: 1, mt: 0.5, px: 3}}
