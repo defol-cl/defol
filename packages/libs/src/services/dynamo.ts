@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { ConvenioContactoDynamo, ConvenioDynamo, RootInterface, PreguntaDynamo, RootEnum } from "@defol-cl/root";
+import { ConvenioContactoDynamo, ConvenioDynamo, RootInterface, PreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
@@ -344,10 +344,16 @@ export const putPregunta = async(
 export const putConvenio = async(
   convenio: ConvenioDynamo
 ): Promise<void> => {
+  RootUtils.logger(convenio);
+  RootUtils.logger(CONVENIO_TABLE, "tabla:");
   return new Promise((resolve, reject) => {
     dynamo.put({
       TableName: CONVENIO_TABLE,
-      Item: convenio
+      Item: {
+        cod: convenio.cod,
+        nombre: convenio.nombre,
+        fechaVencimiento: convenio.fechaVencimiento
+      }
     }).promise()
     .then(res => {
       resolve();
