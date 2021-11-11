@@ -100,13 +100,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - dynamodb:Attributes
-                  - dynamodb:LeadingKeys
-                  - dynamodb:ReturnConsumedCapacity
-                  - dynamodb:ReturnValues
-                  - dynamodb:Select
-                  - dynamodb:Query
-                  - dynamodb:Scan
+                  - dynamodb:*
                 Resource: "*"
 
   Api:
@@ -152,6 +146,20 @@ Resources:
             RestApiId: !Ref Api
             Path: /convenios
             Method: get
+
+  ConveniosPost:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/convenios
+      Handler: convenios.post
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /convenios
+            Method: post
 
   RuntimeDependenciesLayer:
     Type: AWS::Serverless::LayerVersion

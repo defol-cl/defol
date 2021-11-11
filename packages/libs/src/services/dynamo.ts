@@ -318,3 +318,35 @@ export const preguntaPut = async(
     })
   })
 }
+
+export const convenioPut = async(
+  convenio: ConvenioDynamo
+): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    dynamo.put({
+      TableName: CONVENIO_TABLE,
+      Item: convenio
+    }).promise()
+    .then(res => {
+      resolve();
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+// export const putItem = <T>(tableName: RootEnum.DynamoTables, item: T): Promise<void> => {
+//   return new Promise((resolve, reject) => {
+//     dynamo.put({
+//       TableName: tableName,
+//       Item: item
+//     }).promise()
+//     .then(res => {
+//       resolve();
+//     }).catch(err => {
+//       console.log(err);
+//       reject(err);
+//     })
+//   })
+// }

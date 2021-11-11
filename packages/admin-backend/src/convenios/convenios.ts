@@ -1,6 +1,6 @@
 import { DynamoServices } from "@defol-cl/libs";
 import { ConvenioDynamo, RootTypes, RootUtils } from "@defol-cl/root";
-import { ConveniosGetHandler } from "./convenios.types";
+import { ConveniosGetHandler, ConveniosPostHandler } from "./convenios.types";
 
 export const get: ConveniosGetHandler = async({ usrId, groups }, context, callback) => {
   RootUtils.logger({usrId, groups});
@@ -23,5 +23,22 @@ export const get: ConveniosGetHandler = async({ usrId, groups }, context, callba
   } catch (error) {
     console.log(error);
     callback("CONVENIOS_GET_ERROR");
+  }
+}
+
+export const post: ConveniosPostHandler = async({usrId, convenio}, context, callback) => {
+  RootUtils.logger({usrId, convenio});
+  try {
+    const existConvenio = await DynamoServices.getConvenio(convenio.cod);
+    if(existConvenio){
+      callback("CONVENIOS_POST_FAILED.CONVENIO_ALREADY_EXISTS");
+      return;
+    }
+
+    await DynamoServices.convenioPut(convenio);
+    callback(null);
+  } catch (error) {
+    console.log(error);
+    callback("CONVENIOS_POST_ERROR");
   }
 }

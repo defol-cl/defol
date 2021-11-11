@@ -46,6 +46,49 @@ paths:
           $ref: "#/components/responses/200ConvenioList"
         500:
           description: error al obtener convenios desde dynamo
+    post:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConveniosPost.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "convenio": $input.json('$')
+            }
+        responses:
+          default:
+            statusCode: 201
+          ".*CONVENIOS_POST_FAILED.*":
+            statusCode: 400
+          ".*CONVENIOS_POST_ERROR.*":
+            statusCode: 500
+      summary: permite crear convenios
+      tags:
+        - convenio
+      requestBody:
+        description: codigo, nombre y fecha de vencimiento de convenio
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cod:
+                  type: string
+                nombre:
+                  type: string
+                fechaVencimiento:
+                  type: string
+      responses:
+        201:
+          description: OK
+        400:
+          description: el convenio ya existe
+        500:
+          description: error al ejecutar lambda
 
   /preguntas:
     get:
