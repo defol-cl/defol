@@ -188,7 +188,7 @@ jobs:
           ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \
           PreguntaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta \
           CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
-          EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-EmailIndex \
+          EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-emailIndex \
           EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
           FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
           ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
@@ -340,7 +340,7 @@ jobs:
           ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \
           PreguntaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta \
           CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
-          EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-EmailIndex \
+          EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-emailIndex \
           EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
           FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
           ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
