@@ -35,7 +35,7 @@ export const post: ConveniosPostHandler = async({usrId, convenio}, context, call
       return;
     }
 
-    await DynamoServices.convenioPut(convenio);
+    await DynamoServices.putConvenio(convenio);
     callback(null);
   } catch (error) {
     console.log(error);

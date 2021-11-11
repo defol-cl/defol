@@ -97,13 +97,42 @@ paths:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasGet.Arn}/invocations
         httpMethod: POST
         type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "ejecutivo": "$input.params('ejecutivo')",
+              "estado": "$input.params('estado')"
+            }
         responses:
           default:
             statusCode: 200
+          ".*CONVENIOS_GET_ERROR.*":
+            statusCode: 500
       summary: obtiene el listado de preguntas
+      tags:
+        - pregunta
+      parameters:
+        - in: query
+          name: estado
+          description: estado de la pregunta
+          schema:
+            type: array
+            items:
+              type: string
+              enum: ["INGRESADA", "REPLICADA"]
+            example: ["INGRESADA"]
+        - in: query
+          name: ejecutivo
+          description: correo ejecutivo
+          schema:
+            type: string
+            example: "hola@hola.cl"
       responses:
         200:
-          description: listado de preguntas
+          $ref: "#/components/responses/200PreguntaList"
+        500:
+          description: error al obtener preguntas desde dynamo
 
 components:
   schemas:

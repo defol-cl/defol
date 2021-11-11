@@ -188,11 +188,11 @@ jobs:
           ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \
           PreguntaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta \
           CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
-          UsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-usernameIndex \
+          EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-EmailIndex \
           EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
           FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
           ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
-          ContactoUsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoUsernameIndex \
+          ContactoEmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoEmailIndex \
           UserConvenioIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-userConvenioCodIndex \
           UserPoolArn=/defol/${{ steps.branch.outputs.name }}/app/user-pool-arn
 
@@ -340,11 +340,11 @@ jobs:
           ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \
           PreguntaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-pregunta \
           CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
-          UsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-usernameIndex \
+          EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-EmailIndex \
           EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
           FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
           ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
-          ContactoUsernameIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoUsernameIndex \
+          ContactoEmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoEmailIndex \
           UserConvenioIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-userConvenioCodIndex \
           UserPoolArn=/defol/${{ steps.branch.outputs.name }}/admin/user-pool-arn
 

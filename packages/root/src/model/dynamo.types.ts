@@ -7,26 +7,36 @@ export interface ConvenioDynamo {
 export interface ConvenioModeradorDynamo {
   activo: boolean
   convenioCod: string
-  username: string
+  email: string
 }
 
 export interface ConvenioContactoDynamo {
   convenioCod: string
   preguntasMax: number
-  username: string
+  email: string
+}
+
+export interface InteraccionPreguntaDynamo {
+  pregunta: string
+  preguntaAt: string
+  replica?: string
+  replicaAt?: string
+  ejecutivoEmail?: string
+  ejecutivoNombre?: string
 }
 
 export interface PreguntaDynamo {
-  cod: string
+  contactoEmail: string
+  timestamp: number
+  contactoNombre: string
+  antecedentes: string
   convenioCod: string
   estado: string
-  interacciones: number
+  interaccionesCantidad: number
   interaccionesMax: number
-  timestamp: number
+  interacciones: InteraccionPreguntaDynamo[]
   titulo: string
-  antecedentes: string
   pregunta: string
-  username: string
   fechaActualizacion?: string
   fechaUltimoAcceso?: string
   cantReplicas?: number

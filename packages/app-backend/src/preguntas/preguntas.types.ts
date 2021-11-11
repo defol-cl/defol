@@ -6,9 +6,11 @@ interface BaseEvent {
 
 interface PreguntasPostEvent extends BaseEvent {
   convenioCod: string
+  contacto: string
   titulo: string
   antecedentes: string
   pregunta: string
+  timestamp?: string
 }
 
 export type PreguntasGetHandler = LambdaTypes.CustomHandler<BaseEvent>;

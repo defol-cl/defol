@@ -29,7 +29,7 @@ Parameters:
   CategoriaTable:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre de tabla Categoria
-  UsernameIndex:
+  EmailIndex:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre de indice de tabla Pregunta
   EstadoIndex:
@@ -41,7 +41,7 @@ Parameters:
   ConvenioCodIndex:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre de indice de tabla ConvenioModerador
-  ContactoUsernameIndex:
+  ContactoEmailIndex:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre de indice de tabla ConvenioContacto
   UserConvenioIndex:
@@ -65,11 +65,11 @@ Globals:
         CONVENIO_CONTACTO_TABLE: !Ref ConvenioContactoTable
         PREGUNTA_TABLE: !Ref PreguntaTable
         CATEGORIA_TABLE: !Ref CategoriaTable
-        PREGUNTA_USERNAME_INDEX: !Ref UsernameIndex
+        PREGUNTA_EMAIL_INDEX: !Ref EmailIndex
         PREGUNTA_ESTADO_INDEX: !Ref EstadoIndex
         PREGUNTA_FECHA_ACTUALIZACION_INDEX: !Ref FechaActualizacionIndex
         CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
-        CONTACTO_USERNAME_INDEX: !Ref ContactoUsernameIndex
+        CONTACTO_EMAIL_INDEX: !Ref ContactoEmailIndex
         USER_CONVENIO_INDEX: !Ref UserConvenioIndex
 
 Resources:

@@ -44,6 +44,7 @@ paths:
         200:
           description: listado de preguntas
     post:
+      x-amazon-apigateway-request-validator: body
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasPost.Arn}/invocations
@@ -51,8 +52,11 @@ paths:
         type: aws
         requestTemplates:
           application/json: |
+            #set($surname = "$context.authorizer.claims.given_name")
+            #set($lastname = "$context.authorizer.claims.family_name")
             {
               "usrId": "$context.authorizer.claims.email",
+              "contacto": "$surname $lastname",
               "titulo": $input.json('titulo'),
               "antecedentes": $input.json('antecedentes'),
               "convenioCod": $input.json('convenioCod'),
@@ -89,6 +93,61 @@ paths:
           description: OK
         400:
           description: se alcanzó el límite de preguntas
+        500:
+          description: error al ejecutar lambda
+    put:
+      x-amazon-apigateway-request-validator: body
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasPut.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            #set($surname = "$context.authorizer.claims.given_name")
+            #set($lastname = "$context.authorizer.claims.family_name")
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "contacto": "$surname $lastname",
+              "titulo": $input.json('titulo'),
+              "timestamp": $input.json('timestamp'),
+              "antecedentes": $input.json('antecedentes'),
+              "convenioCod": $input.json('convenioCod'),
+              "pregunta": $input.json('pregunta')
+            }
+        responses:
+          default:
+            statusCode: 204
+          ".*PREGUNTAS_PUT_NOT_FOUND.*":
+            statusCode: 404
+          ".*PREGUNTAS_PUT_ERROR.*":
+            statusCode: 500
+      summary: permite actualizar preguntas
+      tags:
+        - pregunta
+      requestBody:
+        description: codigo de convenio y pregunta
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titulo:
+                  type: string
+                antecedentes:
+                  type: string
+                convenioCod:
+                  type: string
+                pregunta:
+                  types: string
+                timestamp:
+                  types: string
+      responses:
+        204:
+          description: OK
+        404:
+          description: no se encontró la pregunta
         500:
           description: error al ejecutar lambda
   /dashboard/resumen-preguntas:

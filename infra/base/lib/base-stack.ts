@@ -37,7 +37,7 @@ export class BaseStack extends cdk.Stack {
         type: dynamo.AttributeType.STRING
       },
       sortKey: {
-        name: "username",
+        name: "email",
         type: dynamo.AttributeType.STRING
       }
     })
@@ -50,7 +50,7 @@ export class BaseStack extends cdk.Stack {
         type: dynamo.AttributeType.STRING
       },
       sortKey: {
-        name: "username",
+        name: "email",
         type: dynamo.AttributeType.STRING
       }
     })
@@ -59,12 +59,12 @@ export class BaseStack extends cdk.Stack {
       branch,
       name: "pregunta",
       partitionKey: {
-        name: "username",
+        name: "contactoEmail",
         type: dynamo.AttributeType.STRING
       },
       sortKey: {
         name: "timestamp",
-        type: dynamo.AttributeType.NUMBER
+        type: dynamo.AttributeType.STRING
       }
     })
 
@@ -81,11 +81,11 @@ export class BaseStack extends cdk.Stack {
       }
     })
 
-    new DynamoIndex(this, `${id}-resources-table-index-usernameIndex`, {
+    new DynamoIndex(this, `${id}-resources-table-index-emailIndex`, {
       branch,
-      name: 'usernameIndex',
+      name: 'emailIndex',
       partitionKey: {
-        name: "username",
+        name: "email",
         type: dynamo.AttributeType.STRING
       },
       type: "GLOBAL",
@@ -136,11 +136,11 @@ export class BaseStack extends cdk.Stack {
       table: pregunta.table,
     })
 
-    new DynamoIndex(this, `${id}-resources-table-index-contactoUsernameIndex`, {
+    new DynamoIndex(this, `${id}-resources-table-index-contactoEmailIndex`, {
       branch,
-      name: 'contactoUsernameIndex',
+      name: 'contactoEmailIndex',
       partitionKey: {
-        name: "username",
+        name: "contactoEmail",
         type: dynamo.AttributeType.STRING
       },
       type: "GLOBAL",
