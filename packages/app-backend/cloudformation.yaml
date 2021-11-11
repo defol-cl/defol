@@ -100,13 +100,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - dynamodb:Attributes
-                  - dynamodb:LeadingKeys
-                  - dynamodb:ReturnConsumedCapacity
-                  - dynamodb:ReturnValues
-                  - dynamodb:Select
-                  - dynamodb:Query
-                  - dynamodb:Scan
+                  - dynamodb:*
                 Resource: "*"
 
   Api:

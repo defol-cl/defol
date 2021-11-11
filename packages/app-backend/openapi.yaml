@@ -53,14 +53,17 @@ paths:
           application/json: |
             {
               "usrId": "$context.authorizer.claims.email",
+              "titulo": $input.json('titulo'),
+              "antecedentes": $input.json('antecedentes'),
+              "convenioCod": $input.json('convenioCod'),
               "pregunta": $input.json('pregunta')
             }
         responses:
           default:
             statusCode: 201
-          ".*PREGUNTA_CREATE_FAILED.*":
+          ".*PREGUNTAS_POST_FAILED.*":
             statusCode: 400
-          ".*PREGUNTA_CREATE_ERROR.*":
+          ".*PREGUNTAS_POST_ERROR.*":
             statusCode: 500
       summary: permite crear preguntas
       tags:
