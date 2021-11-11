@@ -37,13 +37,13 @@ export const getConvenios = (
   })
 }
 
-export const getConvenio = (convenioCod: string): Promise<ConvenioDynamo | undefined> => {
+export const getConvenio = (cod: string): Promise<ConvenioDynamo | undefined> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: CONVENIO_TABLE,
-      KeyConditionExpression: "convenioCod = :convenioCod",
+      KeyConditionExpression: "cod = :cod",
       ExpressionAttributeValues: {
-        ":convenioCod": convenioCod,
+        ":cod": cod,
       },
     }).promise()
     .then(res => {
@@ -344,16 +344,10 @@ export const putPregunta = async(
 export const putConvenio = async(
   convenio: ConvenioDynamo
 ): Promise<void> => {
-  console.log(JSON.stringify(convenio, null, 2))
-  console.log(CONVENIO_TABLE)
   return new Promise((resolve, reject) => {
     dynamo.put({
       TableName: CONVENIO_TABLE,
-      Item: {
-        cod: convenio.cod,
-        nombre: convenio.nombre,
-        fechaVencimiento: convenio.fechaVencimiento
-      }
+      Item: convenio
     }).promise()
     .then(res => {
       resolve();
