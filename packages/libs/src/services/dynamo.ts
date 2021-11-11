@@ -344,8 +344,8 @@ export const putPregunta = async(
 export const putConvenio = async(
   convenio: ConvenioDynamo
 ): Promise<void> => {
-  RootUtils.logger(convenio);
-  RootUtils.logger(CONVENIO_TABLE, "tabla:");
+  console.log(JSON.stringify(convenio, null, 2))
+  console.log(CONVENIO_TABLE)
   return new Promise((resolve, reject) => {
     dynamo.put({
       TableName: CONVENIO_TABLE,
