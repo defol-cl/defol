@@ -2,3 +2,27 @@
   background-color: #eceeef;
   min-height: 100vh;
 }
+
+.defol-toolbar {
+
+  .defol-logo {
+    svg {
+      margin-right: 10px;
+    }
+    .defol-logo-text {
+      font-size: 1.7rem;
+      font-weight: 400;
+      margin: 0;
+    }
+  }
+
+  .MuiButton-root {
+    text-transform: none;
+    font-size: 0.975rem;
+    font-weight: 400;
+
+    &.MuiButton-text {
+      color: #3d3d3d;
+    }
+  }
+}

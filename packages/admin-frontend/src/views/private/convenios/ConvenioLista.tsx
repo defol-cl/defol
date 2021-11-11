@@ -1,12 +1,17 @@
-import React, { FC } from 'react';
+import React from 'react';
 import List from '@mui/material/List';
 import ConvenioListaItem from "./ConvenioListaItem";
+import { Dao } from "@defol-cl/root";
 
-const ConvenioLista: FC = () => {
+interface Props {
+  convenios: Dao.Convenio[]
+}
+
+const ConvenioLista: React.FC<Props> = ({ convenios }) => {
   return (
     <List disablePadding>
-      {[...Array(10)].map((_, key) => (
-        <ConvenioListaItem key={key}/>
+      {convenios.map((convenio, key) => (
+        <ConvenioListaItem key={key} convenio={convenio}/>
       ))}
     </List>
   );

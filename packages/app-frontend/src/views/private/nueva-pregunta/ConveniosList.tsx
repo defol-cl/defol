@@ -25,6 +25,20 @@ const ConveniosList: React.FC<Props> = ({ convenios, convenio, setFieldValue }) 
                   subheader="Los convenios activos te habilitan a realizar preguntas a nuestro equipo legal"/>
       <Divider/>
       <List sx={{ py: 0 }}>
+        {convenios && convenios.length === 0 && (
+          <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center"
+                sx={{ minHeight: 200, p: 3 }}>
+            <Grid item>
+              <Typography variant="h5" gutterBottom component="h3" align="center" color="textSecondary"
+                          sx={{ mt: 3 }}>
+                Aún no se han creado convenios
+              </Typography>
+              <Typography variant="body1" gutterBottom align="center" color="textPrimary">
+                ¿Qué estas esperando? Puedes crear uno ahora mismo :)
+              </Typography>
+            </Grid>
+          </Grid>
+        )}
         {convenios && convenios.map(c => (
           <ListItem disablePadding divider
                     secondaryAction={
