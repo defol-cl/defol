@@ -41,10 +41,20 @@ export interface PreguntaDynamo {
   fechaUltimoAcceso?: string
   cantReplicas?: number
   categoria?: string
-  usernameEjecutivo?: string
+  ejecutivoEmail?: string
 }
 
 export interface CategoriaDynamo {
   cod: string
   nombre: string
+}
+
+type DocumentClientKey = {[key: string]: any};
+export interface LastEvaluatedKey {
+  [key: string]: DocumentClientKey
+}
+
+export interface DynamoIterator<T> {
+  items: T,
+  token?: LastEvaluatedKey
 }

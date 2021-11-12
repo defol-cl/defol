@@ -35,6 +35,12 @@ Parameters:
   EstadoIndex:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre de indice de tabla Pregunta
+  PreguntaEstadoIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
+  EjecutivoEmailEstadoIndex:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de indice de tabla Pregunta
   FechaActualizacionIndex:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre de indice de tabla Pregunta
@@ -66,8 +72,10 @@ Globals:
         PREGUNTA_TABLE: !Ref PreguntaTable
         CATEGORIA_TABLE: !Ref CategoriaTable
         PREGUNTA_EMAIL_INDEX: !Ref EmailIndex
-        PREGUNTA_ESTADO_INDEX: !Ref EstadoIndex
+        PREGUNTA_ESTADO_INDEX: !Ref PreguntaEstadoIndex
         PREGUNTA_FECHA_ACTUALIZACION_INDEX: !Ref FechaActualizacionIndex
+        ESTADO_INDEX: !Ref EstadoIndex
+        EJECUTIVO_EMAIL_ESTADO_INDEX: !Ref EjecutivoEmailEstadoIndex
         CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
         CONTACTO_EMAIL_INDEX: !Ref ContactoEmailIndex
         USER_CONVENIO_INDEX: !Ref UserConvenioIndex

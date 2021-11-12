@@ -229,18 +229,40 @@ paths:
 
 components:
   schemas:
+    InteraccionPreguntas:
+      title: InteraccionPreguntas
+      type: object
+      properties:
+        pregunta:
+          type: string
+        preguntaAt:
+          type: string
+        replica:
+          type: string
+        replicaAt:
+          type: string
+        ejecutivoNombre:
+          type: string
+        ejecutivoEmail:
+          type: string
     Pregunta:
       title: Pregunta
       description: información de una pregunta
       type: object
       properties:
-        cod:
-          type: string
         convenioCod:
+          type: string
+        contactoNombre:
+          type: string
+        contactoEmail:
           type: string
         estado:
           type: string
         interacciones:
+          type: array
+          items:
+            $ref: "#/components/schemas/InteraccionPreguntas"
+        interaccionesCantidad:
           type: number
         interaccionesMax:
           type: number
@@ -262,7 +284,7 @@ components:
           type: number
         categoria:
           type: string
-        usernameEjecutivo:
+        ejecutivoEmail:
           type: string
     Convenio:
       title: Convenio

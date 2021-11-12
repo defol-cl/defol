@@ -107,7 +107,7 @@ paths:
         responses:
           default:
             statusCode: 200
-          ".*CONVENIOS_GET_ERROR.*":
+          ".*PREGUNTAS_GET_ERROR.*":
             statusCode: 500
       summary: obtiene el listado de preguntas
       tags:
@@ -120,7 +120,7 @@ paths:
             type: array
             items:
               type: string
-              enum: ["INGRESADA", "REPLICADA"]
+              enum: ["INGRESADA", "REPLICADA", "RESPONDIDA", "FINALIZADA"]
             example: ["INGRESADA"]
         - in: query
           name: ejecutivo
@@ -136,6 +136,63 @@ paths:
 
 components:
   schemas:
+    InteraccionPreguntas:
+      title: InteraccionPreguntas
+      type: object
+      properties:
+        pregunta:
+          type: string
+        preguntaAt:
+          type: string
+        replica:
+          type: string
+        replicaAt:
+          type: string
+        ejecutivoNombre:
+          type: string
+        ejecutivoEmail:
+          type: string
+    Pregunta:
+      title: Pregunta
+      description: información de una pregunta
+      type: object
+      properties:
+        convenioCod:
+          type: string
+        contactoNombre:
+          type: string
+        contactoEmail:
+          type: string
+        estado:
+          type: string
+        interacciones:
+          type: array
+          items:
+            $ref: "#/components/schemas/InteraccionPreguntas"
+        interaccionesCantidad:
+          type: number
+        interaccionesMax:
+          type: number
+        timestamp:
+          type: number
+        titulo:
+          type: string
+        antecedentes:
+          type: string
+        pregunta:
+          type: string
+        username:
+          type: string
+        fechaActualizacion:
+          type: string
+        fechaUltimoAcceso:
+          type: string
+        cantReplicas:
+          type: number
+        categoria:
+          type: string
+        ejecutivoEmail:
+          type: string
     Convenio:
       title: Convenio
       description: información de un convenio
@@ -160,6 +217,20 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/Convenio"
+    200PreguntaList:
+      description: Listado de preguntas
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pregunta"
+              token:
+                type: object
+            required: [items]
 
   securitySchemes:
     CUPAuthorizer:

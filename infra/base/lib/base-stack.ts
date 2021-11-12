@@ -92,9 +92,9 @@ export class BaseStack extends cdk.Stack {
       table: convenioModerador.table,
     })
 
-    new DynamoIndex(this, `${id}-resources-table-index-estadoIndex`, {
+    new DynamoIndex(this, `${id}-resources-table-index-preguntaEstadoIndex`, {
       branch,
-      name: 'estadoIndex',
+      name: 'preguntaEstadoIndex',
       sortKey: {
         name: "estado",
         type: dynamo.AttributeType.STRING
@@ -130,6 +130,32 @@ export class BaseStack extends cdk.Stack {
       name: 'convenioCodIndex',
       partitionKey: {
         name: "convenioCod",
+        type: dynamo.AttributeType.STRING
+      },
+      type: "GLOBAL",
+      table: pregunta.table,
+    })
+
+    new DynamoIndex(this, `${id}-resources-table-index-estadoIndex`, {
+      branch,
+      name: 'estadoIndex',
+      partitionKey: {
+        name: "estado",
+        type: dynamo.AttributeType.STRING
+      },
+      type: "GLOBAL",
+      table: pregunta.table,
+    })
+
+    new DynamoIndex(this, `${id}-resources-table-index-ejecutivoEmailEstadoIndex`, {
+      branch,
+      name: 'ejecutivoEmailEstadoIndex',
+      partitionKey: {
+        name: "ejecutivoEmail",
+        type: dynamo.AttributeType.STRING
+      },
+      sortKey: {
+        name: "estado",
         type: dynamo.AttributeType.STRING
       },
       type: "GLOBAL",

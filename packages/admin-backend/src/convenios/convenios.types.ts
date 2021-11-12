@@ -1,5 +1,5 @@
 import { LambdaTypes } from "@defol-cl/libs";
-import { ConvenioDynamo, RootTypes } from "@defol-cl/root";
+import { ConvenioDynamo, DynamoIterator } from "@defol-cl/root";
 
 interface BaseEvent {
   usrId: string

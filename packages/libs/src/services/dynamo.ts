@@ -1,11 +1,21 @@
-import AWS from "aws-sdk";
-import { ConvenioContactoDynamo, ConvenioDynamo, RootInterface, PreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
+import {DynamoDB} from "aws-sdk";
+import {
+  ConvenioContactoDynamo,
+  ConvenioDynamo,
+  RootInterface,
+  PreguntaDynamo,
+  RootEnum,
+  DynamoIterator,
+  LastEvaluatedKey
+} from "@defol-cl/root";
 
-const dynamo = new AWS.DynamoDB.DocumentClient();
+const dynamo = new DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
 const PREGUNTA_TABLE = process.env.PREGUNTA_TABLE;
 const CONVENIO_CONTACTO_TABLE = process.env.CONVENIO_CONTACTO_TABLE;
 const PREGUNTA_ESTADO_INDEX = process.env.PREGUNTA_ESTADO_INDEX;
+const ESTADO_INDEX = process.env.ESTADO_INDEX;
+const EJECUTIVO_EMAIL_ESTADO_INDEX = process.env.EJECUTIVO_EMAIL_ESTADO_INDEX;
 const PREGUNTA_FECHA_ACTUALIZACION_INDEX = process.env.PREGUNTA_FECHA_ACTUALIZACION_INDEX;
 const CONTACTO_EMAIL_INDEX = process.env.CONTACTO_EMAIL_INDEX;
 const USER_CONVENIO_INDEX = process.env.USER_CONVENIO_INDEX;
@@ -301,6 +311,26 @@ export const getLimitAndCountPreguntasByUsrId = async(
   }
 }
 
+export const getPreguntas = (
+  lastKey?: AWS.DynamoDB.DocumentClient.Key,
+): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+  return new Promise((resolve, reject) => {
+    dynamo.scan({
+      TableName: PREGUNTA_TABLE,
+      ExclusiveStartKey: lastKey,
+    }).promise()
+    .then(res => {
+      resolve({
+        items: res.Items ? res.Items as PreguntaDynamo[] : [],
+        token: res.LastEvaluatedKey
+      });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
 export const getPregunta = (contactoEmail: string, timestamp: string): Promise<PreguntaDynamo | undefined> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
@@ -321,6 +351,122 @@ export const getPregunta = (contactoEmail: string, timestamp: string): Promise<P
       reject(err);
     })
   })
+}
+
+export const getPreguntasByEjecutivo = (
+  ejecutivo: string,
+  lastKey?: AWS.DynamoDB.DocumentClient.Key
+): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      IndexName: EJECUTIVO_EMAIL_ESTADO_INDEX,
+      KeyConditionExpression: "ejecutivoEmail = :ejecutivoEmail",
+      ExpressionAttributeValues: {
+        ":ejecutivoEmail": ejecutivo
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      resolve({
+        items: res.Items ? res.Items as PreguntaDynamo[] : [],
+        token: res.LastEvaluatedKey
+      });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getPreguntasByEstado = (
+  estado: string,
+  lastKey?: AWS.DynamoDB.DocumentClient.Key,
+): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      IndexName: EJECUTIVO_EMAIL_ESTADO_INDEX,
+      KeyConditionExpression: "estado = :estado",
+      ExpressionAttributeValues: {
+        ":estado": estado
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      resolve({
+        items: res.Items ? res.Items as PreguntaDynamo[] : [],
+        token: res.LastEvaluatedKey
+      });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getPreguntasByEjecutivoAndEstados = (
+  ejecutivo: string,
+  estado: string,
+  lastKey?: AWS.DynamoDB.DocumentClient.Key
+): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      IndexName: EJECUTIVO_EMAIL_ESTADO_INDEX,
+      KeyConditionExpression: "ejecutivoEmail = :ejecutivoEmail and estado = :estado",
+      ExpressionAttributeValues: {
+        ":ejecutivoEmail": ejecutivo,
+        ":estado": estado
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      resolve({
+        items: res.Items ? res.Items as PreguntaDynamo[] : [],
+        token: res.LastEvaluatedKey
+      });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getPreguntasByEjecutivoEstados = async(
+  ejecutivo?: string,
+  estado?: string | string[],
+  lastKey?: any,
+): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+  let response = [];
+  if(ejecutivo && estado) {
+    const lastKey: LastEvaluatedKey = {};
+    const estadoPreguntas = typeof estado === 'string' ? [estado] : estado;
+    for (const estadoPregunta of estadoPreguntas) {
+      const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
+      const preguntas = await getPreguntasByEjecutivoAndEstados(ejecutivo, estadoPregunta, estadoLastKey);
+      response = response.concat(preguntas.items);
+      lastKey[estadoPregunta] = preguntas.token;
+    }
+    return {
+      items: response,
+      token: lastKey
+    };
+  } else if(ejecutivo) {
+    return getPreguntasByEjecutivo(ejecutivo, lastKey)
+  } else {
+    const estadoPreguntas = typeof estado === 'string' ? [estado] : estado;
+    for (const estadoPregunta of estadoPreguntas) {
+      const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
+      const preguntas = await getPreguntasByEstado(estadoPregunta, estadoLastKey);
+      response = response.concat(preguntas.items);
+      lastKey[estadoPregunta] = preguntas.token;
+    }
+    return {
+      items: response,
+      token: lastKey
+    };
+  }
 }
 
 export const putPregunta = async(

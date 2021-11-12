@@ -1,7 +1,11 @@
 import { LambdaTypes } from "@defol-cl/libs";
+import { DynamoIterator, PreguntaDynamo } from "@defol-cl/root";
 
 interface PreguntasGetEvent {
-  usuId: number
+  usrId: number
+  ejecutivo?: string
+  estado?: string | string[],
+  lastKey?: any
 }
 
-export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent>;
+export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIterator<PreguntaDynamo[]>>;

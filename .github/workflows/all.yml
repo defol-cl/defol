@@ -190,6 +190,8 @@ jobs:
           CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
           EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-emailIndex \
           EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
+          PreguntaEstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-preguntaEstadoIndex \
+          EjecutivoEmailEstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-ejecutivoEmailEstadoIndex \
           FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
           ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
           ContactoEmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoEmailIndex \
@@ -342,6 +344,8 @@ jobs:
           CategoriaTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-categoria \
           EmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-emailIndex \
           EstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-estadoIndex \
+          PreguntaEstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-preguntaEstadoIndex \
+          EjecutivoEmailEstadoIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-ejecutivoEmailEstadoIndex \
           FechaActualizacionIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-fechaActualizacionIndex \
           ConvenioCodIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-convenioCodIndex \
           ContactoEmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoEmailIndex \
