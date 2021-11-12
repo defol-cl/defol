@@ -140,7 +140,7 @@ export class BaseStack extends cdk.Stack {
       branch,
       name: 'contactoEmailIndex',
       partitionKey: {
-        name: "contactoEmail",
+        name: "email",
         type: dynamo.AttributeType.STRING
       },
       type: "GLOBAL",
