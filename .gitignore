@@ -27,3 +27,5 @@ dist/
 .idea/
 
 cdk.context.json
+
+www/.next/
