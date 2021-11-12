@@ -435,13 +435,13 @@ export const getPreguntasByEjecutivoAndEstados = (
 
 export const getPreguntasByEjecutivoEstados = async(
   ejecutivo?: string,
-  estado?: string | string[],
+  estado?: string,
   lastKey?: any,
 ): Promise<DynamoIterator<PreguntaDynamo[]>> => {
   let response = [];
+  const estadoPreguntas = estado ? estado.split(",") : estado;
   if(ejecutivo && estado) {
     const lastKey: LastEvaluatedKey = {};
-    const estadoPreguntas = typeof estado === 'string' ? [estado] : estado;
     for (const estadoPregunta of estadoPreguntas) {
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByEjecutivoAndEstados(ejecutivo, estadoPregunta, estadoLastKey);
@@ -455,7 +455,6 @@ export const getPreguntasByEjecutivoEstados = async(
   } else if(ejecutivo) {
     return getPreguntasByEjecutivo(ejecutivo, lastKey)
   } else {
-    const estadoPreguntas = typeof estado === 'string' ? [estado] : estado;
     for (const estadoPregunta of estadoPreguntas) {
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByEstado(estadoPregunta, estadoLastKey);

@@ -118,11 +118,8 @@ paths:
           name: estado
           description: estado de la pregunta
           schema:
-            type: array
-            items:
-              type: string
-              enum: ["INGRESADA", "REPLICADA", "RESPONDIDA", "FINALIZADA"]
-            example: ["INGRESADA"]
+            type: atring
+            example: "INGRESADA,REPLICADA"
         - in: query
           name: ejecutivo
           description: correo ejecutivo

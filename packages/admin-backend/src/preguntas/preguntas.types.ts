@@ -4,7 +4,7 @@ import { DynamoIterator, PreguntaDynamo } from "@defol-cl/root";
 interface PreguntasGetEvent {
   usrId: number
   ejecutivo?: string
-  estado?: string | string[],
+  estado?: string,
   lastKey?: any
 }
 
