@@ -9,7 +9,10 @@ import ListItem from "@mui/material/ListItem";
 import Skeleton from "@mui/material/Skeleton";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Radio from "@mui/material/Radio";
 import { Dao } from "@defol-cl/root";
+import Fecha from "src/components/Fecha";
 
 interface Props {
   convenios?: Dao.Convenio[]
@@ -34,7 +37,7 @@ const ConveniosList: React.FC<Props> = ({ convenios, convenio, setFieldValue }) 
                 Aún no se han creado convenios
               </Typography>
               <Typography variant="body1" gutterBottom align="center" color="textPrimary">
-                ¿Qué estas esperando? Puedes crear uno ahora mismo :)
+                Si crees que es un error escríbenos a <b>soporte@defol.cl</b>
               </Typography>
             </Grid>
           </Grid>
@@ -44,18 +47,22 @@ const ConveniosList: React.FC<Props> = ({ convenios, convenio, setFieldValue }) 
                     secondaryAction={
                       <Grid container direction="column" justifyContent="center" alignItems="center">
                         <Typography variant="h6" component="p" sx={{ color: 'info.dark' }}>
-                          2 disponibles
+                          {c.limitePreguntas - c.preguntasRealizadas} disponibles
                         </Typography>
                         <Typography variant="button" component="p" sx={{ color: 'info.light' }}>
-                          de 5 preguntas
+                          de {c.limitePreguntas} preguntas
                         </Typography>
                       </Grid>
                     }
                     selected={c.cod === convenio?.cod}>
-            <ListItemButton>
-              <ListItemText primary="Convenio 1"
+            <ListItemButton onClick={() => setFieldValue('convenio', c)}>
+              <ListItemIcon>
+                <Radio color="secondary" checked={c.cod === convenio?.cod}
+                       onChange={() => setFieldValue('convenio', c)}/>
+              </ListItemIcon>
+              <ListItemText primary={c.nombre}
                             primaryTypographyProps={{ variant: 'h5' }}
-                            secondary="Vence el 27/03/2023"
+                            secondary={<>Vence el <Fecha text={c.fechaVencimiento}/></>}
                             secondaryTypographyProps={{ variant: 'overline' }}/>
             </ListItemButton>
           </ListItem>

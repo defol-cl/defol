@@ -61,13 +61,6 @@ const customTheme = createTheme(theme, {
         }
       }
     },
-    MuiListItem: {
-      styleOverrides: {
-        divider: {
-          borderColor: borderColor
-        }
-      }
-    },
     MuiAlert: {
       styleOverrides: {
         action: {
