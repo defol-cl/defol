@@ -440,6 +440,7 @@ export const getPreguntasByEjecutivoEstados = async(
 ): Promise<DynamoIterator<PreguntaDynamo[]>> => {
   let response = [];
   const estadoPreguntas = estado ? estado.split(",") : estado;
+  console.log("estados:", estadoPreguntas);
   if(ejecutivo && estado) {
     const lastKey: LastEvaluatedKey = {};
     for (const estadoPregunta of estadoPreguntas) {

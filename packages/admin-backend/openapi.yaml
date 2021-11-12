@@ -118,7 +118,7 @@ paths:
           name: estado
           description: estado de la pregunta
           schema:
-            type: atring
+            type: string
             example: "INGRESADA,REPLICADA"
         - in: query
           name: ejecutivo
@@ -129,6 +129,48 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/200PreguntaList"
+        500:
+          description: error al obtener preguntas desde dynamo
+
+  /pregunta:
+    get:
+      x-amazon-apigateway-request-validator: params
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntaDetailGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "contactoEmail": "$input.params('contactoEmail')",
+              "timestamp": "$input.params('timestamp')"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*PREGUNTA_DETAIL_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene el detalle de una pregunta
+      tags:
+        - pregunta
+      parameters:
+        - in: query
+          name: contactoEmail
+          description: correo de contacto
+          schema:
+            type: string
+            example: "hola@hola.com"
+        - in: query
+          name: timestamp
+          description: fecha de creacion de pregunta
+          schema:
+            type: string
+            example: "2022-10-20T10:00:00.000Z"
+      responses:
+        200:
+          $ref: "#/components/responses/200PreguntaDetail"
         500:
           description: error al obtener preguntas desde dynamo
 
@@ -215,6 +257,13 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/Convenio"
+    200PreguntaDetail:
+      description: Detalle de una pregunta
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Pregunta"
+             
     200PreguntaList:
       description: Listado de preguntas
       content:

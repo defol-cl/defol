@@ -1,6 +1,6 @@
 import { DynamoServices } from "@defol-cl/libs";
 import { DynamoIterator, PreguntaDynamo, RootUtils } from "@defol-cl/root";
-import { PreguntasGetHandler } from "./preguntas.types";
+import { PreguntaDetailHandler, PreguntasGetHandler } from "./preguntas.types";
 
 export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, lastKey }, context, callback) => {
   RootUtils.logger({ usrId, ejecutivo, estado, lastKey });
@@ -19,5 +19,16 @@ export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, lastKe
   } catch (error) {
     console.log(error);
     callback("PREGUNTAS_GET_ERROR");
+  }
+}
+
+export const detail: PreguntaDetailHandler = async({ usrId, contactoEmail, timestamp }, context, callback) => {
+  RootUtils.logger({ usrId, contactoEmail, timestamp });
+  try {
+    const pregunta = await DynamoServices.getPregunta(contactoEmail, timestamp);
+    callback(null, pregunta);
+  } catch (error) {
+    console.log(error);
+    callback("PREGUNTA_DETAIL_GET_ERROR");
   }
 }

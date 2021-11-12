@@ -50,7 +50,7 @@ export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioC
         estado: RootEnum.EstadoPregunta.INGRESADA,
         fechaActualizacion: now.format("YYYY-MM-DD HH:mm:ss"),
         fechaUltimoAcceso: now.format("YYYY-MM-DD HH:mm:ss"),
-        timestamp: now.unix(),
+        timestamp: now.toISOString(),
       })
     }
 
