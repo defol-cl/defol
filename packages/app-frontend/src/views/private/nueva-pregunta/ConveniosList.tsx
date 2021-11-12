@@ -43,7 +43,7 @@ const ConveniosList: React.FC<Props> = ({ convenios, convenio, setFieldValue }) 
           </Grid>
         )}
         {convenios && convenios.map(c => (
-          <ListItem disablePadding divider
+          <ListItem key={c.cod} disablePadding divider
                     secondaryAction={
                       <Grid container direction="column" justifyContent="center" alignItems="center">
                         <Typography variant="h6" component="p" sx={{ color: 'info.dark' }}>

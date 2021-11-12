@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import { alpha } from '@mui/material/styles';
 
 const borderColor = '#abd3ff';
 
@@ -60,6 +61,18 @@ const customTheme = createTheme(theme, {
           color: theme.palette.text.secondary
         }
       }
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          "&.Mui-selected": {
+            backgroundColor: alpha(theme.palette.secondary.light, 0.14),
+          }
+        },
+        divider: {
+          borderColor: borderColor
+        },
+      },
     },
     MuiAlert: {
       styleOverrides: {
