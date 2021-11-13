@@ -28,6 +28,7 @@ paths:
         httpMethod: POST
         type: aws
         requestTemplates:
+          #dejar de usar grupos y usar permisos (definir nombres de permisos para usarlos aca)
           application/json: |
             {
               "usrId": "$context.authorizer.claims.email",
@@ -150,6 +151,8 @@ paths:
         responses:
           default:
             statusCode: 200
+          ".*PREGUNTA_DETAIL_GET_NOT_FOUND.*":
+            statusCode: 404
           ".*PREGUNTA_DETAIL_GET_ERROR.*":
             statusCode: 500
       summary: obtiene el detalle de una pregunta
@@ -158,12 +161,14 @@ paths:
       parameters:
         - in: query
           name: contactoEmail
+          required: true
           description: correo de contacto
           schema:
             type: string
             example: "hola@hola.com"
         - in: query
           name: timestamp
+          required: true
           description: fecha de creacion de pregunta
           schema:
             type: string
@@ -171,6 +176,72 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/200PreguntaDetail"
+        404:
+          description: no se encontró la pregunta
+        500:
+          description: error al obtener preguntas desde dynamo
+    put:
+      x-amazon-apigateway-request-validator: all
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ReplicaPut.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            #set($surname = "$context.authorizer.claims.given_name")
+            #set($lastname = "$context.authorizer.claims.family_name")
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "contacto": "$surname $lastname",
+              "contactoEmail": "$input.params('contactoEmail')",
+              "timestamp": "$input.params('timestamp')",
+              "replica": $input.json("$.replica"),
+              "agregarReplica": $input.json("$.agregarReplica")
+            }
+        responses:
+          default:
+            statusCode: 204
+          ".*PREGUNTA_PUT_FAILED.*":
+            statusCode: 400
+          ".*PREGUNTA_PUT_ERROR.*":
+            statusCode: 500
+      summary: obtiene el detalle de una pregunta
+      tags:
+        - pregunta
+      parameters:
+        - in: query
+          name: contactoEmail
+          required: true
+          description: correo de contacto
+          schema:
+            type: string
+            example: "hola@hola.com"
+        - in: query
+          name: timestamp
+          required: true
+          description: fecha de creacion de pregunta
+          schema:
+            type: string
+            example: "2022-10-20T10:00:00.000Z"
+      requestBody:
+        description: replica de la pregunta
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                replica:
+                  type: string
+                agregarReplica:
+                  type: boolean
+              required: [replica]
+      responses:
+        204:
+          description: replica creada con éxito
+        400:
+          description: request inválido
         500:
           description: error al obtener preguntas desde dynamo
 

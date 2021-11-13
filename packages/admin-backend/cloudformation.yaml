@@ -155,6 +155,20 @@ Resources:
             Path: /pregunta
             Method: get
 
+  ReplicaPut:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/preguntas
+      Handler: preguntas.put
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /pregunta
+            Method: put
+
   ConveniosGet:
     Type: AWS::Serverless::Function
     Properties:

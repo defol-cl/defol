@@ -7,12 +7,16 @@ importers:
 
   packages/admin-backend:
     specifiers:
-      '@defol-cl/libs': 1.0.14
+      '@defol-cl/libs': 1.0.29
+      '@defol-cl/root': 1.0.29
       '@types/node': ^16.11.6
       aws-sdk: ^2.1023.0
+      moment: ^2.29.1
     dependencies:
       '@defol-cl/libs': link:../libs
+      '@defol-cl/root': link:../root
       aws-sdk: 2.1023.0
+      moment: 2.29.1
     devDependencies:
       '@types/node': 16.11.6
 
