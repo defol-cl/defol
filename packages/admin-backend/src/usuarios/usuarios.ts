@@ -2,7 +2,7 @@ import { DynamoServices } from "@defol-cl/libs";
 import { PreguntasGetHandler } from "./usuarios.types";
 
 export const post: PreguntasGetHandler = async({ usrId, convenioCod, emails, preguntasMax }, context, callback) => {
-    const emailList = emails.split(";");
+    const emailList = emails.split(/[,;\s\t\n\r]+/);
     const emailFailed: string[] = [];
     for (const email of emailList) {
       try {
