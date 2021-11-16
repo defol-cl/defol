@@ -88,6 +88,7 @@ paths:
                   type: string
                 pregunta:
                   types: string
+              required: [titulo, antecedentes, convenioCod, pregunta]
       responses:
         201:
           description: OK
@@ -109,10 +110,7 @@ paths:
             {
               "usrId": "$context.authorizer.claims.email",
               "contacto": "$surname $lastname",
-              "titulo": $input.json('$.titulo'),
               "timestamp": $input.json('$.timestamp'),
-              "antecedentes": $input.json('$.antecedentes'),
-              "convenioCod": $input.json('$.convenioCod'),
               "pregunta": $input.json('$.pregunta')
             }
         responses:
@@ -133,16 +131,11 @@ paths:
             schema:
               type: object
               properties:
-                titulo:
-                  type: string
-                antecedentes:
-                  type: string
-                convenioCod:
-                  type: string
                 pregunta:
                   types: string
                 timestamp:
                   types: string
+              required: [pregunta, timestamp]
       responses:
         204:
           description: OK

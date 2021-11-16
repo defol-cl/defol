@@ -5,11 +5,11 @@ interface BaseEvent {
 }
 
 interface PreguntasPostEvent extends BaseEvent {
-  convenioCod: string
   contacto: string
-  titulo: string
-  antecedentes: string
   pregunta: string
+  convenioCod?: string
+  titulo?: string
+  antecedentes?: string
   timestamp?: string
 }
 
