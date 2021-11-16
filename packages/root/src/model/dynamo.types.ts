@@ -27,7 +27,7 @@ export interface InteraccionPreguntaDynamo {
 
 export interface PreguntaDynamo {
   contactoEmail: string
-  timestamp: number
+  timestamp: string
   contactoNombre: string
   antecedentes: string
   convenioCod: string

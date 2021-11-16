@@ -20,7 +20,7 @@ export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioC
 
     const nuevaInteraccion: InteraccionPreguntaDynamo = {
       pregunta,
-      preguntaAt: now.format("YYYY-MM-DD HH:mm:ss")
+      preguntaAt: now.toISOString()
     }
 
     if(timestamp){
@@ -33,7 +33,7 @@ export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioC
         ...preguntaT,
         interacciones: preguntaT.interacciones.concat(nuevaInteraccion),
         estado: RootEnum.EstadoPregunta.RESPONDIDA,
-        fechaActualizacion: now.format("YYYY-MM-DD HH:mm:ss"),
+        fechaActualizacion: now.toISOString(),
       })
     } else {
       await DynamoServices.putPregunta({
@@ -48,9 +48,9 @@ export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioC
         cantReplicas: 0,
         interaccionesMax: 2,
         estado: RootEnum.EstadoPregunta.INGRESADA,
-        fechaActualizacion: now.format("YYYY-MM-DD HH:mm:ss"),
-        fechaUltimoAcceso: now.format("YYYY-MM-DD HH:mm:ss"),
-        timestamp: now.unix(),
+        fechaActualizacion: now.toISOString(),
+        fechaUltimoAcceso: now.toISOString(),
+        timestamp: now.toISOString(),
       })
     }
 

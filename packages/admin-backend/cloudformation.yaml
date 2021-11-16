@@ -141,6 +141,34 @@ Resources:
             Path: /preguntas
             Method: get
 
+  PreguntaDetailGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/preguntas
+      Handler: preguntas.detail
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /pregunta
+            Method: get
+
+  ReplicaPut:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/preguntas
+      Handler: preguntas.put
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /pregunta
+            Method: put
+
   ConveniosGet:
     Type: AWS::Serverless::Function
     Properties:
@@ -167,6 +195,20 @@ Resources:
           Properties:
             RestApiId: !Ref Api
             Path: /convenios
+            Method: post
+
+  UsuariosPost:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/usuarios
+      Handler: usuarios.post
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /usuarios
             Method: post
 
   RuntimeDependenciesLayer:

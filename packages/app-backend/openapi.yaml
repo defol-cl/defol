@@ -57,10 +57,10 @@ paths:
             {
               "usrId": "$context.authorizer.claims.email",
               "contacto": "$surname $lastname",
-              "titulo": $input.json('titulo'),
-              "antecedentes": $input.json('antecedentes'),
-              "convenioCod": $input.json('convenioCod'),
-              "pregunta": $input.json('pregunta')
+              "titulo": $input.json('$.titulo'),
+              "antecedentes": $input.json('$.antecedentes'),
+              "convenioCod": $input.json('$.convenioCod'),
+              "pregunta": $input.json('$.pregunta')
             }
         responses:
           default:
@@ -109,11 +109,11 @@ paths:
             {
               "usrId": "$context.authorizer.claims.email",
               "contacto": "$surname $lastname",
-              "titulo": $input.json('titulo'),
-              "timestamp": $input.json('timestamp'),
-              "antecedentes": $input.json('antecedentes'),
-              "convenioCod": $input.json('convenioCod'),
-              "pregunta": $input.json('pregunta')
+              "titulo": $input.json('$.titulo'),
+              "timestamp": $input.json('$.timestamp'),
+              "antecedentes": $input.json('$.antecedentes'),
+              "convenioCod": $input.json('$.convenioCod'),
+              "pregunta": $input.json('$.pregunta')
             }
         responses:
           default:
