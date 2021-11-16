@@ -197,6 +197,20 @@ Resources:
             Path: /convenios
             Method: post
 
+  UsuariosPost:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/usuarios
+      Handler: usuarios.post
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /usuarios
+            Method: post
+
   RuntimeDependenciesLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:

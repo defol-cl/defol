@@ -8,6 +8,7 @@ import {
   DynamoIterator,
   LastEvaluatedKey
 } from "@defol-cl/root";
+import { resolve } from "dns";
 
 const dynamo = new DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
@@ -469,7 +470,7 @@ export const getPreguntasByEjecutivoEstados = async(
   }
 }
 
-export const putPregunta = async(
+export const putPregunta = (
   pregunta: PreguntaDynamo
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
@@ -487,13 +488,30 @@ export const putPregunta = async(
   })
 }
 
-export const putConvenio = async(
+export const putConvenio = (
   convenio: ConvenioDynamo
 ): Promise<void> => {
   return new Promise((resolve, reject) => {
     dynamo.put({
       TableName: CONVENIO_TABLE,
       Item: convenio
+    }).promise()
+    .then(res => {
+      resolve();
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const putConvenioContacto = (
+  convenioContacto: ConvenioContactoDynamo
+): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    dynamo.put({
+      TableName: CONVENIO_CONTACTO_TABLE,
+      Item: convenioContacto
     }).promise()
     .then(res => {
       resolve();

@@ -48,6 +48,7 @@ paths:
         500:
           description: error al obtener convenios desde dynamo
     post:
+      x-amazon-apigateway-request-validator: body
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConveniosPost.Arn}/invocations
@@ -83,6 +84,7 @@ paths:
                   type: string
                 fechaVencimiento:
                   type: string
+              required: [cod, nombre, fechaVencimiento]
       responses:
         201:
           description: OK
@@ -181,7 +183,7 @@ paths:
         500:
           description: error al obtener preguntas desde dynamo
     put:
-      x-amazon-apigateway-request-validator: all
+      x-amazon-apigateway-request-validator: body
       x-amazon-apigateway-integration:
         uri:
           Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ReplicaPut.Arn}/invocations
@@ -196,8 +198,8 @@ paths:
               "contacto": "$surname $lastname",
               "contactoEmail": "$input.params('contactoEmail')",
               "timestamp": "$input.params('timestamp')",
-              "replica": $input.json("$.replica"),
-              "agregarReplica": $input.json("$.agregarReplica")
+              "replica": $input.json('$.replica'),
+              "agregarReplica": $input.json('$.agregarReplica')
             }
         responses:
           default:
@@ -244,6 +246,51 @@ paths:
           description: request inválido
         500:
           description: error al obtener preguntas desde dynamo
+
+  /usuarios:
+    post:
+      x-amazon-apigateway-request-validator: body
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UsuariosPost.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "convenioCod": $input.json('$.convenioCod'),
+              "emails": $input.json('$.correos'),
+              "preguntasMax": $input.json('$.preguntasMax')
+            }
+        responses:
+          default:
+            statusCode: 201
+          ".*USUARIOS_POST_ERROR.*":
+            statusCode: 500
+      summary: permite crear y asociar usuarios a convenios
+      tags:
+        - usuario
+      requestBody:
+        description: convenio y correo de usuarios
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                convenioCod:
+                  type: string
+                correos:
+                  type: string
+                preguntasMax:
+                  type: number
+              required: [convenioCod, correos, preguntasMax]
+      responses:
+        201:
+          description: usuarios creados
+        500:
+          description: ocurrió un error al intentar crear un usuario
 
 components:
   schemas:
