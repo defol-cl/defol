@@ -1,9 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import LoadingButton from "@mui/lab/LoadingButton";
 import FormControl from "@mui/material/FormControl";
 import { InputLabel, OutlinedInput, useTheme } from "@mui/material";
 import { Auth } from 'aws-amplify';
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { useFormik } from "formik";
 import { FormikRecupera, validationRecupera } from "./recupera.formik";
 import { publicRoutes } from "../../../navigation";
@@ -15,8 +15,7 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 
-const RecuperaForm: FC = () => {
-  const history = useHistory();
+const RecuperaForm: React.FC = () => {
   const theme = useTheme();
   const [recovering, setRecovering] = useState<boolean>(false);
   const formik = useFormik<FormikRecupera>({

@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack';
-import React, { FC } from 'react';
+import React from 'react';
 import Container from "@mui/material/Container";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import shelawyer from "src/assets/img/shelawyer.png"
 
-const IngresoText: FC = () => {
+const IngresoText: React.FC = () => {
   return (
     <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">

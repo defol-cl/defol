@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { useTheme } from "@mui/material";
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -6,7 +6,7 @@ import { PreguntasSvc } from 'src/services';
 import Indicadores from "./inicio/Indicadores";
 import UltimasActualizaciones from './inicio/UltimasActualizaciones';
 
-const Inicio: FC = () => {
+const Inicio: React.FC = () => {
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up('md'));
   

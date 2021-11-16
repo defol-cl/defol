@@ -1,32 +1,35 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { FormikNuevaPregunta, validationNuevaPregunta } from "./nueva-pregunta.formik";
 import Grid from "@mui/material/Grid";
-import { useHistory } from "react-router-dom";
-import { privateRoutes } from "src/navigation";
-import { Typography } from "@mui/material";
-import ConveniosList from "./ConveniosList";
-import PreguntaForm from './PreguntaForm';
-import CardHeader from "@mui/material/CardHeader";
-import Divider from "@mui/material/Divider";
-import NuevaPreguntaContext from "./nueva-pregunta.context";
-import { Dao } from "@defol-cl/root";
-import { useBoolean } from "react-use";
-import { ConveniosSvc } from "../../../services";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import { Typography } from "@mui/material";
+import CardHeader from "@mui/material/CardHeader";
+import Divider from "@mui/material/Divider";
+import { Dao } from "@defol-cl/root";
+import { useHistory } from "react-router-dom";
+import { useBoolean } from "react-use";
+import { privateRoutes } from "src/navigation";
+import { ConveniosSvc } from "src/services";
+import NuevaPreguntaContext from "./nueva-pregunta.context";
+import ConveniosList from "./ConveniosList";
+import PreguntaForm from './PreguntaForm';
+import { FormikNuevaPregunta, validationNuevaPregunta } from "./nueva-pregunta.formik";
+import PrivateLoading from "../Private.loading";
 
-const NuevaPregunta: FC = () => {
+const NuevaPregunta: React.FC = () => {
   const history = useHistory();
   const { setData } = useContext(NuevaPreguntaContext);
   const [convenios, setConvenios] = useState<Dao.Convenio[]>();
   const [errorConvenio, setErrorConvenio] = useBoolean(false);
+  const [loading, setLoading] = useBoolean(false);
   
   useEffect(() => {
     let mounted = true;
+    setLoading(true);
     if (!errorConvenio) {
       ConveniosSvc.get()
         .then(convenios => mounted && setConvenios(convenios))
@@ -34,6 +37,7 @@ const NuevaPregunta: FC = () => {
           console.error(err);
           mounted && setErrorConvenio(true);
         })
+        .finally(() => mounted && setLoading(false));
     }
     return () => {
       mounted = false;
@@ -74,6 +78,10 @@ const NuevaPregunta: FC = () => {
         Ocurrió un error al obtener el listado de convenios disponibles.<br/>Te proponemos 2 alternativas, reintenta
         ahora o conéctate más tarde y vuelve a intentarlo, y danos un poco de tiempo para reparar este problema.
       </Alert>
+    );
+  } else if (loading) {
+    return (
+      <PrivateLoading/>
     );
   } else {
     return (

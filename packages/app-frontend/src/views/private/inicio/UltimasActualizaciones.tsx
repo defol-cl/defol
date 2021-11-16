@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from "@mui/material/CardHeader";
 import List from "@mui/material/List";
@@ -16,7 +16,7 @@ import EsqueletoActualizacionItem from './ultimas-actualizaciones/EsqueletoActua
 import ActualizacionItem from "./ultimas-actualizaciones/ActualizacionItem";
 import Grid from "@mui/material/Grid";
 
-const UltimasActualizaciones: FC = () => {
+const UltimasActualizaciones: React.FC = () => {
   const history = useHistory();
   const [actualizaciones, setActualizaciones] = useState<Dao.Pregunta[]>();
   

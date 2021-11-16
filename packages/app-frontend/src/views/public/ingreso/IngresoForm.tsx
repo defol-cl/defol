@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Grid from "@mui/material/Grid";
@@ -18,7 +18,7 @@ import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 
-const IngresoForm: FC = () => {
+const IngresoForm: React.FC = () => {
   const history = useHistory();
   const theme = useTheme();
   const { state } = useContext(PublicContext);

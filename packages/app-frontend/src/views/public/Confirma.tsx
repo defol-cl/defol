@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Grid } from "@mui/material";
 import ConfirmaForm from "./confirma/ConfirmaForm";
 import ConfirmaText from "./confirma/ConfirmaText";
 
-const Confirma: FC = () => {
+const Confirma: React.FC = () => {
   
   return (
     <Grid container>

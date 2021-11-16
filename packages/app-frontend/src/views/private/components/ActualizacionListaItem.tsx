@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { grey, lightBlue } from '@mui/material/colors';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
@@ -11,7 +11,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import CircleIcon from "@mui/icons-material/Circle";
 import ListItem from "@mui/material/ListItem";
 
-const ActualizacionListaItem: FC = () => {
+const ActualizacionListaItem: React.FC = () => {
   const history = useHistory();
   
   return (

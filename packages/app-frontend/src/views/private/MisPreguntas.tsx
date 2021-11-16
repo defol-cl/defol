@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PreguntasSvc } from '../../services';
 import Card from '@mui/material/Card';
 import CardHeader from "@mui/material/CardHeader";
@@ -10,7 +10,7 @@ const tbSx = { px: 3 };
 
 type Filtro = 'todas' | 'pendientes' | 'cerradas';
 
-const MisPreguntas: FC = () => {
+const MisPreguntas: React.FC = () => {
   const [filtro, setFiltro] = useState<Filtro>('todas');
   
   useEffect(() => {

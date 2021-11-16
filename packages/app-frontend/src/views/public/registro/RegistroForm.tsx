@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -19,7 +19,7 @@ import { publicRoutes } from "../../../navigation";
 import { PublicContext } from "../../../layout";
 import Divider from "@mui/material/Divider";
 
-const RegistroForm: FC = () => {
+const RegistroForm: React.FC = () => {
   const history = useHistory();
   const theme = useTheme();
   const { setUsername } = useContext(PublicContext);

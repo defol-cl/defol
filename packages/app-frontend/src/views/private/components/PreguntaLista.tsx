@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React from 'react';
 import List from '@mui/material/List';
 import PreguntaListaItem from "./PreguntaListaItem";
 
-const PreguntaLista: FC = () => {
+const PreguntaLista: React.FC = () => {
   return (
     <List disablePadding>
       {[...Array(10)].map((_, key) => (

@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import { PreguntasSvc } from 'src/services';
 import ActualizacionLista from "./components/ActualizacionLista";
 
-const Actualizaciones: FC = () => {
+const Actualizaciones: React.FC = () => {
   
   useEffect(() => {
     let mounted = true;

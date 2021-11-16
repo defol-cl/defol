@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,7 +16,7 @@ import { privateRoutes, publicRoutes } from "src/navigation";
 import ElevationScroll from './ElevationScroll';
 import { useTheme } from "@mui/material";
 
-const TopBar: FC = () => {
+const TopBar: React.FC = () => {
   const history = useHistory();
   const theme = useTheme();
   
