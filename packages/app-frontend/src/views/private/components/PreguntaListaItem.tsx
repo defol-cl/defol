@@ -1,5 +1,5 @@
 import React from 'react';
-import { grey, lightBlue } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
 import Stack from '@mui/material/Stack';
