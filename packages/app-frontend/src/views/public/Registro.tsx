@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Grid } from "@mui/material";
 import RegistroForm from "./registro/RegistroForm";
 import RegistroText from "./registro/RegistroText";
 
-const Registro: FC = () => {
+const Registro: React.FC = () => {
   
   return (
     <Grid container>

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import { useHistory } from "react-router-dom";
 import { Typography } from "@mui/material";
@@ -13,7 +13,7 @@ import { validationNuevaPregunta } from "./nueva-pregunta/nueva-pregunta.formik"
 import { privateRoutes } from "../../navigation";
 import { FormikMiPregunta } from "./mi-pregunta/mi-pregunta.formik";
 
-const MiPregunta: FC = () => {
+const MiPregunta: React.FC = () => {
   const history = useHistory();
   const [saving, setSaving] = useState<boolean>(false);
   const formik = useFormik<FormikMiPregunta>({

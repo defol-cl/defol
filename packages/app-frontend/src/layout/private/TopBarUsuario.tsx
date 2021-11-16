@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import Button from '@mui/material/Button';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
-const TopBarUsuario: FC = () => {
+const TopBarUsuario: React.FC = () => {
   const [fullName, setFullName] = useState<string>();
   
   useEffect(() => {

@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import React from 'react';
 import List from '@mui/material/List';
 import ActualizacionListaItem from './ActualizacionListaItem';
 
-const ActualizacionLista: FC = () => {
+const ActualizacionLista: React.FC = () => {
   return (
     <List disablePadding>
       {[...Array(10)].map((_, key) => (

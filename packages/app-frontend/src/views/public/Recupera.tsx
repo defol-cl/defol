@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React from 'react';
 import RecuperaForm from './recupera/RecuperaForm';
 
-const Recupera: FC = () => {
+const Recupera: React.FC = () => {
   return (
     <div className="public-form">
       <RecuperaForm/>
