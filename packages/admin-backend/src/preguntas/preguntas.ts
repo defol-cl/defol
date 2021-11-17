@@ -18,7 +18,7 @@ export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token 
       return;
     }
 
-    let response: DynamoIterator<PreguntaDynamo[]> = {items: []};
+    let response: DynamoIterator<PreguntaDynamo> = {items: []};
 
     if(!ejecutivo && !estado) {
       response = await DynamoServices.getPreguntas(parsedToken);

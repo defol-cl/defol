@@ -19,4 +19,4 @@ interface PreguntasLastUpdatesEvent extends BaseEvent {
 
 export type PreguntasGetHandler = LambdaTypes.CustomHandler<BaseEvent>;
 export type PreguntasPostHandler = LambdaTypes.CustomHandler<PreguntasPostEvent>;
-export type PreguntasLastUpdatesHandler = LambdaTypes.CustomHandler<PreguntasLastUpdatesEvent, DynamoIteratorFront<PreguntaDynamo[]>>;
+export type PreguntasLastUpdatesHandler = LambdaTypes.CustomHandler<PreguntasLastUpdatesEvent, DynamoIteratorFront<PreguntaDynamo>>;

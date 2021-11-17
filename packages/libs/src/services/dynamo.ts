@@ -254,7 +254,7 @@ export const getLastPreguntasByUserId = (
   contactoEmail: string,
   options: LastPreguntasOptions,
   items: PreguntaDynamo[] = [],
-): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+): Promise<DynamoIterator<PreguntaDynamo>> => {
   const {limit, lastKey} = options;
   return new Promise((resolve, reject) => {
     dynamo.query({
@@ -317,7 +317,7 @@ export const getLimitAndCountPreguntasByUsrId = async(
 
 export const getPreguntas = (
   lastKey?: DynamoDB.DocumentClient.Key,
-): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+): Promise<DynamoIterator<PreguntaDynamo>> => {
   return new Promise((resolve, reject) => {
     dynamo.scan({
       TableName: PREGUNTA_TABLE,
@@ -360,7 +360,7 @@ export const getPregunta = (contactoEmail: string, timestamp: string): Promise<P
 export const getPreguntasByEjecutivo = (
   ejecutivo: string,
   lastKey?: DynamoDB.DocumentClient.Key
-): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+): Promise<DynamoIterator<PreguntaDynamo>> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -386,7 +386,7 @@ export const getPreguntasByEjecutivo = (
 export const getPreguntasByEstado = (
   estado: string,
   lastKey?: DynamoDB.DocumentClient.Key,
-): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+): Promise<DynamoIterator<PreguntaDynamo>> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -413,7 +413,7 @@ export const getPreguntasByEjecutivoAndEstados = (
   ejecutivo: string,
   estado: string,
   lastKey?: DynamoDB.DocumentClient.Key
-): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+): Promise<DynamoIterator<PreguntaDynamo>> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -441,7 +441,7 @@ export const getPreguntasByEjecutivoEstados = async(
   ejecutivo?: string,
   estado?: string,
   lastKey?: any,
-): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+): Promise<DynamoIterator<PreguntaDynamo>> => {
   let response = [];
   const estadoPreguntas = estado ? estado.split(",") : estado;
   console.log("estados:", estadoPreguntas);

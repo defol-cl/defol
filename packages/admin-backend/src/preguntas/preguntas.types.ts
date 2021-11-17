@@ -22,6 +22,6 @@ interface PreguntaPutEvent extends BaseEvent, PreguntaDetailEvent {
   agregarReplica?: boolean
 }
 
-export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIteratorFront<PreguntaDynamo[]>>;
+export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIteratorFront<PreguntaDynamo>>;
 export type PreguntaDetailHandler = LambdaTypes.CustomHandler<PreguntaDetailEvent, PreguntaDynamo>;
 export type PreguntaPutHandler = LambdaTypes.CustomHandler<PreguntaPutEvent>;
