@@ -8,7 +8,7 @@ import {
   DynamoIterator,
   LastEvaluatedKey
 } from "@defol-cl/root";
-import { resolve } from "dns";
+import { LastPreguntasOptions } from "../types/dynamo.types";
 
 const dynamo = new DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
@@ -23,7 +23,7 @@ const USER_CONVENIO_INDEX = process.env.USER_CONVENIO_INDEX;
 
 export const getConvenios = (
   items: ConvenioDynamo[] = [],
-  lastKey?: AWS.DynamoDB.DocumentClient.Key
+  lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<ConvenioDynamo[]> => {
   return new Promise((resolve, reject) => {
     dynamo.scan({
@@ -67,7 +67,7 @@ export const getConvenio = (cod: string): Promise<ConvenioDynamo | undefined> =
   })
 }
 
-export const countPreguntasByUser = (contactoEmail: string, qty: number = 0, lastKey?: AWS.DynamoDB.DocumentClient.Key): Promise<number> => {
+export const countPreguntasByUser = (contactoEmail: string, qty: number = 0, lastKey?: DynamoDB.DocumentClient.Key): Promise<number> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -96,7 +96,7 @@ export const countPreguntasByUser = (contactoEmail: string, qty: number = 0, las
   })
 }
 
-export const countReplicasPendientesByUser = (contactoEmail: string, qty: number = 0, lastKey?: AWS.DynamoDB.DocumentClient.Key): Promise<number> => {
+export const countReplicasPendientesByUser = (contactoEmail: string, qty: number = 0, lastKey?: DynamoDB.DocumentClient.Key): Promise<number> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -127,7 +127,7 @@ export const countReplicasPendientesByUser = (contactoEmail: string, qty: number
   })
 }
 
-export const countPreguntasPendientesByUser = (contactoEmail: string, qty: number = 0, lastKey?: AWS.DynamoDB.DocumentClient.Key): Promise<number> => {
+export const countPreguntasPendientesByUser = (contactoEmail: string, qty: number = 0, lastKey?: DynamoDB.DocumentClient.Key): Promise<number> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -162,7 +162,7 @@ export const countPreguntasByUsuarioAndConvenio = (
   contactoEmail: string,
   convenioCod: string,
   qty: number = 0,
-  lastKey?: AWS.DynamoDB.DocumentClient.Key
+  lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<number> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
@@ -220,7 +220,7 @@ export const getConvenioContactoByUserAndConvenio = (
 export const getConvenioContactoByUser = (
   email: string,
   items: ConvenioContactoDynamo[] = [],
-  lastKey?: AWS.DynamoDB.DocumentClient.Key
+  lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<ConvenioContactoDynamo[]> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
@@ -252,10 +252,10 @@ export const getConvenioContactoByUser = (
 
 export const getLastPreguntasByUserId = (
   contactoEmail: string,
-  limit?: number,
+  options: LastPreguntasOptions,
   items: PreguntaDynamo[] = [],
-  lastKey?: AWS.DynamoDB.DocumentClient.Key
-): Promise<PreguntaDynamo[]> => {
+): Promise<DynamoIterator<PreguntaDynamo[]>> => {
+  const {limit, lastKey} = options;
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -273,17 +273,20 @@ export const getLastPreguntasByUserId = (
               ? items.concat(res.Items as PreguntaDynamo[])
               : items;
 
-      if(items.length >= limit){
-        resolve(items.slice(0,5));
+      if(limit && items.length >= limit){
+        resolve({ items: items.slice(0,5) });
         return;
       }
 
-      if(res.LastEvaluatedKey){
-        resolve(getLastPreguntasByUserId(contactoEmail, limit, items, res.LastEvaluatedKey));
+      if(limit && res.LastEvaluatedKey){
+        resolve(getLastPreguntasByUserId(contactoEmail, {...options, lastKey: res.LastEvaluatedKey}, items));
         return;
       }
 
-      resolve(items);
+      resolve({
+        items,
+        token: res.LastEvaluatedKey
+      });
     }).catch(err => {
       console.log(err);
       reject(err);
@@ -313,7 +316,7 @@ export const getLimitAndCountPreguntasByUsrId = async(
 }
 
 export const getPreguntas = (
-  lastKey?: AWS.DynamoDB.DocumentClient.Key,
+  lastKey?: DynamoDB.DocumentClient.Key,
 ): Promise<DynamoIterator<PreguntaDynamo[]>> => {
   return new Promise((resolve, reject) => {
     dynamo.scan({
@@ -356,7 +359,7 @@ export const getPregunta = (contactoEmail: string, timestamp: string): Promise<P
 
 export const getPreguntasByEjecutivo = (
   ejecutivo: string,
-  lastKey?: AWS.DynamoDB.DocumentClient.Key
+  lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<DynamoIterator<PreguntaDynamo[]>> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
@@ -382,7 +385,7 @@ export const getPreguntasByEjecutivo = (
 
 export const getPreguntasByEstado = (
   estado: string,
-  lastKey?: AWS.DynamoDB.DocumentClient.Key,
+  lastKey?: DynamoDB.DocumentClient.Key,
 ): Promise<DynamoIterator<PreguntaDynamo[]>> => {
   return new Promise((resolve, reject) => {
     dynamo.query({
@@ -409,7 +412,7 @@ export const getPreguntasByEstado = (
 export const getPreguntasByEjecutivoAndEstados = (
   ejecutivo: string,
   estado: string,
-  lastKey?: AWS.DynamoDB.DocumentClient.Key
+  lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<DynamoIterator<PreguntaDynamo[]>> => {
   return new Promise((resolve, reject) => {
     dynamo.query({

@@ -106,7 +106,8 @@ paths:
             {
               "usrId": "$context.authorizer.claims.email",
               "ejecutivo": "$input.params('ejecutivo')",
-              "estado": "$input.params('estado')"
+              "estado": "$input.params('estado')",
+              "token": "$input.params('token')"
             }
         responses:
           default:
@@ -129,6 +130,11 @@ paths:
           schema:
             type: string
             example: "hola@hola.cl"
+        - in: query
+          name: token
+          description: token de paginación
+          schema:
+            type: string
       responses:
         200:
           $ref: "#/components/responses/200PreguntaList"
@@ -394,7 +400,7 @@ components:
                 items:
                   $ref: "#/components/schemas/Pregunta"
               token:
-                type: object
+                type: string
             required: [items]
 
   securitySchemes:

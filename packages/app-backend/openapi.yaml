@@ -143,6 +143,40 @@ paths:
           description: no se encontró la pregunta
         500:
           description: error al ejecutar lambda
+
+  /preguntas/ultimas-actualizaciones:
+    get:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasUltimasActGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "token": "$input.params('token')"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*PREGUNTAS_ULTIMAS_ACTUALIZACIONES_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene listado de preguntas ordenador por fecha de actualizacion (DESC)
+      tags:
+        - pregunta
+      parameters:
+        - in: query
+          name: token
+          description: token de paginación
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: "#/components/responses/200UltimasActualizaciones"
+        500:
+          description: error al ejecutar lambda
+
   /dashboard/resumen-preguntas:
     get:
       x-amazon-apigateway-integration:

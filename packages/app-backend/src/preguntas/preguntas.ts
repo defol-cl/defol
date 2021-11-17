@@ -1,7 +1,8 @@
 import moment from "moment";
-import { DynamoServices } from "@defol-cl/libs";
+import { v4 as uuid4 } from "uuid";
+import { DynamoServices, S3Services } from "@defol-cl/libs";
 import { InteraccionPreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
-import { PreguntasGetHandler, PreguntasPostHandler } from "./preguntas.types";
+import { PreguntasGetHandler, PreguntasLastUpdatesHandler, PreguntasPostHandler } from "./preguntas.types";
 
 export const get: PreguntasGetHandler = ({ usrId }, context, callback) => {
   callback(null, { message: 'Not implemented, yet' });
@@ -61,5 +62,37 @@ export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioC
       callback("PREGUNTAS_PUT_ERROR")
     else
       callback("PREGUNTAS_POST_ERROR")
+  }
+}
+
+export const lastUpdates: PreguntasLastUpdatesHandler = async({ usrId, token }, context, callback) => {
+  RootUtils.logger({ usrId, token });
+  try {
+    const prefix = 'preguntas-last-updates-get';
+    const uuid = uuid4();
+    let parsedToken;
+    try {
+      parsedToken = token ? await S3Services.getDynamoToken(`${prefix}/${token}.json`) : undefined;
+    } catch (error) {
+      console.log(error);
+      callback("PREGUNTAS_ULTIMAS_ACTUALIZACIONES_GET_ERROR.EXPIRED_TOKEN");
+      return;
+    }
+
+    const response = await DynamoServices.getLastPreguntasByUserId(usrId, {lastKey: parsedToken});
+
+    if(response.items.length && response.token){
+      const key = `${prefix}/${uuid}.json`;
+      await S3Services.putDynamoToken(response.token, key);
+    }
+
+    callback(null, {
+      items: response.items,
+      token: response.items.length && response.token ? uuid : undefined
+    });
+
+  } catch (error) {
+    console.log(error);
+    callback("PREGUNTAS_ULTIMAS_ACTUALIZACIONES_GET_ERROR");
   }
 }

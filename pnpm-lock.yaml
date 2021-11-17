@@ -7,18 +7,22 @@ importers:
 
   packages/admin-backend:
     specifiers:
-      '@defol-cl/libs': 1.0.29
-      '@defol-cl/root': 1.0.29
+      '@defol-cl/libs': 1.0.30
+      '@defol-cl/root': 1.0.30
       '@types/node': ^16.11.6
+      '@types/uuid': ^8.3.1
       aws-sdk: ^2.1023.0
       moment: ^2.29.1
+      uuid: ^8.3.2
     dependencies:
       '@defol-cl/libs': link:../libs
       '@defol-cl/root': link:../root
       aws-sdk: 2.1023.0
       moment: 2.29.1
+      uuid: 8.3.2
     devDependencies:
       '@types/node': 16.11.6
+      '@types/uuid': 8.3.1
 
   packages/admin-frontend:
     specifiers:
@@ -91,9 +95,10 @@ importers:
 
   packages/app-backend:
     specifiers:
-      '@defol-cl/libs': 1.0.14
-      '@defol-cl/root': 1.0.14
+      '@defol-cl/libs': 1.0.30
+      '@defol-cl/root': 1.0.30
       '@types/node': ^16.11.6
+      '@types/uuid': ^8.3.1
       aws-sdk: ^2.1023.0
       moment: 2.29.1
       uuid: ^8.3.2
@@ -105,6 +110,7 @@ importers:
       uuid: 8.3.2
     devDependencies:
       '@types/node': 16.11.6
+      '@types/uuid': 8.3.1
 
   packages/app-frontend:
     specifiers:
@@ -5568,6 +5574,10 @@ packages:
     resolution: {integrity: sha512-O3MmRAk6ZuAKa9CHgg0Pr0+lUOqoMLpc9AS4R8ano2auvsg7IE8syF3Xh/NPr26TWklxYcqoEEFdzLLs1fV9PQ==}
     dependencies:
       source-map: 0.6.1
+    dev: true
+
+  /@types/uuid/8.3.1:
+    resolution: {integrity: sha512-Y2mHTRAbqfFkpjldbkHGY8JIzRN6XqYRliG8/24FcHm2D2PwW24fl5xMRTVGdrb7iMrwCaIEbLWerGIkXuFWVg==}
     dev: true
 
   /@types/webpack-sources/3.2.0:

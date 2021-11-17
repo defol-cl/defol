@@ -53,6 +53,9 @@ Parameters:
   UserConvenioIndex:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre de indice de tabla Pregunta
+  DynamoTokensBucket:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre de bucket para almacenar tokens de APIs
   UserPoolArn:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Arn del user pool de cognito
@@ -79,6 +82,7 @@ Globals:
         CONVENIO_COD_INDEX: !Ref ConvenioCodIndex
         CONTACTO_EMAIL_INDEX: !Ref ContactoEmailIndex
         USER_CONVENIO_INDEX: !Ref UserConvenioIndex
+        DYNAMO_TOKENS_BUCKET: !Ref DynamoTokensBucket
 
 Resources:
   LambdaRole:

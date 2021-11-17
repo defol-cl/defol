@@ -58,3 +58,8 @@ export interface DynamoIterator<T> {
   items: T,
   token?: LastEvaluatedKey
 }
+
+export interface DynamoIteratorFront<T> {
+  items: T,
+  token?: string
+}

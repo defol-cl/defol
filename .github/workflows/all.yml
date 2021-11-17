@@ -183,6 +183,7 @@ jobs:
           ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} \
           Sha=${{ github.sha }} \
           Branch=${{ steps.branch.outputs.name }} \
+          DynamoTokensBucket=/defol/${{ steps.branch.outputs.name }}/base/dynamo-tokens-bucket-name \
           ConvenioTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio \
           ConvenioModeradorTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador \
           ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \
@@ -337,6 +338,7 @@ jobs:
           --capabilities CAPABILITY_IAM --region ${{ secrets.AWS_REGION }} \
           --parameter-overrides ResourcesBucket=${{ env.RESOURCE_S3_BUCKET }} Sha=${{ github.sha }} \
           Branch=${{ steps.branch.outputs.name }} \
+          DynamoTokensBucket=/defol/${{ steps.branch.outputs.name }}/base/dynamo-tokens-bucket-name \
           ConvenioTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio \
           ConvenioModeradorTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-moderador \
           ConvenioContactoTable=/defol/${{ steps.branch.outputs.name }}/base/resources-table-convenio-contacto \

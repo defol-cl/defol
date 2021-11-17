@@ -1,21 +1,39 @@
 import moment from "moment";
-import { DynamoServices } from "@defol-cl/libs";
+import { v4 as uuid4 } from "uuid";
+import { DynamoServices, S3Services } from "@defol-cl/libs";
 import { DynamoIterator, PreguntaDynamo, RootUtils } from "@defol-cl/root";
 import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler } from "./preguntas.types";
 
-export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, lastKey }, context, callback) => {
-  RootUtils.logger({ usrId, ejecutivo, estado, lastKey });
+export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token }, context, callback) => {
+  RootUtils.logger({ usrId, ejecutivo, estado, token });
   try {
+    const prefix = 'preguntas-get';
+    const uuid = uuid4();
+    let parsedToken;
+    try {
+      parsedToken = token ? await S3Services.getDynamoToken(`${prefix}/${token}.json`) : undefined;
+    } catch (error) {
+      console.log(error);
+      callback("PREGUNTAS_GET_ERROR.EXPIRED_TOKEN");
+      return;
+    }
+
     let response: DynamoIterator<PreguntaDynamo[]> = {items: []};
+
     if(!ejecutivo && !estado) {
-      response = await DynamoServices.getPreguntas(lastKey);
+      response = await DynamoServices.getPreguntas(parsedToken);
     } else {
-      response = await DynamoServices.getPreguntasByEjecutivoEstados(ejecutivo, estado, lastKey);
+      response = await DynamoServices.getPreguntasByEjecutivoEstados(ejecutivo, estado, parsedToken);
+    }
+
+    if(response.items.length && response.token){
+      const key = `${prefix}/${uuid}.json`;
+      await S3Services.putDynamoToken(response.token, key);
     }
 
     callback(null, {
       items: response.items,
-      token: response.items.length ? response.token : undefined
+      token: response.items.length && response.token ? uuid : undefined
     });
   } catch (error) {
     console.log(error);
