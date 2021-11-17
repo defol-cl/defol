@@ -66,9 +66,6 @@ const DialogConvenio: React.FC<Props> = ({ conCod, open, onClose }) => {
   const {
     handleChange, handleBlur, handleSubmit, isValid, setFieldValue, errors, values: { codigo, nombre, fechaVencimiento }
   } = formik;
-  console.log('fechaVencimiento', fechaVencimiento);
-  console.log('errors', errors);
-  console.log('values', { codigo, nombre, fechaVencimiento });
   
   return (
     <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="lg" fullScreen={fullScreen}

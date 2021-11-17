@@ -7,7 +7,7 @@ import ActualizacionLista from "./components/ActualizacionLista";
 const Actualizaciones: FC = () => {
   
   useEffect(() => {
-    PreguntasSvc.get()
+    PreguntasSvc.get({})
       .then(response => console.log(response))
   }, []);
   

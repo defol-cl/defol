@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { grey } from '@mui/material/colors';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from "@mui/material/Typography";
@@ -6,35 +6,44 @@ import Stack from '@mui/material/Stack';
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Grid";
 import { useHistory } from "react-router-dom";
-import { privateRoutes } from "../../../navigation";
 import ListItem from "@mui/material/ListItem";
+import { Dao } from '@defol-cl/root';
+import { privateRoutes } from "src/navigation";
 
-const PreguntaListaItem: FC = () => {
+interface Props {
+  pregunta: Dao.Pregunta
+}
+
+const PreguntaListaItem: React.FC<Props> = ({ pregunta }) => {
   const history = useHistory();
   
   return (
-    <ListItem button sx={{ py: 3 }}
-              onClick={() => history.push(privateRoutes.preguntaDetalle.route({ id: 1313 }))}>
+    <ListItem button divider sx={{ py: 3 }}
+              onClick={() => history.push(privateRoutes.preguntaDetalle.route({
+                preEmail: pregunta.contactoEmail, preTimestamp: pregunta.timestamp
+              }))}>
       <ListItemText
-        primary="¿Cómo puedo hacer para regularizar los planos de mi propiedad en la municipalidad?"
+        primary={pregunta.titulo}
         primaryTypographyProps={{ variant: 'h5', color: grey[800] }}
         secondaryTypographyProps={{ component: 'div' }}
         secondary={
           <>
             <Typography variant="caption" color="info.main">
-              Realizada el 13/10/2021
+              Realizada el {pregunta.timestamp}
             </Typography>
             <Typography variant="body2">
-              Siendo lo más importante no tener que gastar una excesiva cantidad de dinero en posibles multas y...
+              {pregunta.antecedentes.length < 60 ? pregunta.antecedentes : `${pregunta.antecedentes.substr(0, 60)}...`}
             </Typography>
             <Grid container direction="row" justifyContent="space-between" alignItems="center" sx={{ pt: 3 }}>
               <Stack direction="row" spacing={1}>
-                <Chip label="Ley de Propiedad"/>
-                <Chip label="Réplica pendiente" color="warning"/>
+                {pregunta.categoria && (
+                  <Chip label={pregunta.categoria}/>
+                )}
+                <Chip label={pregunta.estado} color="warning"/>
               </Stack>
               <Grid item>
                 <Typography variant="subtitle2" color="info.main">
-                  Actualizado hace 25 min
+                  Actualizado {pregunta.fechaActualizacion}
                 </Typography>
               </Grid>
             </Grid>
