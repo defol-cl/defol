@@ -339,15 +339,19 @@ export const getPregunta = (contactoEmail: string, timestamp: string): Promise<P
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
-      KeyConditionExpression: "contactoEmail = :contactoEmail and timestamp = :timestamp",
+      KeyConditionExpression: "contactoEmail = :contactoEmail and #t = :timestamp",
       ExpressionAttributeValues: {
         ":contactoEmail": contactoEmail,
         ":timestamp": timestamp,
+      },
+      ExpressionAttributeNames: {
+        "#t": "timestamp"
       }
     }).promise()
     .then(res => {
       if(res.Items && res.Items.length){
         resolve(res.Items[0] as PreguntaDynamo);
+        return;
       }
       resolve(undefined);
     }).catch(err => {
