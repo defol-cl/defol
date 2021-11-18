@@ -1,17 +1,17 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { useParams } from "react-router-dom";
+import PreguntaDetalle from "./pregunta/PreguntaDetalle";
 
 interface Params {
-  preId: string
+  preEmail: string
+  preTimestamp: string
 }
 
-const Pregunta: FC = () => {
-  const { preId } = useParams<Params>();
+const Pregunta: React.FC = () => {
+  const { preEmail, preTimestamp } = useParams<Params>();
   
   return (
-    <>
-      <h1>Detalle Pregunta {preId}</h1>
-    </>
+    <PreguntaDetalle email={preEmail} timestamp={preTimestamp}/>
   );
 }
 
