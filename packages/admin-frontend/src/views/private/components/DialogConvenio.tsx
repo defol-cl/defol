@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -25,8 +25,8 @@ interface Props {
 const DialogConvenio: React.FC<Props> = ({ conCod, open, onClose }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   
   useEffect(() => {
     if (error) {

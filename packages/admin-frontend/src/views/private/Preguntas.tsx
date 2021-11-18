@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { PreguntasSvc } from '../../services';
 import Card from '@mui/material/Card';
 import CardHeader from "@mui/material/CardHeader";
-import PreguntaLista from "./components/PreguntaLista";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,6 +8,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import { Auth } from "aws-amplify";
+import PreguntaLista from "./components/PreguntaLista";
 import PrivateLoading from "./Private.loading";
 
 type Filtro = 'todas' | 'pendientes' | 'cerradas';

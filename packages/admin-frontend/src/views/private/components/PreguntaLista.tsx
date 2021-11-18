@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import List from '@mui/material/List';
 import PreguntaListaItem from "./PreguntaListaItem";
-import { PreguntasSvc } from "../../../services";
+import { PreguntasSvc } from "src/services";
 import { Dao, DynamoIteratorFront } from "@defol-cl/root";
 
 interface Props {
@@ -10,7 +10,6 @@ interface Props {
 }
 
 const PreguntaLista: React.FC<Props> = ({estados, ejecutivo}) => {
-  
   const [iterator, setIterator] = React.useState<DynamoIteratorFront<Dao.Pregunta>>();
   
   useEffect(() => {
