@@ -28,7 +28,7 @@ const ConvenioAcciones: React.FC<Props> = ({ conId }) => {
   const anchorRef = React.useRef<HTMLButtonElement>(null);
   
   useEffect(() => {
-    if(openMenu) {
+    if (openMenu) {
       setOpenMenu(false);
     }
   }, [openEditarConvenio, openAgregarContactos, openAgregarModerador])
@@ -47,9 +47,15 @@ const ConvenioAcciones: React.FC<Props> = ({ conId }) => {
   return (
     <>
       <DialogConvenio conCod={conId} open={openEditarConvenio} onClose={() => setOpenEditarConvenio(false)}/>
-      <DialogAgregarContactos conId={conId} open={openAgregarContactos} onClose={() => setOpenAgregarContactos(false)}/>
+      <DialogAgregarContactos conId={conId} open={openAgregarContactos}
+                              onClose={(update) => {
+                                if (update) {
+                                  //TODO reload
+                                }
+                                setOpenAgregarContactos(false);
+                              }}/>
       <Button variant="contained" disableElevation
-              sx={{mr: 1, mt: 0.5, px: 3}}
+              sx={{ mr: 1, mt: 0.5, px: 3 }}
               ref={anchorRef}
               endIcon={<KeyboardArrowDownIcon/>}
               onClick={handleToggle}>
@@ -76,7 +82,7 @@ const ConvenioAcciones: React.FC<Props> = ({ conId }) => {
                     </ListItemIcon>
                     <ListItemText>Modificar convenio</ListItemText>
                   </MenuItem>
-                  <Divider sx={{ my: 0.5 }} />
+                  <Divider sx={{ my: 0.5 }}/>
                   <MenuItem onClick={() => setOpenAgregarContactos(true)}>
                     <ListItemIcon>
                       <GroupAddIcon fontSize="small"/>

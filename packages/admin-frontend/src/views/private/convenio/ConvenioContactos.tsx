@@ -27,12 +27,12 @@ const ConvenioContactos: React.FC<Props> = ({ conId }) => {
     <>
       <Box m={2}>
         <Grid container direction="row" justifyContent="space-between" alignItems="center" sx={{ my: 2 }}>
-          <TextField label="Búsqueda por correo" variant="filled" size="small"
+          <TextField label="Búsqueda por correo" variant="outlined" size="small"
                      sx={{ minWidth: '300px' }}
                      InputProps={{
                        endAdornment: <SearchIcon/>
                      }}/>
-          <TextField label="Filtrar" variant="filled" size="small" select
+          <TextField label="Filtrar" variant="outlined" size="small" select
                      value={filtro}
                      onChange={event => setFiltro(event.target.value as Filtro)}
                      sx={{ minWidth: '300px' }}>

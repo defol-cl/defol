@@ -23,7 +23,7 @@ export const getPrivateRoutes = (path: string): PrivateRoutes => ({
   },
   preguntaDetalle: {
     name: 'Detalle Pregunta',
-    subpath: `${path}/pregunta/:preId`,
-    route: params => `${path}/pregunta/${params!['preId']}`,
+    subpath: `${path}/pregunta/:preEmail/:preTimestamp`,
+    route: params => `${path}/pregunta/${params!['preEmail']}/${params!['preTimestamp']}`,
   },
 });

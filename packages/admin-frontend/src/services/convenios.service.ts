@@ -13,6 +13,14 @@ export const get = () => new Promise<Dao.Convenio[]>(
     .catch(err => reject(err))
 );
 
+export const getOne = (id: string) => new Promise<Dao.Convenio>(
+  (resolve, reject) => API.get('api', `/convenio/${id}`, {})
+    .then((response: Dao.Convenio) => {
+      resolve(response)
+    })
+    .catch(err => reject(err))
+);
+
 export const post = (convenio: ConvenioDynamo) => new Promise<void>(
   (resolve, reject) => API.post('api', '/convenios', { body: convenio })
     .then(() => resolve())
@@ -24,3 +32,11 @@ export const put = (convenio: ConvenioDynamo) => new Promise<void>(
     .then(() => resolve())
     .catch(err => reject(err))
 );
+
+export const putContactos = (id: string, contactos: string, preguntasMax: number) => new Promise<void>(
+  (resolve, reject) => API.post('api', '/usuarios', { body: { convenioCod: id, correos: contactos, preguntasMax } })
+    .then(() => resolve())
+    .catch(err => reject(err))
+);
+
+
