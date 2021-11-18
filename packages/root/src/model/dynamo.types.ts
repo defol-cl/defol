@@ -39,7 +39,6 @@ export interface PreguntaDynamo {
   pregunta: string
   fechaActualizacion?: string
   fechaUltimoAcceso?: string
-  cantReplicas?: number
   categoria?: string
   ejecutivoEmail?: string
 }

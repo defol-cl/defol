@@ -351,8 +351,6 @@ components:
           type: string
         fechaUltimoAcceso:
           type: string
-        cantReplicas:
-          type: number
         categoria:
           type: string
         ejecutivoEmail:

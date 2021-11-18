@@ -68,13 +68,7 @@ const checkPreguntaConditions = (
     error = "PREGUNTA_PUT_FAILED.NO_INTERACTIONS";
   } else if(pregunta.interacciones[pregunta.interacciones.length - 1].replica){
     error = "PREGUNTA_PUT_FAILED.REPLICA_ALREADY_EXISTS";
-  }
-
-  const cantReplicas = pregunta.interacciones.reduce((acc, curr) => {
-    return acc + (curr.replica ? 1 : 0)
-  }, 0);
-
-  if(cantReplicas === pregunta.cantReplicas){
+  } else if(pregunta.interaccionesCantidad === pregunta.interaccionesMax){
     error = "PREGUNTA_PUT_FAILED.REPLICAS_LIMIT_REACHED";
   }
 
@@ -93,12 +87,10 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
       return;
     }
 
-    const cantReplicas = pregunta.interacciones.reduce((acc, curr) => {
-      return acc + (curr.replica ? 1 : 0)
-    }, 0);
+    pregunta.interaccionesCantidad++;
 
-    if(agregarReplica && cantReplicas === pregunta.cantReplicas - 1){
-      pregunta.cantReplicas++;
+    if(agregarReplica && pregunta.interaccionesCantidad === pregunta.interaccionesMax){
+      pregunta.interaccionesMax++;
     }
 
     pregunta.interacciones[pregunta.interacciones.length - 1].ejecutivoEmail = usrId;
@@ -106,7 +98,7 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
     pregunta.interacciones[pregunta.interacciones.length - 1].replica = replica;
     pregunta.interacciones[pregunta.interacciones.length - 1].replicaAt = moment().toISOString();
 
-    await DynamoServices.putPregunta(pregunta)
+    await DynamoServices.putPregunta(pregunta);
     callback(null, {});
   } catch (error) {
     console.log(error);

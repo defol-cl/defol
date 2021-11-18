@@ -46,7 +46,6 @@ export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioC
         interacciones: [nuevaInteraccion],
         titulo,
         pregunta,
-        cantReplicas: 0,
         interaccionesMax: 2,
         estado: RootEnum.EstadoPregunta.INGRESADA,
         fechaActualizacion: now.toISOString(),
