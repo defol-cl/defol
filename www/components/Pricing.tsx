@@ -1,4 +1,4 @@
-import { CheckIcon } from '@heroicons/react/solid'
+import { CheckIcon } from '@heroicons/react/solid';
 
 const tiers = [
   {
@@ -31,34 +31,20 @@ const tiers = [
       'Faucibus volutpat magna.',
     ],
   },
-  {
-    name: 'Enterprise',
-    href: '#',
-    priceMonthly: 48,
-    description: 'All the basics for starting a new business',
-    includedFeatures: [
-      'Potenti felis, in cras at at ligula nunc. ',
-      'Orci neque eget pellentesque.',
-      'Donec mauris sit in eu tincidunt etiam.',
-      'Faucibus volutpat magna.',
-      'Id sed tellus in varius quisque.',
-      'Risus egestas faucibus.',
-      'Risus cursus ullamcorper.',
-    ],
-  },
 ]
 
 export default function Pricing() {
   return (
     <>
-      <h1>Pricing</h1>
-      <div className="bg-white">
-        <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
+    <section className="px-4 sm:px-6 lg:px-8 py-12 bg-gray-100" id="precios">
+      <div className="max-w-7xl mx-auto">
           <div className="sm:flex sm:flex-col sm:align-center">
-            <h1 className="text-5xl font-extrabold text-gray-900 sm:text-center">Pricing Plans</h1>
-            <p className="mt-5 text-xl text-gray-500 sm:text-center">
-              Start building for free, then add a site plan to go live. Account plans unlock additional features.
-            </p>
+          <div className="w-full max-w-2xl mx-auto text-center">
+            <span className="text-sm font-semibold">PRICING</span>
+            <h2 className="text-4xl mt-2 mb-6 leading-tight font-semibold font-heading">
+              Lorem ipsum dolor sit amet
+            </h2>
+          </div>
             <div className="relative self-center mt-6 bg-gray-100 rounded-lg p-0.5 flex sm:mt-8">
               <button
                 type="button"
@@ -106,7 +92,8 @@ export default function Pricing() {
             ))}
           </div>
         </div>
-      </div>
+
+      </section>
     </>
   );
 }
