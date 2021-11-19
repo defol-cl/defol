@@ -8,14 +8,17 @@ export const get: PreguntasGetHandler = async({ usrId }, context, callback) => {
   callback(null, "Not yet implemented");
 }
 
-export const detail: PreguntaDetailHandler = ({ usrId, timestamp }, context, callback) => {
+export const detail: PreguntaDetailHandler = async({ usrId, timestamp }, context, callback) => {
   RootUtils.logger({ usrId, timestamp });
   try {
-    const pregunta = DynamoServices.getPregunta(usrId, timestamp);
+    const pregunta = await DynamoServices.getPregunta(usrId, timestamp);
     if(!pregunta){
       callback("PREGUNTA_DETAIL_GET_NOT_FOUND");
       return;
     }
+
+    pregunta.fechaUltimoAcceso = moment().toISOString();
+    await DynamoServices.putPregunta(pregunta);
 
     callback(null, pregunta);
   } catch (error) {

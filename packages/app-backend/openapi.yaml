@@ -124,7 +124,7 @@ paths:
       tags:
         - pregunta
       requestBody:
-        description: informacion pregunta
+        description: identificador pregunta
         required: true
         content:
           application/json:
