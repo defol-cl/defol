@@ -2,10 +2,26 @@ import moment from "moment";
 import { v4 as uuid4 } from "uuid";
 import { DynamoServices, S3Services } from "@defol-cl/libs";
 import { InteraccionPreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
-import { PreguntasGetHandler, PreguntasLastUpdatesHandler, PreguntasPostHandler } from "./preguntas.types";
+import { PreguntaDetailHandler, PreguntasGetHandler, PreguntasLastUpdatesHandler, PreguntasPostHandler } from "./preguntas.types";
 
-export const get: PreguntasGetHandler = ({ usrId }, context, callback) => {
-  callback(null, { message: 'Not implemented, yet' });
+export const get: PreguntasGetHandler = async({ usrId }, context, callback) => {
+  callback(null, "Not yet implemented");
+}
+
+export const detail: PreguntaDetailHandler = ({ usrId, timestamp }, context, callback) => {
+  RootUtils.logger({ usrId, timestamp });
+  try {
+    const pregunta = DynamoServices.getPregunta(usrId, timestamp);
+    if(!pregunta){
+      callback("PREGUNTA_DETAIL_GET_NOT_FOUND");
+      return;
+    }
+
+    callback(null, pregunta);
+  } catch (error) {
+    console.log(error);
+    callback("PREGUNTA_DETAIL_GET_ERROR");
+  }
 }
 
 export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioCod, pregunta, titulo, timestamp, contacto }, context, callback) => {

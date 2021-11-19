@@ -124,7 +124,7 @@ paths:
       tags:
         - pregunta
       requestBody:
-        description: codigo de convenio y pregunta
+        description: informacion pregunta
         required: true
         content:
           application/json:
@@ -139,6 +139,46 @@ paths:
       responses:
         204:
           description: OK
+        404:
+          description: no se encontró la pregunta
+        500:
+          description: error al ejecutar lambda
+
+  /pregunta:
+    get:
+      x-amazon-apigateway-request-validator: params
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntaDetailGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "timestamp": "$input.params('timestamp')"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*PREGUNTA_DETAIL_GET_NOT_FOUND.*":
+            statusCode: 404
+          ".*PREGUNTA_DETAIL_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene el detalle de una pregunta
+      tags:
+        - pregunta
+      parameters:
+        - in: query
+          name: timestamp
+          required: true
+          description: fecha de creacion de pregunta
+          schema:
+            type: string
+            example: "2022-10-20T10:00:00.000Z"
+      responses:
+        200:
+          $ref: "#/components/responses/200PreguntaDetalle"
         404:
           description: no se encontró la pregunta
         500:
@@ -363,13 +403,19 @@ components:
           schema:
             $ref: "#/components/schemas/ResumenPreguntas"
     200UltimasActualizaciones:
-      description: Entrega las ultimas 5 preguntas de un usuario según su fecha de actualizacion (DESC)
+      description: Ultimas 5 preguntas de un usuario según su fecha de actualizacion (DESC)
       content:
         application/json:
           schema:
             type: array
             items:
               $ref: "#/components/schemas/Pregunta"
+    200PreguntaDetalle:
+      description: Detalle de una pregunta
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Pregunta"
 
   securitySchemes:
     CUPAuthorizer:

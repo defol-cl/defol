@@ -145,6 +145,20 @@ Resources:
             Path: /preguntas
             Method: get
 
+  PreguntaDetailGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/preguntas
+      Handler: preguntas.detail
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /pregunta
+            Method: get
+
   PreguntasUltimasActGet:
     Type: AWS::Serverless::Function
     Properties:
