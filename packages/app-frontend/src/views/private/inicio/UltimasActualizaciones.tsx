@@ -60,9 +60,7 @@ const UltimasActualizaciones: React.FC = () => {
           </Grid>
         )}
       </CardContent>
-      {actualizaciones && actualizaciones.length === 0 && (
-        <Divider sx={{ my: 0 }}/>
-      )}
+      <Divider sx={{ my: 0 }}/>
       <CardActions>
         <Button color="secondary" fullWidth
                 onClick={() => history.push(privateRoutes.misActualizaciones.route())}>

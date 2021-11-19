@@ -35,6 +35,15 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
   const [error, setError] = useState(false);
   
   useEffect(() => {
+    let mounted = true;
+    PreguntasSvc.getOne(email, timestamp)
+      .then(pregunta => mounted && setPregunta(pregunta));
+    return () => {
+      mounted = false;
+    };
+  }, [email, timestamp]);
+  
+  useEffect(() => {
     if (error) {
       setSaving(false);
     }
@@ -76,15 +85,6 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
     isValid,
     values: { respuesta }
   } = formik;
-  
-  useEffect(() => {
-    let mounted = true;
-    PreguntasSvc.getOne(email, timestamp)
-      .then(pregunta => mounted && setPregunta(pregunta));
-    return () => {
-      mounted = false;
-    };
-  }, [email, timestamp]);
   
   let hasRespuesta = false;
   let hasContraPregunta = false;

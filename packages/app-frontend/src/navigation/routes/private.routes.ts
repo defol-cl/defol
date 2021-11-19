@@ -24,7 +24,7 @@ export const getPrivateRoutes = (path: string): PrivateRoutes => ({
   miPregunta: {
     name: 'Mi Pregunta',
     subpath: `${path}/mi-pregunta/:conCod/:timestamp`,
-    route: params => `${path}/mi-pregunta/${params!['conCod']}/${params!['timestamp']}`,
+    route: params => `${path}/mi-pregunta/${params!['preTimestamp']}`,
   },
   misPreguntas: {
     name: 'Mis Preguntas',
