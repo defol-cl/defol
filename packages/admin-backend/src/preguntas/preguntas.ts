@@ -7,7 +7,7 @@ import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler } from "
 export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token }, context, callback) => {
   RootUtils.logger({ usrId, ejecutivo, estado, token });
   try {
-    const prefix = 'preguntas-get';
+    const prefix = 'admin/preguntas-get';
     const uuid = uuid4();
     let parsedToken;
     try {

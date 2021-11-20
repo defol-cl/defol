@@ -6,7 +6,8 @@ interface BaseEvent {
 }
 
 interface PreguntasGetEvent extends BaseEvent {
-
+  estado?: string
+  token?: string
 }
 
 interface PreguntaDetailGetEvent extends BaseEvent {
@@ -19,13 +20,18 @@ interface PreguntasPostEvent extends BaseEvent {
   convenioCod?: string
   titulo?: string
   antecedentes?: string
-  timestamp?: string
+}
+
+interface PreguntasPutEvent extends BaseEvent {
+  pregunta: string
+  timestamp: string
 }
 interface PreguntasLastUpdatesEvent extends BaseEvent {
   token: string
 }
 
-export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent>;
+export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIteratorFront<PreguntaDynamo>>;
 export type PreguntaDetailHandler = LambdaTypes.CustomHandler<PreguntaDetailGetEvent>;
 export type PreguntasPostHandler = LambdaTypes.CustomHandler<PreguntasPostEvent>;
+export type PreguntasPutHandler = LambdaTypes.CustomHandler<PreguntasPutEvent>;
 export type PreguntasLastUpdatesHandler = LambdaTypes.CustomHandler<PreguntasLastUpdatesEvent, DynamoIteratorFront<PreguntaDynamo>>;

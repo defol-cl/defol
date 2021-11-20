@@ -450,7 +450,6 @@ export const getPreguntasByEjecutivoEstados = async(
   const estadoPreguntas = estado ? estado.split(",") : estado;
   console.log("estados:", estadoPreguntas);
   if(ejecutivo && estado) {
-    const lastKey: LastEvaluatedKey = {};
     for (const estadoPregunta of estadoPreguntas) {
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByEjecutivoAndEstados(ejecutivo, estadoPregunta, estadoLastKey);
@@ -475,6 +474,82 @@ export const getPreguntasByEjecutivoEstados = async(
       token: lastKey
     };
   }
+}
+
+export const getPreguntasByContactoEmail = (
+  contactoEmail: string,
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<DynamoIterator<PreguntaDynamo>> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      KeyConditionExpression: "contactoEmail = :contactoEmail",
+      ExpressionAttributeValues: {
+        ":ejecutivoEmail": contactoEmail
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      resolve({
+        items: res.Items ? res.Items as PreguntaDynamo[] : [],
+        token: res.LastEvaluatedKey
+      });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getPreguntasByContactoEmailAndEstado = (
+  contactoEmail: string,
+  estado: string,
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<DynamoIterator<PreguntaDynamo>> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      KeyConditionExpression: "contactoEmail = :contactoEmail and estado = :estado",
+      ExpressionAttributeValues: {
+        ":ejecutivoEmail": contactoEmail,
+        ":estado": estado
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      resolve({
+        items: res.Items ? res.Items as PreguntaDynamo[] : [],
+        token: res.LastEvaluatedKey
+      });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getPreguntasByContactoEmailEstados = async(
+  contactoEmail: string,
+  estado?: string,
+  lastKey?: any,
+): Promise<DynamoIterator<PreguntaDynamo>> => {
+  let response = [];
+  if(contactoEmail && estado) {
+    const estadoPreguntas = estado ? estado.split(",") : estado;
+    console.log("estados:", estadoPreguntas);
+    for (const estadoPregunta of estadoPreguntas) {
+      const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
+      const preguntas = await getPreguntasByContactoEmailAndEstado(contactoEmail, estadoPregunta, estadoLastKey);
+      response = response.concat(preguntas.items);
+      lastKey[estadoPregunta] = preguntas.token;
+    }
+    return {
+      items: response,
+      token: lastKey
+    };
+  } else {
+    return getPreguntasByContactoEmail(contactoEmail, lastKey)
+  } 
 }
 
 export const putPregunta = (

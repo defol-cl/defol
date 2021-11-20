@@ -30,19 +30,35 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.claims.email"
+              "usrId": "$context.authorizer.claims.email",
+              "estado ": "$input.params('estado')",
+              "token": "$input.params('token')"
             }
         responses:
           default:
             statusCode: 200
           ".*PREGUNTAS_GET_ERROR.*":
             statusCode: 500
-      summary: obtiene el listado de preguntas
+      summary: obtiene el listado de preguntas realizadas por un usuario
       tags:
         - pregunta
+      parameters:
+        - in: query
+          name: estado
+          description: estado de la pregunta
+          schema:
+            type: string
+            example: "INGRESADA,REPLICADA"
+        - in: query
+          name: token
+          description: token de paginación
+          schema:
+            type: string
       responses:
         200:
-          description: listado de preguntas
+          $ref: "#/components/responses/200PreguntaListado"
+        500:
+          description: error al ejecutar lambda
     post:
       x-amazon-apigateway-request-validator: body
       x-amazon-apigateway-integration:
@@ -109,13 +125,14 @@ paths:
             #set($lastname = "$context.authorizer.claims.family_name")
             {
               "usrId": "$context.authorizer.claims.email",
-              "contacto": "$surname $lastname",
               "timestamp": $input.json('$.timestamp'),
               "pregunta": $input.json('$.pregunta')
             }
         responses:
           default:
             statusCode: 204
+          ".*PREGUNTAS_PUT_FAILED.*":
+            statusCode: 400
           ".*PREGUNTAS_PUT_NOT_FOUND.*":
             statusCode: 404
           ".*PREGUNTAS_PUT_ERROR.*":
@@ -124,7 +141,7 @@ paths:
       tags:
         - pregunta
       requestBody:
-        description: identificador pregunta
+        description: pregunta y fecha de creacion de pregunta
         required: true
         content:
           application/json:
@@ -139,6 +156,8 @@ paths:
       responses:
         204:
           description: OK
+        400:
+          description: actualizacion inválida
         404:
           description: no se encontró la pregunta
         500:
@@ -410,6 +429,20 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/Pregunta"
+    200PreguntaListado:
+      description: Listado de preguntas
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pregunta"
+              token:
+                type: string
+            required: [items]
     200PreguntaDetalle:
       description: Detalle de una pregunta
       content:

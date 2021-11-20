@@ -191,7 +191,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: dist/src/preguntas
-      Handler: preguntas.post
+      Handler: preguntas.put
       Role: !GetAtt LambdaRole.Arn
       Events:
         Get:
