@@ -27,7 +27,8 @@ interface PreguntasPutEvent extends BaseEvent {
   timestamp: string
 }
 interface PreguntasLastUpdatesEvent extends BaseEvent {
-  token: string
+  token?: string
+  limit?: string
 }
 
 export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIteratorFront<PreguntaDynamo>>;

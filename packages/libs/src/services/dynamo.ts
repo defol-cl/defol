@@ -250,7 +250,7 @@ export const getConvenioContactoByUser = (
   })
 }
 
-export const getLastPreguntasByUserId = (
+export const getLastPreguntasByContactoEmail = (
   contactoEmail: string,
   options: LastPreguntasOptions,
   items: PreguntaDynamo[] = [],
@@ -274,12 +274,12 @@ export const getLastPreguntasByUserId = (
               : items;
 
       if(limit && items.length >= limit){
-        resolve({ items: items.slice(0,5) });
+        resolve({ items: items.slice(0,limit) });
         return;
       }
 
       if(limit && res.LastEvaluatedKey){
-        resolve(getLastPreguntasByUserId(contactoEmail, {...options, lastKey: res.LastEvaluatedKey}, items));
+        resolve(getLastPreguntasByContactoEmail(contactoEmail, {...options, lastKey: res.LastEvaluatedKey}, items));
         return;
       }
 
@@ -394,7 +394,7 @@ export const getPreguntasByEstado = (
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
-      IndexName: EJECUTIVO_EMAIL_ESTADO_INDEX,
+      IndexName: ESTADO_INDEX,
       KeyConditionExpression: "estado = :estado",
       ExpressionAttributeValues: {
         ":estado": estado
@@ -478,6 +478,7 @@ export const getPreguntasByEjecutivoEstados = async(
 
 export const getPreguntasByContactoEmail = (
   contactoEmail: string,
+  limit?: number,
   lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<DynamoIterator<PreguntaDynamo>> => {
   return new Promise((resolve, reject) => {
@@ -509,6 +510,7 @@ export const getPreguntasByContactoEmailAndEstado = (
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
+      IndexName: PREGUNTA_ESTADO_INDEX,
       KeyConditionExpression: "contactoEmail = :contactoEmail and estado = :estado",
       ExpressionAttributeValues: {
         ":ejecutivoEmail": contactoEmail,
@@ -531,7 +533,7 @@ export const getPreguntasByContactoEmailAndEstado = (
 export const getPreguntasByContactoEmailEstados = async(
   contactoEmail: string,
   estado?: string,
-  lastKey?: any,
+  lastKey?: any
 ): Promise<DynamoIterator<PreguntaDynamo>> => {
   let response = [];
   if(contactoEmail && estado) {

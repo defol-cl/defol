@@ -215,20 +215,6 @@ Resources:
             Path: /dashboard/resumen-preguntas
             Method: get
 
-  UltimasActualizacionesGet:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: dist/src/dashboard
-      Handler: dashboard.ultimasActualizacionesGet
-      Role: !GetAtt LambdaRole.Arn
-      Events:
-        Get:
-          Type: Api
-          Properties:
-            RestApiId: !Ref Api
-            Path: /dashboard/ultimas-actualizaciones
-            Method: get
-
   ConveniosGet:
     Type: AWS::Serverless::Function
     Properties:

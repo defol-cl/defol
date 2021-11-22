@@ -30,9 +30,15 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.claims.email",
-              "estado ": "$input.params('estado')",
-              "token": "$input.params('token')"
+              #set($estado = $input.params('estado'))
+              #set($token = $input.params('token'))
+              #if($estado && $estado.length() > 0)
+                "estado": "$estado",
+              #end
+              #if($token && $token.length() > 0)
+                "token": "$token",
+              #end
+              "usrId": "$context.authorizer.claims.email"
             }
         responses:
           default:
@@ -213,8 +219,15 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "usrId": "$context.authorizer.claims.email",
-              "token": "$input.params('token')"
+              #set($limit = $input.params('tamano'))
+              #set($token = $input.params('token'))
+              #if($limit && $limit.length() > 0)
+                "limit": "$limit",
+              #end
+              #if($token && $token.length() > 0)
+                "token": "$token",
+              #end
+              "usrId": "$context.authorizer.claims.email"
             }
         responses:
           default:
@@ -230,6 +243,12 @@ paths:
           description: token de paginación
           schema:
             type: string
+        - in: query
+          name: tamano
+          description: cantidad de registros a obtener
+          schema:
+            type: string
+          example: 5
       responses:
         200:
           $ref: "#/components/responses/200UltimasActualizaciones"
@@ -262,31 +281,6 @@ paths:
         500:
           description: error al ejecutar lambda
 
-  /dashboard/ultimas-actualizaciones:
-    get:
-      x-amazon-apigateway-integration:
-        uri:
-          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UltimasActualizacionesGet.Arn}/invocations
-        httpMethod: POST
-        type: aws
-        requestTemplates:
-          application/json: |
-            {
-              "usrId": "$context.authorizer.claims.email"
-            }
-        responses:
-          default:
-            statusCode: 200
-          ".*ULTIMAS_ACTUALIZACIONES_GET_ERROR.*":
-            statusCode: 500
-      summary: obtiene las 5 últimas actualizaciones sobre preguntas de un usuario
-      tags:
-        - dashboard
-      responses:
-        200:
-          $ref: "#/components/responses/200UltimasActualizaciones"
-        500:
-          description: error al ejecutar lambda
   /convenios:
     get:
       x-amazon-apigateway-integration:

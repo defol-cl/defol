@@ -104,10 +104,22 @@ paths:
         requestTemplates:
           application/json: |
             {
+              #set($ejecutivo = $input.params('ejecutivo'))
+              #if($ejecutivo && $ejecutivo.length() > 0)
+                "ejecutivo": "$ejecutivo",
+              #end
+
+              #set($estado = $input.params('estado'))
+              #if($estado && $estado.length() > 0)
+                "estado": "$estado",
+              #end
+
+              #set($token = $input.params('token'))
+              #if($token && $token.length() > 0)
+                "token": "$token",
+              #end
+
               "usrId": "$context.authorizer.claims.email",
-              "ejecutivo": "$input.params('ejecutivo')",
-              "estado": "$input.params('estado')",
-              "token": "$input.params('token')"
             }
         responses:
           default:

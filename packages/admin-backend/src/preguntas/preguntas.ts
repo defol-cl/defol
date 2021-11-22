@@ -1,7 +1,7 @@
 import moment from "moment";
 import { v4 as uuid4 } from "uuid";
 import { DynamoServices, S3Services } from "@defol-cl/libs";
-import { DynamoIterator, PreguntaDynamo, RootUtils } from "@defol-cl/root";
+import { DynamoIterator, PreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
 import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler } from "./preguntas.types";
 
 export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token }, context, callback) => {
@@ -61,6 +61,7 @@ const checkPreguntaConditions = (
   pregunta: PreguntaDynamo
 ): string | undefined => {
   let error;
+  const estadoPregunta = RootEnum.EstadoPregunta;
 
   if(!pregunta){
     error = "PREGUNTA_PUT_FAILED.PREGUNTA_NOT_FOUND";
@@ -68,8 +69,10 @@ const checkPreguntaConditions = (
     error = "PREGUNTA_PUT_FAILED.NO_INTERACTIONS";
   } else if(pregunta.interacciones[pregunta.interacciones.length - 1].replica){
     error = "PREGUNTA_PUT_FAILED.REPLICA_ALREADY_EXISTS";
-  } else if(pregunta.interaccionesCantidad === pregunta.interaccionesMax){
+  } else if(pregunta.interaccionesCantidad >= pregunta.interaccionesMax){
     error = "PREGUNTA_PUT_FAILED.REPLICAS_LIMIT_REACHED";
+  } else if(pregunta.estado === estadoPregunta.FINALIZADA || pregunta.estado === estadoPregunta.RESPONDIDA){
+    error = "PREGUNTA_PUT_FAILED.REPLICA_ALREADY_EXISTS";
   }
 
   return error;
@@ -81,6 +84,7 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
   try {
     const pregunta = await DynamoServices.getPregunta(contactoEmail, timestamp);
     const preguntaHasError = checkPreguntaConditions(pregunta);
+    let isLast = true;
 
     if(preguntaHasError){
       callback(preguntaHasError);
@@ -91,12 +95,14 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
 
     if(agregarReplica && pregunta.interaccionesCantidad === pregunta.interaccionesMax){
       pregunta.interaccionesMax++;
+      isLast = false;
     }
 
     pregunta.interacciones[pregunta.interacciones.length - 1].ejecutivoEmail = usrId;
     pregunta.interacciones[pregunta.interacciones.length - 1].ejecutivoNombre = contacto;
     pregunta.interacciones[pregunta.interacciones.length - 1].replica = replica;
     pregunta.interacciones[pregunta.interacciones.length - 1].replicaAt = moment().toISOString();
+    pregunta.estado = isLast ? RootEnum.EstadoPregunta.FINALIZADA : RootEnum.EstadoPregunta.RESPONDIDA;
 
     await DynamoServices.putPregunta(pregunta);
     callback(null, {});

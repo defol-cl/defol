@@ -26,14 +26,3 @@ export const resumenPreguntasGet: ResumenPreguntasGetHandler = async({ usrId }, 
     callback(error);
   }
 }
-
-export const ultimasActualizacionesGet: UltimasActualizacionesGetHandler = async({ usrId }, context, callback) => {
-  RootUtils.logger({usrId});
-  try {
-    const preguntas = await DynamoServices.getLastPreguntasByUserId(usrId, {limit: 5});
-    callback(null, preguntas.items);
-  } catch (error) {
-    console.log(error);
-    callback(error);
-  }
-}
