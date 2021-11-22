@@ -6,7 +6,6 @@ import {
   PreguntaDynamo,
   RootEnum,
   DynamoIterator,
-  LastEvaluatedKey
 } from "@defol-cl/root";
 import { LastPreguntasOptions } from "../types/dynamo.types";
 
@@ -158,7 +157,7 @@ export const countPreguntasPendientesByUser = (contactoEmail: string, qty: numbe
   })
 }
 
-export const countPreguntasByUsuarioAndConvenio = (
+export const countPreguntasByContactoAndConvenio = (
   contactoEmail: string,
   convenioCod: string,
   qty: number = 0,
@@ -182,7 +181,7 @@ export const countPreguntasByUsuarioAndConvenio = (
       }
 
       if(res.LastEvaluatedKey){
-        resolve(countPreguntasByUsuarioAndConvenio(contactoEmail, convenioCod, qty, res.LastEvaluatedKey));
+        resolve(countPreguntasByContactoAndConvenio(contactoEmail, convenioCod, qty, res.LastEvaluatedKey));
         return;
       }
 
@@ -194,7 +193,7 @@ export const countPreguntasByUsuarioAndConvenio = (
   })
 }
 
-export const getConvenioContactoByUserAndConvenio = (
+export const getConvenioContactoByContactoAndConvenio = (
   email: string,
   convenioCod: string
 ): Promise<ConvenioContactoDynamo | undefined> => {
@@ -300,10 +299,10 @@ export const getLimitAndCountPreguntasByUsrId = async(
   maxPreguntas?: number
 ): Promise<RootInterface.ConvenioPreguntaUsuario> => {
   let limitePreguntas = 0;
-  const preguntasRealizadas = await countPreguntasByUsuarioAndConvenio(contactoEmail, convenioCod);
+  const preguntasRealizadas = await countPreguntasByContactoAndConvenio(contactoEmail, convenioCod);
 
   if(!maxPreguntas){
-    const convenioContacto = await getConvenioContactoByUserAndConvenio(contactoEmail, convenioCod);
+    const convenioContacto = await getConvenioContactoByContactoAndConvenio(contactoEmail, convenioCod);
     limitePreguntas = convenioContacto.preguntasMax;
   } else {
     limitePreguntas = maxPreguntas;
@@ -486,7 +485,7 @@ export const getPreguntasByContactoEmail = (
       TableName: PREGUNTA_TABLE,
       KeyConditionExpression: "contactoEmail = :contactoEmail",
       ExpressionAttributeValues: {
-        ":ejecutivoEmail": contactoEmail
+        ":contactoEmail": contactoEmail
       },
       ExclusiveStartKey: lastKey
     }).promise()
@@ -513,7 +512,7 @@ export const getPreguntasByContactoEmailAndEstado = (
       IndexName: PREGUNTA_ESTADO_INDEX,
       KeyConditionExpression: "contactoEmail = :contactoEmail and estado = :estado",
       ExpressionAttributeValues: {
-        ":ejecutivoEmail": contactoEmail,
+        ":contactoEmail": contactoEmail,
         ":estado": estado
       },
       ExclusiveStartKey: lastKey
