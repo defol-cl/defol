@@ -1,6 +1,6 @@
 {
   "name": "@defol-cl/app-backend",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "private": "true",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@defol-cl/libs": "1.0.37",
-    "@defol-cl/root": "1.0.37",
+    "@defol-cl/libs": "1.0.38",
+    "@defol-cl/root": "1.0.38",
     "aws-sdk": "^2.1023.0",
     "moment": "2.29.1",
     "uuid": "^8.3.2"

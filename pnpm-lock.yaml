@@ -10483,7 +10483,7 @@ packages:
     dev: true
 
   /isobject/3.0.1:
-    resolution: {integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=}
+    resolution: {integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     engines: {node: '>=0.10.0'}
 
   /isomorphic-unfetch/3.1.0:
@@ -11837,7 +11837,7 @@ packages:
     dev: true
 
   /moment/2.29.1:
-    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
+    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dev: false
 
   /move-concurrently/1.0.1:
@@ -15182,7 +15182,7 @@ packages:
     dev: true
 
   /stylis/4.0.10:
-    resolution: {integrity: sha512-m3k+dk7QeJw660eIKRRn3xPF6uuvHs/FFzjX3HQ5ove0qYsiygoAhwn5a3IYKaZPo5LrYD0rfVmtv1gNY1uYwg==}
+    resolution: {integrity: sha512-m3k+dk7QeJw660eIKRRn3xPF6uuvHs/FFzjX3HQ5ove0qYsiygoAhwn5a3IYKaZPo5LrYD0rfVmtv1gNY1uYwg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dev: false
 
   /supports-color/2.0.0:
