@@ -28,15 +28,16 @@ paths:
         httpMethod: POST
         type: aws
         requestTemplates:
-          #dejar de usar grupos y usar permisos (definir nombres de permisos para usarlos aca)
           application/json: |
             {
               "usrId": "$context.authorizer.claims.email",
-              "groups": "$context.authorizer.claims.groups"
+              "permissions": "$context.authorizer.claims.permissions"
             }
         responses:
           default:
             statusCode: 200
+          ".*CONVENIOS_GET_FORBIDDEN.*":
+            statusCode: 403
           ".*CONVENIOS_GET_ERROR.*":
             statusCode: 500
       summary: obtiene el listado de convenios
@@ -45,6 +46,8 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/200ConvenioList"
+        403:
+          description: no tiene permisos para ejecutar la acción
         500:
           description: error al obtener convenios desde dynamo
     post:
@@ -58,6 +61,7 @@ paths:
           application/json: |
             {
               "usrId": "$context.authorizer.claims.email",
+              "permissions": "$context.authorizer.claims.permissions",
               "convenio": $input.json('$')
             }
         responses:
@@ -65,6 +69,8 @@ paths:
             statusCode: 201
           ".*CONVENIOS_POST_FAILED.*":
             statusCode: 400
+          ".*CONVENIOS_POST_FORBIDDEN.*":
+            statusCode: 403
           ".*CONVENIOS_POST_ERROR.*":
             statusCode: 500
       summary: permite crear convenios
@@ -90,6 +96,49 @@ paths:
           description: OK
         400:
           description: el convenio ya existe
+        403:
+          description: no tiene permisos para ejecutar la acción
+        500:
+          description: error al ejecutar lambda
+
+  /convenio:
+    get:
+      x-amazon-apigateway-request-validator: params
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ConvenioDetalleGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "permissions": "$context.authorizer.claims.permissions",
+              "convenioCod": "$input.params('convenioCod')"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*CONVENIO_DETALLE_GET_FORBIDDEN.*":
+            statusCode: 403
+          ".*CONVENIO_DETALLE_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene el detalle de convenios
+      tags:
+        - convenio
+      parameters:
+        - in: query
+          name: convenioCod
+          required: true
+          description: codigo convenio
+          schema:
+            type: string
+            example: "CORFO_A123"
+      responses:
+        200:
+          $ref: "#/components/responses/200ConvenioDetalle"
+        403:
+          description: no tiene permisos para ejecutar la acción
         500:
           description: error al ejecutar lambda
 
@@ -118,12 +167,14 @@ paths:
               #if($token && $token.length() > 0)
                 "token": "$token",
               #end
-
+              "permissions": "$context.authorizer.claims.permissions",
               "usrId": "$context.authorizer.claims.email",
             }
         responses:
           default:
             statusCode: 200
+          ".*PREGUNTAS_GET_FORBIDDEN.*":
+            statusCode: 403
           ".*PREGUNTAS_GET_ERROR.*":
             statusCode: 500
       summary: obtiene el listado de preguntas
@@ -150,6 +201,8 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/200PreguntaList"
+        403:
+          description: no tiene permisos para ejecutar la acción
         500:
           description: error al obtener preguntas desde dynamo
 
@@ -166,11 +219,14 @@ paths:
             {
               "usrId": "$context.authorizer.claims.email",
               "contactoEmail": "$input.params('contactoEmail')",
+              "permissions": "$context.authorizer.claims.permissions",
               "timestamp": "$input.params('timestamp')"
             }
         responses:
           default:
             statusCode: 200
+          ".*PREGUNTA_DETAIL_GET_FORBIDDEN.*":
+            statusCode: 403
           ".*PREGUNTA_DETAIL_GET_NOT_FOUND.*":
             statusCode: 404
           ".*PREGUNTA_DETAIL_GET_ERROR.*":
@@ -196,6 +252,8 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/200PreguntaDetail"
+        403:
+          description: no tiene permisos para ejecutar la acción
         404:
           description: no se encontró la pregunta
         500:
@@ -217,6 +275,7 @@ paths:
               "contactoEmail": "$input.params('contactoEmail')",
               "timestamp": "$input.params('timestamp')",
               "replica": $input.json('$.replica'),
+              "permissions": "$context.authorizer.claims.permissions",
               "agregarReplica": $input.json('$.agregarReplica')
             }
         responses:
@@ -224,6 +283,8 @@ paths:
             statusCode: 204
           ".*PREGUNTA_PUT_FAILED.*":
             statusCode: 400
+          ".*PREGUNTA_PUT_FORBIDDEN.*":
+            statusCode: 403
           ".*PREGUNTA_PUT_ERROR.*":
             statusCode: 500
       summary: obtiene el detalle de una pregunta
@@ -262,15 +323,17 @@ paths:
           description: replica creada con éxito
         400:
           description: request inválido
+        403:
+          description: no tiene permisos para ejecutar la acción
         500:
           description: error al obtener preguntas desde dynamo
 
-  /usuarios:
+  /contactos:
     post:
       x-amazon-apigateway-request-validator: body
       x-amazon-apigateway-integration:
         uri:
-          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UsuariosPost.Arn}/invocations
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ContactosPost.Arn}/invocations
         httpMethod: POST
         type: aws
         requestTemplates:
@@ -279,18 +342,21 @@ paths:
               "usrId": "$context.authorizer.claims.email",
               "convenioCod": $input.json('$.convenioCod'),
               "emails": $input.json('$.correos'),
+              "permissions": "$context.authorizer.claims.permissions",
               "preguntasMax": $input.json('$.preguntasMax')
             }
         responses:
           default:
             statusCode: 201
-          ".*USUARIOS_POST_ERROR.*":
+          ".*CONTACTOS_POST_FORBIDDEN.*":
+            statusCode: 403
+          ".*CONTACTOS_POST_ERROR.*":
             statusCode: 500
-      summary: permite crear y asociar usuarios a convenios
+      summary: permite crear y asociar contactos a convenios
       tags:
-        - usuario
+        - contacto
       requestBody:
-        description: convenio y correo de usuarios
+        description: convenio y correo de contactos
         required: true
         content:
           application/json:
@@ -306,9 +372,11 @@ paths:
               required: [convenioCod, correos, preguntasMax]
       responses:
         201:
-          description: usuarios creados
+          description: contactos asociados
+        403:
+          description: no tiene permisos para ejecutar la acción
         500:
-          description: ocurrió un error al intentar crear un usuario
+          description: error al ejecutar lambda
 
 components:
   schemas:

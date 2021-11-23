@@ -3,6 +3,7 @@ import { DynamoIteratorFront, PreguntaDynamo } from "@defol-cl/root";
 
 interface BaseEvent {
   usrId: string
+  permissions: string
 }
 
 interface PreguntasGetEvent extends BaseEvent {

@@ -6,6 +6,7 @@ import {
   PreguntaDynamo,
   RootEnum,
   DynamoIterator,
+  ConvenioModeradorDynamo,
 } from "@defol-cl/root";
 import { LastPreguntasOptions } from "../types/dynamo.types";
 
@@ -13,6 +14,7 @@ const dynamo = new DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
 const PREGUNTA_TABLE = process.env.PREGUNTA_TABLE;
 const CONVENIO_CONTACTO_TABLE = process.env.CONVENIO_CONTACTO_TABLE;
+const CONVENIO_MODERADOR_TABLE = process.env.CONVENIO_MODERADOR_TABLE;
 const PREGUNTA_ESTADO_INDEX = process.env.PREGUNTA_ESTADO_INDEX;
 const ESTADO_INDEX = process.env.ESTADO_INDEX;
 const EJECUTIVO_EMAIL_ESTADO_INDEX = process.env.EJECUTIVO_EMAIL_ESTADO_INDEX;
@@ -208,6 +210,29 @@ export const getConvenioContactoByContactoAndConvenio = (
     }).promise()
     .then(res => {
       const item = res.Items.length ? res.Items[0] as ConvenioContactoDynamo : undefined;
+      resolve(item);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getConvenioModeradorByModeradorAndConvenio = (
+  email: string,
+  convenioCod: string
+): Promise<ConvenioModeradorDynamo | undefined> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: CONVENIO_MODERADOR_TABLE,
+      KeyConditionExpression: "convenioCod = :convenioCod and email = :email",
+      ExpressionAttributeValues: {
+        ":email": email,
+        ":convenioCod": convenioCod
+      }
+    }).promise()
+    .then(res => {
+      const item = res.Items.length ? res.Items[0] as ConvenioModeradorDynamo : undefined;
       resolve(item);
     }).catch(err => {
       console.log(err);
@@ -448,16 +473,17 @@ export const getPreguntasByEjecutivoEstados = async(
   let response = [];
   const estadoPreguntas = estado ? estado.split(",") : estado;
   console.log("estados:", estadoPreguntas);
+  const lastKeyToken:any = {};
   if(ejecutivo && estado) {
     for (const estadoPregunta of estadoPreguntas) {
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByEjecutivoAndEstados(ejecutivo, estadoPregunta, estadoLastKey);
       response = response.concat(preguntas.items);
-      lastKey[estadoPregunta] = preguntas.token;
+      lastKeyToken[estadoPregunta] = preguntas.token;
     }
     return {
       items: response,
-      token: lastKey
+      token: lastKeyToken
     };
   } else if(ejecutivo) {
     return getPreguntasByEjecutivo(ejecutivo, lastKey)
@@ -466,11 +492,11 @@ export const getPreguntasByEjecutivoEstados = async(
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByEstado(estadoPregunta, estadoLastKey);
       response = response.concat(preguntas.items);
-      lastKey[estadoPregunta] = preguntas.token;
+      lastKeyToken[estadoPregunta] = preguntas.token;
     }
     return {
       items: response,
-      token: lastKey
+      token: lastKeyToken
     };
   }
 }
@@ -538,15 +564,16 @@ export const getPreguntasByContactoEmailEstados = async(
   if(contactoEmail && estado) {
     const estadoPreguntas = estado ? estado.split(",") : estado;
     console.log("estados:", estadoPreguntas);
+    const lastKeyToken:any = {};
     for (const estadoPregunta of estadoPreguntas) {
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByContactoEmailAndEstado(contactoEmail, estadoPregunta, estadoLastKey);
       response = response.concat(preguntas.items);
-      lastKey[estadoPregunta] = preguntas.token;
+      lastKeyToken[estadoPregunta] = preguntas.token;
     }
     return {
       items: response,
-      token: lastKey
+      token: lastKeyToken
     };
   } else {
     return getPreguntasByContactoEmail(contactoEmail, lastKey)

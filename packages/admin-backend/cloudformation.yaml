@@ -187,6 +187,20 @@ Resources:
             Path: /convenios
             Method: get
 
+  ConvenioDetalleGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/convenios
+      Handler: convenios.detail
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /convenio
+            Method: get
+
   ConveniosPost:
     Type: AWS::Serverless::Function
     Properties:
@@ -201,18 +215,18 @@ Resources:
             Path: /convenios
             Method: post
 
-  UsuariosPost:
+  ContactosPost:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: dist/src/usuarios
-      Handler: usuarios.post
+      CodeUri: dist/src/contactos
+      Handler: contactos.post
       Role: !GetAtt LambdaRole.Arn
       Events:
         Get:
           Type: Api
           Properties:
             RestApiId: !Ref Api
-            Path: /usuarios
+            Path: /contactos
             Method: post
 
   RuntimeDependenciesLayer:

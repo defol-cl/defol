@@ -4,12 +4,19 @@ import { DynamoServices, S3Services } from "@defol-cl/libs";
 import { DynamoIterator, PreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
 import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler } from "./preguntas.types";
 
-export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token }, context, callback) => {
-  RootUtils.logger({ usrId, ejecutivo, estado, token });
+export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token, permissions }, context, callback) => {
+  RootUtils.logger({ usrId, ejecutivo, estado, token, permissions });
   try {
     const prefix = 'admin/preguntas-get';
     const uuid = uuid4();
     let parsedToken;
+    const permissionList = permissions.split(",");
+
+    if(!permissionList.includes("pregunta::view") && !permissionList.includes("pregunta::view_all")) {
+      callback("PREGUNTA_DETAIL_GET_FORBIDDEN");
+      return;
+    }
+
     try {
       parsedToken = token ? await S3Services.getDynamoToken(`${prefix}/${token}.json`) : undefined;
     } catch (error) {
@@ -41,9 +48,17 @@ export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token 
   }
 }
 
-export const detail: PreguntaDetailHandler = async({ usrId, contactoEmail, timestamp }, context, callback) => {
-  RootUtils.logger({ usrId, contactoEmail, timestamp });
+export const detail: PreguntaDetailHandler = async({ usrId, contactoEmail, timestamp, permissions }, context, callback) => {
+  RootUtils.logger({ usrId, contactoEmail, timestamp, permissions });
   try {
+
+    const permissionList = permissions.split(",");
+
+    if(!permissionList.includes("pregunta::view") && !permissionList.includes("pregunta::view_all")) {
+      callback("PREGUNTA_DETAIL_GET_FORBIDDEN");
+      return;
+    }
+
     const pregunta = await DynamoServices.getPregunta(contactoEmail, timestamp);
     if(!pregunta){
       callback("PREGUNTA_DETAIL_GET_NOT_FOUND");
@@ -79,10 +94,17 @@ const checkPreguntaConditions = (
 }
 
 
-export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica }, context, callback) => {
-  RootUtils.logger({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica });
+export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica, permissions }, context, callback) => {
+  RootUtils.logger({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica, permissions });
   try {
+    const permissionList = permissions.split(",");
     const pregunta = await DynamoServices.getPregunta(contactoEmail, timestamp);
+
+    if(!permissionList.includes("pregunta::edit")){
+      callback("PREGUNTA_PUT_FORBIDDEN");
+      return;
+    }
+
     const preguntaHasError = checkPreguntaConditions(pregunta);
     let isLast = true;
 
