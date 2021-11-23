@@ -113,6 +113,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - dynamodb:*
+                  - s3:*
                 Resource: "*"
 
   Api:
