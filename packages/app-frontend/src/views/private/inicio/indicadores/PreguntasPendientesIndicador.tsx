@@ -15,7 +15,6 @@ interface Props {
 
 const PreguntasPendientesIndicador: React.FC<Props> = ({ value }) => {
   const history = useHistory();
-  console.log(value);
   return (
     <Card sx={{ minHeight: '100%' }}>
       <CardActionArea onClick={() => history.push(privateRoutes.nuevaPregunta.route())}>

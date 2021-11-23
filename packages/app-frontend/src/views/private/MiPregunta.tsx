@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
-import { useHistory } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { useHistory, useParams } from "react-router-dom";
+import { Grow, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import { grey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
@@ -15,13 +15,16 @@ import { privateRoutes } from "src/navigation";
 import { PreguntasSvc } from 'src/services';
 import { validationNuevaPregunta } from "./nueva-pregunta/nueva-pregunta.formik";
 import { FormikMiPregunta } from "./mi-pregunta/mi-pregunta.formik";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
-interface Props {
-  email: string
+interface Params {
   timestamp: string
 }
 
-const MiPregunta: React.FC<Props> = ({ email, timestamp }) => {
+const MiPregunta: React.FC = () => {
+  const { timestamp } = useParams<Params>();
   const history = useHistory();
   const [pregunta, setPregunta] = useState<Dao.Pregunta>();
   const [saving, setSaving] = useState(false);
@@ -29,12 +32,12 @@ const MiPregunta: React.FC<Props> = ({ email, timestamp }) => {
   
   useEffect(() => {
     let mounted = true;
-    PreguntasSvc.getOne(email, timestamp)
+    PreguntasSvc.getOne(timestamp)
       .then(pregunta => mounted && setPregunta(pregunta));
     return () => {
       mounted = false;
     };
-  }, [email, timestamp]);
+  }, [timestamp]);
   
   useEffect(() => {
     if (error) {
@@ -48,6 +51,17 @@ const MiPregunta: React.FC<Props> = ({ email, timestamp }) => {
     }
   }, [saving]);
   
+  const putPregunta = () => {
+    setSaving(true);
+    PreguntasSvc.put(replica, timestamp)
+      .then(() => {
+        history.push(privateRoutes.inicio.route());
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }
+  
   const formik = useFormik<FormikMiPregunta>({
     initialValues: {
       replica: '',
@@ -55,17 +69,18 @@ const MiPregunta: React.FC<Props> = ({ email, timestamp }) => {
     validationSchema: validationNuevaPregunta,
     validateOnMount: true,
     onSubmit: ({ replica }) => {
-      console.log(replica);
-      setSaving(true);
-      history.push(privateRoutes.inicio.route());
+      putPregunta();
     }
   });
   
   const {
     handleChange,
     handleBlur,
+    handleSubmit,
     values: { replica }
   } = formik;
+  
+  const replicar = pregunta && pregunta.estado === 'RESPONDIDA';
   
   return (
     <>
@@ -118,33 +133,55 @@ const MiPregunta: React.FC<Props> = ({ email, timestamp }) => {
               )}
             </div>
           ))}
-          <Box sx={{ py: 2 }}>
-            <hr/>
-          </Box>
-          <Typography variant="body1" sx={{ pb: 2, color: grey[600] }}>
-            <b>Quiero manifestar la siguiente réplica...</b>
-          </Typography>
-          <TextField
-            id="replica"
-            label="Pregunta"
-            helperText="Indícanos cuál es tu consulta, siendo lo más claro posible."
-            fullWidth
-            value={replica}
-            sx={{ mt: 2 }}
-            onChange={handleChange}
-            onBlur={handleBlur}/>
-          <Grid container spacing={2} sx={{ mt: 3 }}>
-            <Grid item xs={6}>
-              <Button size="large" variant="contained" fullWidth>
-                Enviar réplica
-              </Button>
+          <form onSubmit={handleSubmit}>
+            {replicar && (
+              <>
+                <Box sx={{ py: 2 }}>
+                  <hr/>
+                </Box>
+                <Typography variant="body1" sx={{ pb: 2, color: grey[600] }}>
+                  <b>Quiero manifestar la siguiente réplica...</b>
+                </Typography>
+                <TextField
+                  id="replica"
+                  label="Pregunta"
+                  helperText="Indícanos cuál es tu consulta, siendo lo más claro posible."
+                  fullWidth
+                  value={replica}
+                  sx={{ mt: 2 }}
+                  onChange={handleChange}
+                  onBlur={handleBlur}/>
+              </>
+            )}
+            <Grow in={error} mountOnEnter unmountOnExit>
+              <Alert variant="outlined" severity="error" sx={{ mt: 2, mb: 1 }}
+                     action={
+                       <Button color="inherit" size="small" onClick={() => putPregunta()}>
+                         Reintentar
+                       </Button>
+                     }>
+                <AlertTitle>Esto es un poco incómodo</AlertTitle>
+                Ocurrió un error al enviar tu réplica.<br/>Te proponemos 2 alternativas, reintenta ahora mismo o
+                conéctate más tarde y vuelve a intentarlo, y danos un poco de tiempo para reparar este problema.
+              </Alert>
+            </Grow>
+            <Grid container spacing={2} sx={{ mt: 3 }}>
+              <Grid item xs={replicar ? 6 : 12}>
+                <Button size="large" fullWidth onClick={() => history.goBack()}>
+                  Volver
+                </Button>
+              </Grid>
+              {replicar && (
+                <Grid item xs={6}>
+                  <LoadingButton type="submit" size="large" variant="contained" fullWidth
+                                 loading={saving}
+                                 loadingIndicator="Enviando réplica...">
+                    Enviar réplica
+                  </LoadingButton>
+                </Grid>
+              )}
             </Grid>
-            <Grid item xs={6}>
-              <Button size="large" fullWidth onClick={() => history.goBack()}>
-                Volver
-              </Button>
-            </Grid>
-          </Grid>
+          </form>
         </CardContent>
       </Card>
     </>

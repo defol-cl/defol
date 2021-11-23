@@ -11,6 +11,11 @@ export const getPrivateRoutes = (path: string): PrivateRoutes => ({
     subpath: `${path}/`,
     route: () => `${path}/`,
   },
+  perfil: {
+    name: 'Perfil',
+    subpath: `${path}/perfil`,
+    route: () => `${path}/perfil`,
+  },
   nuevaPregunta: {
     name: 'Nueva Pregunta',
     subpath: `${path}/nueva-pregunta`,
@@ -23,13 +28,13 @@ export const getPrivateRoutes = (path: string): PrivateRoutes => ({
   },
   miPregunta: {
     name: 'Mi Pregunta',
-    subpath: `${path}/mi-pregunta/:conCod/:timestamp`,
+    subpath: `${path}/mi-pregunta/:timestamp`,
     route: params => `${path}/mi-pregunta/${params!['preTimestamp']}`,
   },
   misPreguntas: {
     name: 'Mis Preguntas',
-    subpath: `${path}/mis-preguntas`,
-    route: params => `${path}/mis-preguntas${params && params['tipo'] ? `?tipo=${params['tipo']}` : ''}`,
+    subpath: [`${path}/mis-preguntas`, `${path}/mis-preguntas/:tipo`],
+    route: params => `${path}/mis-preguntas/${params && params['tipo'] ? `${params['tipo']}` : ''}`,
   },
   misActualizaciones: {
     name: 'Mis Actualizaciones',

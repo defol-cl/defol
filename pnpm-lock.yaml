@@ -7,10 +7,10 @@ importers:
 
   packages/admin-backend:
     specifiers:
-      '@defol-cl/libs': 1.0.30
-      '@defol-cl/root': 1.0.30
+      '@defol-cl/libs': 1.0.37
+      '@defol-cl/root': 1.0.37
       '@types/node': ^16.11.6
-      '@types/uuid': ^8.3.1
+      '@types/uuid': ^8.3.3
       aws-sdk: ^2.1023.0
       moment: ^2.29.1
       uuid: ^8.3.2
@@ -22,11 +22,11 @@ importers:
       uuid: 8.3.2
     devDependencies:
       '@types/node': 16.11.6
-      '@types/uuid': 8.3.1
+      '@types/uuid': 8.3.3
 
   packages/admin-frontend:
     specifiers:
-      '@defol-cl/root': 1.0.19
+      '@defol-cl/root': 1.0.37
       '@emotion/react': ^11.4.1
       '@emotion/styled': ^11.3.0
       '@fontsource/roboto': ^4.5.1
@@ -76,7 +76,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 5.3.0_react@17.0.2
-      react-use: registry.npmjs.org/react-use/17.3.1_react-dom@17.0.2+react@17.0.2
+      react-use: 17.3.1_react-dom@17.0.2+react@17.0.2
       styled-components: 5.3.1_react-dom@17.0.2+react@17.0.2
       typescript: 4.4.3
       web-vitals: 1.1.2
@@ -95,8 +95,8 @@ importers:
 
   packages/app-backend:
     specifiers:
-      '@defol-cl/libs': 1.0.30
-      '@defol-cl/root': 1.0.30
+      '@defol-cl/libs': 1.0.37
+      '@defol-cl/root': 1.0.37
       '@types/node': ^16.11.6
       '@types/uuid': ^8.3.1
       aws-sdk: ^2.1023.0
@@ -114,7 +114,7 @@ importers:
 
   packages/app-frontend:
     specifiers:
-      '@defol-cl/root': 1.0.17
+      '@defol-cl/root': 1.0.37
       '@emotion/react': ^11.4.1
       '@emotion/styled': ^11.3.0
       '@fontsource/roboto': ^4.5.1
@@ -161,12 +161,12 @@ importers:
       aws-amplify-react: 5.1.2_react@17.0.2
       axios: 0.21.4
       formik: 2.2.9_react@17.0.2
-      moment: registry.npmjs.org/moment/2.29.1
+      moment: 2.29.1
       react: 17.0.2
-      react-countup: registry.npmjs.org/react-countup/6.0.0_react@17.0.2
+      react-countup: 6.0.0_react@17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 5.3.0_react@17.0.2
-      react-use: registry.npmjs.org/react-use/17.3.1_react-dom@17.0.2+react@17.0.2
+      react-use: 17.3.1_react-dom@17.0.2+react@17.0.2
       styled-components: 5.3.1_react-dom@17.0.2+react@17.0.2
       typescript: 4.4.3
       web-vitals: 1.1.2
@@ -185,7 +185,7 @@ importers:
 
   packages/libs:
     specifiers:
-      '@defol-cl/root': 1.0.14
+      '@defol-cl/root': 1.0.37
       '@types/aws-lambda': ^8.10.83
       '@types/node': 12.20.36
       aws-sdk: 2.876.0
@@ -4299,6 +4299,13 @@ packages:
     dependencies:
       regenerator-runtime: 0.13.9
 
+  /@babel/runtime/7.16.0:
+    resolution: {integrity: sha512-Nht8L0O8YCktmsDV6FqFue7vQLRx3Hb0B37lS5y0jDRqRxlBG4wIJHnf9/bgSE2UyipKFA01YtS+npRdTWBUyw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.9
+    dev: false
+
   /@babel/template/7.15.4:
     resolution: {integrity: sha512-UgBAfEa1oGuYgDIPM2G+aHa4Nlo9Lh6mGD2bDBGMTbYnc38vulXPuC1MGjYILIEmlwl6Rd+BPR9ee3gm20CBtg==}
     engines: {node: '>=6.9.0'}
@@ -5371,7 +5378,7 @@ packages:
     dev: true
 
   /@types/aws-lambda/8.10.83:
-    resolution: {integrity: sha512-7YsLv/B8rF7K7jYAGmYBxLq3QU+hQV7qNJBMcSCmJCTcXuzoTKGBX8d4v9CsVs0SOKBSAErXG7rtk8jVxiP30g==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    resolution: {integrity: sha512-7YsLv/B8rF7K7jYAGmYBxLq3QU+hQV7qNJBMcSCmJCTcXuzoTKGBX8d4v9CsVs0SOKBSAErXG7rtk8jVxiP30g==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/@types/aws-lambda/-/aws-lambda-8.10.83.tgz}
     dev: false
 
   /@types/babel__core/7.1.16:
@@ -5459,6 +5466,10 @@ packages:
       '@types/istanbul-lib-report': 3.0.0
     dev: true
 
+  /@types/js-cookie/2.2.7:
+    resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dev: false
+
   /@types/json-schema/7.0.9:
     resolution: {integrity: sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==}
     dev: true
@@ -5480,7 +5491,7 @@ packages:
     dev: true
 
   /@types/node/12.20.36:
-    resolution: {integrity: sha512-+5haRZ9uzI7rYqzDznXgkuacqb6LJhAti8mzZKWxIXn/WEtvB+GHVJ7AuMwcN1HMvXOSJcrvA6PPoYHYOYYebA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    resolution: {integrity: sha512-+5haRZ9uzI7rYqzDznXgkuacqb6LJhAti8mzZKWxIXn/WEtvB+GHVJ7AuMwcN1HMvXOSJcrvA6PPoYHYOYYebA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/@types/node/-/node-12.20.36.tgz}
     dev: true
 
   /@types/node/16.10.1:
@@ -5488,7 +5499,7 @@ packages:
     dev: true
 
   /@types/node/16.11.6:
-    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/@types/node/-/node-16.11.6.tgz}
+    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -5578,6 +5589,10 @@ packages:
 
   /@types/uuid/8.3.1:
     resolution: {integrity: sha512-Y2mHTRAbqfFkpjldbkHGY8JIzRN6XqYRliG8/24FcHm2D2PwW24fl5xMRTVGdrb7iMrwCaIEbLWerGIkXuFWVg==}
+    dev: true
+
+  /@types/uuid/8.3.3:
+    resolution: {integrity: sha512-0LbEEx1zxrYB3pgpd1M5lEhLcXjKJnYghvhTRgaBeUivLHMDM1TzF3IJ6hXU2+8uA4Xz+5BA63mtZo5DjVT8iA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dev: true
 
   /@types/webpack-sources/3.2.0:
@@ -5892,6 +5907,10 @@ packages:
       '@webassemblyjs/wast-parser': 1.9.0
       '@xtuc/long': 4.2.2
     dev: true
+
+  /@xobotyi/scrollbar-width/1.9.5:
+    resolution: {integrity: sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dev: false
 
   /@xtuc/ieee754/1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -6358,7 +6377,7 @@ packages:
     dev: false
 
   /aws-sdk/2.1023.0:
-    resolution: {integrity: sha512-RAI8sUfK+00yL9i3xz5kbM3+t/0mjjnKhKyauXAlJN4seDYtIX5+BqMghpkZwvLBdi6idXIuz+FHWETHZccyuA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/aws-sdk/-/aws-sdk-2.1023.0.tgz}
+    resolution: {integrity: sha512-RAI8sUfK+00yL9i3xz5kbM3+t/0mjjnKhKyauXAlJN4seDYtIX5+BqMghpkZwvLBdi6idXIuz+FHWETHZccyuA==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -6373,7 +6392,7 @@ packages:
     dev: false
 
   /aws-sdk/2.876.0:
-    resolution: {integrity: sha512-M+8M2U0X12pVCYyOJjabxCzFJaql2F0Wpfjwyq5aSso0y6OiqV1nPUgpviODQ8w4ZQy61xpMUO/54jLICy7kRQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    resolution: {integrity: sha512-M+8M2U0X12pVCYyOJjabxCzFJaql2F0Wpfjwyq5aSso0y6OiqV1nPUgpviODQ8w4ZQy61xpMUO/54jLICy7kRQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/aws-sdk/-/aws-sdk-2.876.0.tgz}
     engines: {node: '>= 0.8.0'}
     dependencies:
       buffer: 4.9.2
@@ -7465,6 +7484,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /copy-to-clipboard/3.3.1:
+    resolution: {integrity: sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dependencies:
+      toggle-selection: 1.0.6
+    dev: false
+
   /core-js-compat/3.18.1:
     resolution: {integrity: sha512-XJMYx58zo4W0kLPmIingVZA10+7TuKrMLPt83+EzDmxFJQUMcTVVmQ+n5JP4r6Z14qSzhQBRi3NSWoeVyKKXUg==}
     dependencies:
@@ -7526,6 +7551,10 @@ packages:
       path-type: 4.0.0
       yaml: 1.10.2
     dev: true
+
+  /countup.js/2.0.8:
+    resolution: {integrity: sha512-pW3xwwD+hB+xmtI16xFcuLS0D5hSQqPQWkZOdgpKQyzxCquDNo2VCFPkRw12vmvdpnicXVTcjmYiakG6biwINg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dev: false
 
   /create-ecdh/4.0.4:
     resolution: {integrity: sha512-mf+TCx8wWc9VpuxfP2ht0iSISLZnt0JgWlrOKZiNqyUZWnjIaCIVNQArMHnCZKfEYRg6IM7A+NeJoN8gf/Ws0A==}
@@ -7642,6 +7671,13 @@ packages:
       postcss-selector-parser: 5.0.0
     dev: true
 
+  /css-in-js-utils/2.0.1:
+    resolution: {integrity: sha512-PJF0SpJT+WdbVVt0AOYp9C8GnuruRlL/UFW7932nLWmFLQTaWEzTBQEx7/hn4BuV+WON75iAViSUJLiU3PKbpA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dependencies:
+      hyphenate-style-name: 1.0.4
+      isobject: 3.0.1
+    dev: false
+
   /css-loader/4.3.0_webpack@4.44.2:
     resolution: {integrity: sha512-rdezjCjScIrsL8BSYszgT4s476IcNKt6yX69t0pHjJVnPUTDpn4WfIpDQTN3wCJvUvfsz/mFjuGOekf3PY3NUg==}
     engines: {node: '>= 10.13.0'}
@@ -7711,12 +7747,11 @@ packages:
     dev: true
 
   /css-tree/1.1.3:
-    resolution: {integrity: sha512-tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==}
+    resolution: {integrity: sha512-tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     engines: {node: '>=8.0.0'}
     dependencies:
       mdn-data: 2.0.14
       source-map: 0.6.1
-    dev: true
 
   /css-vendor/2.0.8:
     resolution: {integrity: sha512-x9Aq0XTInxrkuFeHKbYC7zWY8ai7qJ04Kxd9MnvbC1uO5DagxoHQjm4JvG+vCdXOoFtCjbL2XSZfxmoYa9uQVQ==}
@@ -8359,7 +8394,6 @@ packages:
     resolution: {integrity: sha512-d51brTeqC+BHlwF0BhPtcYgF5nlzf9ZZ0ZIUQNZpc9ZB9qw5IJ2diTrBY9jlCJkTLITYPjmiX6OWCwH+fuyNgQ==}
     dependencies:
       stackframe: 1.2.0
-    dev: true
 
   /es-abstract/1.18.6:
     resolution: {integrity: sha512-kAeIT4cku5eNLNuUKhlmtuk1/TRZvQoYccn6TO0cSVdf1kzB0T7+dYuVK9MWM7l+/53W2Q8M7N2c6MQvhXFcUQ==}
@@ -8791,7 +8825,7 @@ packages:
     dev: true
 
   /events/1.1.1:
-    resolution: {integrity: sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/events/-/events-1.1.1.tgz}
+    resolution: {integrity: sha1-nr23Y1rQmccNzEwqH1AEKI6L2SQ=}
     engines: {node: '>=0.4.x'}
 
   /events/3.3.0:
@@ -8959,8 +8993,7 @@ packages:
     dev: false
 
   /fast-deep-equal/3.1.3:
-    resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
-    dev: true
+    resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
 
   /fast-glob/3.2.7:
     resolution: {integrity: sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==}
@@ -8981,6 +9014,10 @@ packages:
     resolution: {integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=}
     dev: true
 
+  /fast-shallow-equal/1.0.0:
+    resolution: {integrity: sha512-HPtaa38cPgWvaCFmRNhlc6NG7pv6NUHqjPgVAkWGoB9mQMwYB27/K0CvOM5Czy+qpT3e8XJ6Q4aPAnzpNpzNaw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dev: false
+
   /fast-xml-parser/3.19.0:
     resolution: {integrity: sha512-4pXwmBplsCPv8FOY1WRakF970TjNGnGnfbOnLqjlYvMiF1SR3yOHyxMR/YCXpPTOspNF5gwudqktIP4VsWkvBg==}
     hasBin: true
@@ -8991,6 +9028,10 @@ packages:
     hasBin: true
     dependencies:
       strnum: 1.0.4
+    dev: false
+
+  /fastest-stable-stringify/2.0.2:
+    resolution: {integrity: sha512-bijHueCGd0LqqNK9b5oCMHc0MluJAx0cwqASgbWMvkO01lCYgIhacVRLcaDz3QnyYIRNJRDwMb41VuT6pHJ91Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dev: false
 
   /fastq/1.13.0:
@@ -10040,6 +10081,12 @@ packages:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
     dev: true
 
+  /inline-style-prefixer/6.0.1:
+    resolution: {integrity: sha512-AsqazZ8KcRzJ9YPN1wMH2aNM7lkWQ8tSPrW5uDk1ziYwiAPWSZnUsC7lfZq+BDqLqz0B4Pho5wscWcJzVvRzDQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dependencies:
+      css-in-js-utils: 2.0.1
+    dev: false
+
   /internal-ip/4.3.0:
     resolution: {integrity: sha512-S1zBo1D6zcsyuC6PMmY5+55YMILQ9av8lotMx447Bq6SAgo/sDK6y6uUKmuYhW7eacnIhFfsPmCNYdDzsnnDCg==}
     engines: {node: '>=6'}
@@ -10438,7 +10485,6 @@ packages:
   /isobject/3.0.1:
     resolution: {integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /isomorphic-unfetch/3.1.0:
     resolution: {integrity: sha512-geDJjpoZ8N0kWexiwkX8F9NkTsXhetLPVbZFQ+JTW239QNOwvB0gniuR1Wc6f0AMTn7/mFGyXvHTifrCp/GH8Q==}
@@ -11012,7 +11058,7 @@ packages:
     dev: true
 
   /jmespath/0.15.0:
-    resolution: {integrity: sha1-o/Iiqarp+Wb10nx5ZRDigJF2Qhc=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/jmespath/-/jmespath-0.15.0.tgz}
+    resolution: {integrity: sha1-o/Iiqarp+Wb10nx5ZRDigJF2Qhc=}
     engines: {node: '>= 0.6.0'}
 
   /js-base64/2.6.4:
@@ -11020,7 +11066,7 @@ packages:
     dev: true
 
   /js-cookie/2.2.1:
-    resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
+    resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dev: false
 
   /js-tokens/4.0.0:
@@ -11523,8 +11569,7 @@ packages:
     dev: true
 
   /mdn-data/2.0.14:
-    resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
-    dev: true
+    resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
 
   /mdn-data/2.0.4:
     resolution: {integrity: sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==}
@@ -11836,6 +11881,24 @@ packages:
   /nan/2.15.0:
     resolution: {integrity: sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==}
     dev: true
+
+  /nano-css/5.3.4_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-wfcviJB6NOxDIDfr7RFn/GlaN7I/Bhe4d39ZRCJ3xvZX60LVe2qZ+rDqM49nm4YT81gAjzS+ZklhKP/Gnfnubg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      css-tree: 1.1.3
+      csstype: 3.0.9
+      fastest-stable-stringify: 2.0.2
+      inline-style-prefixer: 6.0.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      rtl-css-js: 1.14.2
+      sourcemap-codec: 1.4.8
+      stacktrace-js: 2.0.2
+      stylis: 4.0.10
+    dev: false
 
   /nanoclone/0.2.1:
     resolution: {integrity: sha512-wynEP02LmIbLpcYw8uBKpcfF6dmg2vcpKqxeH5UcoKEYdExslsdUA4ugFauuaeYdTB76ez6gJW8XAZ6CgkXYxA==}
@@ -13576,6 +13639,15 @@ packages:
       semver: 5.7.1
     dev: true
 
+  /react-countup/6.0.0_react@17.0.2:
+    resolution: {integrity: sha512-Q5M8TbtdeSrnK6UaMgZBaV13GZHKsWh5FedzFM9HSWcI48x1SzJ33fCJcX23juLzguwRU3ZtumqlLdCUJdRPfA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    peerDependencies:
+      react: '>= 16.3.0'
+    dependencies:
+      countup.js: 2.0.8
+      react: 17.0.2
+    dev: false
+
   /react-dev-utils/11.0.4:
     resolution: {integrity: sha512-dx0LvIGHcOPtKbeiSUM4jqpBl3TcY7CDjZdfOIcKeznE7BWr9dg0iPG90G5yfVQ+p/rGNMXdbfStvzQZEVEi4A==}
     engines: {node: '>=10'}
@@ -13780,6 +13852,40 @@ packages:
       prop-types: 15.7.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /react-universal-interface/0.6.2_react@17.0.2+tslib@2.3.1:
+    resolution: {integrity: sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    peerDependencies:
+      react: '*'
+      tslib: '*'
+    dependencies:
+      react: 17.0.2
+      tslib: 2.3.1
+    dev: false
+
+  /react-use/17.3.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-hs7+tS4rRm1QLHPfanLCqXIi632tP4V7Sai1ENUP2WTufU6am++tU9uSw9YrNCFqbABiEv0ndKU1XCUcfu2tXA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    peerDependencies:
+      react: ^16.8.0  || ^17.0.0
+      react-dom: ^16.8.0  || ^17.0.0
+    dependencies:
+      '@types/js-cookie': 2.2.7
+      '@xobotyi/scrollbar-width': 1.9.5
+      copy-to-clipboard: 3.3.1
+      fast-deep-equal: 3.1.3
+      fast-shallow-equal: 1.0.0
+      js-cookie: 2.2.1
+      nano-css: 5.3.4_react-dom@17.0.2+react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-universal-interface: 0.6.2_react@17.0.2+tslib@2.3.1
+      resize-observer-polyfill: 1.5.1
+      screenfull: 5.2.0
+      set-harmonic-interval: 1.0.1
+      throttle-debounce: 3.0.1
+      ts-easing: 0.2.0
+      tslib: 2.3.1
     dev: false
 
   /react/17.0.2:
@@ -14023,6 +14129,10 @@ packages:
     resolution: {integrity: sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=}
     dev: true
 
+  /resize-observer-polyfill/1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dev: false
+
   /resolve-cwd/2.0.0:
     resolution: {integrity: sha1-AKn3OHVW4nA46uIyyqNypqWbZlo=}
     engines: {node: '>=4'}
@@ -14205,6 +14315,12 @@ packages:
     engines: {node: 6.* || >= 7.*}
     dev: true
 
+  /rtl-css-js/1.14.2:
+    resolution: {integrity: sha512-t6Wc/wpqm8s3kuXAV6tL/T7VS6n0XszzX58CgCsLj3O2xi9ITSLfzYhtl+GKyxCi/3QEqVctOJQwCiDzb2vteQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dependencies:
+      '@babel/runtime': 7.16.0
+    dev: false
+
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
@@ -14291,7 +14407,7 @@ packages:
     dev: true
 
   /sax/1.2.1:
-    resolution: {integrity: sha1-e45lYZCyKOgaZq6nSEgNgozS03o=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/sax/-/sax-1.2.1.tgz}
+    resolution: {integrity: sha1-e45lYZCyKOgaZq6nSEgNgozS03o=}
 
   /sax/1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
@@ -14345,6 +14461,11 @@ packages:
       ajv: 6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
     dev: true
+
+  /screenfull/5.2.0:
+    resolution: {integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /scss-tokenizer/0.2.3:
     resolution: {integrity: sha1-jrBtualyMzOCTT9VMGQRSYR85dE=}
@@ -14449,6 +14570,11 @@ packages:
   /set-blocking/2.0.0:
     resolution: {integrity: sha1-BF+XgtARrppoA93TgrJDkrPYkPc=}
     dev: true
+
+  /set-harmonic-interval/1.0.1:
+    resolution: {integrity: sha512-AhICkFV84tBP1aWqPwLZqFvAwqEoVA9kxNMniGEUvzOlm4vLmOFLiTT3UZ6bziJTy4bOVpzWGTfSCbmaayGx8g==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    engines: {node: '>=6.9'}
+    dev: false
 
   /set-value/2.0.1:
     resolution: {integrity: sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==}
@@ -14658,6 +14784,11 @@ packages:
       amdefine: 1.0.1
     dev: true
 
+  /source-map/0.5.6:
+    resolution: {integrity: sha1-dc449SvwczxafwwRjYEzSiu19BI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
   /source-map/0.5.7:
     resolution: {integrity: sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=}
     engines: {node: '>=0.10.0'}
@@ -14665,7 +14796,6 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /source-map/0.7.3:
     resolution: {integrity: sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==}
@@ -14673,8 +14803,7 @@ packages:
     dev: true
 
   /sourcemap-codec/1.4.8:
-    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    dev: true
+    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
 
   /spdx-correct/3.1.1:
     resolution: {integrity: sha512-cOYcUWwhCuHCXi49RhFRCyJEK3iPj1Ziz9DpViV3tbZOwXD49QzIN3MpOLJNxh2qwq2lJJZaKMVw9qNi4jTC0w==}
@@ -14768,6 +14897,12 @@ packages:
     resolution: {integrity: sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==}
     dev: true
 
+  /stack-generator/2.0.5:
+    resolution: {integrity: sha512-/t1ebrbHkrLrDuNMdeAcsvynWgoH/i4o8EGGfX7dEYDoTXOYVAkEpFdtshlvabzc6JlJ8Kf9YdFEoz7JkzGN9Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dependencies:
+      stackframe: 1.2.0
+    dev: false
+
   /stack-utils/2.0.5:
     resolution: {integrity: sha512-xrQcmYhOsn/1kX+Vraq+7j4oE2j/6BFscZ0etmYg81xuM8Gq0022Pxb8+IqgOFUIaxHs0KaSb7T1+OegiNrNFA==}
     engines: {node: '>=10'}
@@ -14777,7 +14912,21 @@ packages:
 
   /stackframe/1.2.0:
     resolution: {integrity: sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==}
-    dev: true
+
+  /stacktrace-gps/3.0.4:
+    resolution: {integrity: sha512-qIr8x41yZVSldqdqe6jciXEaSCKw1U8XTXpjDuy0ki/apyTn/r3w9hDAAQOhZdxvsC93H+WwwEu5cq5VemzYeg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dependencies:
+      source-map: 0.5.6
+      stackframe: 1.2.0
+    dev: false
+
+  /stacktrace-js/2.0.2:
+    resolution: {integrity: sha512-Je5vBeY4S1r/RnLydLl0TBTi3F2qdfWmYsGvtfZgEI+SCprPppaIhQf5nGcal4gI4cGpCV/duLcAzT1np6sQqg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dependencies:
+      error-stack-parser: 2.0.6
+      stack-generator: 2.0.5
+      stacktrace-gps: 3.0.4
+    dev: false
 
   /static-extend/0.1.2:
     resolution: {integrity: sha1-YICcOcv/VTNyJv1eC1IPNB8ftcY=}
@@ -15227,6 +15376,11 @@ packages:
     resolution: {integrity: sha512-fcwX4mndzpLQKBS1DVYhGAcYaYt7vsHNIvQV+WXMvnow5cgjPphq5CaayLaGsjRdSCKZFNGt7/GYAuXaNOiYCA==}
     dev: true
 
+  /throttle-debounce/3.0.1:
+    resolution: {integrity: sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    engines: {node: '>=10'}
+    dev: false
+
   /through2/2.0.5:
     resolution: {integrity: sha512-/mrRod8xqpA+IHSLyGCQ2s8SPHiCDEeQJSep1jqLYeEUClOFG2Qsh+4FU6G9VeqpZnGW/Su8LQGc4YKni5rYSQ==}
     dependencies:
@@ -15301,6 +15455,10 @@ packages:
       safe-regex: 1.1.0
     dev: true
 
+  /toggle-selection/1.0.6:
+    resolution: {integrity: sha1-bkWxJj8gF/oKzH2J14sVuL932jI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dev: false
+
   /toidentifier/1.0.0:
     resolution: {integrity: sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==}
     engines: {node: '>=0.6'}
@@ -15353,6 +15511,10 @@ packages:
     resolution: {integrity: sha512-c3zayb8/kWWpycWYg87P71E1S1ZL6b6IJxfb5fvsUgsf0S2MVGaDhDXXjDMpdCpfWXqptc+4mXwmiy1ypXqRAA==}
     dev: true
 
+  /ts-easing/0.2.0:
+    resolution: {integrity: sha512-Z86EW+fFFh/IFB1fqQ3/+7Zpf9t2ebOAxNI/V6Wo7r5gqiqtxmgTlQ1qbqQcjLKYeSHPTsEmvlJUDg/EuL0uHQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
+    dev: false
+
   /ts-pnp/1.2.0_typescript@4.4.3:
     resolution: {integrity: sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==}
     engines: {node: '>=6'}
@@ -15386,7 +15548,7 @@ packages:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
   /tslib/2.3.1:
-    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
+    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
 
   /tsutils/3.21.0_typescript@4.4.3:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
@@ -15645,7 +15807,7 @@ packages:
     dev: true
 
   /url/0.10.3:
-    resolution: {integrity: sha1-Ah5NnHcF8hu/N9A861h2dAJ3TGQ=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/url/-/url-0.10.3.tgz}
+    resolution: {integrity: sha1-Ah5NnHcF8hu/N9A861h2dAJ3TGQ=}
     dependencies:
       punycode: 1.3.2
       querystring: 0.2.0
@@ -15713,7 +15875,7 @@ packages:
     hasBin: true
 
   /uuid/8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     hasBin: true
 
   /v8-compile-cache/2.3.0:
@@ -16247,13 +16409,13 @@ packages:
     dev: true
 
   /xml2js/0.4.19:
-    resolution: {integrity: sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/xml2js/-/xml2js-0.4.19.tgz}
+    resolution: {integrity: sha512-esZnJZJOiJR9wWKMyuvSE1y6Dq5LCuJanqhxslH2bxM6duahNZ+HMpCLhBQGZkbX6xRf8x1Y2eJlgt2q3qo49Q==}
     dependencies:
       sax: 1.2.4
       xmlbuilder: 9.0.7
 
   /xmlbuilder/9.0.7:
-    resolution: {integrity: sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/xmlbuilder/-/xmlbuilder-9.0.7.tgz}
+    resolution: {integrity: sha1-Ey7mPS7FVlxVfiD0wi35rKaGsQ0=}
     engines: {node: '>=4.0'}
 
   /xmlchars/2.2.0:
@@ -16370,320 +16532,4 @@ packages:
     resolution: {integrity: sha512-Qv4qvc8ZIue51B/0zmeIMxpIGDVhz4GhJALBvnKs/FRa2T7jy4Ori9wFwaHVt0zWV7MIFglKAHbgnVxVTw7U1w==}
     dependencies:
       zen-observable: 0.7.1
-    dev: false
-
-  registry.npmjs.org/@babel/runtime/7.16.0:
-    resolution: {integrity: sha512-Nht8L0O8YCktmsDV6FqFue7vQLRx3Hb0B37lS5y0jDRqRxlBG4wIJHnf9/bgSE2UyipKFA01YtS+npRdTWBUyw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/@babel/runtime/-/runtime-7.16.0.tgz}
-    name: '@babel/runtime'
-    version: 7.16.0
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      regenerator-runtime: registry.npmjs.org/regenerator-runtime/0.13.9
-    dev: false
-
-  registry.npmjs.org/@types/js-cookie/2.2.7:
-    resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/@types/js-cookie/-/js-cookie-2.2.7.tgz}
-    name: '@types/js-cookie'
-    version: 2.2.7
-    dev: false
-
-  registry.npmjs.org/@xobotyi/scrollbar-width/1.9.5:
-    resolution: {integrity: sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/@xobotyi/scrollbar-width/-/scrollbar-width-1.9.5.tgz}
-    name: '@xobotyi/scrollbar-width'
-    version: 1.9.5
-    dev: false
-
-  registry.npmjs.org/copy-to-clipboard/3.3.1:
-    resolution: {integrity: sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/copy-to-clipboard/-/copy-to-clipboard-3.3.1.tgz}
-    name: copy-to-clipboard
-    version: 3.3.1
-    dependencies:
-      toggle-selection: registry.npmjs.org/toggle-selection/1.0.6
-    dev: false
-
-  registry.npmjs.org/countup.js/2.0.8:
-    resolution: {integrity: sha512-pW3xwwD+hB+xmtI16xFcuLS0D5hSQqPQWkZOdgpKQyzxCquDNo2VCFPkRw12vmvdpnicXVTcjmYiakG6biwINg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/countup.js/-/countup.js-2.0.8.tgz}
-    name: countup.js
-    version: 2.0.8
-    dev: false
-
-  registry.npmjs.org/css-in-js-utils/2.0.1:
-    resolution: {integrity: sha512-PJF0SpJT+WdbVVt0AOYp9C8GnuruRlL/UFW7932nLWmFLQTaWEzTBQEx7/hn4BuV+WON75iAViSUJLiU3PKbpA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/css-in-js-utils/-/css-in-js-utils-2.0.1.tgz}
-    name: css-in-js-utils
-    version: 2.0.1
-    dependencies:
-      hyphenate-style-name: registry.npmjs.org/hyphenate-style-name/1.0.4
-      isobject: registry.npmjs.org/isobject/3.0.1
-    dev: false
-
-  registry.npmjs.org/css-tree/1.1.3:
-    resolution: {integrity: sha512-tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/css-tree/-/css-tree-1.1.3.tgz}
-    name: css-tree
-    version: 1.1.3
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      mdn-data: registry.npmjs.org/mdn-data/2.0.14
-      source-map: registry.npmjs.org/source-map/0.6.1
-    dev: false
-
-  registry.npmjs.org/csstype/3.0.9:
-    resolution: {integrity: sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/csstype/-/csstype-3.0.9.tgz}
-    name: csstype
-    version: 3.0.9
-    dev: false
-
-  registry.npmjs.org/error-stack-parser/2.0.6:
-    resolution: {integrity: sha512-d51brTeqC+BHlwF0BhPtcYgF5nlzf9ZZ0ZIUQNZpc9ZB9qw5IJ2diTrBY9jlCJkTLITYPjmiX6OWCwH+fuyNgQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/error-stack-parser/-/error-stack-parser-2.0.6.tgz}
-    name: error-stack-parser
-    version: 2.0.6
-    dependencies:
-      stackframe: registry.npmjs.org/stackframe/1.2.0
-    dev: false
-
-  registry.npmjs.org/fast-deep-equal/3.1.3:
-    resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz}
-    name: fast-deep-equal
-    version: 3.1.3
-    dev: false
-
-  registry.npmjs.org/fast-shallow-equal/1.0.0:
-    resolution: {integrity: sha512-HPtaa38cPgWvaCFmRNhlc6NG7pv6NUHqjPgVAkWGoB9mQMwYB27/K0CvOM5Czy+qpT3e8XJ6Q4aPAnzpNpzNaw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/fast-shallow-equal/-/fast-shallow-equal-1.0.0.tgz}
-    name: fast-shallow-equal
-    version: 1.0.0
-    dev: false
-
-  registry.npmjs.org/fastest-stable-stringify/2.0.2:
-    resolution: {integrity: sha512-bijHueCGd0LqqNK9b5oCMHc0MluJAx0cwqASgbWMvkO01lCYgIhacVRLcaDz3QnyYIRNJRDwMb41VuT6pHJ91Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/fastest-stable-stringify/-/fastest-stable-stringify-2.0.2.tgz}
-    name: fastest-stable-stringify
-    version: 2.0.2
-    dev: false
-
-  registry.npmjs.org/hyphenate-style-name/1.0.4:
-    resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz}
-    name: hyphenate-style-name
-    version: 1.0.4
-    dev: false
-
-  registry.npmjs.org/inline-style-prefixer/6.0.1:
-    resolution: {integrity: sha512-AsqazZ8KcRzJ9YPN1wMH2aNM7lkWQ8tSPrW5uDk1ziYwiAPWSZnUsC7lfZq+BDqLqz0B4Pho5wscWcJzVvRzDQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/inline-style-prefixer/-/inline-style-prefixer-6.0.1.tgz}
-    name: inline-style-prefixer
-    version: 6.0.1
-    dependencies:
-      css-in-js-utils: registry.npmjs.org/css-in-js-utils/2.0.1
-    dev: false
-
-  registry.npmjs.org/isobject/3.0.1:
-    resolution: {integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/isobject/-/isobject-3.0.1.tgz}
-    name: isobject
-    version: 3.0.1
-    engines: {node: '>=0.10.0'}
-    dev: false
-
-  registry.npmjs.org/js-cookie/2.2.1:
-    resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz}
-    name: js-cookie
-    version: 2.2.1
-    dev: false
-
-  registry.npmjs.org/mdn-data/2.0.14:
-    resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/mdn-data/-/mdn-data-2.0.14.tgz}
-    name: mdn-data
-    version: 2.0.14
-    dev: false
-
-  registry.npmjs.org/moment/2.29.1:
-    resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/moment/-/moment-2.29.1.tgz}
-    name: moment
-    version: 2.29.1
-    dev: false
-
-  registry.npmjs.org/nano-css/5.3.4_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-wfcviJB6NOxDIDfr7RFn/GlaN7I/Bhe4d39ZRCJ3xvZX60LVe2qZ+rDqM49nm4YT81gAjzS+ZklhKP/Gnfnubg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/nano-css/-/nano-css-5.3.4.tgz}
-    id: registry.npmjs.org/nano-css/5.3.4
-    name: nano-css
-    version: 5.3.4
-    peerDependencies:
-      react: '*'
-      react-dom: '*'
-    dependencies:
-      css-tree: registry.npmjs.org/css-tree/1.1.3
-      csstype: registry.npmjs.org/csstype/3.0.9
-      fastest-stable-stringify: registry.npmjs.org/fastest-stable-stringify/2.0.2
-      inline-style-prefixer: registry.npmjs.org/inline-style-prefixer/6.0.1
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      rtl-css-js: registry.npmjs.org/rtl-css-js/1.14.2
-      sourcemap-codec: registry.npmjs.org/sourcemap-codec/1.4.8
-      stacktrace-js: registry.npmjs.org/stacktrace-js/2.0.2
-      stylis: registry.npmjs.org/stylis/4.0.10
-    dev: false
-
-  registry.npmjs.org/react-countup/6.0.0_react@17.0.2:
-    resolution: {integrity: sha512-Q5M8TbtdeSrnK6UaMgZBaV13GZHKsWh5FedzFM9HSWcI48x1SzJ33fCJcX23juLzguwRU3ZtumqlLdCUJdRPfA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/react-countup/-/react-countup-6.0.0.tgz}
-    id: registry.npmjs.org/react-countup/6.0.0
-    name: react-countup
-    version: 6.0.0
-    peerDependencies:
-      react: '>= 16.3.0'
-    dependencies:
-      countup.js: registry.npmjs.org/countup.js/2.0.8
-      react: 17.0.2
-    dev: false
-
-  registry.npmjs.org/react-universal-interface/0.6.2_react@17.0.2+tslib@2.3.1:
-    resolution: {integrity: sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/react-universal-interface/-/react-universal-interface-0.6.2.tgz}
-    id: registry.npmjs.org/react-universal-interface/0.6.2
-    name: react-universal-interface
-    version: 0.6.2
-    peerDependencies:
-      react: '*'
-      tslib: '*'
-    dependencies:
-      react: 17.0.2
-      tslib: registry.npmjs.org/tslib/2.3.1
-    dev: false
-
-  registry.npmjs.org/react-use/17.3.1_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-hs7+tS4rRm1QLHPfanLCqXIi632tP4V7Sai1ENUP2WTufU6am++tU9uSw9YrNCFqbABiEv0ndKU1XCUcfu2tXA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/react-use/-/react-use-17.3.1.tgz}
-    id: registry.npmjs.org/react-use/17.3.1
-    name: react-use
-    version: 17.3.1
-    peerDependencies:
-      react: ^16.8.0  || ^17.0.0
-      react-dom: ^16.8.0  || ^17.0.0
-    dependencies:
-      '@types/js-cookie': registry.npmjs.org/@types/js-cookie/2.2.7
-      '@xobotyi/scrollbar-width': registry.npmjs.org/@xobotyi/scrollbar-width/1.9.5
-      copy-to-clipboard: registry.npmjs.org/copy-to-clipboard/3.3.1
-      fast-deep-equal: registry.npmjs.org/fast-deep-equal/3.1.3
-      fast-shallow-equal: registry.npmjs.org/fast-shallow-equal/1.0.0
-      js-cookie: registry.npmjs.org/js-cookie/2.2.1
-      nano-css: registry.npmjs.org/nano-css/5.3.4_react-dom@17.0.2+react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-universal-interface: registry.npmjs.org/react-universal-interface/0.6.2_react@17.0.2+tslib@2.3.1
-      resize-observer-polyfill: registry.npmjs.org/resize-observer-polyfill/1.5.1
-      screenfull: registry.npmjs.org/screenfull/5.2.0
-      set-harmonic-interval: registry.npmjs.org/set-harmonic-interval/1.0.1
-      throttle-debounce: registry.npmjs.org/throttle-debounce/3.0.1
-      ts-easing: registry.npmjs.org/ts-easing/0.2.0
-      tslib: registry.npmjs.org/tslib/2.3.1
-    dev: false
-
-  registry.npmjs.org/regenerator-runtime/0.13.9:
-    resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz}
-    name: regenerator-runtime
-    version: 0.13.9
-    dev: false
-
-  registry.npmjs.org/resize-observer-polyfill/1.5.1:
-    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz}
-    name: resize-observer-polyfill
-    version: 1.5.1
-    dev: false
-
-  registry.npmjs.org/rtl-css-js/1.14.2:
-    resolution: {integrity: sha512-t6Wc/wpqm8s3kuXAV6tL/T7VS6n0XszzX58CgCsLj3O2xi9ITSLfzYhtl+GKyxCi/3QEqVctOJQwCiDzb2vteQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/rtl-css-js/-/rtl-css-js-1.14.2.tgz}
-    name: rtl-css-js
-    version: 1.14.2
-    dependencies:
-      '@babel/runtime': registry.npmjs.org/@babel/runtime/7.16.0
-    dev: false
-
-  registry.npmjs.org/screenfull/5.2.0:
-    resolution: {integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/screenfull/-/screenfull-5.2.0.tgz}
-    name: screenfull
-    version: 5.2.0
-    engines: {node: '>=0.10.0'}
-    dev: false
-
-  registry.npmjs.org/set-harmonic-interval/1.0.1:
-    resolution: {integrity: sha512-AhICkFV84tBP1aWqPwLZqFvAwqEoVA9kxNMniGEUvzOlm4vLmOFLiTT3UZ6bziJTy4bOVpzWGTfSCbmaayGx8g==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/set-harmonic-interval/-/set-harmonic-interval-1.0.1.tgz}
-    name: set-harmonic-interval
-    version: 1.0.1
-    engines: {node: '>=6.9'}
-    dev: false
-
-  registry.npmjs.org/source-map/0.5.6:
-    resolution: {integrity: sha1-dc449SvwczxafwwRjYEzSiu19BI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz}
-    name: source-map
-    version: 0.5.6
-    engines: {node: '>=0.10.0'}
-    dev: false
-
-  registry.npmjs.org/source-map/0.6.1:
-    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz}
-    name: source-map
-    version: 0.6.1
-    engines: {node: '>=0.10.0'}
-    dev: false
-
-  registry.npmjs.org/sourcemap-codec/1.4.8:
-    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz}
-    name: sourcemap-codec
-    version: 1.4.8
-    dev: false
-
-  registry.npmjs.org/stack-generator/2.0.5:
-    resolution: {integrity: sha512-/t1ebrbHkrLrDuNMdeAcsvynWgoH/i4o8EGGfX7dEYDoTXOYVAkEpFdtshlvabzc6JlJ8Kf9YdFEoz7JkzGN9Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/stack-generator/-/stack-generator-2.0.5.tgz}
-    name: stack-generator
-    version: 2.0.5
-    dependencies:
-      stackframe: registry.npmjs.org/stackframe/1.2.0
-    dev: false
-
-  registry.npmjs.org/stackframe/1.2.0:
-    resolution: {integrity: sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/stackframe/-/stackframe-1.2.0.tgz}
-    name: stackframe
-    version: 1.2.0
-    dev: false
-
-  registry.npmjs.org/stacktrace-gps/3.0.4:
-    resolution: {integrity: sha512-qIr8x41yZVSldqdqe6jciXEaSCKw1U8XTXpjDuy0ki/apyTn/r3w9hDAAQOhZdxvsC93H+WwwEu5cq5VemzYeg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/stacktrace-gps/-/stacktrace-gps-3.0.4.tgz}
-    name: stacktrace-gps
-    version: 3.0.4
-    dependencies:
-      source-map: registry.npmjs.org/source-map/0.5.6
-      stackframe: registry.npmjs.org/stackframe/1.2.0
-    dev: false
-
-  registry.npmjs.org/stacktrace-js/2.0.2:
-    resolution: {integrity: sha512-Je5vBeY4S1r/RnLydLl0TBTi3F2qdfWmYsGvtfZgEI+SCprPppaIhQf5nGcal4gI4cGpCV/duLcAzT1np6sQqg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/stacktrace-js/-/stacktrace-js-2.0.2.tgz}
-    name: stacktrace-js
-    version: 2.0.2
-    dependencies:
-      error-stack-parser: registry.npmjs.org/error-stack-parser/2.0.6
-      stack-generator: registry.npmjs.org/stack-generator/2.0.5
-      stacktrace-gps: registry.npmjs.org/stacktrace-gps/3.0.4
-    dev: false
-
-  registry.npmjs.org/stylis/4.0.10:
-    resolution: {integrity: sha512-m3k+dk7QeJw660eIKRRn3xPF6uuvHs/FFzjX3HQ5ove0qYsiygoAhwn5a3IYKaZPo5LrYD0rfVmtv1gNY1uYwg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/stylis/-/stylis-4.0.10.tgz}
-    name: stylis
-    version: 4.0.10
-    dev: false
-
-  registry.npmjs.org/throttle-debounce/3.0.1:
-    resolution: {integrity: sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/throttle-debounce/-/throttle-debounce-3.0.1.tgz}
-    name: throttle-debounce
-    version: 3.0.1
-    engines: {node: '>=10'}
-    dev: false
-
-  registry.npmjs.org/toggle-selection/1.0.6:
-    resolution: {integrity: sha1-bkWxJj8gF/oKzH2J14sVuL932jI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/toggle-selection/-/toggle-selection-1.0.6.tgz}
-    name: toggle-selection
-    version: 1.0.6
-    dev: false
-
-  registry.npmjs.org/ts-easing/0.2.0:
-    resolution: {integrity: sha512-Z86EW+fFFh/IFB1fqQ3/+7Zpf9t2ebOAxNI/V6Wo7r5gqiqtxmgTlQ1qbqQcjLKYeSHPTsEmvlJUDg/EuL0uHQ==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/ts-easing/-/ts-easing-0.2.0.tgz}
-    name: ts-easing
-    version: 0.2.0
-    dev: false
-
-  registry.npmjs.org/tslib/2.3.1:
-    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz}
-    name: tslib
-    version: 2.3.1
     dev: false

@@ -34,7 +34,7 @@ export const put = (convenio: ConvenioDynamo) => new Promise<void>(
 );
 
 export const putContactos = (id: string, contactos: string, preguntasMax: number) => new Promise<void>(
-  (resolve, reject) => API.post('api', '/usuarios', { body: { convenioCod: id, correos: contactos, preguntasMax } })
+  (resolve, reject) => API.post('api', '/contactos', { body: { convenioCod: id, correos: contactos, preguntasMax } })
     .then(() => resolve())
     .catch(err => reject(err))
 );

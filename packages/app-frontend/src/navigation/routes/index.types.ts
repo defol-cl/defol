@@ -2,7 +2,7 @@ export type ParamRoute = (params?: {[param: string]: string | number}) => string
 
 export interface RouteData {
 	name: string
-	subpath: string
+	subpath: string | string[]
 	route: ParamRoute
 }
 

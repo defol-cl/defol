@@ -18,7 +18,7 @@ const ReplicasPendientesIndicador: React.FC<Props> = ({ value }) => {
   
   return (
     <Card sx={{ minHeight: '100%' }}>
-      <CardActionArea onClick={() => history.push(privateRoutes.misPreguntas.route({ tipo: 'replica-pendiente' }))}>
+      <CardActionArea onClick={() => history.push(privateRoutes.misPreguntas.route({ tipo: 'pendientes' }))}>
         <CardContent>
           <Grid container direction="row" justifyContent="space-around" alignItems="center">
             {value !== undefined && (
