@@ -378,6 +378,56 @@ paths:
         500:
           description: error al ejecutar lambda
 
+  /moderadores:
+    post:
+      x-amazon-apigateway-request-validator: body
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ModeradoresPost.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "convenioCod": $input.json('$.convenioCod'),
+              "emails": $input.json('$.correos'),
+              "permissions": "$context.authorizer.claims.permissions",
+              "activo": $input.json('$.activo')
+            }
+        responses:
+          default:
+            statusCode: 201
+          ".*MODERADORES_POST_FORBIDDEN.*":
+            statusCode: 403
+          ".*MODERADORES_POST_ERROR.*":
+            statusCode: 500
+      summary: permite crear y asociar moderadores a convenios
+      tags:
+        - moderador
+      requestBody:
+        description: convenio y correo de moderadores
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                convenioCod:
+                  type: string
+                correos:
+                  type: string
+                activo:
+                  type: boolean
+              required: [convenioCod, correos, activo]
+      responses:
+        201:
+          description: moderadores asociados
+        403:
+          description: no tiene permisos para ejecutar la acción
+        500:
+          description: error al ejecutar lambda
+
 components:
   schemas:
     InteraccionPreguntas:

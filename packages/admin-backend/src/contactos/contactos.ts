@@ -42,6 +42,7 @@ export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, pr
       }
     }
     if(emailFailed.length){
+      console.log("Falló la carga de algunos contactos:", RootUtils.logger(emailFailed))
       callback("CONTACTOS_POST_ERROR", emailFailed);
     } else {
       callback(null, {});

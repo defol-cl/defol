@@ -230,6 +230,20 @@ Resources:
             Path: /contactos
             Method: post
 
+  ModeradoresPost:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/moderadores
+      Handler: moderadores.post
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /moderadores
+            Method: post
+
   RuntimeDependenciesLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:

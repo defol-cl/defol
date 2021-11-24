@@ -632,6 +632,23 @@ export const putConvenioContacto = (
   })
 }
 
+export const putConvenioModerador = (
+  convenioModerador: ConvenioModeradorDynamo
+): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    dynamo.put({
+      TableName: CONVENIO_MODERADOR_TABLE,
+      Item: convenioModerador
+    }).promise()
+    .then(res => {
+      resolve();
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
 // export const putItem = <T>(tableName: RootEnum.DynamoTables, item: T): Promise<void> => {
 //   return new Promise((resolve, reject) => {
 //     dynamo.put({

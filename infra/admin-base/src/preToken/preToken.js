@@ -6,7 +6,7 @@ const getPermission = (groups) => {
     permissions.push("convenio::add", "convenio::view_all", "convenio::edit", "pregunta::edit", "categoria::add", "convenio::contacto_edit_all", "convenio::moderador_edit_all", "pregunta::view_all");
   }
   if (groups.includes("MODERADOR")) {
-    permissions.push("convenio::view", "convenio::contacto_edit", "convenio::moderador_edit");
+    permissions.push("convenio::view", "convenio::contacto_edit");
   }
   if (groups.includes("EQUIPO_LEGAL")) {
     permissions.push("convenio::view_all", "pregunta::edit", "pregunta::view_all");
