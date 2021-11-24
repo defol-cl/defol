@@ -230,6 +230,20 @@ Resources:
             Path: /contactos
             Method: post
 
+  ContactosMaxPreguntasPut:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/contactos
+      Handler: contactos.maxPreguntasPut
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /contacto
+            Method: put
+
   ModeradoresPost:
     Type: AWS::Serverless::Function
     Properties:

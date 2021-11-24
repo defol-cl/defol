@@ -378,6 +378,60 @@ paths:
         500:
           description: error al ejecutar lambda
 
+  /contacto:
+    put:
+      x-amazon-apigateway-request-validator: body
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ContactosMaxPreguntasPut.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email",
+              "convenioCod": $input.json('$.convenioCod'),
+              "email": $input.json('$.correo'),
+              "permissions": "$context.authorizer.claims.permissions",
+              "preguntasMax": $input.json('$.preguntasMax')
+            }
+        responses:
+          default:
+            statusCode: 201
+          ".*CONTACTOS_MAX_PREGUNTAS_PUT_FAILED.*":
+            statusCode: 400
+          ".*CONTACTOS_MAX_PREGUNTAS_PUT_FORBIDDEN.*":
+            statusCode: 403
+          ".*CONTACTOS_MAX_PREGUNTAS_PUT_ERROR.*":
+            statusCode: 500
+      summary: actualiza la cantidad máxima de preguntas que puede realizar un contacto
+      tags:
+        - contacto
+      requestBody:
+        description: convenio, correo de contacto y cantidad máxima de preguntas
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                convenioCod:
+                  type: string
+                correo:
+                  type: string
+                preguntasMax:
+                  type: number
+              required: [convenioCod, correo, preguntasMax]
+      responses:
+        200:
+          description: OK
+        400:
+          description: el contacto no existe o la cantidad ingresada es menor a la cantidad de preguntas ya realizadas
+        403:
+          description: no tiene permisos para ejecutar la acción
+        500:
+          description: error al ejecutar lambda
+
   /moderadores:
     post:
       x-amazon-apigateway-request-validator: body

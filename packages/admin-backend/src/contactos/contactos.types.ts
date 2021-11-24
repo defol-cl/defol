@@ -11,4 +11,11 @@ interface ContactosPostEvent extends BaseEvent {
   preguntasMax: number
 }
 
+interface ContactosMaxPreguntasPutEvent extends BaseEvent {
+  email: string
+  convenioCod: string
+  preguntasMax: number
+}
+
 export type ContactosPostHandler = LambdaTypes.CustomHandler<ContactosPostEvent>;
+export type ContactosMaxPreguntasPutHandler = LambdaTypes.CustomHandler<ContactosMaxPreguntasPutEvent>;

@@ -590,6 +590,41 @@ export const getPreguntasByContactoEmail = (
   })
 }
 
+export const getPreguntasByContactoAndConvenio = (
+  contactoEmail: string,
+  convenioCod: string,
+  items?: PreguntaDynamo[],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<PreguntaDynamo[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      KeyConditionExpression: "contactoEmail = :contactoEmail",
+      FilterExpression: "convenioCod = :convenioCod",
+      ExpressionAttributeValues: {
+        ":contactoEmail": contactoEmail,
+        ":convenioCod": convenioCod
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as PreguntaDynamo[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getPreguntasByContactoAndConvenio(contactoEmail, convenioCod, items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
 export const getPreguntasByContactoEmailAndEstado = (
   contactoEmail: string,
   estado: string,
