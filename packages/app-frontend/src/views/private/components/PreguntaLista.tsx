@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Link from "@mui/material/Link";
-import { Dao, DynamoIteratorFront, PreguntaDynamoEstado } from "@defol-cl/root";
+import { Dao, DynamoIteratorFront, RootEnum } from "@defol-cl/root";
 import { Link as RouterLink } from "react-router-dom";
 import { privateRoutes } from "src/navigation";
 import { PreguntasSvc } from "src/services";
@@ -11,7 +11,7 @@ import EsqueletoActualizacionItem from "./EsqueletoActualizacionItem";
 import PreguntaItem from "./PreguntaItem";
 
 interface Props {
-  estados?: PreguntaDynamoEstado[]
+  estados?: RootEnum.EstadoPregunta[]
 }
 
 const PreguntaLista: React.FC<Props> = ({ estados }) => {

@@ -1,6 +1,6 @@
 {
   "name": "@defol-cl/libs",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "private": false,
   "description": "",
   "main": "src/index",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@types/aws-lambda": "^8.10.83",
-    "@defol-cl/root": "1.0.39"
+    "@defol-cl/root": "1.0.40"
   },
   "devDependencies": {
     "@types/node": "12.20.36",
