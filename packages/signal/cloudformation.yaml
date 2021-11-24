@@ -33,7 +33,7 @@ Resources:
     Type: AWS::Events::EventBus
     Properties:
       EventSourceName: !Sub signal-${Branch}
-      Name: !Sub signal-${Branch}
+      Name: !Sub signal/${Branch}
 
   SignalEmailRule:
     Type: AWS::Events::Rule
