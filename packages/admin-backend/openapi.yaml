@@ -168,7 +168,7 @@ paths:
                 "token": "$token",
               #end
               "permissions": "$context.authorizer.claims.permissions",
-              "usrId": "$context.authorizer.claims.email",
+              "usrId": "$context.authorizer.claims.email"
             }
         responses:
           default:
