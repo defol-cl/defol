@@ -44,10 +44,7 @@ Resources:
       Name: !Sub signal-${Branch}-email-rule
       State: ENABLED
       Targets:
-        - Arn:
-            Fn::GetAtt:
-              - SignalEventBus
-              - Arn
+        - Arn: !Ref EmailEventFunction
           Id: !Sub signal-${Branch}-email-rule-id
 
   PermissionForEventsToInvokeLambda:
