@@ -59,6 +59,9 @@ Parameters:
   UserPoolArn:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Arn del user pool de cognito
+  SignalEventBus:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Nombre del Bus de Servicios de Signal
 
 Globals:
   Function:

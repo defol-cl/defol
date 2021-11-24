@@ -1,0 +1,30 @@
+{
+  "name": "@defol-cl/signal",
+  "version": "1.0.38",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --noEmit false --allowJs false --paths null"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1023.0",
+    "axios": "^0.24.0",
+    "nodemailer": "^6.7.1",
+    "nodemailer-plugin-inline-base64": "^2.1.1",
+    "source-map-support": "^0.5.16",
+    "velocityjs": "^2.0.5"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.85",
+    "@types/jest": "^26.0.10",
+    "@types/node": "10.17.27",
+    "@types/nodemailer": "^6.4.4",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "^9.0.0",
+    "typescript": "~3.9.7"
+  }
+}

@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Description: Backend del portal de clientes de defol
+
+Parameters:
+  Branch:
+    Type: String
+    Description: Nombre de la rama
+
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 200
+    MemorySize: 256
+    Layers:
+      - !Ref RuntimeDependenciesLayer
+    Environment:
+      Variables:
+        fromEmail: no-responder@defol.cl
+        bccEmail: respaldo@defol.cl
+        slackHookUrl: https://hooks.slack.com/services/TBCSBJ5/50117HG5HFV/hnfnDN78KJNH56RFVds
+
+Resources:
+  EmailEventFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/email
+      Handler: email.handler
+
+  SignalEventBus:
+    Type: AWS::Events::EventBus
+    Properties:
+      EventSourceName: !Sub signal-${Branch}
+      Name: !Sub signal-${Branch}
+
+  SignalEmailRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Signal Email Rule
+      EventBusName: !Ref SignalEventBus
+      EventPattern:
+        account: [ !Ref AWS::AccountId ]
+      Name: !Sub signal-${Branch}-email-rule
+      State: ENABLED
+      Targets:
+        - Arn:
+            Fn::GetAtt:
+              - SignalEventBus
+              - Arn
+          Id: !Sub signal-${Branch}-email-rule-id
+
+  PermissionForEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref EmailEventFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn:
+        Fn::GetAtt:
+          - SignalEmailRule
+          - Arn
+
+  RuntimeDependenciesLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Runtime dependencies for Lambdas
+      ContentUri: ./dist/layer
+      CompatibleRuntimes:
+        - nodejs12.x
+      RetentionPolicy: Retain
+
+  ApiGatewayDomainNameParamater:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: Signal Event Bus Name
+      Name: !Sub /defol/${Branch}/signal/event-bus
+      Type: String
+      Value:
+        Fn::GetAtt:
+          - SignalEventBus
+          - Name
