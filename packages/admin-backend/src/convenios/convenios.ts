@@ -57,17 +57,21 @@ export const detail: ConvenioDetalleGetHandler = async({ usrId, permissions, con
   try {
     const permissionList = permissions.split(",");
     const convenio = await DynamoServices.getConvenio(convenioCod);
-    const contacto = await DynamoServices.getConvenioContactoByContactoAndConvenio(usrId, convenioCod);
-    const moderador = await DynamoServices.getConvenioModeradorByModeradorAndConvenio(usrId, convenioCod);
+    const contactos = await DynamoServices.getConvenioContactoByConvenio(convenioCod);
+    const moderadores = await DynamoServices.getConvenioModeradorByConvenio(convenioCod);
 
     const hasPermission = permissionList.includes("convenio::view") || permissionList.includes("convenio::view_all");
 
-    if(!hasPermission || (permissionList.includes("convenio::view") && !moderador)) {
+    if(!hasPermission || (permissionList.includes("convenio::view") && !moderadores.length)) {
       callback("CONVENIO_DETALLE_GET_FORBIDDEN");
       return;
     }
 
-    callback(null, Object.assign({}, contacto, convenio, moderador));
+    callback(null, {
+      ...convenio,
+      moderadores,
+      contactos
+    });
   } catch (error) {
     console.log(error);
     callback("CONVENIO_DETALLE_GET_ERROR");

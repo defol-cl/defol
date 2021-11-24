@@ -5,6 +5,7 @@ export interface Convenio extends ConvenioDynamo, ConvenioPreguntaUsuario {
 
 }
 
-export interface ConvenioContactoModerador extends ConvenioDynamo, ConvenioContactoDynamo, ConvenioModeradorDynamo {
-  
+export interface ConvenioContactoModerador extends ConvenioDynamo {
+  contactos: ConvenioContactoDynamo[]
+  moderadores: ConvenioModeradorDynamo[]
 }

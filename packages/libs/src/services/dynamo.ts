@@ -194,6 +194,38 @@ export const countPreguntasByContactoAndConvenio = (
   })
 }
 
+export const getConvenioContactoByConvenio = (
+  convenioCod: string,
+  items?: ConvenioContactoDynamo[],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<ConvenioContactoDynamo[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: CONVENIO_CONTACTO_TABLE,
+      KeyConditionExpression: "convenioCod = :convenioCod",
+      ExpressionAttributeValues: {
+        ":convenioCod": convenioCod
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as ConvenioContactoDynamo[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getConvenioContactoByConvenio(convenioCod, items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
 export const getConvenioContactoByContactoAndConvenio = (
   email: string,
   convenioCod: string
@@ -210,6 +242,38 @@ export const getConvenioContactoByContactoAndConvenio = (
     .then(res => {
       const item = res.Items.length ? res.Items[0] as ConvenioContactoDynamo : undefined;
       resolve(item);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getConvenioModeradorByConvenio = (
+  convenioCod: string,
+  items?: ConvenioModeradorDynamo[],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<ConvenioModeradorDynamo[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: CONVENIO_MODERADOR_TABLE,
+      KeyConditionExpression: "convenioCod = :convenioCod",
+      ExpressionAttributeValues: {
+        ":convenioCod": convenioCod
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as ConvenioModeradorDynamo[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getConvenioModeradorByConvenio(convenioCod, items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
     }).catch(err => {
       console.log(err);
       reject(err);
