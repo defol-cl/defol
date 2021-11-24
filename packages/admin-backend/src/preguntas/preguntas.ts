@@ -1,7 +1,7 @@
 import moment from "moment";
 import { v4 as uuid4 } from "uuid";
 import { DynamoServices, S3Services } from "@defol-cl/libs";
-import { DynamoIterator, PreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
+import { DynamoIterator, PreguntaDynamo, RootUtils } from "@defol-cl/root";
 import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler } from "./preguntas.types";
 
 export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token, permissions }, context, callback) => {
@@ -76,8 +76,6 @@ const checkPreguntaConditions = (
   pregunta: PreguntaDynamo
 ): string | undefined => {
   let error;
-  const estadoPregunta = RootEnum.EstadoPregunta;
-
   if(!pregunta){
     error = "PREGUNTA_PUT_FAILED.PREGUNTA_NOT_FOUND";
   } else if(!pregunta.interacciones || pregunta.interacciones.length === 0){
@@ -86,7 +84,7 @@ const checkPreguntaConditions = (
     error = "PREGUNTA_PUT_FAILED.REPLICA_ALREADY_EXISTS";
   } else if(pregunta.interaccionesCantidad >= pregunta.interaccionesMax){
     error = "PREGUNTA_PUT_FAILED.REPLICAS_LIMIT_REACHED";
-  } else if(pregunta.estado === estadoPregunta.FINALIZADA || pregunta.estado === estadoPregunta.RESPONDIDA){
+  } else if(pregunta.estado === "FINALIZADA" || pregunta.estado === "RESPONDIDA"){
     error = "PREGUNTA_PUT_FAILED.REPLICA_ALREADY_EXISTS";
   }
 
@@ -124,7 +122,7 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
     pregunta.interacciones[pregunta.interacciones.length - 1].ejecutivoNombre = contacto;
     pregunta.interacciones[pregunta.interacciones.length - 1].replica = replica;
     pregunta.interacciones[pregunta.interacciones.length - 1].replicaAt = moment().toISOString();
-    pregunta.estado = isLast ? RootEnum.EstadoPregunta.FINALIZADA : RootEnum.EstadoPregunta.RESPONDIDA;
+    pregunta.estado = isLast ? "FINALIZADA" : "RESPONDIDA";
 
     await DynamoServices.putPregunta(pregunta);
     callback(null, {});

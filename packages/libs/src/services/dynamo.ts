@@ -4,7 +4,6 @@ import {
   ConvenioDynamo,
   RootInterface,
   PreguntaDynamo,
-  RootEnum,
   DynamoIterator,
   ConvenioModeradorDynamo,
 } from "@defol-cl/root";
@@ -105,7 +104,7 @@ export const countReplicasPendientesByUser = (contactoEmail: string, qty: number
       KeyConditionExpression: "contactoEmail = :contactoEmail and estado = :estado",
       ExpressionAttributeValues: {
         ":contactoEmail": contactoEmail,
-        ":estado": RootEnum.EstadoPregunta.RESPONDIDA
+        ":estado": "RESPONDIDA"
       },
       ExclusiveStartKey: lastKey,
       Select: "COUNT"
@@ -136,7 +135,7 @@ export const countPreguntasPendientesByUser = (contactoEmail: string, qty: numbe
       FilterExpression: "estado <> :estado",
       ExpressionAttributeValues: {
         ":contactoEmail": contactoEmail,
-        ":estado": RootEnum.EstadoPregunta.FINALIZADA
+        ":estado": "FINALIZADA"
       },
       ExclusiveStartKey: lastKey,
       Select: "COUNT"
@@ -648,18 +647,3 @@ export const putConvenioModerador = (
     })
   })
 }
-
-// export const putItem = <T>(tableName: RootEnum.DynamoTables, item: T): Promise<void> => {
-//   return new Promise((resolve, reject) => {
-//     dynamo.put({
-//       TableName: tableName,
-//       Item: item
-//     }).promise()
-//     .then(res => {
-//       resolve();
-//     }).catch(err => {
-//       console.log(err);
-//       reject(err);
-//     })
-//   })
-// }

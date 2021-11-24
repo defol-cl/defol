@@ -1,5 +1,3 @@
-import { EstadoPregunta } from '../enum';
-
 export interface ConvenioDynamo {
   cod: string
   fechaVencimiento: string
