@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform:
   - AWS::Serverless-2016-10-31
 
-Description: Backend del portal de clientes de defol
+Description: Signal, para el envío de notificaciones de todo tipo
 
 Parameters:
   Branch:
@@ -44,7 +44,7 @@ Resources:
       Name: !Sub signal-${Branch}-email-rule
       State: ENABLED
       Targets:
-        - Arn: !Ref EmailEventFunction
+        - Arn: !GetAtt EmailEventFunction.Arn
           Id: !Sub signal-${Branch}-email-rule-id
 
   PermissionForEventsToInvokeLambda:
@@ -53,10 +53,7 @@ Resources:
       FunctionName: !Ref EmailEventFunction
       Action: lambda:InvokeFunction
       Principal: events.amazonaws.com
-      SourceArn:
-        Fn::GetAtt:
-          - SignalEmailRule
-          - Arn
+      SourceArn: !GetAtt SignalEmailRule.Arn
 
   RuntimeDependenciesLayer:
     Type: AWS::Serverless::LayerVersion
@@ -73,7 +70,4 @@ Resources:
       Description: Signal Event Bus Name
       Name: !Sub /defol/${Branch}/signal/event-bus
       Type: String
-      Value:
-        Fn::GetAtt:
-          - SignalEventBus
-          - Name
+      Value: !GetAtt SignalEventBus.Arn
