@@ -4,7 +4,7 @@ import { sendMessage } from "./slack.service";
 
 export const handler: SendSlackMessageHandler = async (event, context, callback) => {
   console.log('event', event);
-  const { channel, username, text, title, value } = event as RootTypes.SignalSlackEvent;
+  const { channel, username, text, title, value } = event.detail as RootTypes.SignalSlackEvent;
   await sendMessage(channel, username, text, title, value);
   callback(null, {});
 }

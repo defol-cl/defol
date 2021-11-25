@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --noEmit false --allowJs false --paths null"
+    "build": "tsc --noEmit false --allowJs false --paths null && cp -R src/email/templates dist/src/email"
   },
   "author": "",
   "license": "ISC",
