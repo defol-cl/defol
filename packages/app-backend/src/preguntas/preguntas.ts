@@ -9,6 +9,7 @@ export const get: PreguntasGetHandler = async({ usrId, estado, token }, context,
   try {
     const prefix = 'app/preguntas-get';
     const uuid = uuid4();
+    const estados = estado ? estado.split(";") : undefined;
     let parsedToken;
     try {
       parsedToken = token ? await S3Services.getDynamoToken(`${prefix}/${token}.json`) : undefined;
@@ -18,13 +19,7 @@ export const get: PreguntasGetHandler = async({ usrId, estado, token }, context,
       return;
     }
 
-    let response: DynamoIterator<PreguntaDynamo> = {items: []};
-
-    if(!estado) {
-      response = await DynamoServices.getPreguntasByContactoEmail(usrId, parsedToken);
-    } else {
-      response = await DynamoServices.getPreguntasByContactoEmailEstados(usrId, estado, parsedToken);
-    }
+    const response = await DynamoServices.getPreguntasByContactoEmail(usrId, estados, {limit: 20, lastKey: parsedToken});
 
     if(response.items.length && response.token){
       const key = `${prefix}/${uuid}.json`;

@@ -7,7 +7,7 @@ import {
   DynamoIterator,
   ConvenioModeradorDynamo,
 } from "@defol-cl/root";
-import { LastPreguntasOptions } from "../types/dynamo.types";
+import { LastPreguntasOptions, MisPreguntasOptions } from "../types/dynamo.types";
 
 const dynamo = new DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
@@ -566,21 +566,52 @@ export const getPreguntasByEjecutivoEstados = async(
 
 export const getPreguntasByContactoEmail = (
   contactoEmail: string,
-  limit?: number,
-  lastKey?: DynamoDB.DocumentClient.Key
+  estados: string[] = [],
+  options?: MisPreguntasOptions,
 ): Promise<DynamoIterator<PreguntaDynamo>> => {
+  let {limit, lastKey, items} = options;
+  let filterExpression = [];
+  let expressionAttributeValues: any = {};
+  if(estados.length){
+    for (let i = 0; i < estados.length; i++) {
+      filterExpression.push(`estado = :estado${i}`);
+      expressionAttributeValues[`:estado${i}`] = estados[i];
+    }
+  }
+
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
       KeyConditionExpression: "contactoEmail = :contactoEmail",
+      FilterExpression: filterExpression.length ? filterExpression.join(" or ") : undefined,
       ExpressionAttributeValues: {
+        ...expressionAttributeValues,
         ":contactoEmail": contactoEmail
       },
+      Limit: limit,
+      ScanIndexForward: false,
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as PreguntaDynamo[])
+              : items;
+
+      if(limit && (items.length >= limit || !res.LastEvaluatedKey)){
+        resolve({
+          items,
+          token: res.LastEvaluatedKey 
+        });
+        return;
+      }
+
+      if(limit && res.LastEvaluatedKey){
+        resolve(getPreguntasByContactoEmail(contactoEmail, estados, {items, limit, lastKey: res.LastEvaluatedKey}));
+        return;
+      }
+
       resolve({
-        items: res.Items ? res.Items as PreguntaDynamo[] : [],
+        items,
         token: res.LastEvaluatedKey
       });
     }).catch(err => {
@@ -674,7 +705,7 @@ export const getPreguntasByContactoEmailEstados = async(
       token: lastKeyToken
     };
   } else {
-    return getPreguntasByContactoEmail(contactoEmail, lastKey)
+    return getPreguntasByContactoEmail(contactoEmail, [], {lastKey})
   } 
 }
 
