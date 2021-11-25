@@ -3,7 +3,8 @@ import { readFileSync } from "fs";
 import { createTransport } from "nodemailer";
 import inlineBase64 from "nodemailer-plugin-inline-base64";
 import * as velocicty from "velocityjs";
-import { EmailConfig, EmailDetails, SubjectConfig, Template } from "./email.types";
+import { EmailConfig, SubjectConfig } from "./email.types";
+import { RootTypes } from "@defol-cl/root";
 
 const ses = new SES();
 const from = `DEFOL <${process.env.fromEmail}>`;
@@ -14,7 +15,7 @@ const subjectConfig: SubjectConfig = {
   'nueva-respuesta': '[DEFOL] Ha llegado respuesta, de nuestro equipo Legal',
 }
 
-const getConfig = (name: Template) =>
+const getConfig = (name: RootTypes.SignalEmailTemplate) =>
   new Promise<EmailConfig>((resolve, reject) => {
     try {
       const html = readFileSync(`./templates/${name}/content.html`, 'utf-8');
@@ -25,10 +26,10 @@ const getConfig = (name: Template) =>
     }
   });
 
-export const sendEmail = async (name: Template, { to, cc }: EmailDetails, context: any) => {
+export const sendEmail = async (name: RootTypes.SignalEmailTemplate, context: any, to: string, cc?: string) => {
   const { html, subject } = await getConfig(name);
   const transporter = createTransport({ SES: ses });
-  transporter.use('compile', inlineBase64({cidPrefix: 'prefixEmail_'}));
+  transporter.use('compile', inlineBase64({ cidPrefix: 'prefixEmail_' }));
   return await transporter.sendMail({
     subject, from, to, cc, bcc,
     html: velocicty.render(html, context)

@@ -5,6 +5,6 @@ import { sendEmail } from "./email.service";
 export const handler: SendEmailHandler = async (event, context, callback) => {
   console.log('event', event);
   const { template, to, cc, data } = event as RootTypes.SignalEmailEvent;
-  await sendEmail(template, { to, cc }, data);
+  await sendEmail(template, data, to, cc);
   callback(null, {});
 }
