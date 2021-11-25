@@ -86,6 +86,7 @@ Globals:
         CONTACTO_EMAIL_INDEX: !Ref ContactoEmailIndex
         USER_CONVENIO_INDEX: !Ref UserConvenioIndex
         DYNAMO_TOKENS_BUCKET: !Ref DynamoTokensBucket
+        SIGNAL_BUS_NAME: !Ref SignalEventBus
 
 Resources:
   LambdaRole:

@@ -1,7 +1,7 @@
 import { EventBridge } from "aws-sdk";
 import { RootTypes } from "@defol-cl/root";
 
-const signalBusName = process.env.signalBusName as string;
+const signalBusName = process.env.SIGNAL_BUS_NAME as string;
 const eventBridge = new EventBridge();
 
 export const putEvent = (event: RootTypes.SignalEvent) => {
