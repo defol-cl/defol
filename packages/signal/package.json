@@ -1,6 +1,6 @@
 {
   "name": "@defol-cl/signal",
-  "version": "1.0.38",
+  "version": "1.0.45",
   "private": true,
   "description": "",
   "main": "index.js",
