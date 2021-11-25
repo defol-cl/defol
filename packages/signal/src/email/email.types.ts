@@ -1,18 +1,7 @@
 import { Callback, Context } from "aws-lambda";
+import { RootTypes } from "@defol-cl/root";
 
-export type Template = 'invitacion' | 'nueva-respuesta';
-
-export interface EmailDetails {
-  to: string
-  cc?: string
-}
-
-interface Event extends EmailDetails {
-  template: Template
-  data: any
-}
-
-export type SendEmailHandler = (event: Event, context: Context, callback: Callback) => void;
+export type SendEmailHandler = (event: any, context: Context, callback: Callback) => void;
 
 export interface EmailConfig {
   subject: string
@@ -20,5 +9,5 @@ export interface EmailConfig {
 }
 
 export type SubjectConfig = {
-  [key in Template]: string
+  [key in RootTypes.SignalEmailTemplate]: string
 }

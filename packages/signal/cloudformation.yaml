@@ -29,6 +29,12 @@ Resources:
       CodeUri: dist/src/email
       Handler: email.handler
 
+  SlackEventFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/slack
+      Handler: slack.handler
+
   SignalEventBus:
     Type: AWS::Events::EventBus
     Properties:
@@ -40,12 +46,37 @@ Resources:
       Description: Signal Email Rule
       EventBusName: !Ref SignalEventBus
       EventPattern:
-        account: [ !Ref AWS::AccountId ]
+        source:
+          - signal
+        detail-type:
+          - transaction
+        detail:
+          type:
+            - email
       Name: !Sub signal-${Branch}-email-rule
       State: ENABLED
       Targets:
         - Arn: !GetAtt EmailEventFunction.Arn
           Id: !Sub signal-${Branch}-email-rule-id
+
+  SignalSlackRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Signal Slack Rule
+      EventBusName: !Ref SignalEventBus
+      EventPattern:
+        source:
+          - signal
+        detail-type:
+          - transaction
+        detail:
+          type:
+            - slack
+      Name: !Sub signal-${Branch}-slack-rule
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt SlackEventFunction.Arn
+          Id: !Sub signal-${Branch}-slack-rule-id
 
   PermissionForEventsToInvokeLambda:
     Type: AWS::Lambda::Permission

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@defol-cl/root": "1.0.44",
     "aws-sdk": "^2.1023.0",
     "axios": "^0.24.0",
     "nodemailer": "^6.7.1",
