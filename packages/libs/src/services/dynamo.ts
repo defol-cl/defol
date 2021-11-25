@@ -360,7 +360,7 @@ export const getLastPreguntasByContactoEmail = (
               ? items.concat(res.Items as PreguntaDynamo[])
               : items;
 
-      if(limit && items.length >= limit){
+      if(limit && (items.length >= limit || !res.LastEvaluatedKey)){
         resolve({ items: items.slice(0,limit) });
         return;
       }
