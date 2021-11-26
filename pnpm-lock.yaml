@@ -221,7 +221,7 @@ importers:
       velocityjs: ^2.0.5
     dependencies:
       '@defol-cl/root': link:../root
-      aws-sdk: 2.1035.0
+      aws-sdk: 2.1023.0
       axios: 0.24.0
       nodemailer: 6.7.1
       nodemailer-plugin-inline-base64: 2.1.1
@@ -4335,7 +4335,7 @@ packages:
       regenerator-runtime: 0.13.9
 
   /@babel/runtime/7.16.0:
-    resolution: {integrity: sha512-Nht8L0O8YCktmsDV6FqFue7vQLRx3Hb0B37lS5y0jDRqRxlBG4wIJHnf9/bgSE2UyipKFA01YtS+npRdTWBUyw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/@babel/runtime/-/runtime-7.16.0.tgz}
+    resolution: {integrity: sha512-Nht8L0O8YCktmsDV6FqFue7vQLRx3Hb0B37lS5y0jDRqRxlBG4wIJHnf9/bgSE2UyipKFA01YtS+npRdTWBUyw==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
@@ -5606,7 +5606,7 @@ packages:
     dev: true
 
   /@types/node/16.11.6:
-    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==}
+    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/@types/node/-/node-16.11.6.tgz}
     dev: true
 
   /@types/nodemailer/6.4.4:
@@ -5705,7 +5705,7 @@ packages:
     dev: true
 
   /@types/uuid/8.3.3:
-    resolution: {integrity: sha512-0LbEEx1zxrYB3pgpd1M5lEhLcXjKJnYghvhTRgaBeUivLHMDM1TzF3IJ6hXU2+8uA4Xz+5BA63mtZo5DjVT8iA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/@types/uuid/-/uuid-8.3.3.tgz}
+    resolution: {integrity: sha512-0LbEEx1zxrYB3pgpd1M5lEhLcXjKJnYghvhTRgaBeUivLHMDM1TzF3IJ6hXU2+8uA4Xz+5BA63mtZo5DjVT8iA==}
     dev: true
 
   /@types/webpack-sources/3.2.0:
@@ -6495,21 +6495,6 @@ packages:
 
   /aws-sdk/2.1023.0:
     resolution: {integrity: sha512-RAI8sUfK+00yL9i3xz5kbM3+t/0mjjnKhKyauXAlJN4seDYtIX5+BqMghpkZwvLBdi6idXIuz+FHWETHZccyuA==}
-    engines: {node: '>= 10.0.0'}
-    dependencies:
-      buffer: 4.9.2
-      events: 1.1.1
-      ieee754: 1.1.13
-      jmespath: 0.15.0
-      querystring: 0.2.0
-      sax: 1.2.1
-      url: 0.10.3
-      uuid: 3.3.2
-      xml2js: 0.4.19
-    dev: false
-
-  /aws-sdk/2.1035.0:
-    resolution: {integrity: sha512-BjSGGZIQE/SCLDgj2T4AhtBG4A4NgXhV/Z/I/E7Mst/RpOepTqZGznUbgXTvO+Z3gKqx33jJa6mS7ZxStCb/Wg==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -7822,7 +7807,7 @@ packages:
     dev: true
 
   /css-in-js-utils/2.0.1:
-    resolution: {integrity: sha512-PJF0SpJT+WdbVVt0AOYp9C8GnuruRlL/UFW7932nLWmFLQTaWEzTBQEx7/hn4BuV+WON75iAViSUJLiU3PKbpA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/css-in-js-utils/-/css-in-js-utils-2.0.1.tgz}
+    resolution: {integrity: sha512-PJF0SpJT+WdbVVt0AOYp9C8GnuruRlL/UFW7932nLWmFLQTaWEzTBQEx7/hn4BuV+WON75iAViSUJLiU3PKbpA==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dependencies:
       hyphenate-style-name: 1.0.4
       isobject: 3.0.1
@@ -10625,7 +10610,7 @@ packages:
     dev: true
 
   /isobject/3.0.1:
-    resolution: {integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/isobject/-/isobject-3.0.1.tgz}
+    resolution: {integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     engines: {node: '>=0.10.0'}
 
   /isomorphic-unfetch/3.1.0:
@@ -10886,7 +10871,7 @@ packages:
       '@jest/environment': 26.6.2
       '@jest/fake-timers': 26.6.2
       '@jest/types': 26.6.2
-      '@types/node': 16.11.6
+      '@types/node': 16.10.1
       jest-mock: 26.6.2
       jest-util: 26.6.2
       jsdom: 16.7.0
@@ -10904,7 +10889,7 @@ packages:
       '@jest/environment': 26.6.2
       '@jest/fake-timers': 26.6.2
       '@jest/types': 26.6.2
-      '@types/node': 16.11.6
+      '@types/node': 16.10.1
       jest-mock: 26.6.2
       jest-util: 26.6.2
     dev: true
@@ -10944,7 +10929,7 @@ packages:
       '@jest/source-map': 26.6.2
       '@jest/test-result': 26.6.2
       '@jest/types': 26.6.2
-      '@types/node': 16.11.6
+      '@types/node': 16.10.1
       chalk: 4.1.2
       co: 4.6.0
       expect: 26.6.2
@@ -10974,7 +10959,7 @@ packages:
       '@jest/source-map': 26.6.2
       '@jest/test-result': 26.6.2
       '@jest/types': 26.6.2
-      '@types/node': 16.11.6
+      '@types/node': 16.10.1
       chalk: 4.1.2
       co: 4.6.0
       expect: 26.6.2
@@ -11281,7 +11266,7 @@ packages:
     engines: {node: '>= 10.14.2'}
     dependencies:
       '@jest/types': 26.6.2
-      '@types/node': 16.11.6
+      '@types/node': 16.10.1
       chalk: 4.1.2
       graceful-fs: 4.2.8
       is-ci: 2.0.0
@@ -11894,7 +11879,7 @@ packages:
     dev: true
 
   /mdn-data/2.0.14:
-    resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/mdn-data/-/mdn-data-2.0.14.tgz}
+    resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
 
   /mdn-data/2.0.4:
     resolution: {integrity: sha512-iV3XNKw06j5Q7mi6h+9vbx23Tv7JkjEVgKHW4pimwyDGWm0OIQntJJ+u1C6mg6mK1EaTv42XQ7w76yuzH7M2cA==}
@@ -15118,7 +15103,7 @@ packages:
     dev: true
 
   /source-map/0.5.6:
-    resolution: {integrity: sha1-dc449SvwczxafwwRjYEzSiu19BI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/source-map/-/source-map-0.5.6.tgz}
+    resolution: {integrity: sha1-dc449SvwczxafwwRjYEzSiu19BI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     engines: {node: '>=0.10.0'}
     dev: false
 
@@ -15231,7 +15216,7 @@ packages:
     dev: true
 
   /stack-generator/2.0.5:
-    resolution: {integrity: sha512-/t1ebrbHkrLrDuNMdeAcsvynWgoH/i4o8EGGfX7dEYDoTXOYVAkEpFdtshlvabzc6JlJ8Kf9YdFEoz7JkzGN9Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/stack-generator/-/stack-generator-2.0.5.tgz}
+    resolution: {integrity: sha512-/t1ebrbHkrLrDuNMdeAcsvynWgoH/i4o8EGGfX7dEYDoTXOYVAkEpFdtshlvabzc6JlJ8Kf9YdFEoz7JkzGN9Q==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dependencies:
       stackframe: 1.2.0
     dev: false
@@ -15247,7 +15232,7 @@ packages:
     resolution: {integrity: sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==}
 
   /stacktrace-gps/3.0.4:
-    resolution: {integrity: sha512-qIr8x41yZVSldqdqe6jciXEaSCKw1U8XTXpjDuy0ki/apyTn/r3w9hDAAQOhZdxvsC93H+WwwEu5cq5VemzYeg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/stacktrace-gps/-/stacktrace-gps-3.0.4.tgz}
+    resolution: {integrity: sha512-qIr8x41yZVSldqdqe6jciXEaSCKw1U8XTXpjDuy0ki/apyTn/r3w9hDAAQOhZdxvsC93H+WwwEu5cq5VemzYeg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dependencies:
       source-map: 0.5.6
       stackframe: 1.2.0
@@ -15789,7 +15774,7 @@ packages:
     dev: true
 
   /toggle-selection/1.0.6:
-    resolution: {integrity: sha1-bkWxJj8gF/oKzH2J14sVuL932jI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/toggle-selection/-/toggle-selection-1.0.6.tgz}
+    resolution: {integrity: sha1-bkWxJj8gF/oKzH2J14sVuL932jI=, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/}
     dev: false
 
   /toidentifier/1.0.0:
@@ -16252,7 +16237,7 @@ packages:
     hasBin: true
 
   /uuid/8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==, registry: https://gitlab.com/api/v4/projects/25428667/packages/npm/, tarball: https://gitlab.com/api/v4/projects/25428667/packages/npm/uuid/-/uuid-8.3.2.tgz}
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
 
   /v8-compile-cache/2.3.0:

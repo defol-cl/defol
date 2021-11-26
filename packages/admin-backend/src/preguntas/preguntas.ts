@@ -1,7 +1,7 @@
 import moment from "moment";
 import { v4 as uuid4 } from "uuid";
-import { DynamoServices, S3Services } from "@defol-cl/libs";
-import { DynamoIterator, PreguntaDynamo, RootUtils } from "@defol-cl/root";
+import { DynamoServices, S3Services, SignalServices } from "@defol-cl/libs";
+import { DynamoIterator, PreguntaDynamo, RootTypes, RootUtils } from "@defol-cl/root";
 import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler } from "./preguntas.types";
 
 export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token, permissions }, context, callback) => {
@@ -125,6 +125,17 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
     pregunta.estado = isLast ? "FINALIZADA" : "RESPONDIDA";
 
     await DynamoServices.putPregunta(pregunta);
+
+    const emailEvent: RootTypes.SignalEmailEvent<RootTypes.SignalEmailRespuesta> = {
+      data: {
+        url: ""
+      },
+      template: "nueva-respuesta",
+      to: pregunta.contactoEmail,
+      type: "email"
+    }
+
+    await SignalServices.putEvent(emailEvent);
     callback(null, {});
   } catch (error) {
     console.log(error);
