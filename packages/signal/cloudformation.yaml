@@ -23,11 +23,43 @@ Globals:
         slackHookUrl: https://hooks.slack.com/services/TBCSBJ5/50117HG5HFV/hnfnDN78KJNH56RFVds
 
 Resources:
+  LambdaSESRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: lambda.amazonaws.com
+      Policies:
+        - PolicyName: WriteCloudWatchLogs
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+        - PolicyName: LambdaSESPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ses:SendEmail
+                  - ses:SendRawEmai
+                Resource: "*"
+
   EmailEventFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: dist/src/email
       Handler: email.handler
+      Role: !GetAtt LambdaSESRole.Arn
 
   SlackEventFunction:
     Type: AWS::Serverless::Function
