@@ -30,44 +30,29 @@ export default function Pricing() {
 
         {/* TABLA */}
 
-        <div className="max-w-7xl mx-auto bg-white rounded-xl py-12 sm:px-6 lg:px-8 mt-6">
+        <div className="max-w-7xl mx-auto bg-white rounded-xl py-6 sm:px-6 lg:px-8 mt-6">
           {/* <!-- xs to lg --> */}
           <div className="max-w-2xl mx-auto space-y-16 lg:hidden">
             <section>
-              <div className="px-4 mb-8">
-                <h2 className="text-lg leading-6 font-medium text-gray-900">
-                  Basic
-                </h2>
-                <p className="mt-4">
-                  <span className="text-4xl font-extrabold text-gray-900">
-                    $9
-                  </span>
-                  <span className="text-base font-medium text-gray-500">
-                    /mo
-                  </span>
-                </p>
-                <p className="mt-4 text-sm text-gray-500">
-                  Quis suspendisse ut fermentum neque vivamus non tellus.
-                </p>
-                <a
-                  href="#"
-                  className="mt-6 block border border-gray-800 rounded-md bg-gray-800 w-full py-2 text-sm font-semibold text-white text-center hover:bg-gray-900"
-                >
-                  Buy Basic
-                </a>
+              <div className="pb-4 px-4 text-xl leading-6 font-bold text-gray-900 text-left">
+                Plan Básico{" "}
+                <img
+                  className="w-6 h-auto inline-block -mt-2"
+                  src="./assets/emoji-sparkle.png"
+                  alt="plan básico"
+                />
               </div>
-
               <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Features
+                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-bold text-indigo-600 text-left">
+                  ¿Qué incluye?
                 </caption>
                 <thead>
                   <tr>
                     <th className="sr-only" scope="col">
-                      Feature
+                      Característica
                     </th>
                     <th className="sr-only" scope="col">
-                      Included
+                      Incluído
                     </th>
                   </tr>
                 </thead>
@@ -77,23 +62,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Molestie lobortis massa.
+                      Preguntas y respuestas simples (hasta 1 réplica)
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -102,23 +75,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Urna purus felis.
+                      Administración centralizada del convenio
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -127,64 +88,27 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Tellus pulvinar sit dictum.
+                      Informe mensual con detalle del servicio entregado
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Convallis.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
 
               <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Reporting
+                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-bold text-indigo-600 text-left">
+                  Precios
                 </caption>
                 <thead>
                   <tr>
                     <th className="sr-only" scope="col">
-                      Feature
+                      Precios
                     </th>
                     <th className="sr-only" scope="col">
-                      Included
+                      Monto
                     </th>
                   </tr>
                 </thead>
@@ -194,23 +118,17 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Adipiscing.
+                      Hasta 200 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $130.000
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
@@ -219,23 +137,17 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Eget risus integer.
+                      Hasta 400 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $250.000
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
@@ -244,215 +156,54 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Gravida leo urna velit.
+                      Hasta 800 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $470.000
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Elementum ut dapibus mi feugiat cras nisl.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Support
-                </caption>
-                <thead>
                   <tr>
-                    <th className="sr-only" scope="col">
-                      Feature
-                    </th>
-                    <th className="sr-only" scope="col">
-                      Included
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Sit dignissim.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
+                    <td className="py-5 px-6" colSpan={2}>
+                      <a
+                        href="#"
+                        className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-400 transition-colors duration-200"
                       >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Congue at nibh et.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Volutpat feugiat mattis.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Tristique pellentesque ornare diam sapien.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
+                        Disponible desde el 15 de diciembre
+                      </a>
                     </td>
                   </tr>
                 </tbody>
               </table>
-
-              <div className="border-t border-gray-200 px-4 pt-5">
-                <a
-                  href="#"
-                  className="block w-full bg-gray-800 border border-gray-800 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-900"
-                >
-                  Buy Basic
-                </a>
-              </div>
             </section>
 
             <section>
-              <div className="px-4 mb-8">
-                <h2 className="text-lg leading-6 font-medium text-gray-900">
-                  Essential
-                </h2>
-                <p className="mt-4">
-                  <span className="text-4xl font-extrabold text-gray-900">
-                    $29
-                  </span>
-                  <span className="text-base font-medium text-gray-500">
-                    /mo
-                  </span>
-                </p>
-                <p className="mt-4 text-sm text-gray-500">
-                  Quis eleifend a tincidunt pellentesque. A tempor in sed.
-                </p>
-                <a
-                  href="#"
-                  className="mt-6 block border border-gray-800 rounded-md bg-gray-800 w-full py-2 text-sm font-semibold text-white text-center hover:bg-gray-900"
-                >
-                  Buy Essential
-                </a>
+              <div className="pb-4 px-4 text-xl leading-6 font-bold text-gray-900 text-left">
+                Plan Premium{" "}
+                <img
+                  className="w-6 h-auto inline-block -mt-2"
+                  src="./assets/emoji-rayo.png"
+                  alt="plan premium"
+                />
               </div>
-
               <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Features
+                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-bold text-indigo-600 text-left">
+                  ¿Qué incluye?
                 </caption>
                 <thead>
                   <tr>
                     <th className="sr-only" scope="col">
-                      Feature
+                      Característica
                     </th>
                     <th className="sr-only" scope="col">
-                      Included
+                      Incluído
                     </th>
                   </tr>
                 </thead>
@@ -462,23 +213,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Molestie lobortis massa.
+                      Preguntas y respuestas simples (hasta 1 réplica)
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -487,23 +226,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Urna purus felis.
+                      Administración centralizada del convenio
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -512,23 +239,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Tellus pulvinar sit dictum.
+                      Informe mensual con detalle del servicio entregado
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -537,28 +252,27 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Convallis.
+                      Respuestas con documentación de ejemplo
                     </th>
                     <td className="py-5 pr-4">
-                      <span className="block text-sm text-gray-700 text-right">
-                        Up to 20 users
-                      </span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
 
               <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Reporting
+                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-bold text-indigo-600 text-left">
+                  Precios
                 </caption>
                 <thead>
                   <tr>
                     <th className="sr-only" scope="col">
-                      Feature
+                      Precios
                     </th>
                     <th className="sr-only" scope="col">
-                      Included
+                      Monto
                     </th>
                   </tr>
                 </thead>
@@ -568,23 +282,17 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Adipiscing.
+                      Hasta 200 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $195.000
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
@@ -593,23 +301,17 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Eget risus integer.
+                      Hasta 400 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $375.000
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
@@ -618,215 +320,54 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Gravida leo urna velit.
+                      Hasta 800 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $705.000
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Elementum ut dapibus mi feugiat cras nisl.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Support
-                </caption>
-                <thead>
                   <tr>
-                    <th className="sr-only" scope="col">
-                      Feature
-                    </th>
-                    <th className="sr-only" scope="col">
-                      Included
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Sit dignissim.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
+                    <td className="py-5 px-6" colSpan={2}>
+                      <a
+                        href="#"
+                        className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-400 transition-colors duration-200"
                       >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Congue at nibh et.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Volutpat feugiat mattis.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Tristique pellentesque ornare diam sapien.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">No</span>
+                        Disponible desde el 15 de enero
+                      </a>
                     </td>
                   </tr>
                 </tbody>
               </table>
-
-              <div className="border-t border-gray-200 px-4 pt-5">
-                <a
-                  href="#"
-                  className="block w-full bg-gray-800 border border-gray-800 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-900"
-                >
-                  Buy Essential
-                </a>
-              </div>
             </section>
 
             <section>
-              <div className="px-4 mb-8">
-                <h2 className="text-lg leading-6 font-medium text-gray-900">
-                  Premium
-                </h2>
-                <p className="mt-4">
-                  <span className="text-4xl font-extrabold text-gray-900">
-                    $59
-                  </span>
-                  <span className="text-base font-medium text-gray-500">
-                    /mo
-                  </span>
-                </p>
-                <p className="mt-4 text-sm text-gray-500">
-                  Orci volutpat ut sed sed neque, dui eget. Quis tristique non.
-                </p>
-                <a
-                  href="#"
-                  className="mt-6 block border border-gray-800 rounded-md bg-gray-800 w-full py-2 text-sm font-semibold text-white text-center hover:bg-gray-900"
-                >
-                  Buy Premium
-                </a>
+              <div className="pb-4 px-4 text-xl leading-6 font-bold text-gray-900 text-left">
+                Plan Ultimate{" "}
+                <img
+                  className="w-6 h-auto inline-block -mt-2"
+                  src="./assets/emoji-fuego.png"
+                  alt="plan ultimate"
+                />
               </div>
-
               <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Features
+                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-bold text-indigo-600 text-left">
+                  ¿Qué incluye?
                 </caption>
                 <thead>
                   <tr>
                     <th className="sr-only" scope="col">
-                      Feature
+                      Característica
                     </th>
                     <th className="sr-only" scope="col">
-                      Included
+                      Incluído
                     </th>
                   </tr>
                 </thead>
@@ -836,23 +377,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Molestie lobortis massa.
+                      Preguntas y respuestas simples (hasta 1 réplica)
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -861,23 +390,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Urna purus felis.
+                      Administración centralizada del convenio
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -886,23 +403,11 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Tellus pulvinar sit dictum.
+                      Informe mensual con detalle del servicio entregado
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
 
@@ -911,28 +416,40 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Convallis.
+                      Respuestas con documentación de ejemplo
                     </th>
                     <td className="py-5 pr-4">
-                      <span className="block text-sm text-gray-700 text-right">
-                        Up to 50 users
-                      </span>
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
+                    </td>
+                  </tr>
+
+                  <tr className="border-t border-gray-200">
+                    <th
+                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
+                      scope="row"
+                    >
+                      Media jornada de orientación <br /> presencial (dos veces al mes){" "}
+                    </th>
+                    <td className="py-5 pr-4">
+                      <CheckIcon className="h-5 w-5 text-green-500" />
+                      <span className="sr-only">Sí</span>
                     </td>
                   </tr>
                 </tbody>
               </table>
 
               <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Reporting
+                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-bold text-indigo-600 text-left">
+                  Precios
                 </caption>
                 <thead>
                   <tr>
                     <th className="sr-only" scope="col">
-                      Feature
+                      Precios
                     </th>
                     <th className="sr-only" scope="col">
-                      Included
+                      Monto
                     </th>
                   </tr>
                 </thead>
@@ -942,23 +459,17 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Adipiscing.
+                      Hasta 200 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $253.500
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
@@ -967,23 +478,17 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Eget risus integer.
+                      Hasta 400 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $487.500
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
@@ -992,178 +497,29 @@ export default function Pricing() {
                       className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
                       scope="row"
                     >
-                      Gravida leo urna velit.
+                      Hasta 800 preguntas
                     </th>
                     <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
+                      <p>
+                        <span className="text-xl font-bold text-gray-900">
+                          $916.500
+                        </span>
+                        <span className="text-base font-medium text-gray-500">
+                          /mes
+                        </span>
+                      </p>
                     </td>
                   </tr>
 
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Elementum ut dapibus mi feugiat cras nisl.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
-              <table className="w-full">
-                <caption className="bg-gray-50 border-t border-gray-200 py-3 px-4 text-sm font-medium text-gray-900 text-left">
-                  Support
-                </caption>
-                <thead>
                   <tr>
-                    <th className="sr-only" scope="col">
-                      Feature
-                    </th>
-                    <th className="sr-only" scope="col">
-                      Included
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Sit dignissim.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Congue at nibh et.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Volutpat feugiat mattis.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
-                  </tr>
-
-                  <tr className="border-t border-gray-200">
-                    <th
-                      className="py-5 px-4 text-sm font-normal text-gray-500 text-left"
-                      scope="row"
-                    >
-                      Tristique pellentesque ornare diam sapien.
-                    </th>
-                    <td className="py-5 pr-4">
-                      <svg
-                        className="ml-auto h-5 w-5 text-green-500"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <span className="sr-only">Yes</span>
-                    </td>
+                  <td className="pt-5 px-6" colSpan={2}>
+                    <a className="block w-full bg-gray-300 border  rounded-md py-2 text-sm font-semibold text-white text-center">
+                      Disponible próximamente
+                    </a>
+                  </td>
                   </tr>
                 </tbody>
               </table>
-
-              <div className="border-t border-gray-200 px-4 pt-5">
-                <a
-                  href="#"
-                  className="block w-full bg-gray-800 border border-gray-800 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-900"
-                >
-                  Buy Premium
-                </a>
-              </div>
             </section>
           </div>
 
@@ -1228,7 +584,7 @@ export default function Pricing() {
                 <tr>
                   <th
                     className="bg-gray-50 py-3 pl-6 text-sm font-bold text-indigo-600 text-left col-span-4"
-                    colspan="4"
+                    colSpan={4}
                     scope="colgroup"
                   >
                     ¿Qué incluye?
@@ -1362,8 +718,8 @@ export default function Pricing() {
 
                 <tr>
                   <th
-                    className="bg-gray-50 py-3 pl-6 text-sm font-bold text-indigo-600 text-left col-span-4"
-                    colspan="4"
+                    className="bg-gray-50 py-3 pl-6 text-sm font-bold text-indigo-600 text-left"
+                    colSpan={4}
                     scope="colgroup"
                   >
                     Precios
@@ -1492,8 +848,6 @@ export default function Pricing() {
                     </p>
                   </td>
                 </tr>
-
-
               </tbody>
 
               <tfoot>
