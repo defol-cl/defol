@@ -6,9 +6,8 @@ export default function Equipo() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="w-full max-w-2xl mx-auto text-center">
-          <span className="text-sm font-semibold">EQUIPO</span>
-          <h2 className="text-5xl mt-2 mb-6 leading-tight font-semibold font-heading">
-            Lorem ipsum dolor sit amet
+          <h2 className="text-4xl mt-2 mb-6 leading-tight font-semibold font-heading text-gray-900">
+            Conoce al equipo{" "}
           </h2>
         </div>
         <div className="flex flex-wrap text-center">
@@ -20,10 +19,10 @@ export default function Equipo() {
                 className="w-auto"
               />
               <div className="p-8">
-                <h3 className="text-xl mb-1 font-semibold">
+                <h3 className="text-xl mb-1 font-bold">
                   Jaime González Kazazian
                 </h3>
-                <span>Director en Asuntos Legales</span>
+                <span className="text-gray-400 font-semibold">Director en Asuntos Legales</span>
                 <p>
                   Abogado de la Pontificia Universidad Católica de Chile, con
                   especialidad en Derecho Público Se ha desarrollado en el
@@ -43,8 +42,8 @@ export default function Equipo() {
                 className="w-auto"
               />
               <div className="p-8">
-                <h3 className="text-xl mb-1 font-semibold">Julio Villane</h3>
-                <span>Director en Tecnología</span>
+                <h3 className="text-xl mb-1 font-bold">Julio Villane</h3>
+                <span className="text-gray-400 font-semibold">Director en Tecnología</span>
                 <p>
                   Profesional apasionado por la tecnología. Titulado como
                   Ingeniería Civil en Computación de la Universidad de Chile y
@@ -68,10 +67,10 @@ export default function Equipo() {
                 className="w-auto"
               />
               <div className="p-8">
-                <h3 className="text-xl mb-1 font-semibold">
+                <h3 className="text-xl mb-1 font-bold">
                   José Manuel Heredia
                 </h3>
-                <span>Director en Temas Comerciales y Administrativas</span>
+                <span className="text-gray-400 font-semibold">Director en Temas Comerciales y Administrativas</span>
                 <p>
                   Ingeniero Comercial, licenciado en economía de la U de
                   Concepción y Máster en Finanzas del ESE Business School de la

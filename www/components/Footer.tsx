@@ -4,7 +4,7 @@ const navigation = {
     { name: "Beneficios", href: "#beneficios" },
     { name: "¿Cómo funciona?", href: "#como-funciona" },
     { name: "Precios", href: "#precios" },
-    { name: "Demo", href: "#demo" },
+    { name: "Ingresa", href: "#ingresa" },
     { name: "¿Quiénes somos?", href: "#nuestro-equipo" },
     { name: "Preguntas Frecuentes", href: "/faq" },
   ],
