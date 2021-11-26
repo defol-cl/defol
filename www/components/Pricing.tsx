@@ -1228,7 +1228,7 @@ export default function Pricing() {
                 <tr>
                   <th
                     className="bg-gray-50 py-3 pl-6 text-sm font-bold text-indigo-600 text-left col-span-4"
-                    colspan="4"
+                    colSpan="4"
                     scope="colgroup"
                   >
                     ¿Qué incluye?
@@ -1363,7 +1363,7 @@ export default function Pricing() {
                 <tr>
                   <th
                     className="bg-gray-50 py-3 pl-6 text-sm font-bold text-indigo-600 text-left col-span-4"
-                    colspan="4"
+                    colSpan="4"
                     scope="colgroup"
                   >
                     Precios
