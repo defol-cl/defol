@@ -25,13 +25,15 @@ export interface InteraccionPreguntaDynamo {
   ejecutivoNombre?: string
 }
 
+export type PreguntaDynamoEstado = 'INGRESADA' | 'RESPONDIDA' | 'REPLICADA' | 'FINALIZADA';
+
 export interface PreguntaDynamo {
   contactoEmail: string
   timestamp: string
   contactoNombre: string
   antecedentes: string
   convenioCod: string
-  estado: string
+  estado: PreguntaDynamoEstado
   interaccionesCantidad: number
   interaccionesMax: number
   interacciones: InteraccionPreguntaDynamo[]

@@ -9,7 +9,7 @@ import shelawyer from "src/assets/img/shelawyer.png"
 
 const IngresoText: React.FC = () => {
   return (
-    <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
+    <Stack sx={{ minHeight: '100%' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
         <Card className="card-transparent" sx={{ height: 500 }}>
           <CardContent>

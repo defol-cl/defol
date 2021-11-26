@@ -1,4 +1,4 @@
-import { Dao } from '@defol-cl/root';
+import { Dao, DynamoIteratorFront } from '@defol-cl/root';
 import { API } from 'aws-amplify';
 
 export const resumenPreguntas = () => new Promise<Dao.ResumenPreguntas>(
@@ -7,9 +7,9 @@ export const resumenPreguntas = () => new Promise<Dao.ResumenPreguntas>(
     .catch(err => reject(err))
 );
 
-export const ultimasActualizaciones = () => new Promise<Dao.Pregunta[]>(
-  (resolve, reject) => API.get('api', '/dashboard/ultimas-actualizaciones', {})
-    .then((response: Dao.Pregunta[]) => {
+export const ultimasActualizaciones = () => new Promise<DynamoIteratorFront<Dao.Pregunta>>(
+  (resolve, reject) => API.get('api', '/preguntas/ultimas-actualizaciones', {})
+    .then((response: DynamoIteratorFront<Dao.Pregunta>) => {
       if ((response as any).errorType) {
         reject(response);
       } else {

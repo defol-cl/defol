@@ -1,15 +1,15 @@
 import { DynamoServices } from "@defol-cl/libs";
-import { ConvenioDynamo, RootTypes, RootUtils } from "@defol-cl/root";
-import { ConveniosGetHandler, ConveniosPostHandler } from "./convenios.types";
+import { ConvenioDynamo, RootUtils } from "@defol-cl/root";
+import { ConvenioDetalleGetHandler, ConveniosGetHandler, ConveniosPostHandler } from "./convenios.types";
 
-export const get: ConveniosGetHandler = async({ usrId, groups }, context, callback) => {
-  RootUtils.logger({usrId, groups});
+export const get: ConveniosGetHandler = async({ usrId, permissions }, context, callback) => {
+  RootUtils.logger({usrId, permissions});
   try {
-    const grupos = groups.split(",") as RootTypes.Group[];
+    const permissionList = permissions.split(",");
     let response: ConvenioDynamo[] = [];
-    if(grupos.includes("SUPER_ADMIN") || grupos.includes("EQUIPO_LEGAL")){
+    if(permissionList.includes("convenio::view_all")){
       response = await DynamoServices.getConvenios();
-    } else {
+    } else if(permissionList.includes("convenio::view")){
       const convenioContactos = await DynamoServices.getConvenioContactoByUser(usrId);
       const requests: Promise<ConvenioDynamo>[] = [];
       for (const convenioContacto of convenioContactos) {
@@ -17,6 +17,9 @@ export const get: ConveniosGetHandler = async({ usrId, groups }, context, callba
       }
 
       response = await Promise.all(requests);
+    } else {
+      callback("CONVENIOS_GET_FORBIDDEN");
+      return;
     }
 
     callback(null, response);
@@ -26,9 +29,15 @@ export const get: ConveniosGetHandler = async({ usrId, groups }, context, callba
   }
 }
 
-export const post: ConveniosPostHandler = async({usrId, convenio}, context, callback) => {
-  RootUtils.logger({usrId, convenio});
+export const post: ConveniosPostHandler = async({usrId, convenio, permissions}, context, callback) => {
+  RootUtils.logger({usrId, convenio, permissions});
   try {
+    const permissionList = permissions.split(",");
+    if(!permissionList.includes("convenio::add")){
+      callback("CONVENIOS_POST_FORBIDDEN");
+      return;
+    }
+
     const existConvenio = await DynamoServices.getConvenio(convenio.cod);
     if(existConvenio){
       callback("CONVENIOS_POST_FAILED.CONVENIO_ALREADY_EXISTS");
@@ -40,5 +49,31 @@ export const post: ConveniosPostHandler = async({usrId, convenio}, context, call
   } catch (error) {
     console.log(error);
     callback("CONVENIOS_POST_ERROR");
+  }
+}
+
+export const detail: ConvenioDetalleGetHandler = async({ usrId, permissions, convenioCod }, context, callback) => {
+  RootUtils.logger({usrId, permissions, convenioCod});
+  try {
+    const permissionList = permissions.split(",");
+    const convenio = await DynamoServices.getConvenio(convenioCod);
+    const contactos = await DynamoServices.getConvenioContactoByConvenio(convenioCod);
+    const moderadores = await DynamoServices.getConvenioModeradorByConvenio(convenioCod);
+
+    const hasPermission = permissionList.includes("convenio::view") || permissionList.includes("convenio::view_all");
+
+    if(!hasPermission || (permissionList.includes("convenio::view") && !moderadores.length)) {
+      callback("CONVENIO_DETALLE_GET_FORBIDDEN");
+      return;
+    }
+
+    callback(null, {
+      ...convenio,
+      moderadores,
+      contactos
+    });
+  } catch (error) {
+    console.log(error);
+    callback("CONVENIO_DETALLE_GET_ERROR");
   }
 }

@@ -1,17 +1,20 @@
-import { Dao } from '@defol-cl/root';
+import { Dao, DynamoIteratorFront } from '@defol-cl/root';
 import { API } from 'aws-amplify';
 
-export const get = () => new Promise<Dao.Pregunta[]>(
+export const get = (estados?: string[]) => new Promise<DynamoIteratorFront<Dao.Pregunta>>(
   (resolve, reject) =>
-    API.get('api', '/preguntas', {})
-      .then(response => resolve(response))
+    API.get('api', '/preguntas', estados ? {
+      queryStringParameters: {
+        estado: estados.join(',')
+      }
+    } : {})
+      .then((response: DynamoIteratorFront<Dao.Pregunta>) => resolve(response))
       .catch(error => reject(error))
 );
 
-export const getOne = (email: string, timestamp: string) => new Promise<Dao.Pregunta>(
+export const getOne = (timestamp: string) => new Promise<Dao.Pregunta>(
   (resolve, reject) => API.get('api', '/pregunta', {
     queryStringParameters: {
-      contactoEmail: email,
       timestamp
     }
   })
@@ -21,4 +24,8 @@ export const getOne = (email: string, timestamp: string) => new Promise<Dao.Preg
 
 export const post = async (pregunta: { convenioCod: string, titulo: string, antecedentes: string, pregunta: string }) =>
   await API.post('api', '/preguntas', { body: pregunta })
+;
+
+export const put = async (pregunta: string, timestamp: string) =>
+  await API.put('api', '/preguntas', { body: { pregunta, timestamp } })
 ;

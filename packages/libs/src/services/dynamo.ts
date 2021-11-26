@@ -4,16 +4,16 @@ import {
   ConvenioDynamo,
   RootInterface,
   PreguntaDynamo,
-  RootEnum,
   DynamoIterator,
-  LastEvaluatedKey
+  ConvenioModeradorDynamo,
 } from "@defol-cl/root";
-import { LastPreguntasOptions } from "../types/dynamo.types";
+import { LastPreguntasOptions, MisPreguntasOptions } from "../types/dynamo.types";
 
 const dynamo = new DynamoDB.DocumentClient();
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
 const PREGUNTA_TABLE = process.env.PREGUNTA_TABLE;
 const CONVENIO_CONTACTO_TABLE = process.env.CONVENIO_CONTACTO_TABLE;
+const CONVENIO_MODERADOR_TABLE = process.env.CONVENIO_MODERADOR_TABLE;
 const PREGUNTA_ESTADO_INDEX = process.env.PREGUNTA_ESTADO_INDEX;
 const ESTADO_INDEX = process.env.ESTADO_INDEX;
 const EJECUTIVO_EMAIL_ESTADO_INDEX = process.env.EJECUTIVO_EMAIL_ESTADO_INDEX;
@@ -104,7 +104,7 @@ export const countReplicasPendientesByUser = (contactoEmail: string, qty: number
       KeyConditionExpression: "contactoEmail = :contactoEmail and estado = :estado",
       ExpressionAttributeValues: {
         ":contactoEmail": contactoEmail,
-        ":estado": RootEnum.EstadoPregunta.RESPONDIDA
+        ":estado": "RESPONDIDA"
       },
       ExclusiveStartKey: lastKey,
       Select: "COUNT"
@@ -135,7 +135,7 @@ export const countPreguntasPendientesByUser = (contactoEmail: string, qty: numbe
       FilterExpression: "estado <> :estado",
       ExpressionAttributeValues: {
         ":contactoEmail": contactoEmail,
-        ":estado": RootEnum.EstadoPregunta.FINALIZADA
+        ":estado": "FINALIZADA"
       },
       ExclusiveStartKey: lastKey,
       Select: "COUNT"
@@ -158,7 +158,7 @@ export const countPreguntasPendientesByUser = (contactoEmail: string, qty: numbe
   })
 }
 
-export const countPreguntasByUsuarioAndConvenio = (
+export const countPreguntasByContactoAndConvenio = (
   contactoEmail: string,
   convenioCod: string,
   qty: number = 0,
@@ -182,7 +182,7 @@ export const countPreguntasByUsuarioAndConvenio = (
       }
 
       if(res.LastEvaluatedKey){
-        resolve(countPreguntasByUsuarioAndConvenio(contactoEmail, convenioCod, qty, res.LastEvaluatedKey));
+        resolve(countPreguntasByContactoAndConvenio(contactoEmail, convenioCod, qty, res.LastEvaluatedKey));
         return;
       }
 
@@ -194,7 +194,39 @@ export const countPreguntasByUsuarioAndConvenio = (
   })
 }
 
-export const getConvenioContactoByUserAndConvenio = (
+export const getConvenioContactoByConvenio = (
+  convenioCod: string,
+  items?: ConvenioContactoDynamo[],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<ConvenioContactoDynamo[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: CONVENIO_CONTACTO_TABLE,
+      KeyConditionExpression: "convenioCod = :convenioCod",
+      ExpressionAttributeValues: {
+        ":convenioCod": convenioCod
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as ConvenioContactoDynamo[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getConvenioContactoByConvenio(convenioCod, items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getConvenioContactoByContactoAndConvenio = (
   email: string,
   convenioCod: string
 ): Promise<ConvenioContactoDynamo | undefined> => {
@@ -209,6 +241,61 @@ export const getConvenioContactoByUserAndConvenio = (
     }).promise()
     .then(res => {
       const item = res.Items.length ? res.Items[0] as ConvenioContactoDynamo : undefined;
+      resolve(item);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getConvenioModeradorByConvenio = (
+  convenioCod: string,
+  items?: ConvenioModeradorDynamo[],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<ConvenioModeradorDynamo[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: CONVENIO_MODERADOR_TABLE,
+      KeyConditionExpression: "convenioCod = :convenioCod",
+      ExpressionAttributeValues: {
+        ":convenioCod": convenioCod
+      },
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as ConvenioModeradorDynamo[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getConvenioModeradorByConvenio(convenioCod, items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getConvenioModeradorByModeradorAndConvenio = (
+  email: string,
+  convenioCod: string
+): Promise<ConvenioModeradorDynamo | undefined> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: CONVENIO_MODERADOR_TABLE,
+      KeyConditionExpression: "convenioCod = :convenioCod and email = :email",
+      ExpressionAttributeValues: {
+        ":email": email,
+        ":convenioCod": convenioCod
+      }
+    }).promise()
+    .then(res => {
+      const item = res.Items.length ? res.Items[0] as ConvenioModeradorDynamo : undefined;
       resolve(item);
     }).catch(err => {
       console.log(err);
@@ -273,7 +360,7 @@ export const getLastPreguntasByContactoEmail = (
               ? items.concat(res.Items as PreguntaDynamo[])
               : items;
 
-      if(limit && items.length >= limit){
+      if(limit && (items.length >= limit || !res.LastEvaluatedKey)){
         resolve({ items: items.slice(0,limit) });
         return;
       }
@@ -300,10 +387,10 @@ export const getLimitAndCountPreguntasByUsrId = async(
   maxPreguntas?: number
 ): Promise<RootInterface.ConvenioPreguntaUsuario> => {
   let limitePreguntas = 0;
-  const preguntasRealizadas = await countPreguntasByUsuarioAndConvenio(contactoEmail, convenioCod);
+  const preguntasRealizadas = await countPreguntasByContactoAndConvenio(contactoEmail, convenioCod);
 
   if(!maxPreguntas){
-    const convenioContacto = await getConvenioContactoByUserAndConvenio(contactoEmail, convenioCod);
+    const convenioContacto = await getConvenioContactoByContactoAndConvenio(contactoEmail, convenioCod);
     limitePreguntas = convenioContacto.preguntasMax;
   } else {
     limitePreguntas = maxPreguntas;
@@ -449,16 +536,17 @@ export const getPreguntasByEjecutivoEstados = async(
   let response = [];
   const estadoPreguntas = estado ? estado.split(",") : estado;
   console.log("estados:", estadoPreguntas);
+  const lastKeyToken:any = {};
   if(ejecutivo && estado) {
     for (const estadoPregunta of estadoPreguntas) {
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByEjecutivoAndEstados(ejecutivo, estadoPregunta, estadoLastKey);
       response = response.concat(preguntas.items);
-      lastKey[estadoPregunta] = preguntas.token;
+      lastKeyToken[estadoPregunta] = preguntas.token;
     }
     return {
       items: response,
-      token: lastKey
+      token: lastKeyToken
     };
   } else if(ejecutivo) {
     return getPreguntasByEjecutivo(ejecutivo, lastKey)
@@ -467,34 +555,100 @@ export const getPreguntasByEjecutivoEstados = async(
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByEstado(estadoPregunta, estadoLastKey);
       response = response.concat(preguntas.items);
-      lastKey[estadoPregunta] = preguntas.token;
+      lastKeyToken[estadoPregunta] = preguntas.token;
     }
     return {
       items: response,
-      token: lastKey
+      token: lastKeyToken
     };
   }
 }
 
 export const getPreguntasByContactoEmail = (
   contactoEmail: string,
-  limit?: number,
-  lastKey?: DynamoDB.DocumentClient.Key
+  estados: string[] = [],
+  options?: MisPreguntasOptions,
 ): Promise<DynamoIterator<PreguntaDynamo>> => {
+  let {limit, lastKey, items} = options;
+  let filterExpression = [];
+  let expressionAttributeValues: any = {};
+  if(estados.length){
+    for (let i = 0; i < estados.length; i++) {
+      filterExpression.push(`estado = :estado${i}`);
+      expressionAttributeValues[`:estado${i}`] = estados[i];
+    }
+  }
+
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
       KeyConditionExpression: "contactoEmail = :contactoEmail",
+      FilterExpression: filterExpression.length ? filterExpression.join(" or ") : undefined,
       ExpressionAttributeValues: {
-        ":ejecutivoEmail": contactoEmail
+        ...expressionAttributeValues,
+        ":contactoEmail": contactoEmail
+      },
+      Limit: limit,
+      ScanIndexForward: false,
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as PreguntaDynamo[])
+              : items;
+
+      if(limit && (items.length >= limit || !res.LastEvaluatedKey)){
+        resolve({
+          items,
+          token: res.LastEvaluatedKey 
+        });
+        return;
+      }
+
+      if(limit && res.LastEvaluatedKey){
+        resolve(getPreguntasByContactoEmail(contactoEmail, estados, {items, limit, lastKey: res.LastEvaluatedKey}));
+        return;
+      }
+
+      resolve({
+        items,
+        token: res.LastEvaluatedKey
+      });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getPreguntasByContactoAndConvenio = (
+  contactoEmail: string,
+  convenioCod: string,
+  items?: PreguntaDynamo[],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<PreguntaDynamo[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      KeyConditionExpression: "contactoEmail = :contactoEmail",
+      FilterExpression: "convenioCod = :convenioCod",
+      ExpressionAttributeValues: {
+        ":contactoEmail": contactoEmail,
+        ":convenioCod": convenioCod
       },
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
-      resolve({
-        items: res.Items ? res.Items as PreguntaDynamo[] : [],
-        token: res.LastEvaluatedKey
-      });
+      items = res.Items && res.Items.length 
+              ? items.concat(res.Items as PreguntaDynamo[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getPreguntasByContactoAndConvenio(contactoEmail, convenioCod, items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
     }).catch(err => {
       console.log(err);
       reject(err);
@@ -513,7 +667,7 @@ export const getPreguntasByContactoEmailAndEstado = (
       IndexName: PREGUNTA_ESTADO_INDEX,
       KeyConditionExpression: "contactoEmail = :contactoEmail and estado = :estado",
       ExpressionAttributeValues: {
-        ":ejecutivoEmail": contactoEmail,
+        ":contactoEmail": contactoEmail,
         ":estado": estado
       },
       ExclusiveStartKey: lastKey
@@ -539,18 +693,19 @@ export const getPreguntasByContactoEmailEstados = async(
   if(contactoEmail && estado) {
     const estadoPreguntas = estado ? estado.split(",") : estado;
     console.log("estados:", estadoPreguntas);
+    const lastKeyToken:any = {};
     for (const estadoPregunta of estadoPreguntas) {
       const estadoLastKey = lastKey ? lastKey[estadoPregunta] : undefined;
       const preguntas = await getPreguntasByContactoEmailAndEstado(contactoEmail, estadoPregunta, estadoLastKey);
       response = response.concat(preguntas.items);
-      lastKey[estadoPregunta] = preguntas.token;
+      lastKeyToken[estadoPregunta] = preguntas.token;
     }
     return {
       items: response,
-      token: lastKey
+      token: lastKeyToken
     };
   } else {
-    return getPreguntasByContactoEmail(contactoEmail, lastKey)
+    return getPreguntasByContactoEmail(contactoEmail, [], {lastKey})
   } 
 }
 
@@ -606,17 +761,19 @@ export const putConvenioContacto = (
   })
 }
 
-// export const putItem = <T>(tableName: RootEnum.DynamoTables, item: T): Promise<void> => {
-//   return new Promise((resolve, reject) => {
-//     dynamo.put({
-//       TableName: tableName,
-//       Item: item
-//     }).promise()
-//     .then(res => {
-//       resolve();
-//     }).catch(err => {
-//       console.log(err);
-//       reject(err);
-//     })
-//   })
-// }
+export const putConvenioModerador = (
+  convenioModerador: ConvenioModeradorDynamo
+): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    dynamo.put({
+      TableName: CONVENIO_MODERADOR_TABLE,
+      Item: convenioModerador
+    }).promise()
+    .then(res => {
+      resolve();
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}

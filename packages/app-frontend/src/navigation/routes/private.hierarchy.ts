@@ -24,6 +24,11 @@ const getPrivateHierarchy = (path: string): NavigationInterface => {
         component: lazy(() => import('../../views/private/Private.loading')),
       },
       {
+        ...privateRoutes.perfil,
+        exact: true,
+        component: lazy(() => import('../../views/private/Perfil')),
+      },
+      {
         ...privateRoutes.inicio,
         exact: true,
         component: lazy(() => import('../../views/private/Inicio')),

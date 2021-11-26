@@ -1,7 +1,7 @@
 import moment from "moment";
 import { v4 as uuid4 } from "uuid";
 import { DynamoServices, S3Services } from "@defol-cl/libs";
-import { DynamoIterator, InteraccionPreguntaDynamo, PreguntaDynamo, RootEnum, RootUtils } from "@defol-cl/root";
+import { DynamoIterator, InteraccionPreguntaDynamo, PreguntaDynamo, RootUtils } from "@defol-cl/root";
 import { PreguntaDetailHandler, PreguntasGetHandler, PreguntasLastUpdatesHandler, PreguntasPostHandler, PreguntasPutHandler } from "./preguntas.types";
 
 export const get: PreguntasGetHandler = async({ usrId, estado, token }, context, callback) => {
@@ -9,6 +9,7 @@ export const get: PreguntasGetHandler = async({ usrId, estado, token }, context,
   try {
     const prefix = 'app/preguntas-get';
     const uuid = uuid4();
+    const estados = estado ? estado.split(";") : undefined;
     let parsedToken;
     try {
       parsedToken = token ? await S3Services.getDynamoToken(`${prefix}/${token}.json`) : undefined;
@@ -18,13 +19,7 @@ export const get: PreguntasGetHandler = async({ usrId, estado, token }, context,
       return;
     }
 
-    let response: DynamoIterator<PreguntaDynamo> = {items: []};
-
-    if(!estado) {
-      response = await DynamoServices.getPreguntasByContactoEmail(usrId, parsedToken);
-    } else {
-      response = await DynamoServices.getPreguntasByContactoEmailEstados(usrId, estado, parsedToken);
-    }
+    const response = await DynamoServices.getPreguntasByContactoEmail(usrId, estados, {limit: 20, lastKey: parsedToken});
 
     if(response.items.length && response.token){
       const key = `${prefix}/${uuid}.json`;
@@ -86,7 +81,7 @@ export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioC
       titulo,
       pregunta,
       interaccionesMax: 2,
-      estado: RootEnum.EstadoPregunta.INGRESADA,
+      estado: "INGRESADA",
       fechaActualizacion: now,
       fechaUltimoAcceso: now,
       timestamp: now,
@@ -133,8 +128,7 @@ export const lastUpdates: PreguntasLastUpdatesHandler = async({ usrId, token, li
 
 const checkConditionsPregunta = (pregunta: PreguntaDynamo) : string | undefined => {
   let error;
-  const estadoPregunta = RootEnum.EstadoPregunta;
-  if(pregunta.estado !== estadoPregunta.RESPONDIDA){
+  if(pregunta.estado !== "RESPONDIDA"){
     error = "PREGUNTA_PUT_FAILED.PREGUNTA_CANNOT_UPDATE";
   } else if(pregunta.interaccionesCantidad >= pregunta.interaccionesMax){
     error = "PREGUNTA_PUT_FAILED.PREGUNTA_LIMIT_REACHED";
@@ -168,7 +162,7 @@ export const put: PreguntasPutHandler = async({ usrId, pregunta, timestamp }, co
     await DynamoServices.putPregunta({
       ...preguntaDetalle,
       interacciones: preguntaDetalle.interacciones.concat(nuevaInteraccion),
-      estado: RootEnum.EstadoPregunta.REPLICADA,
+      estado: "REPLICADA",
       fechaActualizacion: now,
       fechaUltimoAcceso: now
     });

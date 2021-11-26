@@ -27,6 +27,7 @@ const TopBar: React.FC = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    history.push(privateRoutes.perfil.route());
   };
   const cerrarSesion = () => {
     Auth.signOut()

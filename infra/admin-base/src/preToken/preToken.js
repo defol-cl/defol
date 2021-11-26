@@ -1,14 +1,15 @@
 
 const getPermission = (groups) => {
   const permissions = []
+  // resource:id:action
   if (groups.includes("SUPER_ADMIN")) {
-    permissions.push("convenio:add", "convenio:list:view");
+    permissions.push("convenio::add", "convenio::view_all", "convenio::edit", "pregunta::edit", "categoria::add", "convenio::contacto_edit_all", "convenio::moderador_edit_all", "pregunta::view_all");
   }
   if (groups.includes("MODERADOR")) {
-    permissions.push("convenio:add", "convenio:list:view");
+    permissions.push("convenio::view", "convenio::contacto_edit");
   }
   if (groups.includes("EQUIPO_LEGAL")) {
-    permissions.push("convenio:add", "convenio:list:view");
+    permissions.push("convenio::view_all", "pregunta::edit", "pregunta::view_all");
   }
   return permissions.length > 0 ? [...new Set(permissions)] : undefined
 }

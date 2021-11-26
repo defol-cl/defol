@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PublicContext, PublicContextProps, PublicContextState } from "./public.context";
+import Box from "@mui/material/Box";
 
 const PublicLayout: React.FC = ({ children }) => {
   const [contextState, setContextState] = useState<PublicContextState>({ });
@@ -12,11 +13,11 @@ const PublicLayout: React.FC = ({ children }) => {
   };
   
   return (
-    <div className="public-layout">
+    <Box className="public-layout" sx={{minHeight: 700}}>
       <PublicContext.Provider value={context}>
         {children}
       </PublicContext.Provider>
-    </div>
+    </Box>
   );
 };
 

@@ -1,30 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { PreguntasSvc } from '../../services';
 import Card from '@mui/material/Card';
 import CardHeader from "@mui/material/CardHeader";
 import PreguntaLista from "./components/PreguntaLista";
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
+import { PreguntaDynamoEstado } from '@defol-cl/root';
+import { useHistory, useParams } from "react-router-dom";
+import { privateRoutes } from "src/navigation";
 
 const tbSx = { px: 3 };
 
 type Filtro = 'todas' | 'pendientes' | 'cerradas';
 
+interface Params {
+  tipo?: Filtro
+}
+
 const MisPreguntas: React.FC = () => {
-  const [filtro, setFiltro] = useState<Filtro>('todas');
+  const history = useHistory();
+  const { tipo } = useParams<Params>();
+  const [filtro, setFiltro] = useState<Filtro>(tipo ? tipo : 'todas');
+  const [estados, setEstados] = useState<PreguntaDynamoEstado[]>();
   
   useEffect(() => {
-    let mounted = true;
-    PreguntasSvc.get()
-      .then(response => mounted && console.log(response))
-    return () => {
-      mounted = false;
-    };
-  }, []);
+    if(tipo === 'todas' || tipo === 'pendientes' || tipo === 'cerradas') {
+      setFiltro(tipo);
+    }
+  }, [tipo])
   
-  const handleChange = (event: React.MouseEvent<HTMLElement>, filtro: any) => {
-    setFiltro(filtro as Filtro);
-  };
+  useEffect(() => {
+    if (filtro === 'todas') {
+      setEstados(undefined);
+    } else if (filtro === 'pendientes') {
+      setEstados(['INGRESADA', 'REPLICADA', 'RESPONDIDA']);
+    } else if (filtro === 'cerradas') {
+      setEstados(['FINALIZADA']);
+    }
+  }, [filtro]);
+  
+  const handleChange = (event: React.MouseEvent<HTMLElement>, tipo: any) => history.push(privateRoutes.misPreguntas.route({ tipo }));
   
   return (
     <Card>
@@ -37,7 +51,7 @@ const MisPreguntas: React.FC = () => {
                       <ToggleButton sx={tbSx} value="cerradas">Cerradas</ToggleButton>
                     </ToggleButtonGroup>
                   }/>
-      <PreguntaLista/>
+      <PreguntaLista estados={estados}/>
     </Card>
   );
 }

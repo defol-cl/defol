@@ -16,7 +16,7 @@ interface Props {
   pregunta: Dao.Pregunta
 }
 
-const ActualizacionItem: React.FC<Props> = ({ pregunta }) => {
+const PreguntaItem: React.FC<Props> = ({ pregunta }) => {
   const history = useHistory();
   
   const noLeida = pregunta.fechaUltimoAcceso === undefined
@@ -24,7 +24,7 @@ const ActualizacionItem: React.FC<Props> = ({ pregunta }) => {
     || pregunta.fechaUltimoAcceso < pregunta.fechaActualizacion;
   
   return (
-    <ListItem button sx={{ py: 3, backgroundColor: noLeida ? lightBlue[50] : 'white' }}
+    <ListItem button sx={{ py: 2, pr: 3, backgroundColor: noLeida ? lightBlue[50] : 'white' }}
               onClick={() => history.push(privateRoutes.miPregunta.route({
                 preTimestamp: pregunta.timestamp
               }))}>
@@ -62,4 +62,4 @@ const ActualizacionItem: React.FC<Props> = ({ pregunta }) => {
   );
 }
 
-export default ActualizacionItem;
+export default PreguntaItem;

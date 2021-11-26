@@ -6,15 +6,15 @@ import CardContent from "@mui/material/CardContent";
 import Button from '@mui/material/Button';
 import Divider from "@mui/material/Divider";
 import { Dao } from "@defol-cl/root";
-import { Link as RouterLink, useHistory } from "react-router-dom";
 import CardActions from '@mui/material/CardActions';
 import { Typography } from "@mui/material";
 import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import { privateRoutes } from "src/navigation";
 import { DashboardSvc } from "src/services";
-import EsqueletoActualizacionItem from './ultimas-actualizaciones/EsqueletoActualizacionItem';
-import ActualizacionItem from "./ultimas-actualizaciones/ActualizacionItem";
-import Grid from "@mui/material/Grid";
+import EsqueletoActualizacionItem from '../components/EsqueletoActualizacionItem';
+import PreguntaItem from "../components/PreguntaItem";
 
 const UltimasActualizaciones: React.FC = () => {
   const history = useHistory();
@@ -23,7 +23,7 @@ const UltimasActualizaciones: React.FC = () => {
   useEffect(() => {
     let mounted = true;
     DashboardSvc.ultimasActualizaciones()
-      .then(actualizaciones => mounted && setActualizaciones(actualizaciones));
+      .then(actualizaciones => mounted && setActualizaciones(actualizaciones.items));
     return () => {
       mounted = false;
     };
@@ -40,8 +40,8 @@ const UltimasActualizaciones: React.FC = () => {
           {actualizaciones === undefined && [1, 2].map(i =>
             <EsqueletoActualizacionItem key={i}/>
           )}
-          {actualizaciones && actualizaciones.length > 0 && actualizaciones.map(pregunta =>
-            <ActualizacionItem pregunta={pregunta}/>
+          {actualizaciones && actualizaciones.length > 0 && actualizaciones.map((pregunta, index) =>
+            <PreguntaItem key={index} pregunta={pregunta}/>
           )}
         </List>
         {actualizaciones && actualizaciones.length === 0 && (

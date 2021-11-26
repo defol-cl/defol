@@ -57,7 +57,7 @@ const IngresoForm: FC = () => {
   return (
     <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
-        <Grid direction="column" justifyContent="center" alignItems="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center">
           <Grid container direction="column" justifyContent="flex-start" alignItems="center">
             <Box>
               <Grid container direction="row" justifyContent="flex-start" alignItems="center"

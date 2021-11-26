@@ -5,7 +5,7 @@ import IngresoText from "./ingreso/IngresoText";
 
 const Ingreso: React.FC = () => {
   return (
-    <Grid container>
+    <Grid container sx={{minHeight: '100%'}}>
       <Grid item xs={12} lg={6} className="public-form">
         <IngresoForm/>
       </Grid>

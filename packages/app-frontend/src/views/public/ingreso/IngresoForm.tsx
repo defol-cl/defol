@@ -50,7 +50,7 @@ const IngresoForm: React.FC = () => {
   const { handleChange, handleBlur, handleSubmit, values: { username, password, showPassword } } = formik;
   
   return (
-    <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
+    <Stack sx={{ minHeight: '100%' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
         <Grid direction="column" justifyContent="center" alignItems="center">
           <Grid container direction="column" justifyContent="flex-start" alignItems="center">
