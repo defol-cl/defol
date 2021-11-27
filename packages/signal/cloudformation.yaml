@@ -51,7 +51,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - ses:SendEmail
-                  - ses:SendRawEmai
+                  - ses:SendRawEmail
                 Resource: "*"
 
   EmailEventFunction:
