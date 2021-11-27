@@ -372,7 +372,7 @@ paths:
               required: [convenioCod, correos, preguntasMax]
       responses:
         201:
-          description: contactos asociados
+          $ref: "#/components/responses/201ContactoPost"
         403:
           description: no tiene permisos para ejecutar la acción
         500:
@@ -484,6 +484,18 @@ paths:
 
 components:
   schemas:
+    ContactoPost:
+      title: ContactoPost
+      type: object
+      properties:
+        succeededEmails:
+          type: array
+          items:
+            type: string
+        failedEmails:
+          type: array
+          items:
+            type: string
     InteraccionPreguntas:
       title: InteraccionPreguntas
       type: object
@@ -563,6 +575,12 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/Convenio"
+    201ContactoPost:
+      description: listado de emails ingresados correcta e incorrectamente
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ContactoPost"
     200PreguntaDetail:
       description: Detalle de una pregunta
       content:

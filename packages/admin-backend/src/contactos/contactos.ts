@@ -1,5 +1,5 @@
-import { DynamoServices } from "@defol-cl/libs";
-import { ConvenioContactoDynamo, PreguntaDynamo, RootUtils } from "@defol-cl/root";
+import { DynamoServices, SignalServices } from "@defol-cl/libs";
+import { ConvenioContactoDynamo, PreguntaDynamo, RootTypes, RootUtils } from "@defol-cl/root";
 import { ContactosMaxPreguntasPutHandler, ContactosPostHandler } from "./contactos.types";
 
 const checkPermissionsModerador = async(usrId: string, permissions: string, convenioCod: string): Promise<boolean> => {
@@ -17,6 +17,17 @@ const checkPermissionsModerador = async(usrId: string, permissions: string, conv
   }
 }
 
+const getEmailEvent = (email: string): RootTypes.SignalEmailEvent<RootTypes.SignalEmailInvitacion> => {
+  return {
+    data: {
+      url: ""
+    },
+    template: "invitacion",
+    to: email,
+    type: "email"
+  }
+}
+
 export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, preguntasMax, permissions }, context, callback) => {
   RootUtils.logger({ usrId, convenioCod, emails, preguntasMax, permissions });
   try {
@@ -28,7 +39,8 @@ export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, pr
     }
 
     const emailList = emails.split(/[,;\s\t\n\r]+/);
-    const emailFailed: string[] = [];
+    const succeededEmails: string[] = [];
+    const failedEmails: string[] = [];
     for (const email of emailList) {
       try {
         await DynamoServices.putConvenioContacto({
@@ -36,17 +48,19 @@ export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, pr
           email,
           preguntasMax
         })
+        await SignalServices.putEvent(getEmailEvent(email));
+        succeededEmails.push(email);
       } catch (error) {
         console.log(error, `Email: ${email}`);
-        emailFailed.push(email);
+        failedEmails.push(email);
       }
     }
-    if(emailFailed.length){
-      console.log("Falló la carga de algunos contactos:", RootUtils.logger(emailFailed))
-      callback("CONTACTOS_POST_ERROR", emailFailed);
-    } else {
-      callback(null, {});
-    }
+    
+    callback(null, {
+      succeededEmails,
+      failedEmails
+    })
+
   } catch (error) {
     console.log(error);
     callback("CONTACTOS_POST_ERROR");

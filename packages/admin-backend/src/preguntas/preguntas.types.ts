@@ -1,5 +1,5 @@
 import { LambdaTypes } from "@defol-cl/libs";
-import { DynamoIteratorFront, PreguntaDynamo } from "@defol-cl/root";
+import { Dao, DynamoIteratorFront, PreguntaDynamo } from "@defol-cl/root";
 
 interface BaseEvent {
   usrId: string
@@ -24,5 +24,5 @@ interface PreguntaPutEvent extends BaseEvent, PreguntaDetailEvent {
 }
 
 export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIteratorFront<PreguntaDynamo>>;
-export type PreguntaDetailHandler = LambdaTypes.CustomHandler<PreguntaDetailEvent, PreguntaDynamo>;
+export type PreguntaDetailHandler = LambdaTypes.CustomHandler<PreguntaDetailEvent, Dao.Pregunta>;
 export type PreguntaPutHandler = LambdaTypes.CustomHandler<PreguntaPutEvent>;
