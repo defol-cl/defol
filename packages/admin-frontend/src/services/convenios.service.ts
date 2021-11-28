@@ -14,7 +14,11 @@ export const get = () => new Promise<Dao.Convenio[]>(
 );
 
 export const getOne = (id: string) => new Promise<Dao.Convenio>(
-  (resolve, reject) => API.get('api', `/convenio/${id}`, {})
+  (resolve, reject) => API.get('api', `/convenio>`, {
+    queryStringParameters: {
+      convenioCod: id
+    }
+  })
     .then((response: Dao.Convenio) => {
       resolve(response)
     })

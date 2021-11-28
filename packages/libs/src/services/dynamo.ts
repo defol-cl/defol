@@ -31,7 +31,7 @@ export const getConvenios = (
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
-      items = res.Items && res.Items.length 
+      items = res.Items && res.Items.length
               ? items.concat(res.Items as ConvenioDynamo[])
               : items;
 
@@ -196,7 +196,7 @@ export const countPreguntasByContactoAndConvenio = (
 
 export const getConvenioContactoByConvenio = (
   convenioCod: string,
-  items?: ConvenioContactoDynamo[],
+  items: ConvenioContactoDynamo[] = [],
   lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<ConvenioContactoDynamo[]> => {
   return new Promise((resolve, reject) => {
@@ -209,7 +209,7 @@ export const getConvenioContactoByConvenio = (
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
-      items = res.Items && res.Items.length 
+      items = res.Items && res.Items.length
               ? items.concat(res.Items as ConvenioContactoDynamo[])
               : items;
 
@@ -251,7 +251,7 @@ export const getConvenioContactoByContactoAndConvenio = (
 
 export const getConvenioModeradorByConvenio = (
   convenioCod: string,
-  items?: ConvenioModeradorDynamo[],
+  items: ConvenioModeradorDynamo[] = [],
   lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<ConvenioModeradorDynamo[]> => {
   return new Promise((resolve, reject) => {
@@ -264,7 +264,7 @@ export const getConvenioModeradorByConvenio = (
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
-      items = res.Items && res.Items.length 
+      items = res.Items && res.Items.length
               ? items.concat(res.Items as ConvenioModeradorDynamo[])
               : items;
 
@@ -320,7 +320,7 @@ export const getConvenioContactoByUser = (
       ExclusiveStartKey: lastKey,
     }).promise()
     .then(res => {
-      items = res.Items && res.Items.length 
+      items = res.Items && res.Items.length
               ? items.concat(res.Items as ConvenioContactoDynamo[])
               : items;
 
@@ -356,7 +356,7 @@ export const getLastPreguntasByContactoEmail = (
       Limit: limit
     }).promise()
     .then(res => {
-      items = res.Items && res.Items.length 
+      items = res.Items && res.Items.length
               ? items.concat(res.Items as PreguntaDynamo[])
               : items;
 
@@ -593,14 +593,14 @@ export const getPreguntasByContactoEmail = (
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
-      items = res.Items && res.Items.length 
+      items = res.Items && res.Items.length
               ? items.concat(res.Items as PreguntaDynamo[])
               : items;
 
       if(limit && (items.length >= limit || !res.LastEvaluatedKey)){
         resolve({
           items,
-          token: res.LastEvaluatedKey 
+          token: res.LastEvaluatedKey
         });
         return;
       }
@@ -639,7 +639,7 @@ export const getPreguntasByContactoAndConvenio = (
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
-      items = res.Items && res.Items.length 
+      items = res.Items && res.Items.length
               ? items.concat(res.Items as PreguntaDynamo[])
               : items;
 
@@ -706,7 +706,7 @@ export const getPreguntasByContactoEmailEstados = async(
     };
   } else {
     return getPreguntasByContactoEmail(contactoEmail, [], {lastKey})
-  } 
+  }
 }
 
 export const putPregunta = (
