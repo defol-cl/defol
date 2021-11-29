@@ -4,12 +4,12 @@ import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import ConvenioContactosTabla from "./ConvenioContactosTabla";
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import { FilledInput, ListSubheader, Select } from "@mui/material";
+import { ListSubheader } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
+import { ConvenioContactoDynamo } from "@defol-cl/root";
 
 interface Props {
-  conId: string
+  contactos?: ConvenioContactoDynamo[]
 }
 
 type Filtro =
@@ -20,7 +20,7 @@ type Filtro =
   | 'preguntas-pendientes'
   | 'preguntas-consumidas';
 
-const ConvenioContactos: React.FC<Props> = ({ conId }) => {
+const ConvenioContactos: React.FC<Props> = ({ contactos }) => {
   const [filtro, setFiltro] = useState<Filtro>('todos');
   
   return (
@@ -59,7 +59,7 @@ const ConvenioContactos: React.FC<Props> = ({ conId }) => {
           </TextField>
         </Grid>
       </Box>
-      <ConvenioContactosTabla conId={conId}/>
+      <ConvenioContactosTabla contactos={contactos}/>
     </>
   );
 }

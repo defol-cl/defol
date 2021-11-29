@@ -28,7 +28,7 @@ type TabType = 'contactos' | 'moderadores';
 
 const Convenio: FC = () => {
   const { conId } = useParams<Params>();
-  const [convenio, setConvenio] = useState<Dao.Convenio>();
+  const [convenio, setConvenio] = useState<Dao.ConvenioContactoModerador>();
   const [error, setError] = useBoolean(false);
   const [tab, setTab] = useState<TabType>('contactos');
   
@@ -69,35 +69,43 @@ const Convenio: FC = () => {
       )}
       {!error && (
         <Card>
-          <CardHeader title={convenio ? convenio.nombre : <Skeleton width={300}/>}
+          <CardHeader title={convenio ? convenio.nombre : <Skeleton width={380}/>}
                       subheader={
                         <>
-                          <Typography variant="subtitle1" sx={{color: 'primary.dark'}}>Cód: PENA2021</Typography>
-                          <Typography variant="caption" color="textSecondary">Vigente hasta el 13/10/2024</Typography>
+                          <Typography variant="subtitle1" sx={{ color: 'primary.dark' }}>
+                            {convenio ? `Cód: ${convenio.cod}` : <Skeleton width={180}/>}
+                          </Typography>
+                          <Typography variant="caption" color="textSecondary">
+                            {convenio ? `Vigente hasta el ${convenio.fechaVencimiento}` : <Skeleton width={150}/>}
+                          </Typography>
                         </>
                       }
                       action={<ConvenioAcciones conId={conId}/>}/>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={handleChangeTab} aria-label="basic tabs example">
               <Tab value="contactos" sx={{ px: 5 }}
-                   label={
+                   label={convenio && convenio.contactos ?
                      <>
-                       <Badge badgeContent={329} max={999} color="warning"><MailIcon/></Badge> Contactos
-                     </>
+                       <Badge badgeContent={convenio.contactos.length} max={999}
+                              color="warning"><MailIcon/></Badge> Contactos
+                     </> :
+                     <><MailIcon/> Contactos</>
                    }/>
               <Tab value="moderadores" sx={{ px: 5 }}
-                   label={
+                   label={convenio && convenio.contactos ?
                      <>
-                       <Badge badgeContent={3} color="warning"><PeopleIcon/></Badge> Moderadores
-                     </>
+                       <Badge badgeContent={convenio.contactos.length} max={999}
+                              color="warning"><PeopleIcon/></Badge> Moderadores
+                     </> :
+                     <><PeopleIcon/> Moderadores</>
                    }/>
             </Tabs>
           </Box>
           {tab === "contactos" && (
-            <ConvenioContactos conId={conId}/>
+            <ConvenioContactos contactos={convenio?.contactos}/>
           )}
           {tab === "moderadores" && (
-            <ConvenioModeradores conId={conId}/>
+            <ConvenioModeradores moderadores={convenio?.moderadores}/>
           )}
         </Card>
       )}

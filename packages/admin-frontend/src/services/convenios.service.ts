@@ -13,13 +13,13 @@ export const get = () => new Promise<Dao.Convenio[]>(
     .catch(err => reject(err))
 );
 
-export const getOne = (id: string) => new Promise<Dao.Convenio>(
-  (resolve, reject) => API.get('api', `/convenio>`, {
+export const getOne = (id: string) => new Promise<Dao.ConvenioContactoModerador>(
+  (resolve, reject) => API.get('api', `/convenio`, {
     queryStringParameters: {
       convenioCod: id
     }
   })
-    .then((response: Dao.Convenio) => {
+    .then((response: Dao.ConvenioContactoModerador) => {
       resolve(response)
     })
     .catch(err => reject(err))

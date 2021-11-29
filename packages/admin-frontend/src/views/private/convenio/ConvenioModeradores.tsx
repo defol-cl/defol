@@ -1,16 +1,15 @@
 import React from 'react';
 import ConvenioModeradoresTabla from "./ConvenioModeradoresTabla";
+import { ConvenioModeradorDynamo } from "@defol-cl/root";
 
 interface Props {
-  conId: string
+  moderadores?: ConvenioModeradorDynamo[]
 }
 
-const ConvenioModeradores: React.FC<Props> = ({ conId }) => {
+const ConvenioModeradores: React.FC<Props> = ({ moderadores }) => {
   
   return (
-    <>
-      <ConvenioModeradoresTabla conId={conId}/>
-    </>
+    <ConvenioModeradoresTabla moderadores={moderadores}/>
   );
 }
 
