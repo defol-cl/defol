@@ -58,11 +58,15 @@ export const detail: PreguntaDetailHandler = async({ usrId, timestamp }, context
 export const post: PreguntasPostHandler = async({ usrId, antecedentes, convenioCod, pregunta, titulo, contacto }, context, callback) => {
   RootUtils.logger({ usrId, antecedentes, convenioCod, pregunta, titulo, contacto });
   try {
-    const convenioPreguntaUsuario = await DynamoServices.getLimitAndCountPreguntasByUsrId(usrId, convenioCod)
+    const convenioPreguntaUsuario = await DynamoServices.getLimitAndCountPreguntasByUsrId(usrId, convenioCod);
+    const convenio = await DynamoServices.getConvenio(convenioCod);
     const now = moment().toISOString();
 
     if(convenioPreguntaUsuario.limitePreguntas <= convenioPreguntaUsuario.preguntasRealizadas){
       callback("PREGUNTAS_POST_FAILED.MAX_PREGUNTAS_REACHED");
+      return;
+    } else if(convenio.fechaVencimiento < now.split("T")[0]){
+      callback("PREGUNTAS_POST_FAILED.CONVENIO_HAS_EXPIRED");
       return;
     }
 
