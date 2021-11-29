@@ -126,7 +126,7 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
 
     const emailEvent: RootTypes.SignalEmailEvent<RootTypes.SignalEmailRespuesta> = {
       data: {
-        url: ""
+        url: process.env.APP_FRONTEND_URL
       },
       template: "nueva-respuesta",
       to: pregunta.contactoEmail,
