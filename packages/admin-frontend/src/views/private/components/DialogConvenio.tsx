@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import DatePicker from '@mui/lab/DatePicker';
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import { useFormik } from "formik";
 import { FormikDialogConvenio, validationDialogConvenio } from "./dialog-convenio.formik";
 import moment from "moment";
@@ -15,6 +15,7 @@ import { ConveniosSvc } from "../../../services";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import Typography from "@mui/material/Typography";
 
 interface Props {
   conCod?: string
@@ -64,11 +65,11 @@ const DialogConvenio: React.FC<Props> = ({ conCod, open, onClose }) => {
   });
   
   const {
-    handleChange, handleBlur, handleSubmit, isValid, setFieldValue, errors, values: { codigo, nombre, fechaVencimiento }
+    handleChange, handleBlur, handleSubmit, isValid, setFieldValue, values: { codigo, nombre, fechaVencimiento }
   } = formik;
   
   return (
-    <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="lg" fullScreen={fullScreen}
+    <Dialog open={open} onClose={() => !loading && onClose()} maxWidth="xl" fullScreen={fullScreen}
             disableEscapeKeyDown={loading}>
       <DialogTitle>
         {conCod ? `Editar convenio - cód. '${conCod}'` : 'Crear Convenio'}
@@ -91,22 +92,22 @@ const DialogConvenio: React.FC<Props> = ({ conCod, open, onClose }) => {
           value={nombre}
           onChange={handleChange}
           onBlur={handleBlur}/>
-        <DatePicker
-          openTo="year"
-          views={['year', 'month', 'day']}
+        <Typography variant="body1" gutterBottom component="div">
+          Seleccione la fecha de Vencimiento
+        </Typography>
+        <StaticDatePicker
+          displayStaticWrapperAs="desktop"
+          openTo="day"
           label="Fecha vencimiento"
+          minDate={moment()}
+          maxDate={moment().add(20, 'year')}
           value={fechaVencimiento ? moment(fechaVencimiento) : null}
           onChange={newValue => {
             if (newValue)
               console.log(newValue, newValue.format('YYYY-MM-DD'));
             newValue && setFieldValue('fechaVencimiento', newValue.format('YYYY-MM-DD'));
           }}
-          renderInput={
-            params =>
-              <TextField {...params} id="fechaVencimiento" variant="outlined" fullWidth placeholder="dd/mm/aaaa"
-                         onBlur={handleBlur}
-                         helperText={fechaVencimiento ? moment(fechaVencimiento).fromNow() : undefined}/>
-          }
+          renderInput={params => <TextField {...params}/>}
         />
         {error && (
           <Alert variant="outlined" severity="error" sx={{ mb: 2 }}>

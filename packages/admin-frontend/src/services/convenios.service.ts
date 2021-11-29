@@ -43,4 +43,9 @@ export const putContactos = (id: string, contactos: string, preguntasMax: number
     .catch(err => reject(err))
 );
 
+export const putModeradores = (id: string, moderadores: string) => new Promise<void>(
+  (resolve, reject) => API.post('api', '/moderadores', { body: { convenioCod: id, correos: moderadores, activo: true } })
+    .then(() => resolve())
+    .catch(err => reject(err))
+);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,22 +8,45 @@ import TextField from "@mui/material/TextField";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useFormik } from "formik";
-import {
-  FormikDialogConvenioAgregarContactos,
-  validationDialogConvenioAgregarContactos
-} from "./agregar-contactos.formik";
 import { FormikAgregarModeradores, validationAgregarModeradores } from "./agregar-moderadores.formik";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
+import { ConveniosSvc } from "../../../services";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 interface Props {
   conId: string
   open: boolean
-  onClose: () => void
+  onClose: (update: boolean) => void
 }
 
 const DialogAgregarModeradores: React.FC<Props> = ({ conId, open, onClose }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  
+  useEffect(() => {
+    if (error) {
+      setLoading(false);
+    }
+  }, [error]);
+  
+  useEffect(() => {
+    if (loading) {
+      setError(false);
+    }
+  }, [loading]);
+  
+  const putModeradores = () => {
+    setLoading(true);
+    ConveniosSvc.putModeradores(conId, moderadores)
+      .then(() => onClose(true))
+      .catch(err => {
+        console.error(err);
+        setError(true);
+      })
+      .finally(() => setLoading(false));
+  }
   
   const formik = useFormik<FormikAgregarModeradores>({
     initialValues: {
@@ -31,9 +54,7 @@ const DialogAgregarModeradores: React.FC<Props> = ({ conId, open, onClose }) => 
     },
     validationSchema: validationAgregarModeradores,
     validateOnMount: true,
-    onSubmit: ({ moderadores }) => {
-      console.log(moderadores);
-    }
+    onSubmit: () => putModeradores()
   });
   
   const {
@@ -41,8 +62,8 @@ const DialogAgregarModeradores: React.FC<Props> = ({ conId, open, onClose }) => 
   } = formik;
   
   return (
-    <form onSubmit={handleSubmit}>
-      <Dialog open={open} onClose={onClose} maxWidth="lg" fullScreen={fullScreen}>
+    <Dialog open={open} onClose={onClose} maxWidth="lg" fullScreen={fullScreen}>
+      <form onSubmit={handleSubmit}>
         <DialogTitle>
           <AddModeratorIcon fontSize="large"/> Asociar moderadores al convenio - cód. '{conId}'
         </DialogTitle>
@@ -61,15 +82,17 @@ const DialogAgregarModeradores: React.FC<Props> = ({ conId, open, onClose }) => 
             onBlur={handleBlur}/>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>
+          <Button onClick={() => onClose(false)}>
             Cancelar
           </Button>
-          <Button variant="contained" onClick={onClose} disabled={!isValid}>
+          <LoadingButton type="submit" variant="contained" disabled={!isValid}
+                         loading={loading}
+                         loadingIndicator="Guardando...">
             Guardar
-          </Button>
+          </LoadingButton>
         </DialogActions>
-      </Dialog>
-    </form>
+      </form>
+    </Dialog>
   );
 }
 

@@ -51,8 +51,6 @@ const Convenio: FC = () => {
     setTab(tab as TabType);
   };
   
-  console.log(convenio);
-  
   return (
     <>
       {error && (
@@ -92,9 +90,9 @@ const Convenio: FC = () => {
                      <><MailIcon/> Contactos</>
                    }/>
               <Tab value="moderadores" sx={{ px: 5 }}
-                   label={convenio && convenio.contactos ?
+                   label={convenio && convenio.moderadores ?
                      <>
-                       <Badge badgeContent={convenio.contactos.length} max={999}
+                       <Badge badgeContent={convenio.moderadores.length} max={999}
                               color="warning"><PeopleIcon/></Badge> Moderadores
                      </> :
                      <><PeopleIcon/> Moderadores</>

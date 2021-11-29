@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 export interface FormikAgregarModeradores {
-  moderadores?: string
+  moderadores: string
 }
 
 export const validationAgregarModeradores = yup.object({

@@ -119,5 +119,10 @@ export class AppStack extends cdk.Stack {
       description: 'Frontend\'s bucket name',
       stringValue: bucket.bucketName
     });
+    new SSM.StringParameter(this, `${id}-frontend-url`, {
+      parameterName: `/defol/${branch}/app/frontend/url`,
+      description: 'Frontend\'s URL',
+      stringValue: `https://${siteDomain}`
+    });
   }
 }

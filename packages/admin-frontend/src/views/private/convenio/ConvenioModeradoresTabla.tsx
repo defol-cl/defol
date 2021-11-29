@@ -44,7 +44,7 @@ const ConvenioModeradoresTabla: React.FC<Props> = ({ moderadores }) => {
               </TableRow>
             );
           })}
-          {[...Array(3)].map((_, key) => {
+          {moderadores === undefined && [...Array(3)].map((_, key) => {
             return (
               <TableRow hover role="checkbox" tabIndex={-1} key={key} onClick={() => console.log(key)}>
                 <TableCell>
