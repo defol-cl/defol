@@ -484,6 +484,26 @@ paths:
 
 components:
   schemas:
+    Contacto:
+      title: Contacto
+      type: object
+      properties:
+        preguntasMax:
+          type: number
+        email:
+          type: string
+        convenioCod:
+          type: string
+    Moderador:
+      title: Moderador
+      type: object
+      properties:
+        activo:
+          type: boolean
+        email:
+          type: string
+        convenioCod:
+          type: string
     ContactoPost:
       title: ContactoPost
       type: object
@@ -566,6 +586,29 @@ components:
         cod: "CMX1"
         nombre: "Convenio Marco"
         fechaVencimiento: "2022-01-01"
+    ConvenioDetalle:
+      title: ConvenioDetalle
+      description: información del convenio y sus moderadores/contactos
+      type: object
+      properties:
+        cod:
+          type: string
+        nombre:
+          type: string
+        fechaVencimiento:
+          type: string
+        moderadores:
+          type: array
+          items:
+            $ref: "#/components/schemas/Moderador"
+        contactos:
+          type: array
+          items:
+            $ref: "#/components/schemas/Contacto"
+      example:
+        cod: "CMX1"
+        nombre: "Convenio Marco"
+        fechaVencimiento: "2022-01-01"
   responses:
     200ConvenioList:
       description: Listado de convenios
@@ -575,6 +618,12 @@ components:
             type: array
             items:
               $ref: "#/components/schemas/Convenio"
+    200ConvenioDetalle:
+      description: Listado de convenios
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ConvenioDetalle"
     201ContactoPost:
       description: listado de emails ingresados correcta e incorrectamente
       content:

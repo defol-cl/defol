@@ -55,7 +55,7 @@ export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, pr
         failedEmails.push(email);
       }
     }
-    
+
     callback(null, {
       succeededEmails,
       failedEmails
