@@ -99,7 +99,7 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
   let hasContraPregunta = false;
   if (pregunta && pregunta.interacciones.length > 0 && pregunta.interacciones[pregunta.interacciones.length - 1].replica === undefined) {
     hasRespuesta = true;
-    if (pregunta.interaccionesCantidad === pregunta.interaccionesMax) {
+    if (pregunta.interaccionesCantidad + 1 === pregunta.interaccionesMax) {
       hasContraPregunta = true;
     }
   }

@@ -68,9 +68,7 @@ const MiPregunta: React.FC = () => {
     },
     validationSchema: validationNuevaPregunta,
     validateOnMount: true,
-    onSubmit: ({ replica }) => {
-      putPregunta();
-    }
+    onSubmit: () => {}
   });
   
   const {
@@ -174,7 +172,8 @@ const MiPregunta: React.FC = () => {
               </Grid>
               {replicar && (
                 <Grid item xs={6}>
-                  <LoadingButton type="submit" size="large" variant="contained" fullWidth
+                  <LoadingButton size="large" variant="contained" fullWidth
+                                 onClick={() => putPregunta()}
                                  loading={saving}
                                  loadingIndicator="Enviando réplica...">
                     Enviar réplica
