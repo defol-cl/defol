@@ -23,13 +23,13 @@ export const getOne = (email: string, timestamp: string) => new Promise<Dao.Preg
     .catch(error => reject(error))
 );
 
-export const put = (email: string, timestamp: string, replica: string, agregarReplica: boolean) => new Promise<Dao.Pregunta>(
+export const put = (email: string, timestamp: string, replica: string, categoria: string, agregarReplica: boolean) => new Promise<Dao.Pregunta>(
   (resolve, reject) => API.put('api', '/pregunta', {
     queryStringParameters: {
       contactoEmail: email,
       timestamp
     },
-    body: { replica, agregarReplica }
+    body: { replica, categoria, agregarReplica: (agregarReplica ? true : undefined) }
   })
     .then((response: Dao.Pregunta) => resolve(response))
     .catch(error => reject(error))

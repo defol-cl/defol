@@ -9,18 +9,22 @@ import { grey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import Skeleton from '@mui/material/Skeleton';
 import { Dao } from '@defol-cl/root';
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
-import { PreguntasSvc } from "src/services";
+import { CategoriasSvc, PreguntasSvc } from "src/services";
 import { privateRoutes } from 'src/navigation';
 import { FormikPreguntaDetalle, validationPreguntaDetalle } from "./pregunta-detalle.formik";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import { Select } from "@mui/material";
 
 interface Props {
   email: string
@@ -30,6 +34,7 @@ interface Props {
 const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
   const history = useHistory();
   const [pregunta, setPregunta] = useState<Dao.Pregunta>();
+  const [categorias, setCategorias] = useState<Dao.Categoria[]>([]);
   const [contraPregunta, setContraPregunta] = useState<boolean>(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(false);
@@ -38,6 +43,8 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
     let mounted = true;
     PreguntasSvc.getOne(email, timestamp)
       .then(pregunta => mounted && setPregunta(pregunta));
+    CategoriasSvc.get()
+      .then(categorias => mounted && setCategorias(categorias));
     return () => {
       mounted = false;
     };
@@ -57,7 +64,7 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
   
   const enviarRespuesta = () => {
     setSaving(true);
-    PreguntasSvc.put(email, timestamp, respuesta, contraPregunta)
+    PreguntasSvc.put(email, timestamp, respuesta, categoria, contraPregunta)
       .then(() => {
         history.push(privateRoutes.preguntasListado.route());
       })
@@ -70,6 +77,7 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
   const formik = useFormik<FormikPreguntaDetalle>({
     initialValues: {
       respuesta: '',
+      categoria: '',
     },
     validationSchema: validationPreguntaDetalle,
     validateOnMount: true,
@@ -82,8 +90,9 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
     handleChange,
     handleBlur,
     handleSubmit,
+    setFieldValue,
     isValid,
-    values: { respuesta }
+    values: { respuesta, categoria }
   } = formik;
   
   let hasRespuesta = false;
@@ -141,19 +150,35 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
             </div>
           ))}
           {hasRespuesta && (
-            <TextField
-              id="respuesta"
-              label="Respuesta"
-              multiline
-              minRows={5}
-              fullWidth
-              value={respuesta}
-              onChange={handleChange}
-              onBlur={handleBlur}/>
+            <>
+              <TextField
+                id="respuesta"
+                label="Respuesta"
+                multiline
+                minRows={5}
+                fullWidth
+                value={respuesta}
+                onChange={handleChange}
+                onBlur={handleBlur}/>
+              <FormControl fullWidth>
+                <InputLabel id="categoria-label">Categoria</InputLabel>
+                <Select labelId="categoria-label" id="categoria" label="Categoria"
+                        value={categoria === null ? undefined : categoria}
+                        onChange={event => setFieldValue('categoria', event.target.value)}>
+                  <MenuItem disabled value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {categorias.map(categoria => (
+                    <MenuItem key={categoria.cod} value={categoria.nombre}>{categoria.nombre}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </>
           )}
           {hasContraPregunta && (
             <FormControlLabel
-              label={<>Si seleccionas esta opción habilitarás la posibilidad de que el usuario pueda generar <b>una nueva
+              label={<>Si seleccionas esta opción habilitarás la posibilidad de que el usuario pueda generar <b>una
+                nueva
                 contra pregunta</b>.</>}
               control={
                 <Checkbox color="secondary" value={contraPregunta}
