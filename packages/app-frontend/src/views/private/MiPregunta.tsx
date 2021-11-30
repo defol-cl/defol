@@ -144,8 +144,9 @@ const MiPregunta: React.FC = () => {
                 </Typography>
                 <TextField
                   id="replica"
-                  label="Pregunta"
-                  helperText="Indícanos cuál es tu consulta, siendo lo más claro posible."
+                  helperText="Indícanos cuál es tu réplica, siendo lo más claro posible."
+                  multiline
+                  minRows={5}
                   fullWidth
                   value={replica}
                   sx={{ mt: 2 }}
