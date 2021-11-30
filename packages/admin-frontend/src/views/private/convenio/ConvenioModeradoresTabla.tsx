@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Skeleton from '@mui/lab/Skeleton';
+import Skeleton from '@mui/material/Skeleton';
 import { ConvenioModeradorDynamo } from "@defol-cl/root";
 
 interface Props {

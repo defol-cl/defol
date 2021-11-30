@@ -32,6 +32,13 @@ const DialogAgregarContactos: React.FC<Props> = ({ conId, open, onClose }) => {
   const [error, setError] = useState(false);
   
   useEffect(() => {
+    setValues({
+      contactos: '',
+      preguntasMax: 2
+    }, false);
+  }, [open]);
+  
+  useEffect(() => {
     if(error) {
       setLoading(false);
     }
@@ -65,7 +72,7 @@ const DialogAgregarContactos: React.FC<Props> = ({ conId, open, onClose }) => {
   });
   
   const {
-    handleChange, handleBlur, handleSubmit, isValid, values: { contactos, preguntasMax }
+    handleChange, handleBlur, handleSubmit, isValid, setValues, values: { contactos, preguntasMax }
   } = formik;
   
   return (

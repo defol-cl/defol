@@ -39,6 +39,22 @@ const Convenios: React.FC = () => {
     };
   }, [errorConvenio]);
   
+  useEffect(() => {
+    let mounted = true;
+    setConvenios(undefined);
+    if (!openCrearConvenio) {
+      ConveniosSvc.get()
+        .then(convenios => mounted && setConvenios(convenios))
+        .catch(err => {
+          console.error(err);
+          mounted && setErrorConvenio(true);
+        })
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [openCrearConvenio]);
+  
   return (
     <>
       <DialogConvenio open={openCrearConvenio} onClose={() => setOpenCrearConvenio(false)}/>

@@ -11,7 +11,7 @@ import { Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import AlertTitle from "@mui/material/AlertTitle";
-import Skeleton from '@mui/lab/Skeleton/Skeleton';
+import Skeleton from '@mui/material/Skeleton';
 import { Dao } from "@defol-cl/root";
 import { useParams } from "react-router-dom";
 import { useBoolean } from "react-use";
@@ -45,7 +45,7 @@ const Convenio: FC = () => {
     return () => {
       mounted = false;
     };
-  }, [conId, error]);
+  }, [conId, error, convenio]);
   
   const handleChangeTab = (event: React.SyntheticEvent, tab: any) => {
     setTab(tab as TabType);
@@ -78,7 +78,7 @@ const Convenio: FC = () => {
                           </Typography>
                         </>
                       }
-                      action={<ConvenioAcciones conId={conId}/>}/>
+                      action={<ConvenioAcciones conId={conId} reload={() => setConvenio(undefined)}/>}/>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab} onChange={handleChangeTab} aria-label="basic tabs example">
               <Tab value="contactos" sx={{ px: 5 }}

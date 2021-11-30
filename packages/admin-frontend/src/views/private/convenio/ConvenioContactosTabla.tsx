@@ -11,7 +11,7 @@ import CircularProgressLabel from "../components/CircularProgressLabel";
 import { ConvenioContactoDynamo } from "@defol-cl/root";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Skeleton from '@mui/lab/Skeleton';
+import Skeleton from '@mui/material/Skeleton';
 
 interface Props {
   contactos?: ConvenioContactoDynamo[]

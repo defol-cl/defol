@@ -26,6 +26,12 @@ const DialogAgregarModeradores: React.FC<Props> = ({ conId, open, onClose }) => 
   const [error, setError] = useState(false);
   
   useEffect(() => {
+    setValues({
+      moderadores: ''
+    }, false);
+  }, [open]);
+  
+  useEffect(() => {
     if (error) {
       setLoading(false);
     }
@@ -58,7 +64,7 @@ const DialogAgregarModeradores: React.FC<Props> = ({ conId, open, onClose }) => 
   });
   
   const {
-    handleChange, handleBlur, handleSubmit, isValid, values: { moderadores }
+    handleChange, handleBlur, handleSubmit, isValid, setValues, values: { moderadores }
   } = formik;
   
   return (

@@ -15,9 +15,10 @@ import DialogAgregarModeradores from "./DialogAgregarModeradores";
 
 interface Props {
   conId: string
+  reload: () => void
 }
 
-const ConvenioAcciones: React.FC<Props> = ({ conId }) => {
+const ConvenioAcciones: React.FC<Props> = ({ conId, reload }) => {
   const [openEditarConvenio, setOpenEditarConvenio] = React.useState(false);
   const [openAgregarContactos, setOpenAgregarContactos] = React.useState(false);
   const [openAgregarModerador, setOpenAgregarModerador] = React.useState(false);
@@ -44,14 +45,14 @@ const ConvenioAcciones: React.FC<Props> = ({ conId }) => {
       <DialogAgregarContactos conId={conId} open={openAgregarContactos}
                               onClose={(update) => {
                                 if (update) {
-                                  //TODO reload
+                                  reload();
                                 }
                                 setOpenAgregarContactos(false);
                               }}/>
       <DialogAgregarModeradores conId={conId} open={openAgregarModerador}
                               onClose={(update) => {
                                 if (update) {
-                                  //TODO reload
+                                  reload();
                                 }
                                 setOpenAgregarContactos(false);
                               }}/>
