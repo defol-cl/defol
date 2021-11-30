@@ -78,10 +78,11 @@ export const countPreguntasByUser = (contactoEmail: string, qty: number = 0, las
         ":contactoEmail": contactoEmail,
       },
       ExclusiveStartKey: lastKey,
+      ConsistentRead: true,
       Select: "COUNT"
     }).promise()
     .then(res => {
-      RootUtils.logger(res, "Res");
+      RootUtils.logger(res, "countPreguntasByUser");
       if (res.Count) {
         qty += res.Count;
       }
@@ -111,10 +112,11 @@ export const countReplicasPendientesByUser = (contactoEmail: string, qty: number
         ":estado": "RESPONDIDA"
       },
       ExclusiveStartKey: lastKey,
+      ConsistentRead: true,
       Select: "COUNT"
     }).promise()
     .then(res => {
-      RootUtils.logger(res, "Res");
+      RootUtils.logger(res, "countReplicasPendientesByUser");
       if (res.Count) {
         qty += res.Count;
       }
@@ -144,10 +146,11 @@ export const countPreguntasPendientesByUser = (contactoEmail: string, qty: numbe
         ":estado": "FINALIZADA"
       },
       ExclusiveStartKey: lastKey,
+      ConsistentRead: true,
       Select: "COUNT"
     }).promise()
     .then(res => {
-      RootUtils.logger(res, "Res");
+      RootUtils.logger(res, "countPreguntasPendientesByUser");
       if (res.Count) {
         qty += res.Count;
       }
