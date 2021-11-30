@@ -4,7 +4,7 @@ export default function Suscripcion() {
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
         <div className="py-10 px-6 bg-indigo-700 rounded-3xl sm:py-16 sm:px-12 lg:p-20 lg:flex lg:items-center">
           <div className="lg:w-0 lg:flex-1">
-            <h2 className="text-3xl font-extrabold tracking-tight text-white">Recibe tips y consejos a tu mail <span><img className="w-8 -mt-1 ml-2 inline" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/285/closed-mailbox-with-raised-flag_1f4eb.png" alt="" /></span></h2>
+            <h2 className="text-3xl font-bold tracking-tight text-white">Recibe tips y consejos a tu mail <span><img className="w-8 -mt-1 ml-2 inline" src="./assets/emoji-buzon.png" alt="emoji" /></span></h2>
             <p className="mt-4 max-w-3xl text-lg text-indigo-100">
 Déjanos tu correo acá y te enviaremos consejos útiles y tips legales, nunca enviamos spam ¡lo prometo!
             </p>
