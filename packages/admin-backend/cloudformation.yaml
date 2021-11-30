@@ -62,6 +62,9 @@ Parameters:
   SignalEventBus:
     Type: AWS::SSM::Parameter::Value<AWS::String>
     Description: Nombre del Bus de Servicios de Signal
+  AppFrontEndUrl:
+    Type: AWS::SSM::Parameter::Value<AWS::String>
+    Description: Url app frontend
 
 Globals:
   Function:
@@ -87,6 +90,7 @@ Globals:
         USER_CONVENIO_INDEX: !Ref UserConvenioIndex
         DYNAMO_TOKENS_BUCKET: !Ref DynamoTokensBucket
         SIGNAL_BUS_NAME: !Ref SignalEventBus
+        APP_FRONTEND_URL: !Ref AppFrontEndUrl
 
 Resources:
   LambdaRole:

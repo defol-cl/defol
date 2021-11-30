@@ -104,7 +104,6 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
     }
 
     const preguntaHasError = checkPreguntaConditions(pregunta);
-    let isLast = true;
 
     if(preguntaHasError){
       callback(preguntaHasError);
@@ -113,22 +112,21 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
 
     pregunta.interaccionesCantidad++;
 
-    if(agregarReplica && pregunta.interaccionesCantidad === pregunta.interaccionesMax){
-      pregunta.interaccionesMax++;
-      isLast = false;
+    if(pregunta.interaccionesCantidad === pregunta.interaccionesMax){
+      pregunta.interaccionesMax = agregarReplica ? pregunta.interaccionesMax + 1 : pregunta.interaccionesMax;
     }
 
     pregunta.interacciones[pregunta.interacciones.length - 1].ejecutivoEmail = usrId;
     pregunta.interacciones[pregunta.interacciones.length - 1].ejecutivoNombre = contacto;
     pregunta.interacciones[pregunta.interacciones.length - 1].replica = replica;
     pregunta.interacciones[pregunta.interacciones.length - 1].replicaAt = moment().toISOString();
-    pregunta.estado = isLast ? "FINALIZADA" : "RESPONDIDA";
+    pregunta.estado = pregunta.interaccionesCantidad === pregunta.interaccionesMax ? "FINALIZADA" : "RESPONDIDA";
 
     await DynamoServices.putPregunta(pregunta);
 
     const emailEvent: RootTypes.SignalEmailEvent<RootTypes.SignalEmailRespuesta> = {
       data: {
-        url: ""
+        url: process.env.APP_FRONTEND_URL
       },
       template: "nueva-respuesta",
       to: pregunta.contactoEmail,

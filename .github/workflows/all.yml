@@ -369,7 +369,8 @@ jobs:
           ContactoEmailIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-contactoEmailIndex \
           UserConvenioIndex=/defol/${{ steps.branch.outputs.name }}/base/resources-table-index-userConvenioCodIndex \
           UserPoolArn=/defol/${{ steps.branch.outputs.name }}/admin/user-pool-arn \
-          SignalEventBus=/defol/${{ steps.branch.outputs.name }}/signal/event-bus
+          SignalEventBus=/defol/${{ steps.branch.outputs.name }}/signal/event-bus \
+          AppFrontEndUrl=/defol/${{ steps.branch.outputs.name }}/app/frontend/url
 
   admin-frontend:
     runs-on: ubuntu-latest

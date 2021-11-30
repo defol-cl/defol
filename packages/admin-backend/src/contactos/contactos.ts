@@ -20,7 +20,7 @@ const checkPermissionsModerador = async(usrId: string, permissions: string, conv
 const getEmailEvent = (email: string): RootTypes.SignalEmailEvent<RootTypes.SignalEmailInvitacion> => {
   return {
     data: {
-      url: ""
+      url: process.env.APP_FRONTEND_URL
     },
     template: "invitacion",
     to: email,
@@ -55,7 +55,7 @@ export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, pr
         failedEmails.push(email);
       }
     }
-    
+
     callback(null, {
       succeededEmails,
       failedEmails
