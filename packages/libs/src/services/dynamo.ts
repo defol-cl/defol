@@ -6,6 +6,7 @@ import {
   PreguntaDynamo,
   DynamoIterator,
   ConvenioModeradorDynamo,
+  RootUtils,
 } from "@defol-cl/root";
 import { LastPreguntasOptions, MisPreguntasOptions } from "../types/dynamo.types";
 
@@ -68,7 +69,8 @@ export const getConvenio = (cod: string): Promise<ConvenioDynamo | undefined> =
 }
 
 export const countPreguntasByUser = (contactoEmail: string, qty: number = 0, lastKey?: DynamoDB.DocumentClient.Key): Promise<number> => {
-  return new Promise((resolve, reject) => {
+    RootUtils.logger({contactoEmail, qty, lastKey});
+    return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
       KeyConditionExpression: "contactoEmail = :contactoEmail",
@@ -79,6 +81,7 @@ export const countPreguntasByUser = (contactoEmail: string, qty: number = 0, las
       Select: "COUNT"
     }).promise()
     .then(res => {
+      RootUtils.logger(res, "Res");
       if (res.Count) {
         qty += res.Count;
       }
@@ -97,6 +100,7 @@ export const countPreguntasByUser = (contactoEmail: string, qty: number = 0, las
 }
 
 export const countReplicasPendientesByUser = (contactoEmail: string, qty: number = 0, lastKey?: DynamoDB.DocumentClient.Key): Promise<number> => {
+  RootUtils.logger({contactoEmail, qty, lastKey});
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -110,6 +114,7 @@ export const countReplicasPendientesByUser = (contactoEmail: string, qty: number
       Select: "COUNT"
     }).promise()
     .then(res => {
+      RootUtils.logger(res, "Res");
       if (res.Count) {
         qty += res.Count;
       }
@@ -128,6 +133,7 @@ export const countReplicasPendientesByUser = (contactoEmail: string, qty: number
 }
 
 export const countPreguntasPendientesByUser = (contactoEmail: string, qty: number = 0, lastKey?: DynamoDB.DocumentClient.Key): Promise<number> => {
+  RootUtils.logger({contactoEmail, qty, lastKey});
   return new Promise((resolve, reject) => {
     dynamo.query({
       TableName: PREGUNTA_TABLE,
@@ -141,6 +147,7 @@ export const countPreguntasPendientesByUser = (contactoEmail: string, qty: numbe
       Select: "COUNT"
     }).promise()
     .then(res => {
+      RootUtils.logger(res, "Res");
       if (res.Count) {
         qty += res.Count;
       }
@@ -569,7 +576,7 @@ export const getPreguntasByContactoEmail = (
   estados: string[] = [],
   options?: MisPreguntasOptions,
 ): Promise<DynamoIterator<PreguntaDynamo>> => {
-  let {limit, lastKey, items} = options;
+  let {limit, lastKey, items = []} = options;
   let filterExpression = [];
   let expressionAttributeValues: any = {};
   if(estados.length){
@@ -624,7 +631,7 @@ export const getPreguntasByContactoEmail = (
 export const getPreguntasByContactoAndConvenio = (
   contactoEmail: string,
   convenioCod: string,
-  items?: PreguntaDynamo[],
+  items: PreguntaDynamo[] = [],
   lastKey?: DynamoDB.DocumentClient.Key
 ): Promise<PreguntaDynamo[]> => {
   return new Promise((resolve, reject) => {
