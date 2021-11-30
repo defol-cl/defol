@@ -20,6 +20,32 @@ security:
   - CUPAuthorizer: []
 
 paths:
+  /categorias:
+    get:
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CategoriasGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "usrId": "$context.authorizer.claims.email"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*CATEGORIAS_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene el listado de categorias
+      tags:
+        - convenio
+      responses:
+        200:
+          $ref: "#/components/responses/200CategoriaList"
+        500:
+          description: error al obtener categorias desde dynamo
+
   /convenios:
     get:
       x-amazon-apigateway-integration:
@@ -269,6 +295,7 @@ paths:
           application/json: |
             #set($surname = "$context.authorizer.claims.given_name")
             #set($lastname = "$context.authorizer.claims.family_name")
+            #set($categoria = $input.json('$.categoria'))
             {
               "usrId": "$context.authorizer.claims.email",
               "contacto": "$surname $lastname",
@@ -276,6 +303,9 @@ paths:
               "timestamp": "$input.params('timestamp')",
               "replica": $input.json('$.replica'),
               "permissions": "$context.authorizer.claims.permissions",
+              #if($categoria && $categoria.length() > 0)
+                "categoria": $categoria,
+              #end
               "agregarReplica": $input.json('$.agregarReplica')
             }
         responses:
@@ -317,6 +347,8 @@ paths:
                   type: string
                 agregarReplica:
                   type: boolean
+                categoria:
+                  type: string
               required: [replica]
       responses:
         204:
@@ -571,6 +603,15 @@ components:
           type: string
         ejecutivoEmail:
           type: string
+    Categoria:
+      title: Categoria
+      description: información de una categoria
+      type: object
+      properties:
+        cod:
+          type: string
+        nombre:
+          type: string
     Convenio:
       title: Convenio
       description: información de un convenio
@@ -610,6 +651,21 @@ components:
         nombre: "Convenio Marco"
         fechaVencimiento: "2022-01-01"
   responses:
+    200CategoriaList:
+      description: Listado de categorias
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Categoria"
+          example:
+            -
+              cod: "DRCNST"
+              nombre: "Derecho Constitucional"
+            -
+              cod: "DRHUM"
+              nombre: "Derechos Humanos"
     200ConvenioList:
       description: Listado de convenios
       content:
