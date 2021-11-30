@@ -21,7 +21,7 @@ interface Props {
 const ConvenioAcciones: React.FC<Props> = ({ conId, reload }) => {
   const [openEditarConvenio, setOpenEditarConvenio] = React.useState(false);
   const [openAgregarContactos, setOpenAgregarContactos] = React.useState(false);
-  const [openAgregarModerador, setOpenAgregarModerador] = React.useState(false);
+  const [openAgregarModeradores, setOpenAgregarModeradores] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   
@@ -29,7 +29,7 @@ const ConvenioAcciones: React.FC<Props> = ({ conId, reload }) => {
     if (open) {
       handleClose()
     }
-  }, [openEditarConvenio, openAgregarContactos, openAgregarModerador])
+  }, [openEditarConvenio, openAgregarContactos, openAgregarModeradores])
   
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -49,12 +49,12 @@ const ConvenioAcciones: React.FC<Props> = ({ conId, reload }) => {
                                 }
                                 setOpenAgregarContactos(false);
                               }}/>
-      <DialogAgregarModeradores conId={conId} open={openAgregarModerador}
+      <DialogAgregarModeradores conId={conId} open={openAgregarModeradores}
                               onClose={(update) => {
                                 if (update) {
                                   reload();
                                 }
-                                setOpenAgregarContactos(false);
+                                setOpenAgregarModeradores(false);
                               }}/>
       <Button id="acciones" variant="contained" disableElevation
               sx={{ mr: 1, mt: 0.5, px: 3 }}
@@ -77,7 +77,7 @@ const ConvenioAcciones: React.FC<Props> = ({ conId, reload }) => {
           </ListItemIcon>
           <ListItemText>Agregar contactos</ListItemText>
         </MenuItem>
-        <MenuItem onClick={() => setOpenAgregarModerador(true)}>
+        <MenuItem onClick={() => setOpenAgregarModeradores(true)}>
           <ListItemIcon>
             <AddModeratorIcon fontSize="small"/>
           </ListItemIcon>

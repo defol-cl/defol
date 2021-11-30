@@ -33,8 +33,9 @@ const Convenio: FC = () => {
   const [tab, setTab] = useState<TabType>('contactos');
   
   useEffect(() => {
+    console.log('conId, error, convenio', conId, error, convenio)
     let mounted = true;
-    if (!error) {
+    if (!error && convenio === undefined) {
       ConveniosSvc.getOne(conId)
         .then(convenio => mounted && setConvenio(convenio))
         .catch(err => {

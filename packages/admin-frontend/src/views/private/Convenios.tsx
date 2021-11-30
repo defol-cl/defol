@@ -26,7 +26,8 @@ const Convenios: React.FC = () => {
   
   useEffect(() => {
     let mounted = true;
-    if (!errorConvenio) {
+    if (!errorConvenio && !openCrearConvenio) {
+      setConvenios(undefined);
       ConveniosSvc.get()
         .then(convenios => mounted && setConvenios(convenios))
         .catch(err => {
@@ -37,23 +38,7 @@ const Convenios: React.FC = () => {
     return () => {
       mounted = false;
     };
-  }, [errorConvenio]);
-  
-  useEffect(() => {
-    let mounted = true;
-    setConvenios(undefined);
-    if (!openCrearConvenio) {
-      ConveniosSvc.get()
-        .then(convenios => mounted && setConvenios(convenios))
-        .catch(err => {
-          console.error(err);
-          mounted && setErrorConvenio(true);
-        })
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [openCrearConvenio]);
+  }, [errorConvenio, openCrearConvenio]);
   
   return (
     <>
