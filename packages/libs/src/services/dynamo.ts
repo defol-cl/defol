@@ -7,10 +7,12 @@ import {
   DynamoIterator,
   ConvenioModeradorDynamo,
   RootUtils,
+  CategoriaDynamo,
 } from "@defol-cl/root";
 import { LastPreguntasOptions, MisPreguntasOptions } from "../types/dynamo.types";
 
 const dynamo = new DynamoDB.DocumentClient();
+const CATEGORIA_TABLE = process.env.CATEGORIA_TABLE;
 const CONVENIO_TABLE = process.env.CONVENIO_TABLE;
 const PREGUNTA_TABLE = process.env.PREGUNTA_TABLE;
 const CONVENIO_CONTACTO_TABLE = process.env.CONVENIO_CONTACTO_TABLE;
@@ -21,6 +23,33 @@ const EJECUTIVO_EMAIL_ESTADO_INDEX = process.env.EJECUTIVO_EMAIL_ESTADO_INDEX;
 const PREGUNTA_FECHA_ACTUALIZACION_INDEX = process.env.PREGUNTA_FECHA_ACTUALIZACION_INDEX;
 const CONTACTO_EMAIL_INDEX = process.env.CONTACTO_EMAIL_INDEX;
 const USER_CONVENIO_INDEX = process.env.USER_CONVENIO_INDEX;
+
+export const getCategorias = (
+  items: CategoriaDynamo[] = [],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<CategoriaDynamo[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.scan({
+      TableName: CATEGORIA_TABLE,
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length
+              ? items.concat(res.Items as CategoriaDynamo[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getCategorias(items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
 
 export const getConvenios = (
   items: ConvenioDynamo[] = [],

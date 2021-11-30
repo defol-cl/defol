@@ -141,6 +141,20 @@ Resources:
             UserPoolArn: !Ref UserPoolArn
             Type: COGNITO_USER_POOLS
 
+  CategoriasGet:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/src/categorias
+      Handler: categorias.get
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        Get:
+          Type: Api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /categorias
+            Method: get
+
   PreguntasGet:
     Type: AWS::Serverless::Function
     Properties:

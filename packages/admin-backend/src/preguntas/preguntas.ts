@@ -92,8 +92,8 @@ const checkPreguntaConditions = (
 }
 
 
-export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica, permissions }, context, callback) => {
-  RootUtils.logger({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica, permissions });
+export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica, permissions, categoria }, context, callback) => {
+  RootUtils.logger({ usrId, contactoEmail, timestamp, replica, contacto, agregarReplica, permissions, categoria });
   try {
     const permissionList = permissions.split(",");
     const pregunta = await DynamoServices.getPregunta(contactoEmail, timestamp);
@@ -104,6 +104,7 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
     }
 
     const preguntaHasError = checkPreguntaConditions(pregunta);
+    const now = moment().toISOString();
 
     if(preguntaHasError){
       callback(preguntaHasError);
@@ -120,7 +121,13 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
     pregunta.interacciones[pregunta.interacciones.length - 1].ejecutivoNombre = contacto;
     pregunta.interacciones[pregunta.interacciones.length - 1].replica = replica;
     pregunta.interacciones[pregunta.interacciones.length - 1].replicaAt = moment().toISOString();
+    pregunta.ejecutivoEmail = usrId;
+    pregunta.fechaActualizacion = now;
     pregunta.estado = pregunta.interaccionesCantidad === pregunta.interaccionesMax ? "FINALIZADA" : "RESPONDIDA";
+
+    if(categoria){
+      pregunta.categoria = categoria;
+    }
 
     await DynamoServices.putPregunta(pregunta);
 
