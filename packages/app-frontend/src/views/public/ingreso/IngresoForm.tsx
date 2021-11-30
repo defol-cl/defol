@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
+import Grow from "@mui/material/Grow";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Auth } from 'aws-amplify';
 import { useFormik } from "formik";
@@ -17,12 +18,28 @@ import { PublicContext } from "src/layout";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
+import AlertTitle from "@mui/material/AlertTitle";
+import Alert from "@mui/material/Alert";
 
 const IngresoForm: React.FC = () => {
   const history = useHistory();
   const theme = useTheme();
   const { state } = useContext(PublicContext);
   const [signingIn, setSigningIn] = useState<boolean>(false);
+  const [error, setError] = useState(false);
+  
+  useEffect(() => {
+    if (error) {
+      setSigningIn(false);
+    }
+  }, [error]);
+  
+  useEffect(() => {
+    if (signingIn) {
+      setError(false);
+    }
+  }, [signingIn]);
+  
   const formik = useFormik<FormikIngreso>({
     initialValues: {
       username: state.username || '',
@@ -32,7 +49,7 @@ const IngresoForm: React.FC = () => {
     validationSchema: validationIngreso,
     validateOnMount: true,
     onSubmit: ({ username, password }) => {
-      if(formik.isValid) {
+      if (formik.isValid) {
         setSigningIn(true);
         Auth.signIn(username as string, password)
           .then(user => {
@@ -109,15 +126,21 @@ const IngresoForm: React.FC = () => {
                       </InputAdornment>
                   }}
                   sx={{ my: 2 }}/>
+                <Grow in={error} mountOnEnter unmountOnExit>
+                  <Alert variant="outlined" severity="error" sx={{ mb: 2 }}>
+                    <AlertTitle>Error al ingresar</AlertTitle>
+                    Verifica que las credenciales utilizadas sean las correctas.
+                  </Alert>
+                </Grow>
                 <Grid container direction="row-reverse" justifyContent="space-between" alignItems="center"
                       sx={{ mt: 1, mb: 4 }}>
                   <Link component={RouterLink} to={publicRoutes.recuperaContrasena.route()}>
                     ¿Se te olvidó tu contraseña?
                   </Link>
                 </Grid>
-                <LoadingButton
-                  size="large" type="submit" variant="contained" fullWidth
-                  loading={signingIn}>
+                <LoadingButton size="large" type="submit" variant="contained" fullWidth
+                               loading={signingIn}
+                               loadingIndicator="Ingresando...">
                   Ingresar
                 </LoadingButton>
                 <Divider sx={{ my: 3 }}/>

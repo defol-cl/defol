@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
 import { useTheme } from '@mui/material';
 import Grid from "@mui/material/Grid";
 import { Auth } from "aws-amplify";
@@ -84,25 +85,23 @@ const ConfirmaForm: React.FC = () => {
                 <Typography variant="body1" color="textSecondary" align="center" sx={{ mb: 3 }}>
                   No olvides revisar en la bandeja de correos no deseados, a veces los filtros se confunden.
                 </Typography>
-                <FormControl sx={{ my: 2 }} variant="outlined" fullWidth>
-                  <InputLabel htmlFor="username">Correo electrónico</InputLabel>
-                  <OutlinedInput
-                    id="username"
-                    type="text"
-                    disabled={state.username !== undefined}
-                    value={username}
-                    onChange={handleChange}
-                    onBlur={handleBlur}/>
-                </FormControl>
-                <FormControl sx={{ my: 2 }} variant="outlined" fullWidth>
-                  <InputLabel htmlFor="code">Código de validación</InputLabel>
-                  <OutlinedInput
-                    id="code"
-                    type="text"
-                    value={code}
-                    onChange={handleChange}
-                    onBlur={handleBlur}/>
-                </FormControl>
+                <TextField
+                  id="username"
+                  label="Correo electrónico"
+                  type="text"
+                  variant="outlined" fullWidth
+                  disabled={state.username !== undefined}
+                  value={username}
+                  onChange={handleChange}
+                  onBlur={handleBlur}/>
+                <TextField
+                  id="code"
+                  label="Código de validación"
+                  type="text"
+                  variant="outlined" fullWidth
+                  value={code}
+                  onChange={handleChange}
+                  onBlur={handleBlur}/>
                 <LoadingButton
                   sx={{ mt: 3 }}
                   size="large" type="submit" variant="contained" fullWidth

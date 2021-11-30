@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -18,12 +18,29 @@ import { FormikRegistro, validationRegistro } from "./registro.formik";
 import { publicRoutes } from "../../../navigation";
 import { PublicContext } from "../../../layout";
 import Divider from "@mui/material/Divider";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Grow from "@mui/material/Grow";
 
 const RegistroForm: React.FC = () => {
   const history = useHistory();
   const theme = useTheme();
   const { setUsername } = useContext(PublicContext);
   const [signingUp, setSigningUp] = useState<boolean>(false);
+  const [error, setError] = useState(false);
+  
+  useEffect(() => {
+    if (error) {
+      setSigningUp(false);
+    }
+  }, [error]);
+  
+  useEffect(() => {
+    if (signingUp) {
+      setError(false);
+    }
+  }, [signingUp]);
+  
   const formik = useFormik<FormikRegistro>({
     initialValues: {
       name: '',
@@ -37,7 +54,7 @@ const RegistroForm: React.FC = () => {
     validationSchema: validationRegistro,
     validateOnMount: true,
     onSubmit: ({ name, lastName, username, password }) => {
-      if(formik.isValid) {
+      if (formik.isValid) {
         setSigningUp(true);
         Auth.signUp({
           username,
@@ -61,6 +78,7 @@ const RegistroForm: React.FC = () => {
     handleChange,
     handleBlur,
     handleSubmit,
+    isValid,
     values: { name, lastName, username, password, confirmPassword }
   } = formik;
   
@@ -141,18 +159,29 @@ const RegistroForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}/>
               <FormGroup>
-                <FormControlLabel control={<Checkbox id="serviceTerms" color="secondary" onChange={handleChange}/>} label={
-                  <>Acepto los <Link href="#" color="secondary">términos de servicio</Link> de DEFOL</>
-                }/>
-                <FormControlLabel control={<Checkbox id="privacyPolicy" color="secondary" onChange={handleChange}/>} label={
-                  <>Acepto la <Link href="#" color="secondary">política de privacidad</Link> respecto al uso de mi
-                    información</>
-                }/>
+                <FormControlLabel control={<Checkbox id="serviceTerms" color="secondary" onChange={handleChange}/>}
+                                  label={
+                                    <>Acepto los <Link href="#" color="secondary">términos de servicio</Link> de
+                                      DEFOL</>
+                                  }/>
+                <FormControlLabel control={<Checkbox id="privacyPolicy" color="secondary" onChange={handleChange}/>}
+                                  label={
+                                    <>Acepto la <Link href="#" color="secondary">política de privacidad</Link> respecto
+                                      al uso de mi
+                                      información</>
+                                  }/>
               </FormGroup>
-              <LoadingButton
-                sx={{ mt: 3 }}
-                size="large" type="submit" variant="contained" fullWidth
-                loading={signingUp}>
+              <Grow in={error} mountOnEnter unmountOnExit>
+                <Alert variant="outlined" severity="error" sx={{ mb: 2 }}>
+                  <AlertTitle>Error al registrar</AlertTitle>
+                  Lo más probable es que el correo registrado ya se encuentra en uso.
+                </Alert>
+              </Grow>
+              <LoadingButton sx={{ mt: 3 }}
+                             size="large" type="submit" variant="contained" fullWidth
+                             disabled={!isValid}
+                             loading={signingUp}
+                             loadingIndicator="Registrando...">
                 Registrar
               </LoadingButton>
               <Divider sx={{ my: 3 }}/>
