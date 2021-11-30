@@ -42,9 +42,18 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
   useEffect(() => {
     let mounted = true;
     PreguntasSvc.getOne(email, timestamp)
-      .then(pregunta => mounted && setPregunta(pregunta));
-    CategoriasSvc.get()
-      .then(categorias => mounted && setCategorias(categorias));
+      .then(pregunta => {
+        if(mounted){
+          setPregunta(pregunta);
+          CategoriasSvc.get()
+            .then(categorias => {
+              if(mounted){
+                setCategorias(categorias);
+                pregunta.categoria && setFieldValue('categoria', pregunta.categoria);
+              }
+            });
+        }
+      });
     return () => {
       mounted = false;
     };
@@ -95,8 +104,7 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
     values: { respuesta, categoria }
   } = formik;
   
-  let hasRespuesta = false;
-  let hasContraPregunta = false;
+  let hasRespuesta = false, hasContraPregunta = false;
   if (pregunta && pregunta.interacciones.length > 0 && pregunta.interacciones[pregunta.interacciones.length - 1].replica === undefined) {
     hasRespuesta = true;
     if (pregunta.interaccionesCantidad + 1 === pregunta.interaccionesMax) {
