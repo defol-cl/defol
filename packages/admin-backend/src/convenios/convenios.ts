@@ -61,7 +61,6 @@ export const detail: ConvenioDetalleGetHandler = async({ usrId, permissions, con
     const moderadores = await DynamoServices.getConvenioModeradorByConvenio(convenioCod);
 
     const hasPermission = permissionList.includes("convenio::view") || permissionList.includes("convenio::view_all");
-
     if(!hasPermission || (permissionList.includes("convenio::view") && !moderadores.length)) {
       callback("CONVENIO_DETALLE_GET_FORBIDDEN");
       return;
