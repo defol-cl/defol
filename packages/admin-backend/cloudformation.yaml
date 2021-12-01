@@ -180,7 +180,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref Api
-            Path: /preguntas/contacto/{contactoId}
+            Path: /preguntas/contacto/{contacto}
             Method: get
 
   PreguntaDetailGet:

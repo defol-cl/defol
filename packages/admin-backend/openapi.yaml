@@ -360,7 +360,7 @@ paths:
         500:
           description: error al obtener preguntas desde dynamo
 
-  /preguntas/contacto/{contactoId}:
+  /preguntas/contacto/{contacto}:
     get:
       x-amazon-apigateway-request-validator: params
       x-amazon-apigateway-integration:
@@ -371,7 +371,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "contacto": $input.params().path.get('contactoId'),
+              "contacto": $input.params().path.get('contacto'),
               "permissions": "$context.authorizer.claims.permissions",
               "usrId": "$context.authorizer.claims.email"
             }
@@ -386,8 +386,8 @@ paths:
       tags:
         - pregunta
       parameters:
-        - in: query
-          name: contactoId
+        - in: path
+          name: contacto
           description: correo de contacto
           schema:
             type: string
