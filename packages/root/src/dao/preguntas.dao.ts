@@ -9,3 +9,10 @@ export interface ResumenPreguntas {
 export interface Pregunta extends PreguntaDynamo {
   
 }
+
+export interface PreguntaMini {
+  timestamp: string
+  titulo: string
+  estado: string
+  fechaActualizacion: string
+}

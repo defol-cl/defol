@@ -2,7 +2,7 @@ import moment from "moment";
 import { v4 as uuid4 } from "uuid";
 import { DynamoServices, S3Services, SignalServices } from "@defol-cl/libs";
 import { DynamoIterator, PreguntaDynamo, RootTypes, RootUtils } from "@defol-cl/root";
-import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler } from "./preguntas.types";
+import { PreguntaDetailHandler, PreguntaPutHandler, PreguntasGetHandler, PreguntasReducedGetHandler } from "./preguntas.types";
 
 export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token, permissions }, context, callback) => {
   RootUtils.logger({ usrId, ejecutivo, estado, token, permissions });
@@ -13,7 +13,7 @@ export const get: PreguntasGetHandler = async({ usrId, ejecutivo, estado, token,
     const permissionList = permissions.split(",");
 
     if(!permissionList.includes("pregunta::view") && !permissionList.includes("pregunta::view_all")) {
-      callback("PREGUNTA_DETAIL_GET_FORBIDDEN");
+      callback("PREGUNTA_GET_FORBIDDEN");
       return;
     }
 
@@ -145,5 +145,23 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
   } catch (error) {
     console.log(error);
     callback("PREGUNTA_PUT_ERROR");
+  }
+}
+
+export const shrunkedGet: PreguntasReducedGetHandler = async({usrId, contacto, permissions}, context, callback) => {
+  RootUtils.logger({ usrId, contacto, permissions });
+  try {
+    const permissionList = permissions.split(",");
+
+    if(!permissionList.includes("pregunta::view") && !permissionList.includes("pregunta::view_all")) {
+      callback("PREGUNTAS_CONTACTO_GET_FORBIDDEN");
+      return;
+    }
+
+    const response = await DynamoServices.getPreguntasShrunkedByContactoEmail(contacto);
+    callback(null, response);
+  } catch (error) {
+    console.log(error);
+    callback("PREGUNTAS_CONTACTO_GET_ERROR");
   }
 }

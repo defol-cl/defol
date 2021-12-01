@@ -8,6 +8,7 @@ import {
   ConvenioModeradorDynamo,
   RootUtils,
   CategoriaDynamo,
+  Dao,
 } from "@defol-cl/root";
 import { LastPreguntasOptions, MisPreguntasOptions } from "../types/dynamo.types";
 
@@ -716,6 +717,41 @@ export const getPreguntasByContactoEmailAndEstado = (
         items: res.Items ? res.Items as PreguntaDynamo[] : [],
         token: res.LastEvaluatedKey
       });
+    }).catch(err => {
+      console.log(err);
+      reject(err);
+    })
+  })
+}
+
+export const getPreguntasShrunkedByContactoEmail = (
+  contactoEmail: string,
+  items: Dao.PreguntaMini[] = [],
+  lastKey?: DynamoDB.DocumentClient.Key
+): Promise<Dao.PreguntaMini[]> => {
+  return new Promise((resolve, reject) => {
+    dynamo.query({
+      TableName: PREGUNTA_TABLE,
+      KeyConditionExpression: "contactoEmail = :contactoEmail",
+      ExpressionAttributeValues: {
+        ":contactoEmail": contactoEmail
+      },
+      ScanIndexForward: false,
+      Select: "SPECIFIC_ATTRIBUTES",
+      AttributesToGet: ["titulo", "estado", "timestamp", "fechaActualizacion"],
+      ExclusiveStartKey: lastKey
+    }).promise()
+    .then(res => {
+      items = res.Items && res.Items.length
+              ? items.concat(res.Items as Dao.PreguntaMini[])
+              : items;
+
+      if(res.LastEvaluatedKey){
+        resolve(getPreguntasShrunkedByContactoEmail(contactoEmail, items, res.LastEvaluatedKey));
+        return;
+      }
+
+      resolve(items);
     }).catch(err => {
       console.log(err);
       reject(err);

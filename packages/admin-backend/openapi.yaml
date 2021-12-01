@@ -360,6 +360,46 @@ paths:
         500:
           description: error al obtener preguntas desde dynamo
 
+  /preguntas/contacto/{contacto}:
+    get:
+      x-amazon-apigateway-request-validator: params
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PreguntasContactoGet.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          application/json: |
+            {
+              "contacto": $input.params().path.get('contacto'),
+              "permissions": "$context.authorizer.claims.permissions",
+              "usrId": "$context.authorizer.claims.email"
+            }
+        responses:
+          default:
+            statusCode: 200
+          ".*PREGUNTAS_CONTACTO_GET_FORBIDDEN.*":
+            statusCode: 403
+          ".*PREGUNTAS_CONTACTO_GET_ERROR.*":
+            statusCode: 500
+      summary: obtiene el listado de preguntas
+      tags:
+        - pregunta
+      parameters:
+        - in: query
+          name: contacto
+          description: correo de contacto
+          schema:
+            type: string
+            example: "contacto@contacto.cl"
+      responses:
+        200:
+          $ref: "#/components/responses/200PreguntaReducedList"
+        403:
+          description: no tiene permisos para ejecutar la acción
+        500:
+          description: error al obtener preguntas desde dynamo
+
   /contactos:
     post:
       x-amazon-apigateway-request-validator: body
@@ -603,6 +643,19 @@ components:
           type: string
         ejecutivoEmail:
           type: string
+    PreguntaReducida:
+      title: PreguntaReducida
+      description: información acotada de una pregunta
+      type: object
+      properties:
+        estado:
+          type: string
+        timestamp:
+          type: number
+        titulo:
+          type: string
+        fechaActualizacion:
+          type: string
     Categoria:
       title: Categoria
       description: información de una categoria
@@ -707,7 +760,12 @@ components:
               token:
                 type: string
             required: [items]
-
+    200PreguntaReducedList:
+      description: Listado de preguntas (reducida)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PreguntaReducida"         
   securitySchemes:
     CUPAuthorizer:
       type: apiKey

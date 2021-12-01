@@ -24,6 +24,11 @@ interface PreguntaPutEvent extends BaseEvent, PreguntaDetailEvent {
   categoria?: string
 }
 
+interface PreguntasReducedGetEvent extends BaseEvent {
+  contacto: string
+}
+
 export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIteratorFront<PreguntaDynamo>>;
+export type PreguntasReducedGetHandler = LambdaTypes.CustomHandler<PreguntasReducedGetEvent, Dao.PreguntaMini[]>;
 export type PreguntaDetailHandler = LambdaTypes.CustomHandler<PreguntaDetailEvent, Dao.Pregunta>;
 export type PreguntaPutHandler = LambdaTypes.CustomHandler<PreguntaPutEvent>;
