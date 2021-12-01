@@ -8,19 +8,20 @@ import Card from "@mui/material/Card";
 import { ListItemText } from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 import Skeleton from "@mui/lab/Skeleton";
-import { PreguntaMini } from "@defol-cl/root/src/dao";
+import Typography from "@mui/material/Typography";
 
 interface Props {
+  conId: string,
   email: string
 }
 
-const ConvenioContactoDetalle: React.FC<Props> = ({ email }) => {
+const ConvenioContactoDetalle: React.FC<Props> = ({ conId, email }) => {
   
   const [preguntas, setPreguntas] = useState<Dao.PreguntaMini[]>()
   
   useEffect(() => {
     setPreguntas(undefined);
-    PreguntasSvc.byContactoEmail(email)
+    PreguntasSvc.byContactoEmail(conId, email)
       .then(preguntas => setPreguntas(preguntas))
       .catch(err => {
         console.error(err);
@@ -40,7 +41,12 @@ const ConvenioContactoDetalle: React.FC<Props> = ({ email }) => {
               />
             </ListItem>
             {preguntas.map((pregunta, index) => (
-              <ListItem key={index} secondaryAction={<>{pregunta.estado}</>}>
+              <ListItem key={index}
+                        secondaryAction={
+                          <Typography variant="overline" display="block" sx={{ color: 'info.dark' }} gutterBottom>
+                            {pregunta.estado}
+                          </Typography>
+                        }>
                 <ListItemText
                   primary={pregunta.titulo}
                   secondary={`Creada el ${pregunta.timestamp}`}
@@ -56,7 +62,7 @@ const ConvenioContactoDetalle: React.FC<Props> = ({ email }) => {
                 primary={<Skeleton variant="text" width={140}/>}
               />
             </ListItem>
-            {[1,2,3].map(index => (
+            {[1, 2, 3].map(index => (
               <ListItem key={index} secondaryAction={<Skeleton variant="text" width={90}/>}>
                 <ListItemText
                   primary={<Skeleton variant="text" width={180}/>}

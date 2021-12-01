@@ -9,6 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { ConvenioContactoDynamo } from "@defol-cl/root";
 
 interface Props {
+  conId: string
   contactos?: ConvenioContactoDynamo[]
 }
 
@@ -20,7 +21,7 @@ type Filtro =
   | 'preguntas-pendientes'
   | 'preguntas-consumidas';
 
-const ConvenioContactos: React.FC<Props> = ({ contactos }) => {
+const ConvenioContactos: React.FC<Props> = ({ conId, contactos }) => {
   const [filtro, setFiltro] = useState<Filtro>('todos');
   
   return (
@@ -59,7 +60,7 @@ const ConvenioContactos: React.FC<Props> = ({ contactos }) => {
           </TextField>
         </Grid>
       </Box>
-      <ConvenioContactosTabla contactos={contactos}/>
+      <ConvenioContactosTabla conId={conId} contactos={contactos}/>
     </>
   );
 }

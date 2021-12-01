@@ -15,17 +15,18 @@ import Skeleton from '@mui/material/Skeleton';
 import ConvenioContactoDetalle from "./ConvenioContactoDetalle";
 
 interface Props {
+  conId: string
   contactos?: ConvenioContactoDynamo[]
 }
 
-const ConvenioContactosTabla: React.FC<Props> = ({ contactos }) => {
+const ConvenioContactosTabla: React.FC<Props> = ({ conId, contactos }) => {
   const [contacto, setContacto] = useState<ConvenioContactoDynamo>();
   
   return (
     <>
       <Drawer anchor="right" open={contacto !== undefined} onClose={() => setContacto(undefined)}>
         {contacto && (
-          <ConvenioContactoDetalle email={contacto.email}/>
+          <ConvenioContactoDetalle conId={conId} email={contacto.email}/>
         )}
       </Drawer>
       <TableContainer>

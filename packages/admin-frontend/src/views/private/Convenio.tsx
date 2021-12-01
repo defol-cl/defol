@@ -101,7 +101,7 @@ const Convenio: FC = () => {
             </Tabs>
           </Box>
           {tab === "contactos" && (
-            <ConvenioContactos contactos={convenio?.contactos}/>
+            <ConvenioContactos conId={conId} contactos={convenio?.contactos}/>
           )}
           {tab === "moderadores" && (
             <ConvenioModeradores moderadores={convenio?.moderadores}/>
