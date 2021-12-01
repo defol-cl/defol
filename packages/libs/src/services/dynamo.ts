@@ -736,9 +736,12 @@ export const getPreguntasShrunkedByContactoEmail = (
       ExpressionAttributeValues: {
         ":contactoEmail": contactoEmail
       },
+      ExpressionAttributeNames: {
+        "#t": "timestamp"
+      },
       ScanIndexForward: false,
       Select: "SPECIFIC_ATTRIBUTES",
-      ProjectionExpression: "titulo,estado,timestamp,fechaActualizacion",
+      ProjectionExpression: "titulo,estado,#t,fechaActualizacion",
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {
