@@ -738,7 +738,7 @@ export const getPreguntasShrunkedByContactoEmail = (
       },
       ScanIndexForward: false,
       Select: "SPECIFIC_ATTRIBUTES",
-      AttributesToGet: ["titulo", "estado", "timestamp", "fechaActualizacion"],
+      ProjectionExpression: "titulo,estado,timestamp,fechaActualizacion",
       ExclusiveStartKey: lastKey
     }).promise()
     .then(res => {

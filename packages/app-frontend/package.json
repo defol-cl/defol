@@ -1,13 +1,13 @@
 {
   "name": "@defol-cl/app-frontend",
-  "version": "1.0.55",
+  "version": "1.0.56",
   "private": "true",
   "repository": "git://github.com/defol-cl/defol.git",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@defol-cl/root": "1.0.55",
+    "@defol-cl/root": "1.0.56",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.5.1",
