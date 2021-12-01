@@ -371,7 +371,7 @@ paths:
         requestTemplates:
           application/json: |
             {
-              "contacto": $input.params().path.get('contacto'),
+              "contacto": "$input.params().path.get('contacto')",
               "permissions": "$context.authorizer.claims.permissions",
               "usrId": "$context.authorizer.claims.email"
             }
