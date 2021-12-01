@@ -372,6 +372,7 @@ paths:
           application/json: |
             {
               "contacto": "$input.params().path.get('contacto')",
+              "convenioCod": "$input.params('convenioCod')",
               "permissions": "$context.authorizer.claims.permissions",
               "usrId": "$context.authorizer.claims.email"
             }
@@ -382,7 +383,7 @@ paths:
             statusCode: 403
           ".*PREGUNTAS_CONTACTO_GET_ERROR.*":
             statusCode: 500
-      summary: obtiene el listado de preguntas
+      summary: obtiene el listado de preguntas de un contacto en un convenio
       tags:
         - pregunta
       parameters:
@@ -392,6 +393,13 @@ paths:
           schema:
             type: string
             example: "contacto@contacto.cl"
+        - in: query
+          name: convenioCod
+          required: true
+          description: codigo convenio
+          schema:
+            type: string
+            example: "CMX1"
       responses:
         200:
           $ref: "#/components/responses/200PreguntaReducedList"

@@ -148,8 +148,8 @@ export const put: PreguntaPutHandler = async({ usrId, contactoEmail, timestamp, 
   }
 }
 
-export const shrunkedGet: PreguntasReducedGetHandler = async({usrId, contacto, permissions}, context, callback) => {
-  RootUtils.logger({ usrId, contacto, permissions });
+export const shrunkedGet: PreguntasReducedGetHandler = async({usrId, contacto, convenioCod, permissions}, context, callback) => {
+  RootUtils.logger({ usrId, contacto, convenioCod, permissions });
   try {
     const permissionList = permissions.split(",");
 
@@ -158,7 +158,7 @@ export const shrunkedGet: PreguntasReducedGetHandler = async({usrId, contacto, p
       return;
     }
 
-    const response = await DynamoServices.getPreguntasShrunkedByContactoEmail(contacto);
+    const response = await DynamoServices.getPreguntasShrunkedByContactoEmail(convenioCod, contacto);
     callback(null, response);
   } catch (error) {
     console.log(error);

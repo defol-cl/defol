@@ -725,6 +725,7 @@ export const getPreguntasByContactoEmailAndEstado = (
 }
 
 export const getPreguntasShrunkedByContactoEmail = (
+  convenioCod: string,
   contactoEmail: string,
   items: Dao.PreguntaMini[] = [],
   lastKey?: DynamoDB.DocumentClient.Key
@@ -733,8 +734,10 @@ export const getPreguntasShrunkedByContactoEmail = (
     dynamo.query({
       TableName: PREGUNTA_TABLE,
       KeyConditionExpression: "contactoEmail = :contactoEmail",
+      FilterExpression: "convenioCod = :convenioCod",
       ExpressionAttributeValues: {
-        ":contactoEmail": contactoEmail
+        ":contactoEmail": contactoEmail,
+        ":convenioCod": convenioCod
       },
       ExpressionAttributeNames: {
         "#t": "timestamp"
@@ -750,7 +753,7 @@ export const getPreguntasShrunkedByContactoEmail = (
               : items;
 
       if(res.LastEvaluatedKey){
-        resolve(getPreguntasShrunkedByContactoEmail(contactoEmail, items, res.LastEvaluatedKey));
+        resolve(getPreguntasShrunkedByContactoEmail(convenioCod, contactoEmail, items, res.LastEvaluatedKey));
         return;
       }
 

@@ -26,6 +26,7 @@ interface PreguntaPutEvent extends BaseEvent, PreguntaDetailEvent {
 
 interface PreguntasReducedGetEvent extends BaseEvent {
   contacto: string
+  convenioCod: string
 }
 
 export type PreguntasGetHandler = LambdaTypes.CustomHandler<PreguntasGetEvent, DynamoIteratorFront<PreguntaDynamo>>;
