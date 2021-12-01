@@ -54,11 +54,15 @@ const TopBar: FC = () => {
                   </Grid>
                 </Box>
                 <Box ml={2} flexGrow={1}/>
-                <Button sx={{ mr: 1 }}
-                        onClick={() => history.push(privateRoutes.inicio.route())}>
-                  Inicio
+                <Button sx={{ mx: 2 }}
+                        onClick={() => history.push(privateRoutes.conveniosListado.route())}>
+                  Convenios
                 </Button>
-                <IconButton id="perfil" sx={{ ml: 1 }} onClick={handleClick}>
+                <Button sx={{ mx: 2 }}
+                        onClick={() => history.push(privateRoutes.preguntasListado.route())}>
+                  Preguntas
+                </Button>
+                <IconButton id="perfil" sx={{ ml: 3 }} onClick={handleClick}>
                   <PersonIcon fontSize="inherit"/>
                 </IconButton>
               </Toolbar>
@@ -68,8 +72,6 @@ const TopBar: FC = () => {
       </Box>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}
             MenuListProps={{ 'aria-labelledby': 'perfil' }}>
-        <MenuItem onClick={handleClose}>Perfil</MenuItem>
-        <Divider/>
         <MenuItem onClick={cerrarSesion}>Cerrar Sesión</MenuItem>
       </Menu>
     </>

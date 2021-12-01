@@ -43,11 +43,11 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
     let mounted = true;
     PreguntasSvc.getOne(email, timestamp)
       .then(pregunta => {
-        if(mounted){
+        if (mounted) {
           setPregunta(pregunta);
           CategoriasSvc.get()
             .then(categorias => {
-              if(mounted){
+              if (mounted) {
                 setCategorias(categorias);
                 pregunta.categoria && setFieldValue('categoria', pregunta.categoria);
               }
