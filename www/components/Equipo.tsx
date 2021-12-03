@@ -22,14 +22,15 @@ export default function Equipo() {
                 <h3 className="text-xl mb-1 font-bold">
                   Jaime González Kazazian
                 </h3>
-                <span className="text-gray-400 font-semibold">Director en Asuntos Legales</span>
+                <span className="text-gray-400 font-semibold">Director de Asuntos Legales</span>
                 <p>
                   Abogado de la Pontificia Universidad Católica de Chile, con
                   especialidad en Derecho Público Se ha desarrollado en el
                   ejercicio profesional asesorando a distintas instituciones
                   públicas y privadas, en las áreas del Derecho Administrativo y
                   Sanitario Además es Árbitro de la Excma Corte de Apelaciones
-                  de Santiago, San Miguel, Valparaíso y Rancagua
+                  de Santiago, San Miguel, Valparaíso y Rancagua. También se desempeña como académico en la Facultad de
+                  Derecho de la Universidad San Sebastián.
                 </p>
               </div>
             </div>
@@ -43,7 +44,7 @@ export default function Equipo() {
               />
               <div className="p-8">
                 <h3 className="text-xl mb-1 font-bold">Julio Villane</h3>
-                <span className="text-gray-400 font-semibold">Director en Tecnología</span>
+                <span className="text-gray-400 font-semibold">Director de Tecnología</span>
                 <p>
                   Profesional apasionado por la tecnología. Titulado como
                   Ingeniería Civil en Computación de la Universidad de Chile y
@@ -70,15 +71,15 @@ export default function Equipo() {
                 <h3 className="text-xl mb-1 font-bold">
                   José Manuel Heredia
                 </h3>
-                <span className="text-gray-400 font-semibold">Director en Temas Comerciales y Administrativas</span>
+                <span className="text-gray-400 font-semibold">Director Comercial y Financiero</span>
                 <p>
                   Ingeniero Comercial, licenciado en economía de la U de
                   Concepción y Máster en Finanzas del ESE Business School de la
                   U de los Andes Cuenta con Experiencia en dirección de empresas
                   del rubro comercial, industrial, productivo y educacional.
                   Reconocido uno de los 100 líderes jóvenes del país en 2005 por
-                  la Revista del Sábado Actualmente se desempeña como Liquidador
-                  (de la Superintendencia de Insolvencia y Reemprendimiento
+                  la Revista del Sábado. Actualmente se desempeña como Liquidador
+                  de la Superintendencia de Insolvencia y Reemprendimiento.
                 </p>
               </div>
             </div>

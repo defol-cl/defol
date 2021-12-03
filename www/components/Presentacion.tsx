@@ -21,13 +21,12 @@ export default function Example() {
                 defol
               </h2>
               <p className="mb-8 leading-relaxed text-2xl text-gray-900">
-                Somos un equipo preparado para asesorarte en aspectos legales, y
-                que hemos decidido{" "}
+                Somos una Plataforma de consulta legal en línea, {" "}
                 <b>
-                  mejorar la experiencia de nuestros clientes, brindando
-                  orientación legal en línea
+                  donde el usuario puede resolver sus dudas
+                  en materia jurídica
                 </b>{" "}
-                a través de nuestra plataforma.
+                y descargar información necesaria para diversos trámites legales.
               </p>
             </div>
             <div className="lg:w-1/2">
