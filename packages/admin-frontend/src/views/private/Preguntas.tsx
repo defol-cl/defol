@@ -19,8 +19,8 @@ type FiltroEstados = {
 
 const filtroEstados: FiltroEstados = {
   todas: undefined,
-  pendientes: ['INGRESADA', 'REPLICADA', 'RESPONDIDA'],
-  cerradas: ['FINALIZADA']
+  pendientes: ['INGRESADA', 'REPLICADA'],
+  cerradas: ['RESPONDIDA', 'FINALIZADA']
 }
 
 const Preguntas: React.FC = () => {
