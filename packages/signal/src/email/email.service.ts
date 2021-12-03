@@ -11,7 +11,7 @@ const from = `DEFOL <${process.env.fromEmail}>`;
 const bcc = `DEFOL <${process.env.bccEmail}>`;
 
 const subjectConfig: SubjectConfig = {
-  invitacion: 'Usted ha sido invitado a registrarse en DEFOL',
+  invitacion: 'Usted ha sido invitado a registrarse en DEFOL ($convenio.cod)',
   'nueva-respuesta': '[DEFOL] Ha llegado respuesta, de nuestro equipo Legal',
 }
 
@@ -31,7 +31,8 @@ export const sendEmail = async (name: RootTypes.SignalEmailTemplate, context: an
   const transporter = createTransport({ SES: ses });
   transporter.use('compile', inlineBase64({ cidPrefix: 'prefixEmail_' }));
   return await transporter.sendMail({
-    subject, from, to, cc, bcc,
-    html: velocicty.render(html, context)
+    from, to, cc, bcc,
+    html: velocicty.render(html, context),
+    subject: velocicty.render(subject, context)
   });
 }

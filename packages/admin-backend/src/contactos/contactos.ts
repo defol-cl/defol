@@ -1,5 +1,5 @@
 import { DynamoServices, SignalServices } from "@defol-cl/libs";
-import { ConvenioContactoDynamo, PreguntaDynamo, RootTypes, RootUtils } from "@defol-cl/root";
+import { ConvenioContactoDynamo, ConvenioDynamo, PreguntaDynamo, RootTypes, RootUtils } from "@defol-cl/root";
 import { ContactosMaxPreguntasPutHandler, ContactosPostHandler } from "./contactos.types";
 
 const checkPermissionsModerador = async(usrId: string, permissions: string, convenioCod: string): Promise<boolean> => {
@@ -17,10 +17,11 @@ const checkPermissionsModerador = async(usrId: string, permissions: string, conv
   }
 }
 
-const getEmailEvent = (email: string): RootTypes.SignalEmailEvent<RootTypes.SignalEmailInvitacion> => {
+const getEmailEvent = (email: string, convenio: ConvenioDynamo): RootTypes.SignalEmailEvent<RootTypes.SignalEmailInvitacion> => {
   return {
     data: {
-      url: process.env.APP_FRONTEND_URL
+      url: process.env.APP_FRONTEND_URL,
+      convenio
     },
     template: "invitacion",
     to: email,
@@ -41,6 +42,7 @@ export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, pr
     const emailList = emails.split(/[,;\s\t\n\r]+/);
     const succeededEmails: string[] = [];
     const failedEmails: string[] = [];
+    const convenio = await DynamoServices.getConvenio(convenioCod);
     for (const email of emailList) {
       try {
         await DynamoServices.putConvenioContacto({
@@ -48,7 +50,7 @@ export const post: ContactosPostHandler = async({ usrId, convenioCod, emails, pr
           email,
           preguntasMax
         })
-        await SignalServices.putEvent(getEmailEvent(email));
+        await SignalServices.putEvent(getEmailEvent(email, convenio));
         succeededEmails.push(email);
       } catch (error) {
         console.log(error, `Email: ${email}`);

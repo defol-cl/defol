@@ -1,3 +1,5 @@
+import { ConvenioDynamo } from "../index";
+
 export type SignalEmailTemplate = 'invitacion' | 'nueva-respuesta';
 
 interface SignalEventBase {
@@ -10,6 +12,7 @@ export interface SignalEmailRespuesta {
 
 export interface SignalEmailInvitacion {
   url: string
+  convenio: ConvenioDynamo
 }
 
 export interface SignalEmailEvent<E> extends SignalEventBase {
