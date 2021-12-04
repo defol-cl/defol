@@ -17,7 +17,7 @@ const PreguntasPendientesIndicador: React.FC<Props> = ({ value }) => {
   const history = useHistory();
   return (
     <Card sx={{ minHeight: '100%' }}>
-      <CardActionArea onClick={() => history.push(privateRoutes.nuevaPregunta.route())}>
+      <CardActionArea onClick={() => history.push(privateRoutes.misPreguntas.route())}>
         <CardContent>
           <Grid container direction="row" justifyContent="space-around" alignItems="center">
             {value !== undefined && (
@@ -30,9 +30,8 @@ const PreguntasPendientesIndicador: React.FC<Props> = ({ value }) => {
                     Pregunta(s) pendiente(s)
                   </Typography>
                   <Typography variant="body2">
-                    Son las preguntas pendientes que tienes disponibles para realizar en cualquier momento. Algunos
-                    cupones
-                    tienen fecha de caducidad, por lo que te invitamos a usarlas antes de que expiren.
+                    Son las preguntas que aún no se han cerrado, que están a la espera de que el equipo DEFOL responda o
+                    que tú hagas tu réplica.
                   </Typography>
                 </Grid>
               </>

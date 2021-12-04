@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 import { FormikRecupera, validationRecupera } from "./recupera.formik";
 import { publicRoutes } from "../../../navigation";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -37,9 +36,9 @@ const RecuperaForm: React.FC = () => {
   const { handleChange, handleBlur, handleSubmit, values: { username } } = formik;
   
   return (
-    <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
+    <Grid container sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
-        <Grid direction="column" justifyContent="center" alignItems="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center">
           <Grid container direction="column" justifyContent="flex-start" alignItems="center">
             <Box>
               <Grid container direction="row" justifyContent="flex-start" alignItems="center"
@@ -93,7 +92,7 @@ const RecuperaForm: React.FC = () => {
           </form>
         </Grid>
       </Container>
-    </Stack>
+    </Grid>
   );
 }
 

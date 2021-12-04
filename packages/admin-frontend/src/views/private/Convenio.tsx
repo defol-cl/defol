@@ -19,6 +19,7 @@ import { ConveniosSvc } from "src/services";
 import ConvenioAcciones from "./convenio/ConvenioAcciones";
 import ConvenioContactos from "./convenio/ConvenioContactos";
 import ConvenioModeradores from "./convenio/ConvenioModeradores";
+import FechaSimple from "src/components/FechaSimple";
 
 interface Params {
   conId: string
@@ -33,7 +34,6 @@ const Convenio: FC = () => {
   const [tab, setTab] = useState<TabType>('contactos');
   
   useEffect(() => {
-    console.log('conId, error, convenio', conId, error, convenio)
     let mounted = true;
     if (!error && convenio === undefined) {
       ConveniosSvc.getOne(conId)
@@ -75,7 +75,10 @@ const Convenio: FC = () => {
                             {convenio ? `Cód: ${convenio.cod}` : <Skeleton width={180}/>}
                           </Typography>
                           <Typography variant="caption" color="textSecondary">
-                            {convenio ? `Vigente hasta el ${convenio.fechaVencimiento}` : <Skeleton width={150}/>}
+                            {convenio ?
+                              <>Vigente hasta el <FechaSimple timestamp={convenio.fechaVencimiento}/></> :
+                              <Skeleton width={150}/>
+                            }
                           </Typography>
                         </>
                       }

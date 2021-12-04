@@ -1,9 +1,5 @@
 import React, { useContext, useState } from "react";
 import LoadingButton from '@mui/lab/LoadingButton';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import Container from '@mui/material/Container';
@@ -51,9 +47,9 @@ const ConfirmaForm: React.FC = () => {
   } = formik;
   
   return (
-    <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
+    <Grid container sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
-        <Grid direction="column" justifyContent="center" alignItems="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center">
           <Grid container direction="column" justifyContent="flex-start" alignItems="center">
             <Box>
               <Grid container direction="row" justifyContent="flex-start" alignItems="center"
@@ -113,7 +109,7 @@ const ConfirmaForm: React.FC = () => {
           </form>
         </Grid>
       </Container>
-    </Stack>
+    </Grid>
   );
 }
 

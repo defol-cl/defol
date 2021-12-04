@@ -747,7 +747,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $5.196.000
+                        $3.597.600
                       </span>
                       <span className="text-base font-medium text-gray-500">
                         /mes
@@ -758,10 +758,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $7.194.000
-                      </span>
-                      <span className="text-base font-medium text-gray-500">
-                        /mes
+                        -
                       </span>
                     </p>
                   </td>
@@ -778,7 +775,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $250.000
+                        $5.396.400
                       </span>
                       <span className="text-base font-medium text-gray-500">
                         /mes
@@ -788,7 +785,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $375.000
+                        $6.475.680
                       </span>
                       <span className="text-base font-medium text-gray-500">
                         /mes
@@ -799,10 +796,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $487.500
-                      </span>
-                      <span className="text-base font-medium text-gray-500">
-                        /mes
+                        -
                       </span>
                     </p>
                   </td>
@@ -819,7 +813,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $470.000
+                        $9.593.600
                       </span>
                       <span className="text-base font-medium text-gray-500">
                         /mes
@@ -829,7 +823,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $705.000
+                        $11.512.320
                       </span>
                       <span className="text-base font-medium text-gray-500">
                         /mes
@@ -840,10 +834,7 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $916.500
-                      </span>
-                      <span className="text-base font-medium text-gray-500">
-                        /mes
+                        -
                       </span>
                     </p>
                   </td>

@@ -5,7 +5,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
 import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -83,9 +82,9 @@ const RegistroForm: React.FC = () => {
   } = formik;
   
   return (
-    <Stack sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
+    <Grid container sx={{ minHeight: '100vh' }} direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
-        <Grid direction="column" justifyContent="center" alignItems="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center">
           <Grid container direction="column" justifyContent="flex-start" alignItems="center">
             <Box>
               <Grid container direction="row" justifyContent="flex-start" alignItems="center"
@@ -196,7 +195,7 @@ const RegistroForm: React.FC = () => {
           </form>
         </Grid>
       </Container>
-    </Stack>
+    </Grid>
   );
 }
 

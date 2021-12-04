@@ -9,14 +9,20 @@ import AlertTitle from "@mui/material/AlertTitle";
 import Alert from "@mui/material/Alert";
 import Divider from "@mui/material/Divider";
 import LoadingButton from "@mui/lab/LoadingButton";
+import Skeleton from "@mui/material/Skeleton";
+import CardHeader from "@mui/material/CardHeader";
+import { useTheme } from "@mui/material/styles";
 import { Auth } from "aws-amplify";
 import moment from "moment";
 import { Redirect, useHistory } from "react-router-dom";
-import NuevaPreguntaContext from "./nueva-pregunta.context";
 import { privateRoutes } from "src/navigation";
 import { PreguntasSvc } from "src/services";
+import Fecha from 'src/components/Fecha';
+import NuevaPreguntaContext from "./nueva-pregunta.context";
+import Box from "@mui/material/Box";
 
 const NuevaPreguntaPaso2: React.FC = () => {
+  const theme = useTheme();
   const history = useHistory();
   const [fullName, setFullName] = useState<string>();
   const [loading, setLoading] = useState(false);
@@ -69,30 +75,39 @@ const NuevaPreguntaPaso2: React.FC = () => {
           Revisa la información antes de enviarla a nuestros especialistas
         </Typography>
         <Card>
+          <CardHeader title={titulo}
+                      subheader={
+                        <>
+                          {fullName && (
+                            <Typography variant="overline" display="block" color="info.main" gutterBottom>
+                              {fullName} - {moment().format('DD-MM-YYYY')}
+                            </Typography>
+                          )}
+                        </>
+                      }/>
+          <Divider/>
           <CardContent>
-            <Typography variant="h4" component="h2" gutterBottom sx={{ pt: 2, color: grey[600] }}>
-              {titulo}
+            <Typography variant="h6" sx={{ pb: 2, color: theme.palette.primary.light }}>
+              Antecedentes
             </Typography>
-            {fullName && (
-              <Typography variant="overline" display="block" color="info.main" gutterBottom>
-                {fullName} - {moment().format('DD-MM-YYYY')}
+            <Typography variant="body2" sx={{ pb: 2, whiteSpace: 'pre-wrap' }}>{antecedentes}</Typography>
+            <Box sx={{
+              border: '1px solid',
+              borderLeft: '6px solid',
+              borderColor: theme.palette.primary.light,
+              backgroundColor: grey[100],
+              p: 2,
+              pl: 3,
+              mt: 2,
+              mb: 1
+            }}>
+              <Typography variant="body1" sx={{ pb: 0 }}>
+                <b>{pregunta}</b>
               </Typography>
-            )}
-            <Typography variant="body1" sx={{ pb: 2, color: grey[600] }}>
-              <b>Recurro a ustedes bajo los siguientes antecedentes...</b>
-            </Typography>
-            {antecedentes.split('\n').map((antecedente, index) => (
-              <Typography key={index} variant="body2" sx={{ pb: 2 }}>
-                {antecedente}
+              <Typography variant="body2" display="block" color="primary.main" gutterBottom>
+                {fullName}
               </Typography>
-            ))}
-            <Divider sx={{ py: 2 }}/>
-            <Typography variant="body1" sx={{ pb: 2, color: grey[600] }}>
-              <b>Para realizar la siguiente consulta...</b>
-            </Typography>
-            <Typography variant="h5" component="h3" gutterBottom sx={{ color: grey[600] }}>
-              {pregunta}
-            </Typography>
+            </Box>
             <Grow in={error} mountOnEnter unmountOnExit>
               <Alert variant="outlined" severity="error" sx={{ mt: 2, mb: 1 }}
                      action={

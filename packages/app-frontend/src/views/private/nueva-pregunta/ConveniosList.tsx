@@ -47,10 +47,10 @@ const ConveniosList: React.FC<Props> = ({ convenios, convenio, setFieldValue }) 
                     secondaryAction={
                       <Grid container direction="column" justifyContent="center" alignItems="center">
                         <Typography variant="h6" component="p" sx={{ color: 'info.dark' }}>
-                          {c.limitePreguntas - c.preguntasRealizadas} disponibles
+                          {c.limitePreguntas - c.preguntasRealizadas} disponible(s)
                         </Typography>
                         <Typography variant="button" component="p" sx={{ color: 'info.light' }}>
-                          de {c.limitePreguntas} preguntas
+                          de {c.limitePreguntas} pregunta(s)
                         </Typography>
                       </Grid>
                     }
@@ -62,7 +62,7 @@ const ConveniosList: React.FC<Props> = ({ convenios, convenio, setFieldValue }) 
               </ListItemIcon>
               <ListItemText primary={c.nombre}
                             primaryTypographyProps={{ variant: 'h5' }}
-                            secondary={<>Vence el <Fecha text={c.fechaVencimiento}/></>}
+                            secondary={<>Vence <Fecha timestamp={c.fechaVencimiento}/></>}
                             secondaryTypographyProps={{ variant: 'overline' }}/>
             </ListItemButton>
           </ListItem>

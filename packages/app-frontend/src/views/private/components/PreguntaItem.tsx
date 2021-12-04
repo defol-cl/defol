@@ -11,6 +11,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { useHistory } from "react-router-dom";
 import { privateRoutes } from "src/navigation";
 import { Dao } from "@defol-cl/root";
+import Fecha from "src/components/Fecha";
 
 interface Props {
   pregunta: Dao.Pregunta
@@ -38,7 +39,7 @@ const PreguntaItem: React.FC<Props> = ({ pregunta }) => {
         secondary={
           <>
             <Typography variant="caption" color="info.main">
-              Realizada el {pregunta.timestamp}
+              <Fecha timestamp={pregunta.timestamp}/>
             </Typography>
             <Typography variant="body2">
               {pregunta.antecedentes.length < 60 ? pregunta.antecedentes : `${pregunta.antecedentes.substr(0, 60)}...`}
@@ -52,7 +53,7 @@ const PreguntaItem: React.FC<Props> = ({ pregunta }) => {
               </Stack>
               <Grid item>
                 <Typography variant="subtitle2" color="info.main">
-                  Actualizado {pregunta.fechaActualizacion}
+                  Actualizado <Fecha timestamp={pregunta.fechaActualizacion}/>
                 </Typography>
               </Grid>
             </Grid>

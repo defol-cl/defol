@@ -19,7 +19,7 @@ Globals:
     Environment:
       Variables:
         fromEmail: no-responder@defol.cl
-        bccEmail: respaldo@defol.cl
+        bccEmail: !Sub respaldo.preguntas+${Branch}@defol.cl
         slackHookUrl: https://hooks.slack.com/services/TBCSBJ5/50117HG5HFV/hnfnDN78KJNH56RFVds
 
 Resources:

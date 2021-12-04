@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-const Inicio: FC = () => {
+const Inicio: React.FC = () => {
   
   return (
     <Card>

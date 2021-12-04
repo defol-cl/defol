@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardHeader from "@mui/material/CardHeader";
 import Grid from "@mui/material/Grid";
@@ -10,6 +11,7 @@ import Divider from "@mui/material/Divider";
 import { Auth } from "aws-amplify";
 import PreguntaLista from "./components/PreguntaLista";
 import PrivateLoading from "./Private.loading";
+import { privateRoutes } from "../../navigation";
 
 type Filtro = 'todas' | 'pendientes' | 'cerradas';
 
@@ -23,31 +25,49 @@ const filtroEstados: FiltroEstados = {
   cerradas: ['RESPONDIDA', 'FINALIZADA']
 }
 
+interface State {
+  asignado: string;
+  estado: Filtro;
+}
+
 const Preguntas: React.FC = () => {
-  const [estado, setEstado] = useState<Filtro>('todas');
-  const [asignado, setAsignado] = useState('mi');
+  const { search } = useLocation();
+  const history = useHistory();
   const [email, setEmail] = useState<string>();
+  const [state, setState] = useState<State>({
+    asignado: 'mi',
+    estado: 'pendientes'
+  });
   
   useEffect(() => {
     let mounted = true;
-    Auth.currentUserInfo()
-      .then(info => {
-        mounted && setEmail(info.attributes.email);
-      })
+    if (!email) {
+      Auth.currentUserInfo()
+        .then(info => {
+          mounted && setEmail(info.attributes.email);
+        })
+    }
     return () => {
       mounted = false;
     };
-  }, [estado, asignado]);
+  }, []);
+  
+  useEffect(() => {
+    history.replace(privateRoutes.preguntasListado.route({
+      asignado: state.asignado,
+      estado: state.estado
+    }));
+  }, [state]);
   
   const handleChangeEstado = (event: SelectChangeEvent) => {
-    setEstado(event.target.value as Filtro);
+    setState({ ...state, estado: event.target.value as Filtro });
   };
   
   const handleChangeAsignacion = (event: SelectChangeEvent) => {
-    setAsignado(event.target.value);
+    setState({ ...state, asignado: event.target.value as string });
   };
   
-  if(!email) {
+  if (!email) {
     return <PrivateLoading/>
   } else {
     return (
@@ -59,7 +79,7 @@ const Preguntas: React.FC = () => {
                         <FormControl variant="outlined" sx={{ m: 1, minWidth: 150 }}>
                           <InputLabel id="estado-label">Estado</InputLabel>
                           <Select labelId="estado-label" id="estado" label="Estado"
-                                  value={estado}
+                                  value={state.estado}
                                   onChange={handleChangeEstado}>
                             <MenuItem value="todas">Todas</MenuItem>
                             <MenuItem value="pendientes">Pendientes</MenuItem>
@@ -69,7 +89,7 @@ const Preguntas: React.FC = () => {
                         <FormControl variant="outlined" sx={{ m: 1, minWidth: 150 }}>
                           <InputLabel id="estado-label">Asignado</InputLabel>
                           <Select labelId="estado-label" id="estado" label="Asignado"
-                                  value={asignado}
+                                  value={state.asignado}
                                   onChange={handleChangeAsignacion}>
                             <MenuItem value="mi">A mi</MenuItem>
                             <MenuItem value="cualquiera">A cualquiera</MenuItem>
@@ -78,7 +98,7 @@ const Preguntas: React.FC = () => {
                       </Grid>
                     }/>
         <Divider/>
-        <PreguntaLista estados={filtroEstados[estado]} ejecutivo={asignado === "mi" ? email : undefined}/>
+        <PreguntaLista estados={filtroEstados[state.estado]} ejecutivo={state.asignado === "mi" ? email : undefined}/>
       </Card>
     );
   }

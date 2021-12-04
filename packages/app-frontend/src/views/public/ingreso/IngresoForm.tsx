@@ -17,7 +17,6 @@ import { TextField, useTheme } from "@mui/material";
 import { PublicContext } from "src/layout";
 import Divider from "@mui/material/Divider";
 import Link from "@mui/material/Link";
-import Stack from "@mui/material/Stack";
 import AlertTitle from "@mui/material/AlertTitle";
 import Alert from "@mui/material/Alert";
 
@@ -58,8 +57,7 @@ const IngresoForm: React.FC = () => {
             } else {
               history.push(privateRoutes.inicio.route());
             }
-          })
-          .finally(() => setSigningIn(false));
+          });
       }
     }
   });
@@ -67,9 +65,9 @@ const IngresoForm: React.FC = () => {
   const { handleChange, handleBlur, handleSubmit, values: { username, password, showPassword } } = formik;
   
   return (
-    <Stack sx={{ minHeight: '100%' }} direction="column" justifyContent="center" alignItems="center">
+    <Grid sx={{ minHeight: '100%' }} container direction="column" justifyContent="center" alignItems="center">
       <Container maxWidth="sm">
-        <Grid direction="column" justifyContent="center" alignItems="center">
+        <Grid container direction="column" justifyContent="center" alignItems="center">
           <Grid container direction="column" justifyContent="flex-start" alignItems="center">
             <Box>
               <Grid container direction="row" justifyContent="flex-start" alignItems="center"
@@ -155,7 +153,7 @@ const IngresoForm: React.FC = () => {
           </form>
         </Grid>
       </Container>
-    </Stack>
+    </Grid>
   );
 }
 

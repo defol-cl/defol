@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { grey } from "@mui/material/colors";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grow from "@mui/material/Grow";
 import Typography from "@mui/material/Typography";
-import { grey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -25,6 +25,10 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Select } from "@mui/material";
+import Fecha from "src/components/Fecha";
+import CardHeader from "@mui/material/CardHeader";
+import Divider from "@mui/material/Divider";
+import { useTheme } from "@mui/material/styles";
 
 interface Props {
   email: string
@@ -32,6 +36,7 @@ interface Props {
 }
 
 const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
+  const theme = useTheme();
   const history = useHistory();
   const [pregunta, setPregunta] = useState<Dao.Pregunta>();
   const [categorias, setCategorias] = useState<Dao.Categoria[]>([]);
@@ -115,45 +120,59 @@ const PreguntaDetalle: React.FC<Props> = ({ email, timestamp }) => {
   return (
     <Card>
       <form onSubmit={handleSubmit}>
+        <CardHeader title={pregunta ? pregunta.titulo : <Skeleton variant="text" width={200}/>}
+                    subheader={pregunta ?
+                      <>{pregunta.contactoNombre} - <Fecha timestamp={pregunta.timestamp}/></> :
+                      <Skeleton variant="text" width={100}/>
+                    }/>
+        <Divider/>
         <CardContent>
-          <Typography variant="h4" component="h2" gutterBottom sx={{ pt: 2, color: grey[600] }}>
-            {pregunta ? pregunta.titulo : <Skeleton variant="text" width={200}/>}
-          </Typography>
-          <Typography variant="overline" display="block" color="info.main" gutterBottom>
-            {pregunta ? `${pregunta.contactoNombre} - ${pregunta.timestamp} hrs` :
-              <Skeleton variant="text" width={100}/>}
-          </Typography>
-          <Typography variant="body1" sx={{ pb: 2, color: grey[600] }}>
-            {pregunta ? <b>Recurro a ustedes bajo los siguientes antecedentes...</b> :
+          <Typography variant="h6" sx={{ pb: 2, color: theme.palette.primary.light }}>
+            {pregunta ? 'Antecedentes' :
               <Skeleton variant="text" width={120}/>}
           </Typography>
           {pregunta ?
-            <Typography variant="body2" sx={{ pb: 2 }}>{pregunta.antecedentes}</Typography> :
+            <Typography variant="body2" sx={{ pb: 2, whiteSpace: 'pre-wrap' }}>{pregunta.antecedentes}</Typography> :
             [1, 2, 3].map(i => <Skeleton key={i} variant="text"/>)
           }
-          <Box sx={{ py: 2 }}>
-            <hr/>
-          </Box>
-          <Typography variant="body1" sx={{ pb: 2, color: grey[600] }}>
-            {pregunta ? <b>Preguntas y respuestas</b> : <Skeleton variant="text" width={70}/>}
-          </Typography>
           {pregunta && pregunta.interacciones.map((interaccion, index) => (
             <div key={index}>
-              <Typography variant="body1">
-                {interaccion.pregunta}
-              </Typography>
-              <Typography variant="overline" display="block" color="info.main" gutterBottom>
-                {interaccion.preguntaAt} hrs
-              </Typography>
+              <Box sx={{
+                border: '1px solid',
+                borderLeft: '6px solid',
+                borderColor: theme.palette.info.light,
+                backgroundColor: grey[100],
+                p: 2,
+                pl: 3,
+                mt: 2,
+                mb: 1
+              }}>
+                <Typography variant="body1" sx={{ pb: 0 }}>
+                  <b>{interaccion.pregunta}</b>
+                </Typography>
+                <Typography variant="body2" display="block" color="info.main" gutterBottom>
+                  {pregunta.contactoNombre} - <Fecha timestamp={interaccion.preguntaAt}/>
+                </Typography>
+              </Box>
               {interaccion.replica && (
-                <>
-                  <Typography variant="body1" sx={{ pb: 2 }}>
+                <Box sx={{
+                  border: '1px solid',
+                  borderLeft: '6px solid',
+                  borderColor: theme.palette.secondary.light,
+                  backgroundColor: grey[100],
+                  p: 2,
+                  pl: 3,
+                  mt: 1,
+                  mb: 3
+                }}>
+                  <Typography variant="body1" sx={{ pb: 1, whiteSpace: 'pre-wrap' }}>
                     {interaccion.replica}
                   </Typography>
-                  <Typography variant="overline" display="block" color="info.main" gutterBottom>
-                    {interaccion.ejecutivoNombre}, Equipo DEFOL - {interaccion.replicaAt} hrs
+                  <Typography variant="body2" display="block" color="secondary.main" gutterBottom>
+                    Respondido por {interaccion.ejecutivoNombre}, Equipo DEFOL - <Fecha
+                    timestamp={interaccion.replicaAt}/>
                   </Typography>
-                </>
+                </Box>
               )}
             </div>
           ))}

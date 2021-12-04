@@ -40,13 +40,13 @@ export default function Beneficios() {
                 fill="url(#b1e6e422-73f8-40a6-b5d9-c8586e37e0e7)"
               />
             </svg>
-
+            
             <div className="relative">
               <h2 className="text-center text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">
                 Conoce los beneficios de defol
               </h2>
             </div>
-
+            
             <div className="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center  text-left">
               <div className="relative">
                 <h3 className="text-2xl font-bold text-gray-500 tracking-tight sm:text-3xl">
@@ -55,7 +55,8 @@ export default function Beneficios() {
                 <dl className="mt-10 space-y-10 ">
                   <div className="relative">
                     <dt>
-                      <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                      <div
+                        className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                         <svg
                           className="h-6 w-6"
                           xmlns="http://www.w3.org/2000/svg"
@@ -78,15 +79,15 @@ export default function Beneficios() {
                       </p>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
+                      Tu organización puede ayudar a sus stakeholders, ofreciéndoles acceso gratuito a la Plataforma
+                      DEFOL.
                     </dd>
                   </div>
-
+                  
                   <div className="relative">
                     <dt>
-                      <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                      <div
+                        className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                         {/* <!-- Heroicon name: outline/scale --> */}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -109,15 +110,15 @@ export default function Beneficios() {
                       </p>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
+                      No es necesario contar con metros cuadrados de oficina y profesionales del derecho en tu
+                      organización.
                     </dd>
                   </div>
-
+                  
                   <div className="relative">
                     <dt>
-                      <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                      <div
+                        className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-6 w-6"
@@ -138,14 +139,12 @@ export default function Beneficios() {
                       </p>
                     </dt>
                     <dd className="mt-2 ml-16 text-base text-gray-500">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Maiores impedit perferendis suscipit eaque, iste dolor
-                      cupiditate blanditiis ratione.
+                      Puedes brindar a tus colaboradores asesoría legal en las materias que tu organización determine.
                     </dd>
                   </div>
                 </dl>
               </div>
-
+              
               <div className="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
                 <svg
                   className="absolute left-1/2 transform -translate-x-1/2 translate-y-16 lg:hidden"
@@ -187,7 +186,7 @@ export default function Beneficios() {
                 />
               </div>
             </div>
-
+            
             <svg
               className="hidden lg:block absolute right-full transform translate-x-1/2 translate-y-12"
               width="404"
@@ -221,18 +220,19 @@ export default function Beneficios() {
                 fill="url(#64e643ad-2176-4f86-b3d7-f2c5da3b6a6d)"
               />
             </svg>
-
+            
             <div className="relative mt-12 sm:mt-16 lg:mt-24  text-left">
               <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-8 lg:items-center">
                 <div className="lg:col-start-2">
                   <h3 className="text-2xl font-bold text-gray-500 tracking-tight sm:text-3xl">
-                    Para personas (Próximamente)
+                    Para personas (próximamente)
                   </h3>
-
+                  
                   <dl className="mt-10 space-y-10">
                     <div className="relative">
                       <dt>
-                        <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-white">
+                        <div
+                          className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-white">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -253,15 +253,15 @@ export default function Beneficios() {
                         </p>
                       </dt>
                       <dd className="mt-2 ml-16 text-base text-gray-500">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Maiores impedit perferendis suscipit eaque, iste
-                        dolor cupiditate blanditiis ratione.
+                        Ponemos a disposición a un equipo experto en diversas materiales legales, dando soluciones
+                        concretas a los usuarios.
                       </dd>
                     </div>
-
+                    
                     <div className="relative">
                       <dt>
-                        <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-white">
+                        <div
+                          className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-white">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -283,15 +283,15 @@ export default function Beneficios() {
                         </p>
                       </dt>
                       <dd className="mt-2 ml-16 text-base text-gray-500">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Maiores impedit perferendis suscipit eaque, iste
-                        dolor cupiditate blanditiis ratione.
+                        Nuestra Plataforma esta diseñada para otorgar una experiencia amigable al usuario y sin
+                        agendamiento previo.
                       </dd>
                     </div>
-
+                    
                     <div className="relative">
                       <dt>
-                        <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-white">
+                        <div
+                          className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-gray-300 text-white">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-6 w-6"
@@ -312,14 +312,13 @@ export default function Beneficios() {
                         </p>
                       </dt>
                       <dd className="mt-2 ml-16 text-base text-gray-500">
-                        Nos hemos propuesto un tiempo de respuesta inferior a 1
-                        día hábil, por lo que podrás completar tu asesoría legal
-                        rápidamente.
+                        Nos hemos propuesto un tiempo de respuesta inferior a 1 día hábil, por lo que podrás completar
+                        tu asesoría legal rápidamente.
                       </dd>
                     </div>
                   </dl>
                 </div>
-
+                
                 <div className="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1">
                   <svg
                     className="absolute left-1/2 transform -translate-x-1/2 translate-y-16 lg:hidden"

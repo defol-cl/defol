@@ -19,7 +19,11 @@ export const getPrivateRoutes = (path: string): PrivateRoutes => ({
   preguntasListado: {
     name: 'Listado de Preguntas',
     subpath: `${path}/preguntas`,
-    route: () => `${path}/preguntas`,
+    route: (params) => {
+      const estado = params && params['estado'] ? params['estado'] : 'pendientes';
+      const asignado = params && params['asignado'] ? params['asignado'] : 'mi';
+      return `${path}/preguntas?estado=${estado}&asignado=${asignado}`;
+    },
   },
   preguntaDetalle: {
     name: 'Detalle Pregunta',
