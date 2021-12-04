@@ -50,7 +50,7 @@ export default function Beneficios() {
             <div className="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center  text-left">
               <div className="relative">
                 <h3 className="text-2xl font-bold text-gray-500 tracking-tight sm:text-3xl">
-                  Para empresas
+                  Para organizaciones
                 </h3>
                 <dl className="mt-10 space-y-10 ">
                   <div className="relative">
