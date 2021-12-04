@@ -16,13 +16,13 @@ export default function Example() {
               </p>
 
               <a
-                href="https://www.defol.cl"
+                href="https://app-master.defol.cl"
                 className="mt-8 bg-white border border-transparent rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium mr-3 text-indigo-600 hover:bg-indigo-50"
               >
                 Aplicación{" "}
               </a>
               <a
-                href="https://admin.defol.cl"
+                href="https://admin-master.defol.cl"
                 className="mt-8 bg-white border border-transparent rounded-md shadow px-5 py-3 inline-flex items-center text-base font-medium text-indigo-600 hover:bg-indigo-50"
               >
                 Administración{" "}

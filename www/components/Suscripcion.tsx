@@ -12,7 +12,7 @@ Déjanos tu correo acá y te enviaremos consejos útiles y tips legales, nunca e
           <div className="mt-12 sm:w-full sm:max-w-md lg:mt-0 lg:ml-8 lg:flex-1">
             <form className="sm:flex">
               <label htmlFor="email-address" className="sr-only">
-                Email address
+                Ingresa acá tu mail
               </label>
               <input
                 id="email-address"

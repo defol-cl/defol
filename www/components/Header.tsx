@@ -44,13 +44,13 @@ export default function Header() {
           </div>
           <div className="ml-10 space-x-4">
             <a
-              href="#"
+              href="mailto:contacto@defol.cl"
               className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75 transition-colors duration-200"
             >
               Contáctanos
             </a>
             <a
-              href="#"
+              href="mailto:quiero-contratar@defol.cl"
               className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50 transition-colors duration-200"
             >
               Contrata ahora

@@ -22,7 +22,7 @@ export default function Pricing() {
                 type="button"
                 className="ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8"
               >
-                Para Personas (Próximamente)
+                Para Personas (próximamente)
               </button>
             </div>
           </div>

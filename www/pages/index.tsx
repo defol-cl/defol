@@ -26,7 +26,7 @@ export default function Home() {
         <Pricing/>
         <CTA/>
         <Equipo/>
-        <Suscripcion/>
+        {/* <Suscripcion/> */}
       </main>
       <footer>
         <Footer/>
