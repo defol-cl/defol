@@ -30,7 +30,7 @@ const PreguntaListaItem: React.FC<Props> = ({ pregunta }) => {
         secondary={
           <>
             <Typography variant="caption" color="info.main">
-              <Fecha timestamp={pregunta.timestamp}/>
+              por {pregunta.contactoNombre} <Fecha timestamp={pregunta.timestamp}/>
             </Typography>
             <Typography variant="body2">
               {pregunta.antecedentes.length < 60 ? pregunta.antecedentes : `${pregunta.antecedentes.substr(0, 60)}...`}
