@@ -1,5 +1,60 @@
 import { CheckIcon, MinusIcon } from "@heroicons/react/solid";
 
+type Plan = 'basico' | 'premium' | 'ultimate';
+
+interface Precio {
+  monto: string
+  fraccion?: '/mes'
+}
+
+type PreciosData = {
+  [plan in Plan]: {
+    [preguntas: number]: Precio
+  }
+}
+
+const preciosData: PreciosData = {
+  'basico': {
+    200: {
+      monto: '$ 2.998.000',
+      fraccion: '/mes'
+    },
+    400: {
+      monto: '$ 5.396.400',
+      fraccion: '/mes'
+    },
+    800: {
+      monto: '$ 9.593.600',
+      fraccion: '/mes'
+    },
+  },
+  'premium': {
+    200: {
+      monto: '$ 3.597.600',
+      fraccion: '/mes'
+    },
+    400: {
+      monto: '$ 6.475.680',
+      fraccion: '/mes'
+    },
+    800: {
+      monto: '$ 11.512.320',
+      fraccion: '/mes'
+    },
+  },
+  'ultimate': {
+    200: {
+      monto: '-'
+    },
+    400: {
+      monto: '-'
+    },
+    800: {
+      monto: '-'
+    },
+  }
+}
+
 export default function Pricing() {
   return (
     <>
@@ -123,10 +178,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $130.000
+                          {preciosData['basico'][200].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['basico'][200].fraccion}
                         </span>
                       </p>
                     </td>
@@ -142,10 +197,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $250.000
+                          {preciosData['basico'][400].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['basico'][400].fraccion}
                         </span>
                       </p>
                     </td>
@@ -161,10 +216,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $470.000
+                          {preciosData['basico'][800].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['basico'][800].fraccion}
                         </span>
                       </p>
                     </td>
@@ -287,10 +342,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $195.000
+                          {preciosData['premium'][200].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['premium'][200].fraccion}
                         </span>
                       </p>
                     </td>
@@ -306,10 +361,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $375.000
+                          {preciosData['premium'][400].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['premium'][400].fraccion}
                         </span>
                       </p>
                     </td>
@@ -325,10 +380,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $705.000
+                          {preciosData['premium'][800].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['premium'][800].fraccion}
                         </span>
                       </p>
                     </td>
@@ -464,10 +519,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $253.500
+                          {preciosData['ultimate'][200].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['ultimate'][200].fraccion}
                         </span>
                       </p>
                     </td>
@@ -483,10 +538,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $487.500
+                          {preciosData['ultimate'][400].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['ultimate'][400].fraccion}
                         </span>
                       </p>
                     </td>
@@ -502,10 +557,10 @@ export default function Pricing() {
                     <td className="py-5 pr-4">
                       <p>
                         <span className="text-xl font-bold text-gray-900">
-                          $916.500
+                          {preciosData['ultimate'][800].monto}
                         </span>
                         <span className="text-base font-medium text-gray-500">
-                          /mes
+                          {preciosData['ultimate'][800].fraccion}
                         </span>
                       </p>
                     </td>
@@ -737,20 +792,20 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $2.998.000
+                        {preciosData['basico'][200].monto}
                       </span>
                       <span className="text-base font-medium text-gray-500">
-                        /mes
+                        {preciosData['basico'][200].fraccion}
                       </span>
                     </p>
                   </td>
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $3.597.600
+                        {preciosData['premium'][200].monto}
                       </span>
                       <span className="text-base font-medium text-gray-500">
-                        /mes
+                        {preciosData['premium'][200].fraccion}
                       </span>
                     </p>
                   </td>
@@ -758,7 +813,10 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        -
+                        {preciosData['ultimate'][200].monto}
+                      </span>
+                      <span className="text-base font-medium text-gray-500">
+                        {preciosData['ultimate'][200].fraccion}
                       </span>
                     </p>
                   </td>
@@ -775,20 +833,20 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $5.396.400
+                        {preciosData['basico'][400].monto}
                       </span>
                       <span className="text-base font-medium text-gray-500">
-                        /mes
+                        {preciosData['basico'][400].fraccion}
                       </span>
                     </p>
                   </td>
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $6.475.680
+                        {preciosData['premium'][400].monto}
                       </span>
                       <span className="text-base font-medium text-gray-500">
-                        /mes
+                        {preciosData['premium'][400].fraccion}
                       </span>
                     </p>
                   </td>
@@ -796,7 +854,10 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        -
+                        {preciosData['ultimate'][400].monto}
+                      </span>
+                      <span className="text-base font-medium text-gray-500">
+                        {preciosData['ultimate'][400].fraccion}
                       </span>
                     </p>
                   </td>
@@ -813,30 +874,31 @@ export default function Pricing() {
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $9.593.600
+                        {preciosData['basico'][800].monto}
                       </span>
                       <span className="text-base font-medium text-gray-500">
-                        /mes
+                        {preciosData['basico'][800].fraccion}
                       </span>
                     </p>
                   </td>
                   <td className="py-5 px-6">
                     <p>
                       <span className="text-2xl font-bold text-gray-900">
-                        $11.512.320
+                        {preciosData['premium'][800].monto}
                       </span>
                       <span className="text-base font-medium text-gray-500">
-                        /mes
+                        {preciosData['premium'][800].fraccion}
                       </span>
                     </p>
                   </td>
 
                   <td className="py-5 px-6">
-                    <p>
-                      <span className="text-2xl font-bold text-gray-900">
-                        -
+                    <span className="text-2xl font-bold text-gray-900">
+                        {preciosData['ultimate'][800].monto}
                       </span>
-                    </p>
+                    <span className="text-base font-medium text-gray-500">
+                        {preciosData['ultimate'][800].fraccion}
+                      </span>
                   </td>
                 </tr>
               </tbody>
