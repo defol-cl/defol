@@ -2,7 +2,7 @@ export default function Funcionamiento() {
   return (
     <>
       <section
-        className="px-4 sm:px-6 lg:px-8 py-12 text-center bg-white"
+        className="px-4 sm:px-6 lg:px-8 py-24 text-center bg-white"
         id="como-funciona"
       >
         <div className="max-w-7xl mx-auto">
