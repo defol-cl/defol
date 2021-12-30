@@ -8,17 +8,13 @@ export default function Example() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center text-center lg:text-left mb-24">
             <div className="lg:w-1/2 lg:pr-10 mt-10 lg:mt-0 order-1 lg:order-none">
-              <h2 className="text-6xl mb-2 font-semibold font-heading text-gray-900">
+              <h2 className="hidden lgplus:block text-6xl mb-2 font-semibold font-heading text-gray-900">
                 Asesórate <br />{" "}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;con
-                {/* <span>
-                  <img
-                    src="./assets/iso.svg"
-                    alt="logotipo"
-                    className="w-11 inline-block ml-3 -mt-2 -mr-1"
-                  />
-                </span> */}{" "}
                 defol
+              </h2>
+              <h2 className="lgplus:hidden text-6xl mb-2 font-semibold font-heading text-gray-900">
+                Asesórate con defol
               </h2>
               <p className="mb-8 leading-relaxed text-2xl text-gray-900">
                 Somos una Plataforma de consulta legal en línea, {" "}

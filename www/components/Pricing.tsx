@@ -58,7 +58,7 @@ const preciosData: PreciosData = {
 export default function Pricing() {
   return (
     <>
-      <section className="px-4 sm:px-6 lg:px-8 py-12 bg-gray-100" id="precios">
+      <section className="px-4 sm:px-6 lg:px-8 py-24 bg-gray-100" id="precios">
         <div className="max-w-7xl mx-auto">
           <div className="sm:flex sm:flex-col sm:align-center">
             <div className="w-full max-w-2xl mx-auto text-center">
@@ -75,7 +75,7 @@ export default function Pricing() {
               </button>
               <button
                 type="button"
-                className="ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:z-10 sm:w-auto sm:px-8"
+                className="ml-0.5 relative w-1/2 border border-transparent rounded-md py-2 text-sm font-medium text-gray-700 whitespace-nowrap focus:outline-none  focus:z-10 sm:w-auto sm:px-8"
               >
                 Para Personas (próximamente)
               </button>
@@ -228,8 +228,8 @@ export default function Pricing() {
                   <tr>
                     <td className="py-5 px-6" colSpan={2}>
                       <a
-                        href="#"
-                        className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-400 transition-colors duration-200"
+                        
+                        className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center"
                       >
                         Disponible desde el 15 de diciembre
                       </a>
@@ -392,8 +392,8 @@ export default function Pricing() {
                   <tr>
                     <td className="py-5 px-6" colSpan={2}>
                       <a
-                        href="#"
-                        className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-400 transition-colors duration-200"
+                        
+                        className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center"
                       >
                         Disponible desde el 15 de enero
                       </a>
@@ -911,8 +911,8 @@ export default function Pricing() {
 
                   <td className="pt-5 px-6">
                     <a
-                      href="#"
-                      className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-400 transition-colors duration-200"
+                      
+                      className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center "
                     >
                       Disponible desde el 15 de diciembre
                     </a>
@@ -920,8 +920,8 @@ export default function Pricing() {
 
                   <td className="pt-5 px-6">
                     <a
-                      href="#"
-                      className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-400 transition-colors duration-200"
+                      
+                      className="block w-full bg-indigo-600 border border-indigo-600 rounded-md py-2 text-sm font-semibold text-white text-center "
                     >
                       Disponible desde el 15 de enero
                     </a>

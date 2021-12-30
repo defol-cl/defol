@@ -5,8 +5,7 @@ const navigation = {
     { name: "¿Cómo funciona?", href: "#como-funciona" },
     { name: "Precios", href: "#precios" },
     { name: "Ingresa", href: "#ingresa" },
-    { name: "¿Quiénes somos?", href: "#nuestro-equipo" },
-    { name: "Preguntas Frecuentes", href: "/faq" },
+    { name: "¿Quiénes somos?", href: "#quienes-somos" },
   ],
   social: [
     {
