@@ -57,6 +57,10 @@ const IngresoForm: React.FC = () => {
             } else {
               history.push(privateRoutes.inicio.route());
             }
+          })
+          .catch(err => {
+            console.error(err);
+            setError(true);
           });
       }
     }
