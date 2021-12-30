@@ -59,8 +59,8 @@ const IngresoForm: React.FC = () => {
             }
           })
           .catch(err => {
-            console.error(err);
             setError(true);
+            console.error(err);
           });
       }
     }
